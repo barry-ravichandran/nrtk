@@ -1,5 +1,5 @@
-Applying an Operational Risk Perturbation
-=========================================
+Simulating Your First Operational Risk
+======================================
 
 Real-world deployments expose AI models to environmental and sensor-level
 degradations that rarely appear in training data. Validating robustness to
@@ -32,11 +32,14 @@ When to Use This
 Example: Jitter Perturbation
 ----------------------------
 
-JitterPerturber requires the ``pybsm`` extra. If you haven't already, install it:
+.. important::
+  ``JitterPerturber`` requires the ``pybsm`` extra. If you haven't already, install it:
 
-.. code-block:: bash
+  .. code-block:: bash
 
     pip install nrtk[pybsm]
+
+  Or visit :doc:`Advanced Installation <installation>` for detailed instructions.
 
 The following example loads an image, applies a jitter perturbation, and saves
 the result:
@@ -103,8 +106,9 @@ Key Parameters
        - .. image:: /images/operational_risk_modules/jitter_heavy.png
             :width: 200px
 
-For a deeper dive into optical perturber parameters and OTF modeling, see the
-:doc:`Optical Perturbers notebook </examples/optical_perturbers>`.
+.. seealso::
+  For a deeper dive into optical perturber parameters and OTF modeling, see the
+  :doc:`Optical Perturbers notebook </examples/optical_perturbers>`.
 
 Other Operational Risks
 -----------------------

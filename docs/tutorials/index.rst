@@ -20,10 +20,9 @@ Start Here
       :class-card: sd-border-2
       :columns: 12
 
-      It is highly recommended to start with this tutorial if you haven't
-      already. It walks through NRTK's three core capabilities—image
-      perturbation, perturbation factories for parameter sweeps, and model
-      evaluation—in a single end-to-end notebook.
+      It is highly recommended to start with this tutorial. This tutorial walks through NRTK's
+      three core capabilities—image perturbation, perturbation factories for parameter sweeps,
+      and model evaluation—in a single end-to-end notebook.
 
       +++
 
@@ -65,5 +64,6 @@ Continue Learning
    :hidden:
 
    testing_and_evaluation_notebooks
+   /examples/nrtk_tutorial
    /examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency
    /examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency

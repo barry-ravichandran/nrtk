@@ -14,13 +14,14 @@ Step 1: Install NRTK
 
    pip install nrtk
 
-For optional extras, conda support or developer setup, see
-:doc:`Advanced Installation </getting_started/installation>`.
+.. seealso::
+  For optional extras, conda support, or developer setup, see
+  :doc:`Advanced Installation </getting_started/installation>`.
 
 Step 2: Run a Sample Perturbation
 ----------------------------------
 
-HazePerturber requires no additional dependencies beyond the base NRTK install,
+``HazePerturber`` requires no additional dependencies beyond the base NRTK install,
 making it ideal for a first test.
 
 .. code-block:: python
@@ -57,9 +58,10 @@ The ``factor`` parameter controls haze intensity. Here's what different levels l
      - .. image:: /images/operational_risk_modules/haze_heavy.png
           :width: 200px
 
-These images demonstrate how NRTK simulates real-world visibility degradation.
-For the full parameter reference, see the
-:doc:`Haze Simulation Module </explanations/operational_risk_modules/haze>`.
+.. seealso::
+  These images demonstrate how NRTK simulates real-world visibility degradation.
+  For the full parameter reference, see the
+  :doc:`Haze Simulation Module </explanations/operational_risk_modules/haze>`.
 
 Step 4: Map Your Risk to the Right Tool
 -----------------------------------------
@@ -81,34 +83,9 @@ represent your mission environment and conditions.
 
       Interactive Risk Matrix
 
-Next Steps
-----------
-
-The HazePerturber above works out of the box. To explore physics-based
-perturbers like the JitterPerturber, install the optional extras first,
-then try applying the corresponding operational risk perturbation.
-
-.. grid:: 1 1 2 2
-   :gutter: 3
-
-   .. grid-item-card:: Advanced Installation
-      :link: /getting_started/installation
-      :link-type: doc
-
-      Install optional extras for specific perturbers (OpenCV, pyBSM, etc.)
-      or set up a development environment from source using Poetry.
-
-   .. grid-item-card:: Applying an Operational Risk Perturbation
-      :link: /getting_started/first_perturbation
-      :link-type: doc
-
-      Apply your first physics-based perturbation using JitterPerturber to simulate
-      sensor vibration and see how it degrades an image.
-
 .. toctree::
    :hidden:
 
    installation
    first_perturbation
-   /examples/nrtk_tutorial
    where_to_go_next
