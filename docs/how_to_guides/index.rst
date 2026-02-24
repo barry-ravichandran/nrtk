@@ -8,12 +8,6 @@ revisiting background concepts.
 
 ----
 
-General Image Perturbations
-----------------------------
-
-Guides for modifying image quality, generating perturbations from text prompts,
-and wrapping external augmentation libraries.
-
 .. grid:: 1 2 2 2
    :gutter: 3
    :padding: 2 2 0 0
@@ -46,31 +40,6 @@ and wrapping external augmentation libraries.
 
          Open Guide →
 
-   .. grid-item-card:: :material-regular:`auto_fix_high` Generative Perturbers
-      :class-card: sd-border-1
-
-      Use pre-trained diffusion models to synthesize realistic image
-      modifications from text prompts.
-
-      +++
-
-      .. button-ref:: /examples/generative_perturbers
-         :color: primary
-         :outline:
-         :expand:
-
-         Open Guide →
-
-Sensor & Physics Simulation
-----------------------------
-
-Guides for configuring and using pyBSM’s physics-based sensor models,
-including optical transfer functions, sensor parameters, and scenario setup.
-
-.. grid:: 1 2 2 2
-   :gutter: 3
-   :padding: 2 2 0 0
-
    .. grid-item-card:: :material-regular:`camera` Optical Perturbers
       :class-card: sd-border-1
 
@@ -85,14 +54,15 @@ including optical transfer functions, sensor parameters, and scenario setup.
 
          Open Guide →
 
-   .. grid-item-card:: :material-regular:`settings` PyBSM Default Configuration
+   .. grid-item-card:: :material-regular:`auto_fix_high` Generative Perturbers *(Experimental)*
       :class-card: sd-border-1
 
-      Set up and customize pyBSM sensor and scenario configurations.
+      Use pre-trained diffusion models to synthesize realistic image
+      modifications from text prompts.
 
       +++
 
-      .. button-ref:: /examples/pybsm_default_config
+      .. button-ref:: /examples/generative_perturbers
          :color: primary
          :outline:
          :expand:
@@ -104,6 +74,6 @@ including optical transfer functions, sensor parameters, and scenario setup.
 
    /examples/photometric_perturbers
    /examples/albumentations_perturber
-   /examples/generative_perturbers
    /examples/optical_perturbers
+   /examples/generative_perturbers
    /examples/pybsm_default_config
