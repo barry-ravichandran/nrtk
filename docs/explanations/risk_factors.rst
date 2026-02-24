@@ -57,7 +57,7 @@ Photometric Risk Factors
 
   .. _extreme-illumination:
 
-  **Extreme (Low / High) Illumination**
+  .. rubric:: Extreme (Low / High) Illumination
 
   Lighting conditions and camera settings result in excessive or insufficient illumination.
 
@@ -85,7 +85,7 @@ Photometric Risk Factors
 
   .. _shadows:
 
-  **Shadows**
+  .. rubric:: Shadows
 
 
   Strong shadows are cast in the target area due to direct illumination.
@@ -105,7 +105,7 @@ Photometric Risk Factors
 
   .. _glint-glare:
 
-  **Glint / Glare**
+  .. rubric:: Glint / Glare
 
   Bright reflections due to lighting, target materials, or angles.
 
@@ -125,7 +125,7 @@ Photometric Risk Factors
 
   .. _night-mode:
 
-  **Night Mode / Low-Light Behavior**
+  .. rubric:: Night Mode / Low-Light Behavior
 
   In low light, camera may switch to monochrome or a different capture mode.
 
@@ -147,10 +147,6 @@ Photometric Risk Factors
 
     mevadata.org
 
-
-  ----
-
-
 Geometric Risk Factors
 ----------------------
 
@@ -158,7 +154,7 @@ Geometric Risk Factors
 
   .. _look-angle-variation:
 
-  **Look Angle Different from Training Data**
+  .. rubric:: Look Angle Different from Training Data
 
   Operational viewpoint differs from viewpoints in training data.
 
@@ -173,9 +169,6 @@ Geometric Risk Factors
   No sample available.
 
 
-  ----
-
-
 Environment Risk Factors
 ------------------------
 
@@ -183,7 +176,7 @@ Environment Risk Factors
 
   .. _mist-fog-snow:
 
-  **Mist / Fog / Snow / Etc**
+  .. rubric:: Mist / Fog / Snow / Etc
 
   Reduced visibility conditions such as fog, mist, or blowing snow decrease contrast and obscure scene details.
   These effects commonly degrade computer-vision performance in outdoor environments by making targets harder to
@@ -208,7 +201,7 @@ Environment Risk Factors
 
   .. _lens-water-droplet:
 
-  **Water Droplets on Lens**
+  .. rubric:: Water Droplets on Lens
 
   Water droplets create localized refraction patterns that distort image regions, making targets
   harder to detect and track. These effects are particularly problematic in outdoor and maritime
@@ -233,7 +226,7 @@ Environment Risk Factors
 
   .. _lens-contamination:
 
-  **Dirt / Specularities on Lens**
+  .. rubric:: Dirt / Specularities on Lens
 
   Obstructions or smudges on the lens surface can block parts of the scene or create bright reflective artifacts,
   especially in infrared (IR) imaging or Pan-Tilt-Zoom (PTZ) dome cameras.
@@ -253,7 +246,7 @@ Environment Risk Factors
 
   .. _clouds:
 
-  **Clouds**
+  .. rubric:: Clouds
 
   Clouds obscure targets, and may be transient or unpredictable.
 
@@ -270,10 +263,6 @@ Environment Risk Factors
 
     viratdata.org
 
-
-  ----
-
-
 Optical Risk Factors
 --------------------
 
@@ -281,7 +270,7 @@ Optical Risk Factors
 
   .. _high-frequency-vibration:
 
-  **High-Frequency Vibration**
+  .. rubric:: High-Frequency Vibration
 
   Vibrations in the sensor platform (e.g. from wind) induce jitter and blurring.
 
@@ -304,7 +293,7 @@ Optical Risk Factors
 
   .. _target-out-of-focus:
 
-  **Target Out of Focus**
+  .. rubric:: Target Out of Focus
 
   Target is out of focus (due to sensor optics settings, rather than atmospheric / environmental issues.)
 
@@ -327,7 +316,7 @@ Optical Risk Factors
 
   .. _noise-and-resolution:
 
-  **Sensor Noise**
+  .. rubric:: Sensor Noise
 
   The sensor data exhibits noise as a result of poor lighting, high ISO settings, or overheating.
 
@@ -348,7 +337,7 @@ Optical Risk Factors
 
   .. _turbulence:
 
-  **Atmospheric Turbulence**
+  .. rubric:: Atmospheric Turbulence
 
   Localized distortion due to atmospheric conditions.
 
@@ -371,7 +360,7 @@ Optical Risk Factors
 
   .. _radial-distortion:
 
-  **Radial Distortion / Fisheye Artifacts**
+  .. rubric:: Radial Distortion / Fisheye Artifacts
 
   Wide-angle lenses cause distortion at the image periphery.
 
@@ -392,10 +381,6 @@ Optical Risk Factors
 
     mevadata.org
 
-
-  ----
-
-
 Data Integrity Risk Factors
 ---------------------------
 
@@ -403,7 +388,7 @@ Data Integrity Risk Factors
 
   .. _metadata-incorrect:
 
-  **Metadata Incorrect**
+  .. rubric:: Metadata Incorrect
 
   Metadata stream is out of sync or contains incorrect values.
 
@@ -419,7 +404,7 @@ Data Integrity Risk Factors
 
   .. _burned-in-metadata:
 
-  **Burned-in Metadata**
+  .. rubric:: Burned-in Metadata
 
   Metadata is overlaid directly on pixels instead of provided separately.
 
@@ -438,7 +423,7 @@ Data Integrity Risk Factors
 
   .. _video-codec-artifacts:
 
-  **Video Codec Artifacts**
+  .. rubric:: Video Codec Artifacts
 
   Compression errors from overloaded camera processors or poor settings.
 
@@ -457,7 +442,7 @@ Data Integrity Risk Factors
 
   .. _video-feed-failures:
 
-  **Video Feed Failures**
+  .. rubric:: Video Feed Failures
 
   Hardware or transmission issues interrupt video feed.
 
@@ -476,7 +461,7 @@ Data Integrity Risk Factors
 
   .. _unstable-frame-rates:
 
-  **Unstable Frame Rates**
+  .. rubric:: Unstable Frame Rates
 
   Feed is encoded at inconsistent rates, often due to overload.
 
@@ -495,7 +480,7 @@ Data Integrity Risk Factors
 
   .. _shot-boundary:
 
-  **Shot Boundary**
+  .. rubric:: Shot Boundary
 
   Sudden camera motion creates a new view, invalidating prior context.
 
@@ -515,11 +500,11 @@ Data Integrity Risk Factors
 .. toctree::
    :hidden:
 
-   operational_risk_modules/extreme_illumination
-   operational_risk_modules/haze
-   operational_risk_modules/water_droplets
-   operational_risk_modules/high_frequency_vibration
-   operational_risk_modules/defocus
-   operational_risk_modules/sensor_noise_resolution
-   operational_risk_modules/atmospheric_turbulence
-   operational_risk_modules/radial_distortion
+   Extreme (Low / High) Illumination <operational_risk_modules/extreme_illumination>
+   Mist / Fog / Snow <operational_risk_modules/haze>
+   Water Droplets on Lens <operational_risk_modules/water_droplets>
+   High-Frequency Vibration <operational_risk_modules/high_frequency_vibration>
+   Target Out of Focus <operational_risk_modules/defocus>
+   Sensor Noise <operational_risk_modules/sensor_noise_resolution>
+   Atmospheric Turbulence <operational_risk_modules/atmospheric_turbulence>
+   Radial Distortion / Fisheye Artifacts <operational_risk_modules/radial_distortion>
