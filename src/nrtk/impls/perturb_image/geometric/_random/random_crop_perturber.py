@@ -19,6 +19,7 @@ from __future__ import annotations
 
 __all__ = ["RandomCropPerturber"]
 
+import warnings
 from collections.abc import Hashable, Iterable
 from copy import deepcopy
 from typing import Any
@@ -53,7 +54,8 @@ class RandomCropPerturber(NumpyRandomPerturbImage):
         Args:
             crop_size:
                 Target crop size as (crop_height, crop_width). If crop_size is None, it defaults
-                to the size of the input image.
+                to the size of the input image. If crop_size is greater than or equal to image size,
+                the original image is returned.
             seed:
                 Random seed for reproducible results. Defaults to None for non-deterministic
                 behavior.
@@ -116,21 +118,23 @@ class RandomCropPerturber(NumpyRandomPerturbImage):
         """
         perturbed_image, perturbed_boxes = super().perturb(image=image, boxes=boxes)
 
-        # Set crop_size to image size if crop_size is None
-        if self.crop_size is not None:
-            crop_size = self.crop_size
-        else:
-            crop_size = (perturbed_image.shape[0], perturbed_image.shape[1])
+        orig_h, orig_w = perturbed_image.shape[:2]
 
-        if crop_size == perturbed_image.shape[:2]:
+        # Set crop_size to image size if crop_size is None
+        crop_size = self.crop_size if self.crop_size is not None else (orig_h, orig_w)
+
+        if any(crop > img for crop, img in zip(crop_size, perturbed_image.shape[:2], strict=False)):
+            warnings.warn(
+                f"crop_size of {crop_size} is larger than image size of ({orig_h}, {orig_w}). Returning original image",
+                UserWarning,
+                stacklevel=2,
+            )
+            return perturbed_image.copy(), perturbed_boxes
+
+        if all(crop == img for crop, img in zip(crop_size, perturbed_image.shape[:2], strict=False)):
             return perturbed_image.copy(), perturbed_boxes
 
         crop_h, crop_w = crop_size
-        orig_h, orig_w = perturbed_image.shape[:2]
-
-        # Ensure crop size is smaller than image dimensions
-        crop_h = min(crop_h, orig_h)
-        crop_w = min(crop_w, orig_w)
 
         # Randomly select the top-left corner of the crop
         crop_x = self._rng.integers(low=0, high=(orig_w - crop_w))
