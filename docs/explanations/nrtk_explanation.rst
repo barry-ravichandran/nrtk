@@ -179,18 +179,6 @@ NRTK results inform but do not replace operational validation:
 For additional context on when NRTK results should inform decisions versus when additional validation is needed,
 see :doc:`/validation_and_trust`.
 
-NRTK Algorithms
----------------
-
-The NRTK algorithms can be organized according to their respective tasks:
-
-- Image perturbation:
-    * :ref:`Image Perturbation <Interface: PerturbImage>`
-    * :ref:`Perturbation Factory <Interface: PerturbImageFactory>`
-
-- MAITE interoperability:
-    * :ref:`Interoperability`
-
 References
 ----------
 
