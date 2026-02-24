@@ -20,6 +20,7 @@ from pathlib import Path
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, str(Path(__file__).parent.parent.absolute()))
+sys.path.insert(0, str(Path(__file__).parent / "_ext"))
 import nrtk
 
 # -- Project information -----------------------------------------------------
@@ -97,6 +98,7 @@ extensions = [
     "sphinxcontrib.jquery",
     "sphinx_datatables",
     "myst_nb",
+    "rubric_headerlinks",
 ]
 
 suppress_warnings = [
