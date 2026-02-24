@@ -34,7 +34,6 @@ Perturbations that alter pixel intensity, color balance, or lighting conditions.
       .. button-ref:: /examples/maite/nrtk_brightness_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -48,7 +47,6 @@ Perturbations that alter pixel intensity, color balance, or lighting conditions.
       .. button-ref:: /examples/maite/nrtk_lens_flare_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -74,7 +72,6 @@ Perturbations that change spatial layout through rotation, scaling, or translati
       .. button-ref:: /examples/maite/nrtk_affine_perturbers_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -100,7 +97,6 @@ Perturbations that replicate weather and atmospheric visibility conditions.
       .. button-ref:: /examples/maite/nrtk_haze_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -114,7 +110,6 @@ Perturbations that replicate weather and atmospheric visibility conditions.
       .. button-ref:: /examples/maite/nrtk_water_droplet_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -140,7 +135,6 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
       .. button-ref:: /examples/maite/nrtk_focus_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -154,7 +148,6 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
       .. button-ref:: /examples/maite/nrtk_sensor_transformation_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -168,7 +161,6 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
       .. button-ref:: /examples/maite/nrtk_jitter_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -182,7 +174,6 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
       .. button-ref:: /examples/maite/nrtk_turbulence_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 
@@ -196,7 +187,6 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
       .. button-ref:: /examples/maite/nrtk_radial_distortion_perturber_demo
          :color: primary
          :outline:
-         :expand:
 
          Open Notebook →
 

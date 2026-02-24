@@ -15,8 +15,6 @@ Start Here
    :padding: 2 2 0 0
 
    .. grid-item-card:: NRTK End-to-End Overview
-      :link: /examples/nrtk_tutorial
-      :link-type: doc
       :class-card: sd-border-2
       :columns: 12
 
@@ -28,7 +26,7 @@ Start Here
 
       .. button-ref:: /examples/nrtk_tutorial
          :color: primary
-         :expand:
+         :outline:
 
          Start the Tutorial →
 
@@ -63,7 +61,7 @@ Continue Learning
 .. toctree::
    :hidden:
 
-   testing_and_evaluation_notebooks
    /examples/nrtk_tutorial
+   testing_and_evaluation_notebooks
    /examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency
    /examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency

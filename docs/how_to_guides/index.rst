@@ -22,7 +22,6 @@ revisiting background concepts.
       .. button-ref:: /examples/photometric_perturbers
          :color: primary
          :outline:
-         :expand:
 
          Open Guide →
 
@@ -36,7 +35,6 @@ revisiting background concepts.
       .. button-ref:: /examples/albumentations_perturber
          :color: primary
          :outline:
-         :expand:
 
          Open Guide →
 
@@ -50,7 +48,6 @@ revisiting background concepts.
       .. button-ref:: /examples/optical_perturbers
          :color: primary
          :outline:
-         :expand:
 
          Open Guide →
 
@@ -65,7 +62,6 @@ revisiting background concepts.
       .. button-ref:: /examples/generative_perturbers
          :color: primary
          :outline:
-         :expand:
 
          Open Guide →
 
@@ -76,4 +72,3 @@ revisiting background concepts.
    /examples/albumentations_perturber
    /examples/optical_perturbers
    /examples/generative_perturbers
-   /examples/pybsm_default_config
