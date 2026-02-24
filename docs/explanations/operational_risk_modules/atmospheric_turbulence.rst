@@ -14,7 +14,7 @@ handle. The degradation depends on viewing geometry, atmospheric conditions, and
 making it highly variable across operational scenarios. This variability makes turbulence a
 critical friction to assess during robustness testing.
 
-NRTK's TurbulenceAperturePerturber models these effects using physics-based simulation
+NRTK's ``TurbulenceAperturePerturber`` models these effects using physics-based simulation
 that accounts for turbulence strength, wind speed, and viewing geometry. While it does not
 capture all aspects of real turbulence (such as anisoplanatic effects), it provides an efficient
 means to probe model sensitivity to atmospheric degradation during early-stage robustness

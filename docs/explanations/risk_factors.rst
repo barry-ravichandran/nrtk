@@ -10,8 +10,10 @@ challenges.
   :width: 800px
   :alt: Root Causes of Operational Risks
 
-**Note:** Some operational risks arise from system-level input issues (such as metadata mismatches, labeling errors, or
-other integration defects) that do not fall directly under the five root-cause categories shown in the figure above.
+.. note::
+
+   Some operational risks arise from system-level input issues (such as metadata mismatches, labeling errors, or
+   other integration defects) that do not fall directly under the five root-cause categories shown in the figure above.
 
 The following table provides a summary of risk factors. Where applicable, a T&E guide providing a detailed example is
 listed as well as functionality from NRTK that can be used to simulate the operational risk.
@@ -20,7 +22,7 @@ Some of these perturbation functions are not implemented in NRTK directly but ca
 :class:`~nrtk.impls.perturb_image.AlbumentationsPerturber`
 which provides a wrapper around functionality of the `Albumentations <https://albumentations.ai/>`__ library.
 The :doc:`Apply Albumentations Perturbations </examples/albumentations_perturber>` notebook shows how to use
-Ablumentations with NRTK.
+Albumentations with NRTK.
 
 Some of the risk factors listed don't have any associated functionality or documentation in NRTK but may be covered in
 the future.
