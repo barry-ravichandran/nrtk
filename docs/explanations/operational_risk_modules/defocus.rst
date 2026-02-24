@@ -13,7 +13,7 @@ directional, defocus blur is radially symmetric and uniformly affects all
 details at the target distance. This makes it a distinct degradation mode that should be
 tested separately.
 
-NRTK's DefocusPerturber models optical defocus using the Optical Transfer Function (OTF)
+NRTK's ``DefocusPerturber`` models optical defocus using the Optical Transfer Function (OTF)
 to simulate the characteristic blur pattern of an out-of-focus optical system. This provides
 a physics-based approach to testing model sensitivity to focus errors during robustness
 screening.

@@ -3,12 +3,17 @@
 Advanced Installation
 =====================
 
-This page covers advanced installation options for NRTK, including conda,
-optional perturber dependencies, and development setup from source
-using `Poetry`_.
+This page covers advanced installation options beyond the basic
+``pip install nrtk`` shown in the :doc:`Getting Started </getting_started/quickstart>` section.
 
-For basic installation, ``pip install nrtk`` is all you need
-(see :doc:`Getting Started </getting_started/quickstart>`).
+Not all perturbers are available with the base install — many require optional
+third-party libraries such as pyBSM, OpenCV, or Pillow. With pip, you can
+selectively install only the extras your workflow requires (see the
+:ref:`perturber-dependencies` table below). The conda-forge package includes all
+optional dependencies by default.
+
+Install from source with `Poetry`_ when you are contributing to NRTK, need to
+build the documentation locally, or want to run the test suite.
 
 .. note::
    nrtk has been tested on Unix-based systems, including Linux, macOS, and WSL.
@@ -20,7 +25,7 @@ For basic installation, ``pip install nrtk`` is all you need
 .. _pip:
 .. _conda:
 
-pip & conda
+pip and conda
 -----------
 
 .. grid:: 1 1 2 2
@@ -210,7 +215,7 @@ introduction possible.
 
 .. :auto quick-start:
 
-Clone & Install
+Clone and Install
 ^^^^^^^^^^^^^^^
 
 .. prompt:: bash

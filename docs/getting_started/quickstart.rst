@@ -22,6 +22,7 @@ Step 2: Run a Sample Perturbation
 ----------------------------------
 
 ``HazePerturber`` requires no additional dependencies beyond the base NRTK install,
+``HazePerturber`` requires no additional dependencies beyond the base NRTK install,
 making it ideal for a first test.
 
 .. code-block:: python
