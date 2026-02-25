@@ -80,9 +80,9 @@ represent your mission environment and conditions.
 
    .. button-ref:: /explanations/risk_factors
       :color: primary
-      :expand:
+      :outline:
 
-      Interactive Risk Matrix
+      Interactive Risk Matrix →
 
 .. toctree::
    :hidden:

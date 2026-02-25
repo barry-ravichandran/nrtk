@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
           resetLink.id = 'reset-filters-link';
           resetLink.textContent = 'Reset';
           resetLink.style.display = 'none'; // hidden by default
-          resetLink.style.color = '#007bff';
+          resetLink.style.color = 'var(--pst-color-primary)';
           resetLink.style.textDecoration = 'underline';
           resetLink.style.cursor = 'pointer';
           resetLink.style.fontSize = '0.9em';
