@@ -33,7 +33,7 @@ Start Here
 Continue Learning
 ------------------
 
-.. grid:: 1 1 3 3
+.. grid:: 1 2 2 2
    :gutter: 3
    :padding: 2 2 0 0
 
@@ -44,24 +44,17 @@ Continue Learning
       Apply perturbations within standardized T&E workflows covering
       photometric, geometric, environmental, and optical risks.
 
-   .. grid-item-card:: :material-regular:`image` Classification + Saliency
-      :link: /examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency
+   .. grid-item-card:: :material-regular:`visibility` NRTK + Saliency
+      :link: /tutorials/saliency_notebooks
       :link-type: doc
 
       Combine perturbations with XAITK saliency maps to understand
-      classification model behavior under degradation.
+      model behavior under degradation.
 
-   .. grid-item-card:: :material-regular:`center_focus_strong` Detection + Saliency
-      :link: /examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency
-      :link-type: doc
-
-      Extend the saliency workflow to object detection, visualizing
-      shifts in detector attention and bounding boxes.
 
 .. toctree::
    :hidden:
 
    /examples/nrtk_tutorial
    testing_and_evaluation_notebooks
-   /examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency
-   /examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency
+   saliency_notebooks
