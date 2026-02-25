@@ -45,6 +45,7 @@ __all__ = ["WaterDropletPerturber"]
 
 import copy
 import math
+import warnings
 from collections.abc import Hashable, Iterable, Sequence
 from typing import Any, Protocol
 
@@ -347,6 +348,9 @@ class WaterDropletPerturber(NumpyRandomPerturbImage):
     Attributes:
         size_range (Sequence[float]):
             Range of size multiplier values used for computing the size of the water droplet.
+            The minimum effective droplet size is 0.1 (in glass coordinate units); values
+            below 0.1 will be clamped to 0.1. Zero-sized droplets are not supported.
+            To reduce the number of droplets, use the ``num_drops`` parameter instead.
         num_drops (int):
             Target number of water droplets.
         blur_strength (float):
@@ -386,7 +390,9 @@ class WaterDropletPerturber(NumpyRandomPerturbImage):
         Args:
             size_range:
                 Range of size multiplier values used for computing the size of the water droplet.
-                Defaults to [0.0, 1.0].
+                Defaults to [0.0, 1.0]. The minimum effective droplet size is 0.1 (in glass
+                coordinate units); values below 0.1 are clamped to 0.1. Zero-sized droplets
+                are not supported. To reduce the number of droplets, use ``num_drops`` instead.
             num_drops:
                 Target number of water droplets.
             blur_strength:
@@ -422,6 +428,14 @@ class WaterDropletPerturber(NumpyRandomPerturbImage):
             seed = None
             is_static = False
         """
+        if size_range[0] < 0.1 or size_range[1] < 0.1:
+            warnings.warn(
+                f"size_range={list(size_range)} contains values below the minimum effective "
+                "droplet size of 0.1. Values below 0.1 will be clamped to 0.1. "
+                "To reduce the number of droplets, use the num_drops parameter instead.",
+                UserWarning,
+                stacklevel=2,
+            )
         self.size_range = size_range
         self.num_drops = num_drops
         self.blur_strength = blur_strength

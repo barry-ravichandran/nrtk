@@ -14,6 +14,8 @@ _PYBSM_FUNCTIONS = [
 
 __all__: list[str] = []
 
+_import_error: ImportError | None = None
+
 try:
     from nrtk.impls.perturb_image.optical._pybsm import (
         load_default_config as load_default_config,
@@ -42,13 +44,17 @@ try:
     TurbulenceAperturePerturber.__module__ = __name__
 
     __all__ += _PYBSM_FUNCTIONS + _OTF_CLASSES
-except ImportError:
-    pass
+except ImportError as _ex:
+    _import_error = _ex
 
 
 def __getattr__(name: str) -> None:
     if name in _OTF_CLASSES or name in _PYBSM_FUNCTIONS:
-        raise ImportError(
-            f"{name} requires the `pybsm` extra. Install with: `pip install nrtk[pybsm]`",
-        )
+        msg = f"{name} requires the `pybsm` extra. Install with: `pip install nrtk[pybsm]`"
+        if _import_error is not None:
+            msg += (
+                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
+                f"\n  {type(_import_error).__name__}: {_import_error}"
+            )
+        raise ImportError(msg)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

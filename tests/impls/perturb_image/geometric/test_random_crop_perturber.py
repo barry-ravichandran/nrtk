@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from collections.abc import Hashable, Iterable
+from contextlib import AbstractContextManager
+from contextlib import nullcontext as does_not_raise
 
 import numpy as np
 import pytest
@@ -192,3 +194,26 @@ class TestRandomCropPerturber(PerturberTestsMixin):
             assert i.crop_size == crop_size
             assert i.seed == seed
             assert i.is_static == is_static
+
+    @pytest.mark.parametrize(
+        ("crop_size", "expectation"),
+        [
+            ((128, 128), does_not_raise()),
+            ((256, 256), does_not_raise()),
+            ((256, 512), pytest.warns(UserWarning, match=r"Returning original image")),
+            ((512, 256), pytest.warns(UserWarning, match=r"Returning original image")),
+            ((512, 512), pytest.warns(UserWarning, match=r"Returning original image")),
+        ],
+    )
+    def test_crop_size_bounds(
+        self,
+        crop_size: tuple[int, int],
+        expectation: AbstractContextManager,
+    ) -> None:
+        """Test configuration stability."""
+        image = rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        inst = RandomCropPerturber(
+            crop_size=crop_size,
+        )
+        with expectation:
+            inst.perturb(image=image)
