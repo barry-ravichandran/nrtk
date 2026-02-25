@@ -202,30 +202,6 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
 ----
 
-
-Saliency Analysis
------------------
-
-Combining perturbations with model interpretability to understand *where* and *why* predictions change.
-
-.. grid:: 1 2 2 2
-   :gutter: 3
-   :padding: 2 2 0 0
-
-   .. grid-item-card:: :material-regular:`visibility` Perturbations + Saliency
-      :class-card: sd-border-1
-
-      Integrate NRTK perturbations with saliency map generation to visualize how image changes affect model interpretation.
-
-      +++
-
-      .. button-ref:: /examples/maite/jatic-perturbations-saliency
-         :color: primary
-         :outline:
-         :expand:
-
-         Open Notebook →
-
 .. toctree::
    :hidden:
 
@@ -239,4 +215,3 @@ Combining perturbations with model interpretability to understand *where* and *w
    /examples/maite/nrtk_jitter_perturber_demo
    /examples/maite/nrtk_turbulence_perturber_demo
    /examples/maite/nrtk_radial_distortion_perturber_demo
-   /examples/maite/jatic-perturbations-saliency
