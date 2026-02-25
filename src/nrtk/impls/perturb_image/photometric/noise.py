@@ -10,6 +10,8 @@ _SKIMAGE_CLASSES = [
 
 __all__: list[str] = []
 
+_import_error: ImportError | None = None
+
 try:
     from nrtk.impls.perturb_image.photometric._noise.gaussian_noise_perturber import (
         GaussianNoisePerturber as GaussianNoisePerturber,
@@ -35,13 +37,17 @@ try:
     SpeckleNoisePerturber.__module__ = __name__
 
     __all__ += _SKIMAGE_CLASSES
-except ImportError:
-    pass
+except ImportError as _ex:
+    _import_error = _ex
 
 
 def __getattr__(name: str) -> None:
     if name in _SKIMAGE_CLASSES:
-        raise ImportError(
-            f"{name} requires the `skimage` extra. Install with: `pip install nrtk[skimage]`",
-        )
+        msg = f"{name} requires the `skimage` extra. Install with: `pip install nrtk[skimage]`"
+        if _import_error is not None:
+            msg += (
+                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
+                f"\n  {type(_import_error).__name__}: {_import_error}"
+            )
+        raise ImportError(msg)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
