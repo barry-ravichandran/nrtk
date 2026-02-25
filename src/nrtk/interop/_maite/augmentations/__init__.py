@@ -14,6 +14,8 @@ _MAITE_CLASSES = [
 
 __all__: list[str] = []
 
+_import_error: ImportError | None = None
+
 try:
     from nrtk.interop._maite.augmentations._maite_image_classification_augmentation import (
         MAITEImageClassificationAugmentation as MAITEImageClassificationAugmentation,
@@ -23,13 +25,17 @@ try:
     )
 
     __all__ += _MAITE_CLASSES
-except ImportError:
-    pass
+except ImportError as _ex:
+    _import_error = _ex
 
 
 def __getattr__(name: str) -> None:
     if name in _MAITE_CLASSES:
-        raise ImportError(
-            f"{name} requires the `maite` extra. Install with: `pip install nrtk[maite]`",
-        )
+        msg = f"{name} requires the `maite` extra. Install with: `pip install nrtk[maite]`"
+        if _import_error is not None:
+            msg += (
+                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
+                f"\n  {type(_import_error).__name__}: {_import_error}"
+            )
+        raise ImportError(msg)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

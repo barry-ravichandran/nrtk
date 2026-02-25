@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import warnings
 from collections.abc import Hashable, Iterable, Sequence
 
 import numpy as np
@@ -261,6 +262,21 @@ class TestWaterDropletPerturber(PerturberTestsMixin):
         inst = WaterDropletPerturber()
         _, out_boxes = inst.perturb(image=np.ones((256, 256, 3)), boxes=boxes)
         assert boxes == out_boxes
+
+    @pytest.mark.parametrize(
+        "size_range",
+        [(0, 0), (0.05, 0.2), (0, 1.0)],
+    )
+    def test_size_range_below_minimum_warns(self, size_range: tuple[float, float]) -> None:
+        """Verify warning when size_range contains values below the minimum of 0.1."""
+        with pytest.warns(UserWarning, match="minimum effective droplet size of 0.1"):
+            WaterDropletPerturber(size_range=size_range, seed=42)
+
+    def test_size_range_above_minimum_no_warning(self) -> None:
+        """Verify no warning when size_range values are at or above 0.1."""
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            WaterDropletPerturber(size_range=(0.1, 1.0), seed=42)
 
     @pytest.mark.parametrize("num_drops", [0, 1])
     def test_few_droplets_no_overlap_check(self, num_drops: int) -> None:

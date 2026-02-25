@@ -10,6 +10,8 @@ __all__ = ["HazePerturber"]
 # Water droplet perturber (optional - requires scipy and numba)
 _WATERDROPLET_CLASSES = ["WaterDropletPerturber"]
 
+_import_error: ImportError | None = None
+
 try:
     from nrtk.impls.perturb_image.environment._water_droplet_perturber import (
         WaterDropletPerturber as WaterDropletPerturber,
@@ -18,13 +20,17 @@ try:
     WaterDropletPerturber.__module__ = __name__
 
     __all__ += _WATERDROPLET_CLASSES
-except ImportError:
-    pass
+except ImportError as _ex:
+    _import_error = _ex
 
 
 def __getattr__(name: str) -> None:
     if name in _WATERDROPLET_CLASSES:
-        raise ImportError(
-            f"{name} requires the `waterdroplet` extra. Install with: `pip install nrtk[waterdroplet]`",
-        )
+        msg = f"{name} requires the `waterdroplet` extra. Install with: `pip install nrtk[waterdroplet]`"
+        if _import_error is not None:
+            msg += (
+                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
+                f"\n  {type(_import_error).__name__}: {_import_error}"
+            )
+        raise ImportError(msg)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
