@@ -107,4 +107,6 @@ Limitations and Next Steps
 * Requires ``img_gsd`` parameter when calling ``perturb()`` to properly scale effects.
 * Requires optional dependencies: install via ``pip install nrtk[pybsm]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`target-out-of-focus`, :ref:`noise-and-resolution`, :ref:`high-frequency-vibration`
+* Related Risks: :ref:`Target Out of Focus <target-out-of-focus>`,
+  :ref:`Sensor Noise <noise-and-resolution>`,
+  :ref:`High-Frequency Vibration <high-frequency-vibration>`.

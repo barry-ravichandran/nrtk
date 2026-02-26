@@ -120,4 +120,4 @@ Limitations and Next Steps
   temporal consistency across video frames (suitable for static image robustness testing).
 * Requires optional dependencies: install via ``pip install nrtk[waterdroplet]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`lens-contamination`, :ref:`mist-fog-snow`
+* Related Risks: :ref:`Dirt / Specularities on Lens <lens-contamination>`, :ref:`Mist / Fog / Snow <mist-fog-snow>`

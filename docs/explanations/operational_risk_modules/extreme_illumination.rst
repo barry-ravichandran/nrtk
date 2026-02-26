@@ -105,4 +105,4 @@ Limitations and Next Steps
   datasets, and recommended parameter sweeps, see the
   :doc:`BrightnessPerturber T&E guide </examples/maite/nrtk_brightness_perturber_demo>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`shadows`, :ref:`night-mode`
+* Related Risks: :ref:`Shadows <shadows>`, :ref:`Night Mode <night-mode>`

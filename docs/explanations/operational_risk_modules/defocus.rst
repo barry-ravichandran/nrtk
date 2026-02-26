@@ -84,4 +84,4 @@ Limitations and Next Steps
 * Requires ``img_gsd`` parameter when calling ``perturb()`` to properly scale effects.
 * Requires optional dependencies: install via ``pip install nrtk[pybsm]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`turbulence`, :ref:`noise-and-resolution`
+* Related Risks: :ref:`Atmospheric Turbulence <turbulence>`, :ref:`Sensor Noise <noise-and-resolution>`

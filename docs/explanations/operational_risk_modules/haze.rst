@@ -79,4 +79,4 @@ Limitations and Next Steps
   and recommended parameter sweeps, see the
   :doc:`HazePerturber T&E guide </examples/maite/nrtk_haze_perturber_demo>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`extreme-illumination`, :ref:`lens-water-droplet`
+* Related Risks: :ref:`Extreme Illumination <extreme-illumination>`, :ref:`Water Droplets on Lens <lens-water-droplet>`

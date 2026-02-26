@@ -78,4 +78,4 @@ Limitations and Next Steps
   and recommended parameter sweeps, see the
   :doc:`JitterPerturber T&E guide </examples/maite/nrtk_jitter_perturber_demo>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`target-out-of-focus`, :ref:`turbulence`
+* Related Risks: :ref:`Target Out of Focus <target-out-of-focus>`, :ref:`Atmospheric Turbulence <turbulence>`

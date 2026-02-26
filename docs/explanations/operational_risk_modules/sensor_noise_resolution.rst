@@ -148,4 +148,4 @@ Limitations and Next Steps
   :doc:`PybsmPerturber T&E guide </examples/maite/nrtk_sensor_transformation_demo>`.
 * Requires optional dependencies: install via ``pip install nrtk[pybsm]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`noise-and-resolution`
+* Related Risks: :ref:`Sensor Noise <noise-and-resolution>`
