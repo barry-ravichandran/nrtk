@@ -38,7 +38,7 @@ Here's where to go, depending on what you want to do next:
       :link: /reference/index
       :link-type: doc
 
-      Look up perturber APIs, configuration schemas, and implementation details.
+      Look up perturber APIs, utility tools, and implementation details.
 
    .. grid-item-card:: ✅ Validation & Trust
       :link: /validation_and_trust

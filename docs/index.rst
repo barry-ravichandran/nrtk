@@ -52,7 +52,7 @@ operational risk perturbations into your evaluation pipelines.
       :link: reference/index
       :link-type: doc
 
-      Perturbers, APIs, schemas, and implementation details.
+      Perturbers, APIs, and implementation details.
 
 Why NRTK?
 ---------
