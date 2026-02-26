@@ -8,9 +8,9 @@ more seamless workflow of this is available.
 Within the :file:`docs/` directory is a small Python script called
 :file:`sphinx_server.py` that can simply be called with:
 
-.. prompt:: bash
+.. code-block:: bash
 
-    poetry run python sphinx_server.py
+    $ poetry run python sphinx_server.py
 
 This will run a small process that watches the :file:`docs/` folder contents,
 as well as the source files in :file:`src/nrtk/`, for changes.

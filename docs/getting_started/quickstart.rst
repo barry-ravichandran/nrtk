@@ -21,9 +21,9 @@ Step 1: Install nrtk
           more, see `creating virtual environments in the Python Packaging User Guide
           <https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments>`_.
 
-      .. prompt:: bash
+      .. code-block:: bash
 
-          pip install nrtk
+          $ pip install nrtk
 
 
    .. tab-item:: conda
@@ -35,9 +35,9 @@ Step 1: Install nrtk
           more, see `creating environments in the conda documentation
           <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands>`_.
 
-      .. prompt:: bash
+      .. code-block:: bash
 
-          conda install -c conda-forge nrtk
+          $ conda install -c conda-forge nrtk
 
 .. seealso::
   For details on optional extras, installing from source, or developer setup, see

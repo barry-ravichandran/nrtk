@@ -35,9 +35,9 @@ Installing nrtk
         more, see `creating virtual environments in the Python Packaging User Guide
         <https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments>`_.
 
-    .. prompt:: bash
+    .. code-block:: bash
 
-        pip install nrtk[extra1,extra2,...]
+        $ pip install nrtk[extra1,extra2,...]
 
   .. tab-item:: conda
 
@@ -48,9 +48,9 @@ Installing nrtk
         more, see `creating environments in the conda documentation
         <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands>`_.
 
-    .. prompt:: bash
+    .. code-block:: bash
 
-        conda install -c conda-forge nrtk
+        $ conda install -c conda-forge nrtk
 
   .. tab-item:: From source
 
@@ -88,11 +88,11 @@ Installing nrtk
 
     .. rubric:: Clone and Install
 
-    .. prompt:: bash
+    .. code-block:: bash
 
-        cd /where/things/should/go/
-        git clone https://github.com/kitware/nrtk.git ./
-        poetry install
+        $ cd /where/things/should/go/
+        $ git clone https://github.com/kitware/nrtk.git ./
+        $ poetry install
 
     .. rubric:: Installing Developer Dependencies
 
@@ -100,9 +100,9 @@ Installing nrtk
     specified in the :file:`pyproject.toml` file, with versions specified
     (including for transitive dependencies) in the :file:`poetry.lock` file:
 
-    .. prompt:: bash
+    .. code-block:: bash
 
-        poetry sync --with linting,tests,docs
+        $ poetry sync --with linting,tests,docs
 
     .. note::
       Developers should also ensure their enviroment has Git LFS installed
@@ -114,9 +114,9 @@ Installing nrtk
     To install an extra group(s) to enable a perturbation, add the ``--extras`` flag to
     your install command, e.g.:
 
-    .. prompt:: bash
+    .. code-block:: bash
 
-        poetry sync --with linting,tests,docs --extras "extra1 extra2 ..."
+        $ poetry sync --with linting,tests,docs --extras "extra1 extra2 ..."
 
     .. rubric:: Building the Documentation
 
@@ -132,9 +132,9 @@ Installing nrtk
     For example, calling the command below will generate
     HTML format documentation rooted at :file:`docs/_build/html/index.html`.
 
-    .. prompt:: bash
+    .. code-block:: bash
 
-        poetry run make html
+        $ poetry run make html
 
 
     Calling the command ``make help`` here will show the other documentation

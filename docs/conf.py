@@ -101,6 +101,8 @@ extensions = [
     "rubric_headerlinks",
     "selective_prev_next",
 ]
+copybutton_prompt_text = r"\$ "
+copybutton_prompt_is_regexp = True
 
 # Pages that display prev/next navigation links (selective_prev_next extension).
 # Order determines the prev/next sequence; all other pages have no prev/next.
