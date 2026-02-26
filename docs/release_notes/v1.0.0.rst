@@ -1,0 +1,71 @@
+v1.0.0
+======
+
+This is the first stable release of the Natural Robustness Toolkit (NRTK). The API is
+hardened and will follow semantic versioning going forward: patch releases (1.0.x) for bug
+fixes, minor releases (1.x.0) for backward-compatible features, and major releases (x.0.0)
+for breaking changes.
+
+v1.0.0 establishes the full foundation of NRTK for still-imagery computer vision robustness
+evaluation. Future releases will expand into full-motion video, additional sensor modalities,
+and broader operational domains.
+
+There are no functional changes from v0.27.2 — this is a drop-in replacement.
+
+What's in v1.0.0
+^^^^^^^^^^^^^^^^
+
+**27 perturber implementations** across five categories:
+
+* *Photometric* (12) — blur (average, Gaussian, median), enhancement (brightness, color,
+  contrast, sharpness), and noise (Gaussian, salt, pepper, salt-and-pepper, speckle)
+
+* *Optical* (8) — physics-based perturbations via pyBSM (pybsm, defocus, jitter, turbulence
+  aperture, detector, circular aperture) and radial distortion
+
+* *Geometric* (4) — random crop, translation, rotation, and scale
+
+* *Environment* (2) — haze and water droplets
+
+* *Generative (experimental)* (1) — diffusion-based perturbation
+
+* Plus ``ComposePerturber`` for chaining multiple perturbations and
+  ``AlbumentationsPerturber`` for integration with the Albumentations library
+
+**4 perturbation factories** for systematic parameter sweeps: step, linspace, one-step, and
+multivariate.
+
+**8 operational risk modules** mapping real-world degradation factors to NRTK perturbations
+(atmospheric turbulence, defocus, extreme illumination, haze, high-frequency vibration,
+radial distortion, sensor noise and resolution, water droplets), with an interactive risk
+matrix.
+
+**JATIC ecosystem integration** — NRTK is part of the
+`JATIC <https://cdao.pages.jatic.net/public/>`_ product suite for AI Test & Evaluation. The
+``nrtk.interop`` module provides full `MAITE <https://github.com/mit-ll-ai-technology/maite>`_
+compliance, enabling NRTK perturbations to be applied directly to MAITE-wrapped datasets and
+models alongside other JATIC tools such as
+`DataEval <https://dataeval.readthedocs.io/>`_ and
+`XAITK-Saliency <https://xaitk-saliency.readthedocs.io/>`_. This includes augmentation
+adapters for both classification and detection tasks.
+
+**Validation and Trust page** documenting current validation status, known limitations, and
+a quarterly-updated roadmap.
+
+**Comprehensive documentation** following Diátaxis structure (Getting Started, Tutorials,
+How-To Guides, Explanations, Reference) with 19 example notebooks spanning core tutorials,
+MAITE workflows, and XAITK-Saliency integration.
+
+**Modular dependency architecture** — NRTK's core has a minimal dependency footprint,
+with 10 optional extras that allow users to install only what they need. This makes NRTK
+deployable into a wide range of environments, including hardened or restricted systems with
+strict dependency policies. Python 3.10–3.13 supported.
+
+Acknowledgment
+^^^^^^^^^^^^^^
+
+This material is based upon work supported by the Chief Digital and Artificial
+Intelligence Office under Contract No. 519TC-23-9-2032. The views and
+conclusions contained herein are those of the author(s) and should not be
+interpreted as necessarily representing the official policies or endorsements,
+either expressed or implied, of the U.S. Government.

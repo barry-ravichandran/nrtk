@@ -15,7 +15,7 @@ alter the information available to the model. This makes these risks particularl
 for evaluating robustness in real-world deployments where sensor hardware may be stressed or
 suboptimal.
 
-NRTK's PybsmPerturber simulates these risks using physics-based sensor modeling (via pyBSM) that
+NRTK's ``PybsmPerturber`` simulates these risks using physics-based sensor modeling (via pyBSM) that
 accounts for thermal noise (dark current), electronic noise (read noise), and effective resolution
 (pixel pitch). This provides a comprehensive way to probe model sensitivity to sensor-level
 degradation during T&E.
@@ -148,4 +148,4 @@ Limitations and Next Steps
   :doc:`PybsmPerturber T&E guide </examples/maite/nrtk_sensor_transformation_demo>`.
 * Requires optional dependencies: install via ``pip install nrtk[pybsm]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`noise-and-resolution`
+* Related Risks: :ref:`Sensor Noise <noise-and-resolution>`

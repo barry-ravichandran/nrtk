@@ -10,8 +10,10 @@ challenges.
   :width: 800px
   :alt: Root Causes of Operational Risks
 
-**Note:** Some operational risks arise from system-level input issues (such as metadata mismatches, labeling errors, or
-other integration defects) that do not fall directly under the five root-cause categories shown in the figure above.
+.. note::
+
+   Some operational risks arise from system-level input issues (such as metadata mismatches, labeling errors, or
+   other integration defects) that do not fall directly under the five root-cause categories shown in the figure above.
 
 The following table provides a summary of risk factors. Where applicable, a T&E guide providing a detailed example is
 listed as well as functionality from NRTK that can be used to simulate the operational risk.
@@ -20,7 +22,7 @@ Some of these perturbation functions are not implemented in NRTK directly but ca
 :class:`~nrtk.impls.perturb_image.AlbumentationsPerturber`
 which provides a wrapper around functionality of the `Albumentations <https://albumentations.ai/>`__ library.
 The :doc:`Apply Albumentations Perturbations </examples/albumentations_perturber>` notebook shows how to use
-Ablumentations with NRTK.
+Albumentations with NRTK.
 
 Some of the risk factors listed don't have any associated functionality or documentation in NRTK but may be covered in
 the future.
@@ -51,470 +53,458 @@ Interactive Risk Matrix
 Photometric Risk Factors
 ------------------------
 
-.. _extreme-illumination:
+.. dropdown:: Lighting and imaging conditions that reduce image quality
 
-Extreme (Low / High) Illumination
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  .. _extreme-illumination:
 
-Lighting conditions and camera settings result in excessive or insufficient illumination.
+  .. rubric:: Extreme (Low / High) Illumination
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Image has low contrast or dynamic range, reducing usefulness.                                    |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Target                                                                                           |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | All                                                                                              |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.photometric.enhance.BrightnessPerturber`                       |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/extreme_illumination`                                             |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Lighting conditions and camera settings result in excessive or insufficient illumination.
 
-.. figure:: /images/risks/illumination-1.jpg
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Image has low contrast or dynamic range, reducing usefulness.                                    |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Target                                                                                           |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | All                                                                                              |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.photometric.enhance.BrightnessPerturber`                       |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/extreme_illumination`                                             |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  doers-brc@kitware.com
+  .. figure:: /images/risks/illumination-1.jpg
+    :width: 500px
 
-.. figure:: /images/risks/illumination-2.jpg
-  :width: 500px
+    doers-brc@kitware.com
 
-  doers-brc@kitware.com
+  .. figure:: /images/risks/illumination-2.jpg
+    :width: 500px
 
-.. _shadows:
+    doers-brc@kitware.com
 
-Shadows
-^^^^^^^
+  .. _shadows:
 
-Strong shadows are cast in the target area due to direct illumination.
-
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Features of interest in shadows may be undetectable.                                             |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Target                                                                                           |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | All                                                                                              |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-
-.. figure:: /images/risks/shadow-1.png
-  :width: 500px
-
-  mevadata.org
-
-.. _glint-glare:
-
-Glint / Glare
-^^^^^^^^^^^^^
-
-Bright reflections due to lighting, target materials, or angles.
-
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Can obscure targets and skew autoexposure or detection.                                          |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Target                                                                                           |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | All                                                                                              |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-
-.. figure:: /images/risks/glare.png
-  :width: 500px
-
-  "A data set for airborne maritime surveillance environments",
-  Ribeiro et al., IEEE Trans. Circuits & Systems for Video Technology, 2017
-
-.. _night-mode:
-
-Night Mode / Low-Light Behavior
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In low light, camera may switch to monochrome or a different capture mode.
-
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Color data lost; resolution may be reduced slightly.                                             |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                           |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-
-.. figure:: /images/risks/night-mode-1.jpg
-  :width: 500px
-
-  mevadata.org
-
-.. figure:: /images/risks/night-mode-2.jpg
-  :width: 500px
-
-  mevadata.org
+  .. rubric:: Shadows
 
 
-----
+  Strong shadows are cast in the target area due to direct illumination.
 
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Features of interest in shadows may be undetectable.                                             |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Target                                                                                           |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | All                                                                                              |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+
+  .. figure:: /images/risks/shadow-1.png
+    :width: 500px
+
+    mevadata.org
+
+  .. _glint-glare:
+
+  .. rubric:: Glint / Glare
+
+  Bright reflections due to lighting, target materials, or angles.
+
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Can obscure targets and skew autoexposure or detection.                                          |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Target                                                                                           |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | All                                                                                              |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+
+  .. figure:: /images/risks/glare.png
+    :width: 500px
+
+    "A data set for airborne maritime surveillance environments",
+    Ribeiro et al., IEEE Trans. Circuits & Systems for Video Technology, 2017
+
+  .. _night-mode:
+
+  .. rubric:: Night Mode / Low-Light Behavior
+
+  In low light, camera may switch to monochrome or a different capture mode.
+
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Color data lost; resolution may be reduced slightly.                                             |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                           |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+
+  .. figure:: /images/risks/night-mode-1.jpg
+    :width: 500px
+
+    mevadata.org
+
+  .. figure:: /images/risks/night-mode-2.jpg
+    :width: 500px
+
+    mevadata.org
 
 Geometric Risk Factors
 ----------------------
 
-.. _look-angle-variation:
+.. dropdown:: Spatial or perspective conditions that distort or obscure objects
 
-Look Angle Different from Training Data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  .. _look-angle-variation:
 
-Operational viewpoint differs from viewpoints in training data.
+  .. rubric:: Look Angle Different from Training Data
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Model performance degrades due to lack of viewpoint coverage.                                    |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Inferencing                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | UAV, WAMI, Satellite                                                                             |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Operational viewpoint differs from viewpoints in training data.
 
-No sample available.
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Model performance degrades due to lack of viewpoint coverage.                                    |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Inferencing                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | UAV, WAMI, Satellite                                                                             |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-
-----
+  No sample available.
 
 
 Environment Risk Factors
 ------------------------
 
-.. _mist-fog-snow:
+.. dropdown:: External conditions that interfere with sensing or imaging
 
-Mist / Fog / Snow / Etc
-^^^^^^^^^^^^^^^^^^^^^^^^
+  .. _mist-fog-snow:
 
-Reduced visibility conditions such as fog, mist, or blowing snow decrease contrast and obscure scene details.
-These effects commonly degrade computer-vision performance in outdoor environments by making targets harder to
-distinguish from the background.
+  .. rubric:: Mist / Fog / Snow / Etc
 
-+---------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact of Risk Factor** | Lower contrast and partial occlusion of features.                                                |
-+---------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**            | Optical Path                                                                                     |
-+---------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**      | Ground, Sea                                                                                      |
-+---------------------------+--------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**     | :class:`~nrtk.impls.perturb_image.environment.HazePerturber`                                     |
-+---------------------------+--------------------------------------------------------------------------------------------------+
-| **Learn More**            | :doc:`operational_risk_modules/haze`                                                             |
-+---------------------------+--------------------------------------------------------------------------------------------------+
+  Reduced visibility conditions such as fog, mist, or blowing snow decrease contrast and obscure scene details.
+  These effects commonly degrade computer-vision performance in outdoor environments by making targets harder to
+  distinguish from the background.
 
-.. figure:: /images/risks/mist.png
-  :width: 500px
+  +---------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact of Risk Factor** | Lower contrast and partial occlusion of features.                                                |
+  +---------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**            | Optical Path                                                                                     |
+  +---------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**      | Ground, Sea                                                                                      |
+  +---------------------------+--------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**     | :class:`~nrtk.impls.perturb_image.environment.HazePerturber`                                     |
+  +---------------------------+--------------------------------------------------------------------------------------------------+
+  | **Learn More**            | :doc:`operational_risk_modules/haze`                                                             |
+  +---------------------------+--------------------------------------------------------------------------------------------------+
 
-  *Source: mevadata.org*
+  .. figure:: /images/risks/mist.png
+    :width: 500px
 
-.. _lens-water-droplet:
+    *Source: mevadata.org*
 
-Water Droplets on Lens
-^^^^^^^^^^^^^^^^^^^^^^^
+  .. _lens-water-droplet:
 
-Water droplets create localized refraction patterns that distort image regions, making targets
-harder to detect and track. These effects are particularly problematic in outdoor and maritime
-environments where lens contamination is common.
+  .. rubric:: Water Droplets on Lens
 
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Impact**              | Obscured or out-of-focus image regions; specularities may confuse algorithms.                                        |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                                               |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                                          |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.environment.WaterDropletPerturber`                                                 |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/water_droplets`                                                                       |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  Water droplets create localized refraction patterns that distort image regions, making targets
+  harder to detect and track. These effects are particularly problematic in outdoor and maritime
+  environments where lens contamination is common.
 
-.. figure:: /images/risks/droplets-2.png
-  :width: 500px
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Impact**              | Obscured or out-of-focus image regions; specularities may confuse algorithms.                                        |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                                               |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                                          |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.environment.WaterDropletPerturber`                                                 |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/water_droplets`                                                                       |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/droplets-2.png
+    :width: 500px
 
-.. _lens-contamination:
+    mevadata.org
 
-Dirt / Specularities on Lens
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  .. _lens-contamination:
 
-Obstructions or smudges on the lens surface can block parts of the scene or create bright reflective artifacts,
-especially in infrared (IR) imaging or Pan-Tilt-Zoom (PTZ) dome cameras.
+  .. rubric:: Dirt / Specularities on Lens
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Obscured or out-of-focus image regions; specularities may confuse algorithms.                    |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                           |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Obstructions or smudges on the lens surface can block parts of the scene or create bright reflective artifacts,
+  especially in infrared (IR) imaging or Pan-Tilt-Zoom (PTZ) dome cameras.
 
-.. figure:: /images/risks/droplets.png
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Obscured or out-of-focus image regions; specularities may confuse algorithms.                    |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                           |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  *Source: mevadata.org*
+  .. figure:: /images/risks/droplets.png
+    :width: 500px
 
-.. _clouds:
+    *Source: mevadata.org*
 
-Clouds
-^^^^^^
+  .. _clouds:
 
-Clouds obscure targets, and may be transient or unpredictable.
+  .. rubric:: Clouds
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Targets not visible or have reduced contrast.                                                    |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Optic Path                                                                                       |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | UAV, WAMI, Satellite                                                                             |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Clouds obscure targets, and may be transient or unpredictable.
 
-.. figure:: /images/risks/clouds.gif
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Targets not visible or have reduced contrast.                                                    |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Optic Path                                                                                       |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | UAV, WAMI, Satellite                                                                             |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  viratdata.org
+  .. figure:: /images/risks/clouds.gif
+    :width: 500px
 
-
-----
-
+    viratdata.org
 
 Optical Risk Factors
 --------------------
 
-.. _high-frequency-vibration:
+.. dropdown:: Limitations or distortions of the imaging system itself
 
-High-Frequency Vibration
-^^^^^^^^^^^^^^^^^^^^^^^^^
+  .. _high-frequency-vibration:
 
-Vibrations in the sensor platform (e.g. from wind) induce jitter and blurring.
+  .. rubric:: High-Frequency Vibration
 
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Impact**              | Reduced effective resolution, frame-to-frame tracking performance.                                 |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                             |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                        |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.otf.JitterPerturber`                                     |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/high_frequency_vibration`                                           |
-+-------------------------+----------------------------------------------------------------------------------------------------+
+  Vibrations in the sensor platform (e.g. from wind) induce jitter and blurring.
 
-.. figure:: /images/risks/jitter.png
-  :width: 500px
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Impact**              | Reduced effective resolution, frame-to-frame tracking performance.                                 |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                             |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                        |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.otf.JitterPerturber`                                     |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/high_frequency_vibration`                                           |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/jitter.png
+    :width: 500px
 
-.. _target-out-of-focus:
+    mevadata.org
 
-Target Out of Focus
-^^^^^^^^^^^^^^^^^^^
+  .. _target-out-of-focus:
 
-Target is out of focus (due to sensor optics settings, rather than atmospheric / environmental issues.)
+  .. rubric:: Target Out of Focus
 
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Impact**              | Model may underperform in proportion to loss of resolution with respect to training data.          |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                             |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                        |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.otf.DefocusPerturber`                                    |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/defocus`                                                            |
-+-------------------------+----------------------------------------------------------------------------------------------------+
+  Target is out of focus (due to sensor optics settings, rather than atmospheric / environmental issues.)
 
-.. figure:: /images/risks/out-of-focus.png
-  :width: 250px
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Impact**              | Model may underperform in proportion to loss of resolution with respect to training data.          |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                             |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                        |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.otf.DefocusPerturber`                                    |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/defocus`                                                            |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/out-of-focus.png
+    :width: 250px
 
-.. _noise-and-resolution:
+    mevadata.org
 
-Sensor Noise
-^^^^^^^^^^^^
+  .. _noise-and-resolution:
 
-The sensor data exhibits noise as a result of poor lighting, high ISO settings, or overheating.
+  .. rubric:: Sensor Noise
 
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Impact**              | Model may underperform in proportion to density of noise in image data.                            |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                             |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                        |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.PybsmPerturber`                                          |
-+-------------------------+----------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/sensor_noise_resolution`                                            |
-+-------------------------+----------------------------------------------------------------------------------------------------+
+  The sensor data exhibits noise as a result of poor lighting, high ISO settings, or overheating.
 
-.. figure:: /images/risks/sensor_dark_current_sample.png
-  :width: 500px
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Impact**              | Model may underperform in proportion to density of noise in image data.                            |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                             |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                        |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.PybsmPerturber`                                          |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/sensor_noise_resolution`                                            |
+  +-------------------------+----------------------------------------------------------------------------------------------------+
 
-.. _turbulence:
+  .. figure:: /images/risks/sensor_dark_current_sample.png
+    :width: 500px
 
-Atmospheric Turbulence
-^^^^^^^^^^^^^^^^^^^^^^
+  .. _turbulence:
 
-Localized distortion due to atmospheric conditions.
+  .. rubric:: Atmospheric Turbulence
 
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Impact**              | Object detection or tracking may degrade.                                                                            |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Optic Path                                                                                                           |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea, UAV                                                                                                     |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.otf.TurbulenceAperturePerturber`                                           |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/atmospheric_turbulence`                                                               |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  Localized distortion due to atmospheric conditions.
 
-.. figure:: /images/risks/turbulence.gif
-  :width: 500px
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Impact**              | Object detection or tracking may degrade.                                                                            |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Optic Path                                                                                                           |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea, UAV                                                                                                     |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.otf.TurbulenceAperturePerturber`                                           |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/atmospheric_turbulence`                                                               |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
 
-  doers-brc@kitware.com
+  .. figure:: /images/risks/turbulence.gif
+    :width: 500px
 
-.. _radial-distortion:
+    doers-brc@kitware.com
 
-Radial Distortion / Fisheye Artifacts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  .. _radial-distortion:
 
-Wide-angle lenses cause distortion at the image periphery.
+  .. rubric:: Radial Distortion / Fisheye Artifacts
 
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Impact**              | Alters appearance and trajectory of objects.                                                                         |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                                               |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                                          |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.radial_distortion_perturber.RadialDistortionPerturber`                     |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
-| **Learn More**          | :doc:`operational_risk_modules/radial_distortion`                                                                    |
-+-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  Wide-angle lenses cause distortion at the image periphery.
 
-.. figure:: /images/risks/radio-distortion.png
-  :width: 500px
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Impact**              | Alters appearance and trajectory of objects.                                                                         |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                                               |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                                          |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **NRTK Perturbation**   | :class:`~nrtk.impls.perturb_image.optical.radial_distortion_perturber.RadialDistortionPerturber`                     |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
+  | **Learn More**          | :doc:`operational_risk_modules/radial_distortion`                                                                    |
+  +-------------------------+----------------------------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/radio-distortion.png
+    :width: 500px
 
-
-----
-
+    mevadata.org
 
 Data Integrity Risk Factors
 ---------------------------
 
-.. _metadata-incorrect:
+.. dropdown:: Compromises in accuracy, consistentency, or completeness of data
 
-Metadata Incorrect
-^^^^^^^^^^^^^^^^^^
+  .. _metadata-incorrect:
 
-Metadata stream is out of sync or contains incorrect values.
+  .. rubric:: Metadata Incorrect
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Algorithms may use incorrect models or misinterpret data.                                        |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Labeling / Operating input                                                                       |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | All                                                                                              |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Metadata stream is out of sync or contains incorrect values.
 
-No sample available.
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Algorithms may use incorrect models or misinterpret data.                                        |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Labeling / Operating input                                                                       |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | All                                                                                              |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-.. _burned-in-metadata:
+  No sample available.
 
-Burned-in Metadata
-^^^^^^^^^^^^^^^^^^
+  .. _burned-in-metadata:
 
-Metadata is overlaid directly on pixels instead of provided separately.
+  .. rubric:: Burned-in Metadata
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Obscures target pixels and confuses detection or stabilization algorithms.                       |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Sensor                                                                                           |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | All                                                                                              |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Metadata is overlaid directly on pixels instead of provided separately.
 
-.. figure:: /images/risks/metadata-burn.png
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Obscures target pixels and confuses detection or stabilization algorithms.                       |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Sensor                                                                                           |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | All                                                                                              |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  Example UAV frame from FFMPEG project
+  .. figure:: /images/risks/metadata-burn.png
+    :width: 500px
 
-.. _video-codec-artifacts:
+    Example UAV frame from FFMPEG project
 
-Video Codec Artifacts
-^^^^^^^^^^^^^^^^^^^^^
+  .. _video-codec-artifacts:
 
-Compression errors from overloaded camera processors or poor settings.
+  .. rubric:: Video Codec Artifacts
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Visual glitches such as smearing or pixel corruption.                                            |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Inter-frame                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea, UAV                                                                                 |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Compression errors from overloaded camera processors or poor settings.
 
-.. figure:: /images/risks/video-artifacts.gif
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Visual glitches such as smearing or pixel corruption.                                            |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Inter-frame                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea, UAV                                                                                 |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/video-artifacts.gif
+    :width: 500px
 
-.. _video-feed-failures:
+    mevadata.org
 
-Video Feed Failures
-^^^^^^^^^^^^^^^^^^^
+  .. _video-feed-failures:
 
-Hardware or transmission issues interrupt video feed.
+  .. rubric:: Video Feed Failures
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Causes disruption of object tracking or pipeline shutdown.                                       |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Inter-frame                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea, UAV                                                                                 |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Hardware or transmission issues interrupt video feed.
 
-.. figure:: /images/risks/overheat.jpg
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Causes disruption of object tracking or pipeline shutdown.                                       |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Inter-frame                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea, UAV                                                                                 |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  Camera overheating, doers-brc@kitware.com
+  .. figure:: /images/risks/overheat.jpg
+    :width: 500px
 
-.. _unstable-frame-rates:
+    Camera overheating, doers-brc@kitware.com
 
-Unstable Frame Rates
-^^^^^^^^^^^^^^^^^^^^
+  .. _unstable-frame-rates:
 
-Feed is encoded at inconsistent rates, often due to overload.
+  .. rubric:: Unstable Frame Rates
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | May drop or duplicate frames, confusing motion-based algorithms.                                 |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Inter-frame                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea, UAV                                                                                 |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Feed is encoded at inconsistent rates, often due to overload.
 
-.. figure:: /images/risks/frame-rate.gif
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | May drop or duplicate frames, confusing motion-based algorithms.                                 |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Inter-frame                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea, UAV                                                                                 |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/frame-rate.gif
+    :width: 500px
 
-.. _shot-boundary:
+    mevadata.org
 
-Shot Boundary
-^^^^^^^^^^^^^
+  .. _shot-boundary:
 
-Sudden camera motion creates a new view, invalidating prior context.
+  .. rubric:: Shot Boundary
 
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Impact**              | Detectors and trackers need to restart.                                                          |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Root Cause**          | Inter-frame                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
-| **Affected Domains**    | Ground, Sea                                                                                      |
-+-------------------------+--------------------------------------------------------------------------------------------------+
+  Sudden camera motion creates a new view, invalidating prior context.
 
-.. figure:: /images/risks/shot-boundary.gif
-  :width: 500px
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Impact**              | Detectors and trackers need to restart.                                                          |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Root Cause**          | Inter-frame                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
+  | **Affected Domains**    | Ground, Sea                                                                                      |
+  +-------------------------+--------------------------------------------------------------------------------------------------+
 
-  mevadata.org
+  .. figure:: /images/risks/shot-boundary.gif
+    :width: 500px
+
+    mevadata.org
+
+.. toctree::
+   :hidden:
+
+   Extreme (Low / High) Illumination <operational_risk_modules/extreme_illumination>
+   Mist / Fog / Snow <operational_risk_modules/haze>
+   Water Droplets on Lens <operational_risk_modules/water_droplets>
+   High-Frequency Vibration <operational_risk_modules/high_frequency_vibration>
+   Target Out of Focus <operational_risk_modules/defocus>
+   Sensor Noise <operational_risk_modules/sensor_noise_resolution>
+   Atmospheric Turbulence <operational_risk_modules/atmospheric_turbulence>
+   Radial Distortion / Fisheye Artifacts <operational_risk_modules/radial_distortion>

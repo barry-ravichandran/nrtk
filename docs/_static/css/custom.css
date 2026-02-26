@@ -3,6 +3,73 @@
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
+/* ============================================
+ * NRTK Brand Color Theme Overrides
+ * Brand colors: Dark green #00843f, Bright green #3caf49
+ * Overrides PyData Sphinx Theme defaults to use NRTK brand palette.
+ * ============================================ */
+
+/* Light mode overrides */
+html[data-theme="light"] {
+    --pst-color-primary: #00843f;
+    --pst-color-primary-text: #ffffff;
+    --pst-color-primary-highlight: #007036;
+    --pst-color-primary-highlight-text: #ffffff;
+    --pst-color-primary-bg: #e6f3ec;
+
+    /* Override secondary (used for link hover) to remove purple */
+    --pst-color-secondary: #007036;
+    --pst-color-secondary-text: #ffffff;
+    --pst-color-secondary-highlight: #005c2c;
+    --pst-color-secondary-highlight-text: #ffffff;
+    --pst-color-secondary-bg: #edf5f0;
+
+    /* Override purple table row hover */
+    --pst-color-table-row-hover-bg: #d0e8d8;
+
+    /* Override teal inline-code-links to use green brand */
+    --pst-color-inline-code-links: #00843f;
+}
+
+/* Dark mode overrides */
+html[data-theme="dark"] {
+    --pst-color-primary: #3caf49;
+    --pst-color-primary-text: #14181e;
+    --pst-color-primary-highlight: #47b852;
+    --pst-color-primary-highlight-text: #14181e;
+    --pst-color-primary-bg: #1a2e1a;
+
+    /* Override secondary (used for link hover) to remove purple */
+    --pst-color-secondary: #47b852;
+    --pst-color-secondary-text: #14181e;
+    --pst-color-secondary-highlight: #3caf49;
+    --pst-color-secondary-highlight-text: #14181e;
+    --pst-color-secondary-bg: #1a3a1a;
+
+    /* Override purple table row hover */
+    --pst-color-table-row-hover-bg: #2a4d25;
+
+    /* Improve admonition title contrast — defaults are too dark against card bg */
+    --pst-color-info-bg: #1a3a6b;
+    --pst-color-success-bg: #1e5c30;
+    --pst-color-warning-bg: #5c3a10;
+    --pst-color-danger-bg: #5a1a25;
+
+    /* Override teal inline-code-links to use green brand */
+    --pst-color-inline-code-links: #3caf49;
+}
+
+/* Admonition title — extend background to full card width.
+ * The theme's ::before pseudo-element is repurposed to carry the
+ * background color wider than the title's own box. The container's
+ * overflow: hidden clips the excess. */
+.admonition > .admonition-title::before,
+div.admonition > .admonition-title::before {
+    background-color: inherit;
+    left: -1rem;
+    width: calc(100% + 2rem);
+}
+
 /* Quickstart Page Styles */
 .sd-card-title {
     font-size: 1.25rem !important;
@@ -21,6 +88,24 @@
 
 .sd-col > .sd-card {
     flex: 1 !important;
+}
+
+/* Right-align buttons within card footers */
+.sd-card-footer {
+    text-align: right;
+}
+
+/* Back-to-top button — outline style matching card buttons */
+#pst-back-to-top {
+    background-color: transparent;
+    border: 2px solid var(--pst-color-primary);
+    color: var(--pst-color-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#pst-back-to-top:hover {
+    background-color: var(--pst-color-primary);
+    color: var(--pst-color-primary-text);
 }
 
 /* Explore More section */
@@ -50,7 +135,7 @@
 }
 
 .nrtk-quickstart-button {
-    background: #2980b9;
+    background: #00843f;
     padding: 16px 32px;
     border-radius: 8px;
     display: inline-block;
@@ -61,7 +146,7 @@
 }
 
 .nrtk-quickstart-button:hover {
-    background: #2472a4;
+    background: #007036;
     text-decoration: none;
 }
 
@@ -77,7 +162,7 @@
 }
 
 .severity-btn.active {
-    background-color: #2980b9 !important;
+    background-color: #00843f !important;
     color: white !important; /* make text readable */
     box-shadow: 0 0 5px #000;
     border: none !important;
@@ -115,6 +200,79 @@ h5:hover .headerlink,
 h6:hover .headerlink {
     opacity: 1;
 }
+
+/* Rubric permalink anchors — custom class avoids Sphinx/theme CSS on
+ * .headerlink (basic.css visibility:hidden, pydata theme sizing) that
+ * causes layout issues inside sphinx-design dropdown cards.
+ */
+.rubric-permalink {
+    color: var(--pst-color-secondary);
+    font-size: 0.8em;
+    margin-left: 0.2em;
+    padding: 0 4px;
+    text-decoration: none;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.rubric:hover .rubric-permalink {
+    opacity: 1;
+}
+
+/* Dropdown whitespace fix - when collapsed, the pydata theme's box-shadow
+ * and background on <details> creates a visible card area below the summary.
+ * Fix: strip visual styling from the <details> wrapper and move it onto
+ * the <summary> instead, so nothing renders below the clickable header.
+ */
+details.sd-dropdown:not([open]) {
+    box-shadow: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+details.sd-dropdown:not([open]) > summary.sd-card-header {
+    box-shadow: 0 .2rem .5rem var(--pst-color-shadow), 0 0 .0625rem var(--pst-color-shadow);
+    border-radius: .25rem;
+}
+
+/* Tighten spacing between risk-factor and perturber-dependency
+ * category sections. Targets: heading top margin, dropdown bottom
+ * margin, section gaps, and hidden toctree-wrapper divs.
+ */
+section[id$="-risk-factors"],
+section[id$="-perturbers"] {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+section[id$="-risk-factors"] > h2,
+section[id$="-perturbers"] > h3 {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.4rem !important;
+}
+
+section[id$="-risk-factors"] > .toctree-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+details.sd-dropdown.sd-mb-3 {
+    margin-bottom: 0 !important;
+    min-height: 3em !important;
+}
+
+/* Rubric headings inside dropdowns - style as sub-headings */
+details.sd-dropdown .rubric {
+    font-size: 1.15em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.3rem;
+}
+
 
 /* Navbar logo size */
 .navbar-brand img {
@@ -173,7 +331,7 @@ header form.bd-search:not(#pst-search-dialog form.bd-search) {
         bottom: 0;
         width: 6px;
         cursor: col-resize;
-        background: rgba(41, 128, 185, 0.2);
+        background: rgba(0, 132, 63, 0.2);
         z-index: 1100;
         transition: all 0.2s ease;
         pointer-events: auto;
@@ -182,7 +340,7 @@ header form.bd-search:not(#pst-search-dialog form.bd-search) {
     .sidebar-resize-handle:hover,
     .sidebar-resize-handle.resizing {
         width: 8px;
-        background: rgba(41, 128, 185, 0.5);
+        background: rgba(0, 132, 63, 0.5);
     }
 }
 

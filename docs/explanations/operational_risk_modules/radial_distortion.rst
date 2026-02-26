@@ -13,7 +13,7 @@ the edges experience more distortion than those at the center, creating position
 variations that models may not generalize to. This is particularly relevant for systems
 using wide-angle cameras for an increased field of view.
 
-NRTK's RadialDistortionPerturber applies configurable radial distortion using a polynomial
+NRTK's ``RadialDistortionPerturber`` applies configurable radial distortion using a polynomial
 model with three coefficients. This provides an efficient way to test model robustness to
 lens distortion effects across a range of severities and distortion types during T&E.
 

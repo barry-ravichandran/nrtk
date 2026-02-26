@@ -13,7 +13,7 @@ shift: the pixel statistics of the scene change in ways the model has not learne
 generalize to. This makes the risk both frequent in real operations and highly impactful
 to performance.
 
-NRTK's HazePerturber approximates this risk by reducing contrast and introducing
+NRTK's ``HazePerturber`` approximates this risk by reducing contrast and introducing
 scattering-like effects guided by a depth map and estimated sky color. This does not
 attempt full atmospheric physics, but it provides an efficient way to probe model
 sensitivity to visibility loss during early-stage robustness screening.
@@ -79,4 +79,4 @@ Limitations and Next Steps
   and recommended parameter sweeps, see the
   :doc:`HazePerturber T&E guide </examples/maite/nrtk_haze_perturber_demo>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`extreme-illumination`, :ref:`lens-water-droplet`
+* Related Risks: :ref:`Extreme Illumination <extreme-illumination>`, :ref:`Water Droplets on Lens <lens-water-droplet>`

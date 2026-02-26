@@ -1,8 +1,8 @@
 Where to Go Next
 ================
 
-You've installed NRTK, applied your first perturbation, and seen a full end-to-end workflow.
-Here's where to go depending on what you want to do next.
+You've installed NRTK, applied a basic perturbation, and simulated your first operational risk.
+Here's where to go, depending on what you want to do next:
 
 🔍 Browse by Topic
 -------------------
@@ -28,17 +28,17 @@ Here's where to go depending on what you want to do next.
 
       Jump straight to task-based recipes for specific workflows.
 
-   .. grid-item-card:: 📚 Reference
-      :link: /reference/index
-      :link-type: doc
-
-      Look up perturber APIs, configuration schemas, and implementation details.
-
    .. grid-item-card:: 🗺️ Operational Risk Matrix
       :link: /explanations/risk_factors
       :link-type: doc
 
       Find which perturbations map to your mission environment and operational conditions.
+
+   .. grid-item-card:: 📚 Reference
+      :link: /reference/index
+      :link-type: doc
+
+      Look up perturber APIs, utility tools, and implementation details.
 
    .. grid-item-card:: ✅ Validation & Trust
       :link: /validation_and_trust

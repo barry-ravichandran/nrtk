@@ -13,7 +13,7 @@ domain shift: the scene's pixel intensity distribution changes in ways the model
 not learned to generalize to. This makes the risk both frequent in real operations (dawn,
 dusk, bright midday) and highly impactful to detection and classification performance.
 
-NRTK's BrightnessPerturber simulates this risk by uniformly adjusting image brightness
+NRTK's ``BrightnessPerturber`` simulates this risk by uniformly adjusting image brightness
 to approximate extreme lighting conditions. While this does not model full radiometric
 effects, it provides an efficient way to probe model sensitivity to illumination variations
 during early-stage robustness screening.
@@ -105,4 +105,4 @@ Limitations and Next Steps
   datasets, and recommended parameter sweeps, see the
   :doc:`BrightnessPerturber T&E guide </examples/maite/nrtk_brightness_perturber_demo>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`shadows`, :ref:`night-mode`
+* Related Risks: :ref:`Shadows <shadows>`, :ref:`Night Mode <night-mode>`

@@ -14,7 +14,7 @@ handle. The degradation depends on viewing geometry, atmospheric conditions, and
 making it highly variable across operational scenarios. This variability makes turbulence a
 critical friction to assess during robustness testing.
 
-NRTK's TurbulenceAperturePerturber models these effects using physics-based simulation
+NRTK's ``TurbulenceAperturePerturber`` models these effects using physics-based simulation
 that accounts for turbulence strength, wind speed, and viewing geometry. While it does not
 capture all aspects of real turbulence (such as anisoplanatic effects), it provides an efficient
 means to probe model sensitivity to atmospheric degradation during early-stage robustness
@@ -107,4 +107,6 @@ Limitations and Next Steps
 * Requires ``img_gsd`` parameter when calling ``perturb()`` to properly scale effects.
 * Requires optional dependencies: install via ``pip install nrtk[pybsm]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`target-out-of-focus`, :ref:`noise-and-resolution`, :ref:`high-frequency-vibration`
+* Related Risks: :ref:`Target Out of Focus <target-out-of-focus>`,
+  :ref:`Sensor Noise <noise-and-resolution>`,
+  :ref:`High-Frequency Vibration <high-frequency-vibration>`.

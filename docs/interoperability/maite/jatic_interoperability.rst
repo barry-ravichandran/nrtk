@@ -1,7 +1,7 @@
 .. _Interoperability:
 
 ======================
-JATIC Interoperability
+MAITE Interoperability
 ======================
 
 Why Interoperability Matters

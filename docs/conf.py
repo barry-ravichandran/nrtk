@@ -20,6 +20,7 @@ from pathlib import Path
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, str(Path(__file__).parent.parent.absolute()))
+sys.path.insert(0, str(Path(__file__).parent / "_ext"))
 import nrtk
 
 # -- Project information -----------------------------------------------------
@@ -64,9 +65,26 @@ else:
         # Git not available or not in a repo - use release version
         switcher_version = release
 
+# -- Contextual date label for landing page ----------------------------------
+# Provide a contextual label for the build date shown on the landing page.
+# Sphinx's |today| already shows the build date for each specific version.
+if rtd_version == "latest":
+    date_label = "Latest Build"
+elif rtd_version == "stable":
+    date_label = "Stable Release"
+elif rtd_version:
+    date_label = f"{rtd_version} Docs Built"
+else:
+    date_label = "Date"
+
+rst_prolog = f"""
+.. |date_label| replace:: **{date_label}**
+"""
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+today_fmt = "%B %d, %Y"  # e.g., "February 11, 2026"
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -80,6 +98,20 @@ extensions = [
     "sphinxcontrib.jquery",
     "sphinx_datatables",
     "myst_nb",
+    "rubric_headerlinks",
+    "selective_prev_next",
+]
+copybutton_prompt_text = r"\$ "
+copybutton_prompt_is_regexp = True
+
+# Pages that display prev/next navigation links (selective_prev_next extension).
+# Order determines the prev/next sequence; all other pages have no prev/next.
+prev_next_flow_pages = [
+    "index",
+    "getting_started/quickstart",
+    "getting_started/installation",
+    "getting_started/first_perturbation",
+    "getting_started/where_to_go_next",
 ]
 
 suppress_warnings = [
@@ -106,6 +138,7 @@ exclude_patterns = [
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "pydata_sphinx_theme"
+html_favicon = "_static/favicon.ico"
 
 # -- PyData Sphinx Theme configuration ---------------------------------------
 html_theme_options = {

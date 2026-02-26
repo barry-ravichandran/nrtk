@@ -9,6 +9,6 @@ and release updates to the toolkit.
    :maxdepth: 1
 
    contributing
+   live_doc_preview
    release_process
-   creating_public_release_request
    style_sheet

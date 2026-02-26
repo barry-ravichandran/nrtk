@@ -14,7 +14,7 @@ irregular distortion patterns in unpredictable locations, which can confuse both
 and recognition algorithms. This risk is therefore particularly relevant for real-world deployments
 where weather conditions cannot be controlled.
 
-NRTK's WaterDropletPerturber simulates this risk using physics-based modeling to create
+NRTK's ``WaterDropletPerturber`` simulates this risk using physics-based modeling to create
 realistic refraction and blur effects. The perturbation accounts for droplet size, position,
 and optical properties to generate operationally representative test conditions for robustness
 screening.
@@ -120,4 +120,4 @@ Limitations and Next Steps
   temporal consistency across video frames (suitable for static image robustness testing).
 * Requires optional dependencies: install via ``pip install nrtk[waterdroplet]``.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
-* Related Risks: :ref:`lens-contamination`, :ref:`mist-fog-snow`
+* Related Risks: :ref:`Dirt / Specularities on Lens <lens-contamination>`, :ref:`Mist / Fog / Snow <mist-fog-snow>`

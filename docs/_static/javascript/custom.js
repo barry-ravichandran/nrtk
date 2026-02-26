@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
           resetLink.id = 'reset-filters-link';
           resetLink.textContent = 'Reset';
           resetLink.style.display = 'none'; // hidden by default
-          resetLink.style.color = '#007bff';
+          resetLink.style.color = 'var(--pst-color-primary)';
           resetLink.style.textDecoration = 'underline';
           resetLink.style.cursor = 'pointer';
           resetLink.style.fontSize = '0.9em';
@@ -281,4 +281,27 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem('sidebarWidth', currentWidth);
     }
   });
+});
+
+
+// ============================================
+// Auto-expand collapsed section when linked
+// ============================================
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.location.hash) return;
+
+  const target = document.querySelector(window.location.hash);
+  if (!target) return;
+
+  // Find containing <details>
+  const details = target.closest("details.sd-dropdown");
+  if (!details) return;
+
+  // Open it
+  details.open = true;
+
+  // Re-scroll after opening (important!)
+  setTimeout(() => {
+    target.scrollIntoView({ behavior: "auto", block: "start" });
+  }, 100);
 });

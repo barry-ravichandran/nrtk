@@ -26,7 +26,9 @@ directory, save perturbed images to
 ``/output/data/result/``, and load a config file named ``nrtk_config.json``. The ``dataset`` directory
 and ``nrtk_config.json`` file must be in the directory mounted to ``/input/``.
 
-Note: Ensure the ``output`` directory is writtable by non-root users.
+.. note::
+
+   Ensure the ``output`` directory is writable by non-root users.
 
 Input Arguments
 ---------------
@@ -57,9 +59,11 @@ the user can use the following flags:
 
 Command line options take precendence over environment variables if both are provided.
 
-Note: The values for ``dataset_dir`` and ``config_file`` should be written from the
-perspective of the container (i.e. ``/path/on/container/dataset_dir/`` instead of
-``/path/on/local/machine/dataset_dir/``)
+.. note::
+
+   The values for ``dataset_dir`` and ``config_file`` should be written from the
+   perspective of the container (i.e. ``/path/on/container/dataset_dir/`` instead of
+   ``/path/on/local/machine/dataset_dir/``)
 
 Error Codes
 -----------

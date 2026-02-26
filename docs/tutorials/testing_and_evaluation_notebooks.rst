@@ -18,92 +18,190 @@ as an evaluation harness.
 Photometric Risks
 -----------------
 
-Demonstrating Extreme Illumination Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Perturbations that alter pixel intensity, color balance, or lighting conditions.
 
-Simulate brightness changes and evaluate model responses under lighting variability.
-:doc:`View notebook </examples/maite/nrtk_brightness_perturber_demo>`.
+.. grid:: 1 2 2 2
+   :gutter: 3
+   :padding: 2 2 0 0
 
-Demonstrating Lens Flare Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. grid-item-card:: :material-regular:`light_mode` Extreme Illumination
+      :class-card: sd-border-1
 
-Simulate a lens flare effect on an image and analyze its average and worst case effects on model precision.
-:doc:`View notebook </examples/maite/nrtk_lens_flare_demo>`.
+      Simulate brightness changes and evaluate model responses under lighting variability.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_brightness_perturber_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
+
+   .. grid-item-card:: :material-regular:`auto_awesome` Lens Flare
+      :class-card: sd-border-1
+
+      Simulate a lens flare effect on an image and analyze its average and worst case effects on model precision.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_lens_flare_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
 
 ----
 
 
 Geometric Risks
-----------------
+---------------
 
-Demonstrating Affine Transformations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Perturbations that change spatial layout through rotation, scaling, or translation.
 
-Explore how affine transformations affect model inputs and predictions.
-:doc:`View notebook </examples/maite/nrtk_affine_perturbers_demo>`.
+.. grid:: 1 2 2 2
+   :gutter: 3
+   :padding: 2 2 0 0
+
+   .. grid-item-card:: :material-regular:`crop_rotate` Affine Transformations
+      :class-card: sd-border-1
+
+      Explore how affine transformations affect model inputs and predictions.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_affine_perturbers_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
 
 ----
 
 
 Environment Risks
-------------------
+-----------------
 
-Demonstrating Fog or Haze Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Perturbations that replicate weather and atmospheric visibility conditions.
 
-Evaluate model robustness under haze-like visibility conditions using synthetic perturbations.
-:doc:`View notebook </examples/maite/nrtk_haze_perturber_demo>`.
+.. grid:: 1 2 2 2
+   :gutter: 3
+   :padding: 2 2 0 0
 
-Demonstrating Rain/Water Droplet Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. grid-item-card:: :material-regular:`cloud` Fog / Haze
+      :class-card: sd-border-1
 
-Simulate a rain/water droplet effect and analyze its impact on model inputs and predictions.
-:doc:`View notebook </examples/maite/nrtk_water_droplet_perturber_demo>`.
+      Evaluate model robustness under haze-like visibility conditions using synthetic perturbations.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_haze_perturber_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
+
+   .. grid-item-card:: :material-regular:`water_drop` Rain / Water Droplets
+      :class-card: sd-border-1
+
+      Simulate a rain/water droplet effect and analyze its impact on model inputs and predictions.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_water_droplet_perturber_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
 
 ----
 
 
 Optical Risks
---------------
+-------------
 
-Demonstrating Visual Focus Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
-Apply blur and focus distortions to test performance degradation from defocus.
-:doc:`View notebook </examples/maite/nrtk_focus_perturber_demo>`.
+.. grid:: 1 2 2 2
+   :gutter: 3
+   :padding: 2 2 0 0
 
-Demonstrating Resolution and Noise Transformations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. grid-item-card:: :material-regular:`center_focus_weak` Visual Focus
+      :class-card: sd-border-1
 
-Explore how camera-specific transformations affect model inputs and predictions.
-:doc:`View notebook </examples/maite/nrtk_sensor_transformation_demo>`.
+      Apply blur and focus distortions to test performance degradation from defocus.
 
-Demonstrating Affine Transformations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      +++
 
-Explore how affine transformations affect model inputs and predictions.
-:doc:`View notebook </examples/maite/nrtk_affine_perturbers_demo>`.
+      .. button-ref:: /examples/maite/nrtk_focus_perturber_demo
+         :color: primary
+         :outline:
 
-Demonstrating Motion Jitter Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         Open Notebook →
 
-Simulate camera motion jitter and assess its impact on image quality and model inference.
-:doc:`View notebook </examples/maite/nrtk_jitter_perturber_demo>`.
+   .. grid-item-card:: :material-regular:`photo_camera` Resolution & Noise
+      :class-card: sd-border-1
 
-Demonstrating Atmospheric Turbulence Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      Explore how camera-specific transformations affect model inputs and predictions.
 
-Simulate atmospheric distortion effects and assess its impact on image quality and model inference.
-:doc:`View notebook </examples/maite/nrtk_turbulence_perturber_demo>`.
+      +++
 
-Demonstrating Radial Distortion Perturbations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      .. button-ref:: /examples/maite/nrtk_sensor_transformation_demo
+         :color: primary
+         :outline:
 
-Simulate a radial distortion effect and analyze its impact on model inputs and predictions.
-:doc:`View notebook </examples/maite/nrtk_radial_distortion_perturber_demo>`.
+         Open Notebook →
 
-Combining Perturbations with Saliency Maps
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. grid-item-card:: :material-regular:`vibration` Motion Jitter
+      :class-card: sd-border-1
 
-Integrate NRTK perturbations with saliency map generation to visualize how image changes affect model interpretation.
-:doc:`View notebook </examples/maite/jatic-perturbations-saliency>`.
+      Simulate camera motion jitter and assess its impact on image quality and model inference.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_jitter_perturber_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
+
+   .. grid-item-card:: :material-regular:`waves` Atmospheric Turbulence
+      :class-card: sd-border-1
+
+      Simulate atmospheric distortion effects and assess its impact on image quality and model inference.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_turbulence_perturber_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
+
+   .. grid-item-card:: :material-regular:`lens_blur` Radial Distortion
+      :class-card: sd-border-1
+
+      Simulate a radial distortion effect and analyze its impact on model inputs and predictions.
+
+      +++
+
+      .. button-ref:: /examples/maite/nrtk_radial_distortion_perturber_demo
+         :color: primary
+         :outline:
+
+         Open Notebook →
+
+----
+
+.. toctree::
+   :hidden:
+
+   /examples/maite/nrtk_brightness_perturber_demo
+   /examples/maite/nrtk_lens_flare_demo
+   /examples/maite/nrtk_affine_perturbers_demo
+   /examples/maite/nrtk_haze_perturber_demo
+   /examples/maite/nrtk_water_droplet_perturber_demo
+   /examples/maite/nrtk_focus_perturber_demo
+   /examples/maite/nrtk_sensor_transformation_demo
+   /examples/maite/nrtk_jitter_perturber_demo
+   /examples/maite/nrtk_turbulence_perturber_demo
+   /examples/maite/nrtk_radial_distortion_perturber_demo
