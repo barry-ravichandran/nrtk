@@ -39,7 +39,7 @@ Example: Jitter Perturbation
 
     pip install nrtk[pybsm]
 
-  Or visit :doc:`Advanced Installation <installation>` for detailed instructions.
+  See :doc:`Installation <installation>` for alternatives.
 
 The following example loads an image, applies a jitter perturbation, and saves
 the result:
