@@ -140,7 +140,8 @@ Validation Evidence
   of pyBSM-based ground range simulation against real-world ground range
 * Community feedback on perturbation realism is limited but growing
 
-We track these in our GitHub Issues and prioritize based on community feedback and DoD use-case requirements.
+We track these in our `GitHub Issues <https://github.com/Kitware/nrtk/issues>`_ and prioritize based on
+community feedback and DoD use-case requirements.
 
 Validation Roadmap
 ==================
@@ -148,21 +149,21 @@ Validation Roadmap
 Embedding-space validation evaluates whether perturbations produce monotonic, stable, and interpretable
 changes in model representations.
 
-Nov'25 (Ongoing)
------------------
+Initiated Nov'25 (Ongoing)
+--------------------------
 
 * ⚙️ Quantify perturbation effects in embedding space for photometric, geometric, and optical modules using
   standard baseline models
 
-Mar'26 (Planned)
------------------
+Planned for Mar'26
+------------------
 
 * 📋 Compare optical-perturbation outputs against real degraded imagery with known atmospheric and sensor
   parameters — detection of individuals in long-range video with comparative analysis of pyBSM ground
   range vs real-world ground range
 
-Q1'26
-------
+Q1'26 (Dissemination & Reporting)
+---------------------------------
 
 * ⚙️ NAML'26 and MSS Parallel'26 conference presentations (March 2026)
 * ⚙️ *Improving AI Test and Evaluation via Semantic Gap Detection and Generative Augmentation*
@@ -180,7 +181,8 @@ etc.), contact us at nrtk@kitware.com. This information directly improves our va
 Found unexpected behavior?
 --------------------------
 
-Report it in GitHub Issues with details about your use case. User feedback is a critical validation input.
+Report it in `GitHub Issues <https://github.com/Kitware/nrtk/issues>`_ with details about your use case.
+User feedback is a critical validation input.
 
 Using NRTK in your T&E workflow?
 --------------------------------
