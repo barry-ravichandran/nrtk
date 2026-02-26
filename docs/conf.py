@@ -99,6 +99,17 @@ extensions = [
     "sphinx_datatables",
     "myst_nb",
     "rubric_headerlinks",
+    "selective_prev_next",
+]
+
+# Pages that display prev/next navigation links (selective_prev_next extension).
+# Order determines the prev/next sequence; all other pages have no prev/next.
+prev_next_flow_pages = [
+    "index",
+    "getting_started/quickstart",
+    "getting_started/installation",
+    "getting_started/first_perturbation",
+    "getting_started/where_to_go_next",
 ]
 
 suppress_warnings = [
