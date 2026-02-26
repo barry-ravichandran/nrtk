@@ -8,7 +8,7 @@ Installation
   **Not all perturbers are available with the base PyPI install** — many require optional
   third-party libraries such as pyBSM, OpenCV, or Pillow. With PyPI, you can
   selectively install only the extras that your workflow requires (see the
-  :ref:`perturber-dependencies` table below). The conda-forge package includes all
+  :ref:`perturber-requirements` table below). The conda-forge package includes all
   optional dependencies by default.
 
 .. note::
@@ -21,7 +21,7 @@ Installing nrtk
 ---------------
 
 .. seealso::
-  See :ref:`perturber-dependencies` below for the full list of optional extras
+  See :ref:`perturber-requirements` below for the full list of optional extras
   and which perturbers they enable.
 
 .. tab-set::
@@ -145,9 +145,9 @@ Installing nrtk
       Developers looking to contribute to NRTK should check out our
       `additional development resources </development>`_.
 
-.. _perturber-dependencies:
+.. _perturber-requirements:
 
-Perturber Dependencies
+Perturber Requirements
 ----------------------
 The following table lists each perturber and the extras required to use them. Install any
 combination of extras as needed for your use case (e.g., ``pip install nrtk[pybsm,headless]``).
@@ -162,185 +162,195 @@ Photometric Perturbers
 ^^^^^^^^^^^^^^^^^^^^^^
 .. dropdown:: Modify visual appearance (color, brightness, blur, noise)
 
-  .. list-table:: Perturber Dependencies
-      :widths: 45 25 30
+  .. list-table::
+      :widths: 45 20 25 30
       :header-rows: 1
 
       * - Perturber
+        - Required Inputs
         - Extra(s) Required
         - Key Dependencies Provided by Extra(s)
       * - :class:`~nrtk.impls.perturb_image.photometric.blur.AverageBlurPerturber`
+        - Image (RGB, Grayscale)
         - ``graphics`` or ``headless``
         - ``OpenCV``
       * - :class:`~nrtk.impls.perturb_image.photometric.enhance.BrightnessPerturber`
+        - Image (RGB, Grayscale)
         - ``pillow``
         - ``Pillow``
       * - :class:`~nrtk.impls.perturb_image.photometric.enhance.ColorPerturber`
+        - Image (RGB)
         - ``pillow``
         - ``Pillow``
       * - :class:`~nrtk.impls.perturb_image.photometric.enhance.ContrastPerturber`
+        - Image (RGB, Grayscale)
         - ``pillow``
         - ``Pillow``
       * - :class:`~nrtk.impls.perturb_image.photometric.blur.GaussianBlurPerturber`
+        - Image (RGB, Grayscale)
         - ``graphics`` or ``headless``
         - ``OpenCV``
       * - :class:`~nrtk.impls.perturb_image.photometric.noise.GaussianNoisePerturber`
+        - Image (RGB, Grayscale)
         - ``skimage``
         - ``scikit-image``
       * - :class:`~nrtk.impls.perturb_image.photometric.blur.MedianBlurPerturber`
+        - Image (RGB, Grayscale)
         - ``graphics`` or ``headless``
         - ``OpenCV``
       * - :class:`~nrtk.impls.perturb_image.photometric.noise.PepperNoisePerturber`
+        - Image (RGB, Grayscale)
         - ``skimage``
         - ``scikit-image``
       * - :class:`~nrtk.impls.perturb_image.photometric.noise.SaltAndPepperNoisePerturber`
+        - Image (RGB, Grayscale)
         - ``skimage``
         - ``scikit-image``
       * - :class:`~nrtk.impls.perturb_image.photometric.noise.SaltNoisePerturber`
+        - Image (RGB, Grayscale)
         - ``skimage``
         - ``scikit-image``
       * - :class:`~nrtk.impls.perturb_image.photometric.enhance.SharpnessPerturber`
+        - Image (RGB, Grayscale)
         - ``pillow``
         - ``Pillow``
       * - :class:`~nrtk.impls.perturb_image.photometric.noise.SpeckleNoisePerturber`
+        - Image (RGB, Grayscale)
         - ``skimage``
         - ``scikit-image``
-
-  .. seealso::
-    For input requirements, see the
-    :doc:`photometric perturber reference </reference/perturber_reference/photometric>`.
 
 Geometric Perturbers
 ^^^^^^^^^^^^^^^^^^^^
 .. dropdown:: Alter spatial positioning (rotation, scaling, cropping, translation)
 
-  .. list-table:: Perturber Dependencies
-      :widths: 45 25 30
+  .. list-table::
+      :widths: 45 20 25 30
       :header-rows: 1
 
       * - Perturber
+        - Required Inputs
         - Extra(s) Required
         - Key Dependencies Provided by Extra(s)
       * - :class:`~nrtk.impls.perturb_image.geometric.random.RandomCropPerturber`
+        - Image (RGB, Grayscale)
         - ---
         - ---
       * - :class:`~nrtk.impls.perturb_image.geometric.random.RandomRotationPerturber`
+        - Image (RGB, Grayscale)
         - ``albumentations``, and (``graphics`` or ``headless``)
         - ``nrtk-albumentations``, ``OpenCV``
       * - :class:`~nrtk.impls.perturb_image.geometric.random.RandomScalePerturber`
+        - Image (RGB, Grayscale)
         - ``albumentations``, and (``graphics`` or ``headless``)
         - ``nrtk-albumentations``, ``OpenCV``
       * - :class:`~nrtk.impls.perturb_image.geometric.random.RandomTranslationPerturber`
+        - Image (RGB, Grayscale)
         - ---
         - ---
-
-  .. seealso::
-    For input requirements, see the
-    :doc:`geometric perturber reference </reference/perturber_reference/geometric>`.
 
 Environment Perturbers
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. dropdown:: Simulate atmospheric effects (haze, water droplets)
 
-  .. list-table:: Perturber Dependencies
-      :widths: 45 25 30
+  .. list-table::
+      :widths: 45 20 25 30
       :header-rows: 1
 
       * - Perturber
+        - Required Inputs
         - Extra(s) Required
         - Key Dependencies Provided by Extra(s)
       * - :class:`~nrtk.impls.perturb_image.environment.HazePerturber`
+        - Image (RGB, Grayscale)
         - ---
         - ---
       * - :class:`~nrtk.impls.perturb_image.environment.WaterDropletPerturber`
+        - Image (RGB, Grayscale)
         - ``waterdroplet``
         - ``scipy``, ``numba``
-
-  .. seealso::
-    For input requirements, see the
-    :doc:`environment perturber reference </reference/perturber_reference/environment>`.
 
 Optical Perturbers
 ^^^^^^^^^^^^^^^^^^
 
 .. dropdown:: Model physics-based sensor and optical phenomena
 
-  .. list-table:: Perturber Dependencies
-      :widths: 45 25 30
+  .. list-table::
+      :widths: 45 20 25 30
       :header-rows: 1
 
       * - Perturber
+        - Required Inputs
         - Extra(s) Required
         - Key Dependencies Provided by Extra(s)
       * - :class:`~nrtk.impls.perturb_image.optical.otf.CircularAperturePerturber`
+        - Image (RGB, Grayscale)
         - ``pybsm``
         - ``pyBSM``
       * - :class:`~nrtk.impls.perturb_image.optical.otf.DefocusPerturber`
+        - Image (RGB, Grayscale)
         - ``pybsm``
         - ``pyBSM``
       * - :class:`~nrtk.impls.perturb_image.optical.otf.DetectorPerturber`
+        - Image (RGB, Grayscale)
         - ``pybsm``
         - ``pyBSM``
       * - :class:`~nrtk.impls.perturb_image.optical.otf.JitterPerturber`
+        - Image (RGB, Grayscale)
         - ``pybsm``
         - ``pyBSM``
       * - :class:`~nrtk.impls.perturb_image.optical.PybsmPerturber`
+        - Image (RGB, Grayscale)
         - ``pybsm``
         - ``pyBSM``
       * - :class:`~nrtk.impls.perturb_image.optical.radial_distortion_perturber.RadialDistortionPerturber`
+        - Image (RGB, Grayscale)
         - ---
         - ---
       * - :class:`~nrtk.impls.perturb_image.optical.otf.TurbulenceAperturePerturber`
+        - Image (RGB, Grayscale)
         - ``pybsm``
         - ``pyBSM``
-
-  .. seealso::
-    For input requirements, see the
-    :doc:`optical perturber reference </reference/perturber_reference/optical>`.
 
 Generative Perturbers
 ^^^^^^^^^^^^^^^^^^^^^
 
 .. dropdown:: Model physics-based sensor and optical phenomena
 
-  .. list-table:: Perturber Dependencies
-      :widths: 45 25 30
+  .. list-table::
+      :widths: 45 20 25 30
       :header-rows: 1
 
       * - Perturber
+        - Required Inputs
         - Extra(s) Required
         - Key Dependencies Provided by Extra(s)
       * - :class:`~nrtk.impls.perturb_image.generative.DiffusionPerturber`
+        - Image (converts to RGB)
         - ``diffusion``
         - ``torch``, ``diffusers``, ``accelerate``, ``Pillow``
-
-  .. seealso::
-    For input requirements, see the
-    :doc:`generative perturber reference </reference/perturber_reference/generative>`.
 
 Utility Perturbers
 ^^^^^^^^^^^^^^^^^^
 
 .. dropdown:: Enable composition and third-party library integration
 
-  .. list-table:: Perturber Dependencies
-      :widths: 45 25 30
+  .. list-table::
+      :widths: 45 20 25 30
       :header-rows: 1
 
       * - Perturber
+        - Required Inputs
         - Extra(s) Required
         - Key Dependencies Provided by Extra(s)
       * - :class:`~nrtk.impls.perturb_image.AlbumentationsPerturber`
+        - Image (format varies by transform)
         - ``albumentations``, and (``graphics`` or ``headless``)
         - ``nrtk-albumentations``, ``OpenCV``
       * - :class:`~nrtk.impls.perturb_image.ComposePerturber`
+        - Image (format varies by perturbers)
         - ---
         - ---
-
-  .. seealso::
-    For input requirements, see the
-    :doc:`utility perturber reference </reference/perturber_reference/utility>`.
 
 .. _Poetry: https://python-poetry.org
 .. _installation: https://python-poetry.org/docs/#installation
