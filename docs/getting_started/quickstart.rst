@@ -2,27 +2,51 @@ Getting Started
 ===============
 
 The Natural Robustness Toolkit (NRTK) helps you test AI model robustness by
-simulating real-world operational conditions. Follow these steps to install NRTK,
+simulating real-world operational conditions. Follow these steps to install nrtk,
 run your first perturbation, and connect your scenario to the right tools.
 
 ----
 
-Step 1: Install NRTK
+Step 1: Install nrtk
 ---------------------
 
-.. code-block:: bash
+.. tab-set::
 
-   pip install nrtk
+   .. tab-item:: pip
+
+      nrtk can be installed via pip from `PyPI <https://pypi.org/project/nrtk/>`_.
+
+      .. warning::
+          The recommended way to install nrtk via ``pip`` is to use a virtual environment. To learn
+          more, see `creating virtual environments in the Python Packaging User Guide
+          <https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments>`_.
+
+      .. prompt:: bash
+
+          pip install nrtk
+
+
+   .. tab-item:: conda
+
+      nrtk can be installed via conda from `conda-forge <https://github.com/conda-forge/nrtk-feedstock>`_.
+
+      .. warning::
+          The recommended way to install nrtk via ``conda`` is to use a virtual environment. To learn
+          more, see `creating environments in the conda documentation
+          <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands>`_.
+
+      .. prompt:: bash
+
+          conda install -c conda-forge nrtk
 
 .. seealso::
-  For optional extras, conda support, or developer setup, see
-  :doc:`Advanced Installation </getting_started/installation>`.
+  For details on optional extras, installing from source, or developer setup, see
+  :doc:`Installation </getting_started/installation>`.
 
 Step 2: Run a Sample Perturbation
 ----------------------------------
 
-``HazePerturber`` requires no additional dependencies beyond the base NRTK install,
-``HazePerturber`` requires no additional dependencies beyond the base NRTK install,
+``HazePerturber`` requires no additional dependencies beyond the base nrtk install,
 making it ideal for a first test.
 
 .. code-block:: python

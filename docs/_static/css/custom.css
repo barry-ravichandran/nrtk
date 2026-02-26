@@ -236,18 +236,20 @@ details.sd-dropdown:not([open]) > summary.sd-card-header {
     border-radius: .25rem;
 }
 
-/* Tighten spacing between risk-factor category sections.
- * Targets: h2 top margin, dropdown bottom margin, section gaps,
- * and hidden toctree-wrapper divs that sit between elements.
+/* Tighten spacing between risk-factor and perturber-dependency
+ * category sections. Targets: heading top margin, dropdown bottom
+ * margin, section gaps, and hidden toctree-wrapper divs.
  */
-section[id$="-risk-factors"] {
+section[id$="-risk-factors"],
+section[id$="-perturbers"] {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
 
-section[id$="-risk-factors"] > h2 {
+section[id$="-risk-factors"] > h2,
+section[id$="-perturbers"] > h3 {
     margin-top: 0.75rem !important;
     margin-bottom: 0.4rem !important;
 }
@@ -259,6 +261,7 @@ section[id$="-risk-factors"] > .toctree-wrapper {
 
 details.sd-dropdown.sd-mb-3 {
     margin-bottom: 0 !important;
+    min-height: 3em !important;
 }
 
 /* Rubric headings inside dropdowns - style as sub-headings */
