@@ -20,7 +20,7 @@ Validation Status
 
 We're transparent about what's verified, what's in progress, and what's planned.
 
-**Status as of November 2025.** Updates occur quarterly.
+**Status as of February 2026.** Updates occur quarterly.
 
 .. list-table::
    :header-rows: 1
@@ -46,16 +46,16 @@ We're transparent about what's verified, what's in progress, and what's planned.
      - Collecting real-world degraded imagery for comparison
    * - Domain Coverage
      - ⚙️ In Progress
-     - Expanding from aerial to ground/surface domains
+     - Aerial, maritime, overhead/WAMI, automotive, biometric (long-range)
    * - Modalities Coverage
      - ⚙️ In Progress
-     - Expanding from still imagery to full-motion video
+     - Still imagery → FMV (NRTK v1.1+); long-range video in progress
    * - Real-World Benchmarking
      - ⚙️ In Progress
-     - Comparison studies with operational datasets
+     - RarePlanes, BDD100k, non-public WAMI and maritime datasets
    * - Independent Validation
-     - 📋 Planned
-     - External research partnerships; peer review
+     - ⚙️ In Progress
+     - NAML'26 and MSS'26 (March 2026); SPIE'26 (April 2026)
 
 How we validate:
 
@@ -130,9 +130,18 @@ Validation Evidence
 
 * Real-world imagery comparison ongoing; results published as available (e.g. ReadTheDocs, GitHub, and
   academic publications)
+* **MSS Parallel'26**: pyBSM-based perturbers evaluated on overhead imagery in WAMI format (non-public)
+  and RarePlanes (public)
+* **NAML'26**: Custom synthetic waterdroplet-on-lens perturbation on maritime/aerial data (non-public)
+* **SPIE'26** (in progress): *Improving AI Test and Evaluation via Semantic Gap Detection and Generative
+  Augmentation* — generative AI perturbation approaches on
+  `BDD100k`_
+* **Biometric application** (upcoming): Detection of individuals in long-range video; comparative analysis
+  of pyBSM-based ground range simulation against real-world ground range
 * Community feedback on perturbation realism is limited but growing
 
-We track these in our GitHub Issues and prioritize based on community feedback and DoD use-case requirements.
+We track these in our `GitHub Issues <https://github.com/Kitware/nrtk/issues>`_ and prioritize based on
+community feedback and DoD use-case requirements.
 
 Validation Roadmap
 ==================
@@ -140,23 +149,25 @@ Validation Roadmap
 Embedding-space validation evaluates whether perturbations produce monotonic, stable, and interpretable
 changes in model representations.
 
-Nov'25 (Current)
--------------------------
+Initiated Nov'25 (Ongoing)
+--------------------------
 
 * ⚙️ Quantify perturbation effects in embedding space for photometric, geometric, and optical modules using
   standard baseline models
 
-Dec'25 (Future)
----------------
+Planned for Mar'26
+------------------
 
 * 📋 Compare optical-perturbation outputs against real degraded imagery with known atmospheric and sensor
-  parameters
+  parameters — detection of individuals in long-range video with comparative analysis of pyBSM ground
+  range vs real-world ground range
 
-Early Q1'26 (Future)
---------------------
+Q1'26 (Dissemination & Reporting)
+---------------------------------
 
-* 📋 Release reproducible validation benchmarks demonstrating monotonicity, sensitivity, and cross-model
-  consistency for all perturbation categories
+* ⚙️ NAML'26 and MSS Parallel'26 conference presentations (March 2026)
+* ⚙️ *Improving AI Test and Evaluation via Semantic Gap Detection and Generative Augmentation*
+  — generative AI perturbation approaches on BDD100k (SPIE Defense + Security, April 26–30)
 
 How You Can Help
 ================
@@ -170,7 +181,8 @@ etc.), contact us at nrtk@kitware.com. This information directly improves our va
 Found unexpected behavior?
 --------------------------
 
-Report it in GitHub Issues with details about your use case. User feedback is a critical validation input.
+Report it in `GitHub Issues <https://github.com/Kitware/nrtk/issues>`_ with details about your use case.
+User feedback is a critical validation input.
 
 Using NRTK in your T&E workflow?
 --------------------------------
@@ -184,7 +196,7 @@ NRTK accelerates the early stages of robustness evaluation by providing systemat
 It is not intended to replace operational testing, but to help users identify where deeper evaluation is
 required. Validation evidence grows continuously, and this page is updated quarterly to reflect new findings.
 
-**Questions?** nrtk@kitware.com | **Last Updated:** Nov. 21 2025
+**Questions?** nrtk@kitware.com | **Last Updated:** Feb. 26 2026
 
 Related Resources
 =================
@@ -193,6 +205,33 @@ Related Resources
 * **Parameter Defaults Documentation** - Why specific defaults were chosen
 * **T&E Guides** - Examples of NRTK in realistic testing workflows
 * **Release Notes** - Validation updates and known issue resolutions
+
+Publications & Presentations
+=============================
+
+.. note::
+   Entries will be updated with full citations after proceedings are released.
+
+`Naval Applications of Machine Learning (NAML'26) <https://naml2026.org/>`_ — March 2–5, 2026
+   *Establishing Trust in Maritime Detection Models with the Natural Robustness Toolkit*
+   — Custom synthetic waterdroplet-on-lens perturbation; maritime/aerial domain (non-public data)
+
+`Military Sensing Symposia (MSS Parallel'26)`_ — March 2–6, 2026
+   *Understanding Sensor-based Robustness of Object Detection Models
+   for Overhead Imagery*
+   — pyBSM-based perturbers; WAMI (non-public) and RarePlanes (public)
+
+`SPIE Defense + Security (SPIE'26)`_ — April 26–30, 2026 *(in preparation)*
+   *Improving AI Test and Evaluation via Semantic Gap Detection
+   and Generative Augmentation*
+   — Generative AI perturbation approaches on `BDD100k`_
+
+.. _Military Sensing Symposia (MSS Parallel'26):
+   https://mssconferences.org/public/meetings/conferenceDetail.aspx?enc=GCQKXtAOLmd8QhTdmLLt9Q%3D%3D
+.. _SPIE Defense + Security (SPIE'26):
+   https://spie.org/conferences-and-exhibitions/defense-and-security
+.. _BDD100k:
+   https://bair.berkeley.edu/blog/2018/05/30/bdd/
 
 How to Cite
 ===========
