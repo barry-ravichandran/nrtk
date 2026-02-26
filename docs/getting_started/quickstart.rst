@@ -46,8 +46,8 @@ Step 1: Install nrtk
 Step 2: Run a Sample Perturbation
 ----------------------------------
 
-``HazePerturber`` requires no additional dependencies beyond the base nrtk install,
-making it ideal for a first test.
+:class:`~nrtk.impls.perturb_image.environment.HazePerturber` requires no additional dependencies beyond
+the base nrtk install, making it ideal for a first test.
 
 .. code-block:: python
 

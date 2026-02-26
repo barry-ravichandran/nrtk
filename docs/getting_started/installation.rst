@@ -1,18 +1,17 @@
 Installation
 ============
 
-.. tip::
-  This page covers installation options beyond the basic
-  PyPI/conda install shown in the :doc:`Getting Started </getting_started/quickstart>` section.
+This page covers installation options beyond the basic PyPI/conda install shown
+in the :doc:`Getting Started </getting_started/quickstart>` section, including
+installing from source. NRTK has been tested on Unix-based systems, including
+Linux, macOS, and WSL.
 
-  **Not all perturbers are available with the base PyPI install** — many require optional
-  third-party libraries such as pyBSM, OpenCV, or Pillow. With PyPI, you can
-  selectively install only the extras that your workflow requires (see the
-  :ref:`perturber-requirements` table below). The conda-forge package includes all
-  optional dependencies by default.
-
-.. note::
-   nrtk has been tested on Unix-based systems, including Linux, macOS, and WSL.
+.. attention::
+   **Not all perturbers are available with the base PyPI install** — many require
+   optional third-party libraries such as pyBSM, OpenCV, or Pillow. With PyPI, you
+   can selectively install only the extras that your workflow requires (see the
+   :ref:`perturber-requirements` table below). The conda-forge package includes all
+   optional dependencies by default.
 
 .. _pip:
 .. _conda:
