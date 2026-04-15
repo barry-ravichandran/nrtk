@@ -53,6 +53,7 @@ The container accepts three input arguments:
    * ``dataset_dir``: input COCO dataset
    * ``output_dir``: directory to store the generated perturbed images
    * ``config_file``: configuration file specifying the ``PerturbImageFactory`` params for image perturbation
+   * ``combine_output``: boolean to control if output should be combined to one dataset or not
 
 These can be controlled in two ways: ``Environment Variables`` or ``CLI Options``.
 
@@ -61,6 +62,7 @@ The following environment variables are used by default:
    * ``INPUT_DATASET_PATH``: Path to input dataset (default: ``/input/data/dataset/``)
    * ``OUTPUT_DATASET_PATH``: Path to output directory (default: ``/output/data/result/``)
    * ``CONFIG_FILE``: Path to config file (default: ``/input/nrtk_config.json``)
+   * ``COMBINE_OUTPUT``: boolean to control ``combine_output`` (default: ``false``)
 
 To override defaults, use the ``-e`` flag:
 ``docker run -e INPUT_DATASET_PATH=/custom/path ... nrtk-perturber``
@@ -71,6 +73,7 @@ the user can use the following flags:
    * ``--dataset_dir`` or ``-d``: Path to input dataset
    * ``--output_dir`` or ``-o``: Path to output directory
    * ``--config_file`` or ``-c``: Path to config file
+   * ``--combine_output`` or ``-m``: Boolean for combining outputs
 
 Command line options take precedence over environment variables if both are provided.
 

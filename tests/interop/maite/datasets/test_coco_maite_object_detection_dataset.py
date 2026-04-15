@@ -34,7 +34,7 @@ random = np.random.default_rng()
             ],
             [{"id": 0}],
             "dummy_dataset",
-            ["images/img1.png"],
+            [Path("images/img1.png")],
             [
                 {"id": 0, "name": "cat0", "supercategory": None},
                 {"id": 1, "name": "cat1", "supercategory": None},
@@ -53,7 +53,26 @@ random = np.random.default_rng()
             * 2,
             [{"id": idx} for idx in range(2)],
             "dummy_dataset",
-            ["images/img1.png"],
+            [Path("images/img1.png")],
+            [
+                {"id": 0, "name": "cat0", "supercategory": None},
+                {"id": 1, "name": "cat1", "supercategory": None},
+            ],
+            does_not_raise(),
+        ),
+        (
+            [random.integers(0, 255, size=(3, 3, 3), dtype=np.uint8)] * 2,
+            [
+                MAITEObjectDetectionTarget(
+                    boxes=random.integers(0, 4, size=(2, 4)),
+                    labels=random.integers(0, 2, size=(2,)),
+                    scores=random.random(2),
+                ),
+            ]
+            * 2,
+            [{"id": idx} for idx in range(2)],
+            "dummy_dataset",
+            [Path("images/img1.png"), Path("images/img2.png"), Path("images/img3.png")],
             [
                 {"id": 0, "name": "cat0", "supercategory": None},
                 {"id": 1, "name": "cat1", "supercategory": None},
@@ -104,7 +123,11 @@ def test_dataset_to_coco(
         assert metadata_file.is_file()
 
         # Confirm images exist
-        img_paths = [tmp_path / filename for filename in img_filenames]
+        img_paths = [
+            tmp_path / f"{filename.with_suffix('')}_{metadata['id']}{filename.suffix}"
+            for filename in img_filenames
+            for metadata in datum_metadata
+        ]
         for path in img_paths:
             assert path.is_file()
 

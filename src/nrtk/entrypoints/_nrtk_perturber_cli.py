@@ -5,19 +5,21 @@ __all__ = ["nrtk_perturber_cli"]
 import json
 import logging
 import sys
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from pathlib import Path
 from typing import TextIO
 
 import click
 from kwcoco.coco_dataset import CocoDataset
 from maite.protocols import DatumMetadata
+from maite.protocols.object_detection import Dataset
 from smqtk_core.configuration import from_config_dict
 
 from nrtk.entrypoints import nrtk_perturber
 from nrtk.interfaces import PerturbImageFactory
 from nrtk.interop._maite.datasets import (
     COCOMAITEObjectDetectionDataset,
+    MAITEObjectDetectionDataset,
     dataset_to_coco,
 )
 from nrtk.utils._logging import setup_logging
@@ -42,16 +44,41 @@ def _set_logging(verbose: bool) -> None:
         logger.setLevel(logging.INFO)
 
 
+def _create_combined_dataset(augmented_datasets: Iterable[tuple[str, Dataset]]) -> MAITEObjectDetectionDataset:
+    combined_images = []
+    combined_dets = []
+    combined_metadata = []
+
+    for perturb_params, aug_dataset in augmented_datasets:
+        for aug_image, aug_det, aug_metadata in aug_dataset:
+            combined_images.append(aug_image)
+            combined_dets.append(aug_det)
+            new_metadata = DatumMetadata(id=f"{perturb_params}_{aug_metadata['id']}")
+            for key, value in aug_metadata.items():
+                if key != "id":
+                    new_metadata[key] = value
+            combined_metadata.append(new_metadata)
+
+    return MAITEObjectDetectionDataset(
+        imgs=combined_images,
+        dets=combined_dets,
+        datum_metadata=combined_metadata,
+        dataset_id="combined",
+    )
+
+
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})
 @click.option("--dataset_dir", "-d", type=click.Path(exists=True), envvar="INPUT_DATASET_PATH")
 @click.option("--output_dir", "-o", type=click.Path(exists=False), envvar="OUTPUT_DATASET_PATH")
 @click.option("--config_file", "-c", type=click.File(mode="r"), envvar="CONFIG_FILE")
+@click.option("--combine_output", "-m", is_flag=True, envvar="COMBINE_OUTPUT")
 @click.option("--verbose", "-v", count=True, help="print progress messages")
 def nrtk_perturber_cli(
     *,
     dataset_dir: str,
     output_dir: str,
     config_file: TextIO,
+    combine_output: bool,
     verbose: bool,
 ) -> None:
     """Generate NRTK perturbed images and detections from a given set of source images and COCO-format annotations.
@@ -74,6 +101,8 @@ def nrtk_perturber_cli(
 
         --config_file: Configuration file specifying the PerturbImageFactory configuration.
 
+        --combine_output: If enabled, the output will be one dataset. Defaults to false.
+
         --verbose: Display progress messages. Default is false.
 
     If no command line options are given, the entrypoint script will use the following environment variables as inputs:
@@ -83,6 +112,8 @@ def nrtk_perturber_cli(
         OUTPUT_DATASET_PATH: Directory to write out the perturbed images. Default is /output/data/result/.
 
         CONFIG_FILE: Path to JSON configuration file. Default is /input/nrtk_config.json.
+
+        COMBINE_OUTPUT: Controls if output should be one or many datasets. Default is false.
 
     Exits:
         101:
@@ -123,13 +154,23 @@ def nrtk_perturber_cli(
     # Augment input dataset
     augmented_datasets = nrtk_perturber(maite_dataset=input_dataset, perturber_factory=perturber_factory)
 
-    # Save each augmented dataset to its own directory
     output_path = Path(output_dir)
     img_filenames = [Path(img_path.name) for img_path in input_dataset.get_img_path_list()]
-    for perturb_params, aug_dataset in augmented_datasets:
+
+    if combine_output:
+        combined_dataset = _create_combined_dataset(augmented_datasets=augmented_datasets)
         dataset_to_coco(
-            dataset=aug_dataset,
-            output_dir=output_path / perturb_params,
+            dataset=combined_dataset,
+            output_dir=output_path,
             img_filenames=img_filenames,
             dataset_categories=input_dataset.get_categories(),
         )
+    else:
+        # Save each augmented dataset to its own directory
+        for perturb_params, aug_dataset in augmented_datasets:
+            dataset_to_coco(
+                dataset=aug_dataset,
+                output_dir=output_path / perturb_params,
+                img_filenames=img_filenames,
+                dataset_categories=input_dataset.get_categories(),
+            )

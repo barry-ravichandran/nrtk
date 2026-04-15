@@ -205,10 +205,15 @@ def dataset_to_coco(
 
     Raises:
         ValueError:
+            Image filename is empty
+        ValueError:
             Image filename and dataset length mismatch.
     """
-    if len(img_filenames) != len(dataset):
-        raise ValueError(f"Image filename and dataset length mismatch ({len(img_filenames)} != {len(dataset)})")
+    if len(img_filenames) == 0:
+        raise ValueError("Image filenames is empty")
+
+    if len(dataset) % len(img_filenames) != 0:
+        raise ValueError(f"Image filename and dataset length mismatch ({len(dataset)} % {len(img_filenames)} != 0)")
 
     mod_metadata = []
 
@@ -216,7 +221,8 @@ def dataset_to_coco(
 
     for i in range(len(dataset)):
         image, dets, metadata = dataset[i]
-        filename = output_dir / img_filenames[i]
+        img_filename = img_filenames[i % len(img_filenames)]
+        filename = output_dir / f"{img_filename.with_suffix('')}_{metadata['id']}{img_filename.suffix}"
         filename.parent.mkdir(parents=True, exist_ok=True)
 
         im = Image.fromarray(np.transpose(np.asarray(image), (1, 2, 0)))
