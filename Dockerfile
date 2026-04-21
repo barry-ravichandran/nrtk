@@ -21,6 +21,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     && apt-get purge -y linux-libc-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN python -m pip install --upgrade pip==25.3
+
 # 'wheel-builder' stage builds a wheel from local source (used by build-from-source)
 FROM builder-base AS wheel-builder
 WORKDIR /build
