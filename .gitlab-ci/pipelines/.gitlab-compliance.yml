@@ -12,7 +12,7 @@ stages:
   - summary
 
 include:
-  - component: gitlab.jatic.net/jatic/bah/components/sr-compliance@1.0.0
+  - component: gitlab.jatic.net/jatic/bah/components/sr-compliance@1.0.1
     inputs:
       stage: sr-compliance
       package_name: nrtk
@@ -22,7 +22,7 @@ include:
       full_execution_on_commit: true
       allow_failure: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/tr-compliance@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/tr-compliance@1.0.1
     inputs:
       stage: tr-compliance
       package_name: nrtk
@@ -34,7 +34,7 @@ include:
       full_execution_on_commit: true
       allow_failure: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/dsor-compliance@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/dsor-compliance@1.0.1
     inputs:
       stage: dsor-compliance
       sast_excluded_paths: tests, README.md
@@ -43,23 +43,23 @@ include:
       full_execution_on_commit: true
       allow_failure: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/advana-compliance@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/advana-compliance@1.0.1
     inputs:
       stage: advana-compliance
       full_execution_on_commit: true
       allow_failure: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/validate-pipeline@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/validate-pipeline@1.0.1
     inputs:
       stage: validate
       full_execution_on_commit: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/pipeline-report@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/pipeline-report@1.0.1
     inputs:
       stage: summary
       full_execution_on_commit: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/unit-test@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/unit-test@1.0.1
     inputs:
       stage: unit-test
       prep_job: prep-job
@@ -75,7 +75,7 @@ include:
       full_execution_on_commit: true
       allow_failure: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/unit-test@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/unit-test@1.0.1
     inputs:
       stage: unit-test
       prep_job: prep-job
@@ -91,7 +91,7 @@ include:
       full_execution_on_commit: true
       allow_failure: true
 
-  - component: gitlab.jatic.net/jatic/devsecops/components/unit-test@1.0.0
+  - component: gitlab.jatic.net/jatic/devsecops/components/unit-test@1.0.1
     inputs:
       stage: unit-test
       prep_job: prep-job
