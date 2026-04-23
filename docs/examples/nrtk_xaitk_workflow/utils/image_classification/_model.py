@@ -1,3 +1,9 @@
+# pyright: reportPrivateImportUsage=false
+# Torch's type stubs don't re-export many public symbols (torch.tensor,
+# torch.Generator, torch.zeros, torch.float32, etc.) in the form PEP 484
+# requires, so pyright flags them as private. Tracked upstream — PyTorch
+# maintainers are aware and working through it:
+#   https://github.com/pytorch/pytorch/issues/134985
 """Utilities for interoperability with MAITE IC model protocols."""
 
 from __future__ import annotations

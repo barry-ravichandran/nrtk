@@ -1,6 +1,8 @@
+<!-- markdownlint-disable MD041 -->
+
 ![nrtk-logo](https://raw.githubusercontent.com/Kitware/nrtk/main/docs/figures/nrtk-wordmark.png)
 
-<hr/>
+______________________________________________________________________
 
 <!-- :auto badges: -->
 
@@ -99,11 +101,11 @@ pip install nrtk[pybsm]
 **Note**: Choose either `graphics` or `headless` for OpenCV, not both.
 
 More information on extras and related perturbers, including a complete list of
-extras, can be found
-[here](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#perturber-requirements).
+extras, is available in the
+[perturber requirements documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#perturber-requirements).
 
-Details on the perturbers and their dependencies can be found
-[here](https://nrtk.readthedocs.io/en/latest/reference/api/implementations.html).
+Details on the perturbers and their dependencies can be found in the
+[implementations reference](https://nrtk.readthedocs.io/en/latest/reference/api/implementations.html).
 
 For more detailed installation instructions, visit the
 [installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html).
@@ -128,14 +130,14 @@ effects. For example, the
 simulates different levels of sensor jitter. By modifying its input parameters,
 you can observe how sensor jitter affects image quality.
 
-#### Input Image
+### Input Image
 
 Below is an example of an input image that will undergo a Jitter OTF
 perturbation. This image represents the initial state before any transformation.
 
 ![augmented_image](https://raw.githubusercontent.com/Kitware/nrtk/main/docs/images/input.jpg)
 
-#### Code Sample
+### Code Sample
 
 Below is some example code that applies a Jitter OTF transformation:
 
@@ -157,7 +159,7 @@ The `s_x` and `s_y` parameters (the root-mean-squared jitter amplitudes in the x
 and y directions) are the primary way to customize a jitter perturber. Larger
 jitter amplitudes generate a larger Gaussian blur kernel.
 
-#### Resulting Image
+### Resulting Image
 
 The output image below shows the effects of the Jitter OTF on the original
 input. This result illustrates the Gaussian blur introduced due to simulated
@@ -216,11 +218,12 @@ Ensure the source tree is acquired locally before proceeding.
 
 You can install using [Poetry](https://python-poetry.org/):
 
-> [!IMPORTANT] NRTK requires Poetry 2.2 or higher.
-
-> [!WARNING] Users unfamiliar with Poetry should use caution. See
+> [!IMPORTANT]
+>
+> NRTK requires Poetry 2.2 or higher. If you're new to Poetry, review the
 > [installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#from-source)
-> for more information.
+> first — Poetry has its own conventions for virtual environments and
+> dependency resolution that can trip up users expecting pip semantics.
 
 ```bash
 poetry install --with main,linting,tests,docs --extras "<extra1> <extra2> ..."
@@ -277,7 +280,8 @@ Veenhuis (@eveenhuis)
 We welcome contributions to NRTK! Please start discussions by opening an issue
 or pull request on GitHub. This keeps the conversation visible and helps the
 whole community benefit. Our preferred channels are public, but if you'd like to
-reach out privately first, feel free to contact us at nrtk@kitware.com.
+reach out privately first, feel free to contact us at
+[nrtk@kitware.com](mailto:nrtk@kitware.com).
 
 <!-- :auto contacts: -->
 

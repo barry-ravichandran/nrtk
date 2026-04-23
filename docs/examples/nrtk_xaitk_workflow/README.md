@@ -20,7 +20,7 @@ the `nrtk` package. They are kept separate because:
 
 ## Directory Structure
 
-```
+```text
 nrtk_xaitk_workflow/
 ├── README.md
 ├── image_classification_perturbation_saliency.ipynb   # IC notebook
