@@ -222,8 +222,8 @@ You can install using [Poetry](https://python-poetry.org/):
 >
 > NRTK requires Poetry 2.2 or higher. If you're new to Poetry, review the
 > [installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#from-source)
-> first — Poetry has its own conventions for virtual environments and
-> dependency resolution that can trip up users expecting pip semantics.
+> first — Poetry has its own conventions for virtual environments and dependency
+> resolution that can trip up users expecting pip semantics.
 
 ```bash
 poetry install --with main,linting,tests,docs --extras "<extra1> <extra2> ..."
@@ -288,6 +288,9 @@ reach out privately first, feel free to contact us at
 <!-- :auto acknowledgment: -->
 
 ## Acknowledgment
+
+> [!NOTE] JATIC Maturity I — Release v1.0.3 has been assessed against and meets
+> the requirements associated with JATIC Maturity Level I.
 
 This material is based upon work supported by the Chief Digital and Artificial
 Intelligence Office under Contract No. 519TC-23-9-2032. The views and

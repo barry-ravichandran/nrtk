@@ -30,6 +30,7 @@ project = "nrtk"
 copyright = "2023, Kitware, Inc."  # noqa: A001
 author = "Kitware, Inc."
 release = nrtk.__version__
+version = ".".join(release.split(".")[:2])
 
 # -- Version switcher configuration ------------------------------------------
 # Determine version for switcher matching based on ReadTheDocs or git branch
