@@ -40,6 +40,11 @@ and functionalities.
    b. Add a descriptive paragraph under the title section of
       ``docs/release_notes/v{NEW_VERSION}.rst`` summarizing this release.
 
+   c. Update ``docs/_static/switcher.json`` (see `Update Version Switcher`_).
+
+   d. If the release is at JATIC Maturity Level I or higher, apply the
+      maturity label (see `Maturity Labeling`_).
+
 2. Push the created branch to the upstream repository, not your fork (this is
    an exception to the normal forking workflow).
 
@@ -96,6 +101,11 @@ If a patch release for an older release version is being created, see the
    b. Add a descriptive paragraph under the title section of
       ``docs/release_notes/v{NEW_VERSION}.rst`` summarizing this release.
 
+   c. Update ``docs/_static/switcher.json`` (see `Update Version Switcher`_).
+
+   d. If the release is at JATIC Maturity Level I or higher, apply the
+      maturity label (see `Maturity Labeling`_).
+
 2. Push the created branch to the upstream repository, not your fork (this is
    an exception to the normal forking workflow).
 
@@ -140,6 +150,63 @@ Step 6 should be to merge this release integration branch into ``release``
 first, and *then* ``release`` into ``main``, if applicable (some exceptional
 patches may only make sense for specific versions and don't warrant integration
 into upstream main).
+
+Update Version Switcher
+-----------------------
+``docs/_static/switcher.json`` powers the version dropdown shown at the top
+of the rendered docs site. Entries are tracked at the major/minor level
+only; the URL on each entry points at the latest patch in that line. A
+patch release must not introduce new functionality, so its docs are
+functionally equivalent to the major/minor release it descends from.
+
+When releasing:
+
+* **Major / minor releases**: add a new entry with the new major/minor
+  string (e.g. ``"1.1"``) and a URL pointing at the new release tag.
+
+* **Patch releases**: do not add a new entry. Update the URL on the
+  existing major/minor entry so it points at the new patch's tag (e.g.
+  ``1.0`` URL bumped from ``/en/v1.0.2/`` to ``/en/v1.0.3/``).
+
+Entries follow the pattern:
+
+.. code-block:: json
+
+   {
+       "version": "1.0",
+       "url": "https://nrtk.readthedocs.io/en/v1.0.3/"
+   }
+
+Maturity Labeling
+-----------------
+Per RS-4 of the program standards, releases at JATIC Maturity Level I or
+higher must carry a consistent label, and releases below Maturity I must
+not. When a release is at Maturity I or higher, apply the label in three
+places:
+
+a. Add an admonition at the top of
+   ``docs/release_notes/v{NEW_VERSION}.rst``:
+
+   .. code-block:: rst
+
+      .. admonition:: JATIC Maturity I
+         :class: note
+
+         Release v{NEW_VERSION} has been assessed against and meets the
+         requirements associated with JATIC Maturity Level I.
+
+b. Title the GitLab release ``v{NEW_VERSION} — JATIC Maturity I`` when
+   `Drafting a New Release on GitLab`_.
+
+c. Update the maturity admonition in the ``Acknowledgment`` section of the
+   docs landing page (``docs/index.rst``) and in the ``Acknowledgment``
+   section of ``README.md`` so the version reference matches this release.
+   The admonition wording should mirror step (a) — i.e., reference
+   ``Release v{NEW_VERSION}`` — so the same text appears across all three
+   surfaces.
+
+Replace ``I`` with the appropriate Roman numeral if the release is at a
+higher maturity level.
 
 Tag New Version
 ---------------

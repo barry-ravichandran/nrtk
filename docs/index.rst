@@ -6,7 +6,7 @@
 Welcome to NRTK's documentation!
 ================================
 
-**Version**: |release| | |date_label|: |today|
+**Version**: |version| | |date_label|: |today|
 
 **The Natural Robustness Toolkit (NRTK) is an open source toolkit for generating operationally realistic perturbations
 to evaluate the natural robustness of computer vision algorithms.**
@@ -89,6 +89,12 @@ ensuring they meet robustness and reliability standards before deployment.
 
 Acknowledgment
 --------------
+
+.. admonition:: JATIC Maturity I
+   :class: note
+
+   Release v1.0.3 has been assessed against and meets the requirements
+   associated with JATIC Maturity Level I.
 
 This material is based upon work supported by the Chief Digital and Artificial Intelligence Office under Contract No.
 519TC-23-9-2032. The views and conclusions contained herein are those of the author(s) and should not be interpreted as

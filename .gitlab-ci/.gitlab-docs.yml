@@ -75,16 +75,33 @@ pdf-build:
     - cd _pdf
     - latexmk -r latexmkrc -pdflua -f -dvi- -ps- -interaction=nonstopmode
 
-check-markdown-links:
+markdown-link-check:
   extends: .docs-setup
-  needs: [] # Don't wait for previous stages/jobs
-  before_script:
-    - apt-get update && apt-get install -y perl curl
+  needs: []
+  before_script: []  # skip poetry sync — this image has no apt/python
+  image:
+    name: ghcr.io/tcort/markdown-link-check:stable
+    entrypoint: ['/bin/sh', '-c']
   script:
-    - scripts/check_markdown_links.pl .
-  allow_failure: true  # temporary while we get everything cloned downstream
-  rules:
-    - !reference [.docs-setup, rules]
+    - markdown-link-check *.md
+    - find docs -name '*.md' -print0 | xargs -0 -n1 markdown-link-check
+  # Allow failures in link checking to avoid blocking merges due to transient issues
+  # and anti-scraping measures on some sites. Warnings should be reviewed and addressed.
+  allow_failure: true
+
+markdownlint:
+  extends: .docs-setup
+  needs: []
+  before_script: []  # skip poetry sync — this image has no apt/python
+  image:
+    name: davidanson/markdownlint-cli2
+    entrypoint: ['']
+  script: |
+    markdownlint-cli2 README.md || FAIL=1
+    markdownlint-cli2 CONTRIBUTING.md || FAIL=1
+    markdownlint-cli2 ROADMAP.md || FAIL=1
+    markdownlint-cli2 'docs/**/*.md' || FAIL=1
+    exit $FAIL
 
 check-links:
   extends: .docs-setup

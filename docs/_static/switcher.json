@@ -7,24 +7,24 @@
         "version": "stable",
         "url": "https://nrtk.readthedocs.io/en/stable/"
     },
-        {
-        "version": "1.0.1",
-        "url": "https://nrtk.readthedocs.io/en/v1.0.1/"
+    {
+        "version": "1.0",
+        "url": "https://nrtk.readthedocs.io/en/v1.0.3/"
     },
     {
-        "version": "0.27.2",
+        "version": "0.27",
         "url": "https://nrtk.readthedocs.io/en/v0.27.2/"
     },
     {
-        "version": "0.26.0",
+        "version": "0.26",
         "url": "https://nrtk.readthedocs.io/en/v0.26.0/"
     },
     {
-        "version": "0.25.0",
+        "version": "0.25",
         "url": "https://nrtk.readthedocs.io/en/v0.25.0/"
     },
     {
-        "version": "0.24.0",
+        "version": "0.24",
         "url": "https://nrtk.readthedocs.io/en/v0.24.0/"
     }
 ]

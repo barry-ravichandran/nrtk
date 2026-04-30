@@ -1,0 +1,66 @@
+v1.0.3
+======
+
+.. admonition:: JATIC Maturity I
+   :class: note
+
+   Release v1.0.3 has been assessed against and meets the requirements
+   associated with JATIC Maturity Level I.
+
+This patch release contains fixes to container security scanning, missing
+documentation cross-references, container compliance pipeline components,
+and notebook install cells. Key areas include adding the missing
+medium-severity vulnerability scan to the container pipeline, completing
+the cross-references between how-to guides and tutorials, refreshing
+container compliance components, and resolving a ``torch`` /
+``torchvision`` ABI drift that broke GPU saliency notebook execution.
+
+Fixes
+-----
+
+* Fixed missing medium-severity vulnerability scanning in the container CI
+  pipeline by adding Trivy scans.
+
+* Fixed a medium-severity vulnerability in ``Dockerfile`` by updating
+  ``pip`` to ``25.3``.
+
+* Fixed missing cross-references between how-to guides and tutorials so
+  each how-to links to the tutorials that exercise its perturbers and each
+  tutorial points at the underlying perturber API how-to. Fixed
+  inconsistent "Related How-To Guides" section headings across tutorial
+  notebooks.
+
+* Updated container compliance pipeline components in
+  ``.gitlab-ci/pipelines/.gitlab-compliance.yml``.
+
+* Fixed an outdated six-month roadmap (``ROADMAP.md`` and
+  ``docs/figures/nrtk-road-map.png``).
+
+* Fixed several repository-level documentation and CI items, including
+  ``CONTRIBUTING.md``, ``README.md``, ``ROADMAP.md``,
+  ``.markdownlint.yaml``, ``.gitlab-ci/.gitlab-docs.yml``, the
+  ``nrtk_xaitk_workflow`` README, and license-header / docstring updates
+  across a few notebook utility modules and perturber implementations.
+
+* Fixed ``torch`` / ``torchvision`` ABI drift in
+  ``image_classification_perturbation_saliency.ipynb`` and
+  ``object_detection_perturbation_saliency.ipynb`` install cells by
+  pulling ``torchvision`` from the same ``--extra-index-url`` as
+  ``torch``. Without this, ``ultralytics`` would transitively install a
+  mismatched ``torchvision`` wheel and the notebooks would fail at import
+  time on Linux/CUDA hosts.
+
+* Fixed stale notebook outputs in both XAITK saliency notebooks by
+  re-executing them on a CUDA runner.
+
+* Fixed pyright flagging public ``torch`` API (``torch.tensor``,
+  ``torch.Generator``, ``torch.zeros``, ``torch.float32``, etc.) as not
+  exported from ``torch``. Pyright 1.1.409 introduced a regression in
+  ``reportPrivateImportUsage`` handling
+  (`microsoft/pyright#11404
+  <https://github.com/microsoft/pyright/issues/11404>`_). Capped the
+  linting dependency to ``pyright<1.1.409`` (rather than excluding only
+  the known-bad version) in ``pyproject.toml``, locking the supported
+  install range to ``1.1.397``–``1.1.408`` so this release's dev
+  environment keeps installing cleanly across its support lifetime
+  regardless of future pyright releases.
