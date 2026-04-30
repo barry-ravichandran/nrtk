@@ -49,7 +49,7 @@ List all available environments:
     tox list
 
 .. tip::
-   Replace ``310`` with your Python version (``311``, ``312``, or ``313``).
+   Replace ``310`` with your Python version (``311``, ``312``, ``313``, or ``314``).
 
 The first run will be slow as tox creates a fresh virtualenv for every
 environment. Subsequent runs reuse cached environments and are significantly
@@ -267,7 +267,7 @@ The default matrix is:
 
 .. code-block:: ini
 
-   py{310,311,312,313}-{core,opencv,albumentations,pillow,waterdroplet,skimage,diffusion,pybsm,maite,tools,doctests}
+   py{310,311,312,313,314}-{core,opencv,albumentations,pillow,waterdroplet,skimage,diffusion,pybsm,maite,tools,optional,doctests}
 
 Each environment:
 
@@ -342,7 +342,7 @@ Test Stage
 
 Defined in :file:`.gitlab-ci/.gitlab-test.yml`:
 
-1. **Parallel test matrix** — For each Python version (3.10–3.13), CI runs
+1. **Parallel test matrix** — For each Python version (3.10–3.14), CI runs
    all tox factors in parallel as separate jobs. Each job invokes
    ``tox -e py<version>-<factor>`` and uploads ``.coverage.*``
    artifacts and JUnit XML reports. Jobs are assigned to different runner
@@ -439,8 +439,8 @@ Practical Tips
 - **First run is slow.** Tox creates a fresh virtualenv for every
   environment. Subsequent runs reuse cached environments and are
   significantly faster.
-- **Target what you need.** The full matrix spans 4 Python versions × 11+
-  factors (44+ environments). During development, use ``tox -e py310-core``
+- **Target what you need.** The full matrix spans 5 Python versions × 12
+  factors (60 environments). During development, use ``tox -e py310-core``
   or ``tox -f py310`` rather than running the entire matrix.
 - **Coverage files.** Each environment writes its coverage data to a
   separate file (``.coverage.<envname>``). Combine them with
