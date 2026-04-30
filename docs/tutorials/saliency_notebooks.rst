@@ -15,6 +15,10 @@ these tutorials, you'll be able to:
 - Quantify saliency changes and understand what they indicate.
 - Make informed decisions about model deployment and improvement.
 
+.. seealso::
+  To explore the underlying perturber APIs used below (Gaussian blur and
+  salt/pepper noise), see the
+  :doc:`Photometric Perturbers </examples/photometric_perturbers>` how-to guide.
 
 .. grid:: 1 1 2 2
    :gutter: 3

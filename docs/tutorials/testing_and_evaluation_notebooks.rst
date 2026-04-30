@@ -20,6 +20,11 @@ Photometric Risks
 
 Perturbations that alter pixel intensity, color balance, or lighting conditions.
 
+.. seealso::
+  Learn the underlying perturber APIs in
+  :doc:`Photometric Perturbers </examples/photometric_perturbers>` (brightness) and
+  :doc:`Albumentations Perturber </examples/albumentations_perturber>` (lens flare).
+
 .. grid:: 1 2 2 2
    :gutter: 3
    :padding: 2 2 0 0
@@ -120,6 +125,10 @@ Optical Risks
 -------------
 
 Perturbations from sensor optics, camera physics, and atmospheric distortion.
+
+.. seealso::
+  Learn the underlying OTF perturber APIs in the
+  :doc:`Optical Perturbers </examples/optical_perturbers>` how-to guide.
 
 .. grid:: 1 2 2 2
    :gutter: 3

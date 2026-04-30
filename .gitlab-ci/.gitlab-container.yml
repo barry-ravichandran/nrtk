@@ -118,7 +118,7 @@
       --format template \
       --template "@gitlab.tpl" \
       -o gl-container-scanning-report.json \
-      --severity HIGH,CRITICAL \
+      --severity HIGH,CRITICAL,MEDIUM \
       --exit-code 1 || TRIVY_EXIT=$?
 
       if [ "$TRIVY_EXIT" -ne 0 ]; then

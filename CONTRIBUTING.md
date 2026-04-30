@@ -1,3 +1,9 @@
+<!-- markdownlint-disable MD014 -->
+
+<!-- MD014 is disabled for this file: the `$` prompt prefix in code blocks is
+     intentional, signalling to the reader that the line is a command to type
+     rather than documentation prose or output. -->
+
 # Contributing to `nrtk`
 
 ## Overview
@@ -33,9 +39,10 @@ additional details, please refer to the [`nrtk` README](README.md).
    - Provide a concise summary of the feature, update, or fix being added. This
      is generally required for approval.
 
-> [!warning]
->
-> [Git LFS](https://git-lfs.com/) must be configured before your first commit.
+   > [!WARNING]
+   >
+   > [Git LFS](https://git-lfs.com/) must be configured before your first
+   > commit.
 
 4. **Push Your Branch** Push your changes to your forked repository:
 
