@@ -200,7 +200,7 @@ class TestPyBSMPerturber(PerturberTestsMixin):
                 {},
                 pytest.raises(
                     ValueError,
-                    match=r"'img_gsd' must be provided for this perturber",
+                    match=r"img_gsd must be provided for this perturber",
                 ),
             ),
         ],

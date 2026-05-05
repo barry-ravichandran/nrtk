@@ -145,7 +145,7 @@ class TestNRTKPerturberCLI:
     @mock.patch("nrtk.entrypoints._nrtk_perturber_cli.from_config_dict")
     @mock.patch(
         "nrtk.entrypoints._nrtk_perturber_cli.nrtk_perturber",
-        side_effect=ValueError("'img_gsd' must be provided for this perturber"),
+        side_effect=ValueError("img_gsd must be provided for this perturber"),
     )
     @mock.patch("pathlib.Path.is_file", side_effect=[True, False])
     def test_missing_metadata_raises(
@@ -161,7 +161,7 @@ class TestNRTKPerturberCLI:
         output_dir = tmpdir.join(Path("out"))
         runner = CliRunner()
 
-        with pytest.raises(ValueError, match="'img_gsd' must be provided for this perturber"):
+        with pytest.raises(ValueError, match="img_gsd must be provided for this perturber"):
             runner.invoke(
                 nrtk_perturber_cli,
                 [
