@@ -57,6 +57,7 @@ USER appuser
 ENV INPUT_DATASET_PATH="/input/data/dataset/"
 ENV OUTPUT_DATASET_PATH="/output/data/result/"
 ENV CONFIG_FILE="/input/nrtk_config.json"
+ENV COMBINE_OUTPUT="false"
 
 ENTRYPOINT [ "/usr/local/bin/nrtk-perturber" ]
 
