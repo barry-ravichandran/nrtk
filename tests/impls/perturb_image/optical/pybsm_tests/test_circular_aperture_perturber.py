@@ -101,7 +101,7 @@ class TestCircularAperturePerturber(PerturberTestsMixin):
             ({"img_gsd": 3.19 / 160.0}, does_not_raise()),
             (
                 {},
-                pytest.raises(ValueError, match=r"'img_gsd' must be provided"),
+                pytest.raises(ValueError, match=r"img_gsd must be provided"),
             ),
         ],
     )

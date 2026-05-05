@@ -264,13 +264,8 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
         self.sensor.max_n = max_n
         self.sensor.max_well_fill = max_well_fill
         self.sensor.bit_depth = bit_depth
-        self.sensor.qe_wavelengths = opt_trans_wavelengths if qe_wavelengths is None else qe_wavelengths
-
-        if qe is None:
-            _qe = np.ones(opt_trans_wavelengths.shape[0])
-        else:
-            _qe: np.ndarray = qe
-        self.sensor.qe = _qe
+        self.sensor.qe_wavelengths = opt_trans_wavelengths.copy() if qe_wavelengths is None else qe_wavelengths
+        self.sensor.qe = np.ones(opt_trans_wavelengths.shape[0]) if qe is None else qe
 
         self.scenario: Scenario = Scenario(
             name=scenario_name,
@@ -291,7 +286,7 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
         self.thetas: dict[str, Any] = copy.deepcopy(kwargs)
         self._use_default_psf = False
 
-    def _check_opt_trans_wavelengths(self, opt_trans_wavelengths: np.ndarray) -> None:
+    def _check_opt_trans_wavelengths(self, opt_trans_wavelengths: np.ndarray) -> None:  # noqa: C901 - no obvious way to split functionality
         """Validates the `opt_trans_wavelengths` array to ensure it meets the required criteria.
 
         This method checks that the `opt_trans_wavelengths` array has at least two elements,
@@ -304,16 +299,28 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
 
         Raises:
             ValueError:
+                If `opt_trans_wavelengths` is not one-dimensional.
+            ValueError:
                 If `opt_trans_wavelengths` contains fewer than two elements.
+            ValueError:
+                If `opt_trans_wavelengths` contains nonpositive or nonfinite values.
             ValueError:
                 If the wavelengths in `opt_trans_wavelengths` are not in ascending order.
         """
+        if len(opt_trans_wavelengths.shape) != 1:
+            raise ValueError("opt_trans_wavelengths must be one-dimensional")
+
         if opt_trans_wavelengths.shape[0] < 2:
-            raise ValueError(
-                "At minimum, at least the start and end wavelengths must be specified for opt_trans_wavelengths",
-            )
-        if opt_trans_wavelengths[0] >= opt_trans_wavelengths[-1]:
-            raise ValueError("opt_trans_wavelengths must be ascending")
+            raise ValueError("opt_trans_wavelengths must contain at least two values")
+
+        if not np.isfinite(opt_trans_wavelengths).all():
+            raise ValueError("opt_trans_wavelengths must contain only finite values")
+
+        if np.any(opt_trans_wavelengths <= 0):
+            raise ValueError("opt_trans_wavelengths must contain only positive values")
+
+        if not np.all(np.diff(opt_trans_wavelengths) > 0):
+            raise ValueError("opt_trans_wavelengths must be strictly ascending")
 
     @abstractmethod
     def _create_simulator(self) -> ImageSimulator:
@@ -351,7 +358,7 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
         image, boxes = super().perturb(image=image, boxes=boxes, **kwargs)
 
         if img_gsd is None:
-            raise ValueError("'img_gsd' must be provided for this perturber")
+            raise ValueError("img_gsd must be provided for this perturber")
 
         if self._use_default_psf:
             img_gsd = None
@@ -614,7 +621,7 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
         sim_img_uint8 = np.clip(sim_img, 0, 255).astype(np.uint8)
 
         # Rescale boxes if provided
-        if boxes:
+        if boxes is not None:
             scaled_boxes = self._rescale_boxes(boxes=boxes, orig_shape=orig_shape, new_shape=sim_img.shape)
             return sim_img_uint8, scaled_boxes
 
