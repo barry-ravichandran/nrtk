@@ -8,8 +8,7 @@ from syrupy.assertion import SnapshotAssertion
 from nrtk.impls.perturb_image.optical import RadialDistortionPerturber
 from tests.impls import INPUT_TANK_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
-
-rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.core
@@ -17,7 +16,7 @@ class TestRadialDistortionPerturber:
     @pytest.mark.parametrize(
         ("image"),
         [
-            (rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)),
+            (random_image()),
             (np.ones((3, 3, 3)).astype(np.uint8)),
         ],
     )

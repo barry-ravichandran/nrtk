@@ -9,8 +9,7 @@ from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEImageClassificationAugmentation
 from tests.fakes import FakePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
-
-random = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.maite
@@ -34,7 +33,7 @@ class TestMAITEImageClassificationAugmentation:
         updated.
         """
         augmentation = MAITEImageClassificationAugmentation(augment=perturber, augment_id="test_augment")
-        img_in = random.integers(0, 255, (3, 256, 256), dtype=np.uint8)
+        img_in = random_image(size=(3, 256, 256))
         target_class_in = [0]
         md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
 
@@ -77,7 +76,7 @@ class TestMAITEImageClassificationAugmentation:
         perturbers: Sequence[PerturbImage],
     ) -> None:
         """Test that the adapter appends, not overrides nrtk configs when multiple perturbations are applied."""
-        img_in = random.integers(0, 255, (3, 256, 256), dtype=np.uint8)  # MAITE is channels-first
+        img_in = random_image(size=(3, 256, 256))  # MAITE is channels-first
         targets_in = [0]
         md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
 

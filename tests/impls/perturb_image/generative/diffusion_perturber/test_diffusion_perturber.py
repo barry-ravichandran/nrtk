@@ -19,6 +19,7 @@ from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from nrtk.impls.perturb_image.generative import DiffusionPerturber
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
+from tests.utils import random_image
 
 _BASE_TORCH = "nrtk.impls.perturb_image._base._torch_random_perturb_image.torch"
 _DIFFUSION_TORCH = "nrtk.impls.perturb_image.generative._diffusion_perturber.torch"
@@ -111,12 +112,12 @@ class TestDiffusionPerturber(PerturberTestsMixin):
         mock_base_torch: MagicMock,  # noqa: ARG002
     ) -> None:
         """Verify different results when seed=None (default)."""
-        image = np.random.default_rng(1).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image(seed=1)
 
         # Setup mocks - return different images for different calls
         mock_pipeline = MagicMock()
-        mock_result_image1 = np.random.default_rng(1).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
-        mock_result_image2 = np.random.default_rng(2).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        mock_result_image1 = random_image(seed=1)
+        mock_result_image2 = random_image(seed=2)
         mock_pipeline.side_effect = [([mock_result_image1], False), ([mock_result_image2], False)]
         mock_pipeline_class.from_pretrained.return_value = mock_pipeline
         mock_pipeline.to.return_value = mock_pipeline
@@ -135,7 +136,7 @@ class TestDiffusionPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize(
         ("image", "seed"),
         [
-            (np.random.default_rng(2).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8), 2),
+            (random_image(seed=2), 2),
         ],
     )
     @patch(_BASE_TORCH)
@@ -154,7 +155,7 @@ class TestDiffusionPerturber(PerturberTestsMixin):
         """Verify same results with explicit seed."""
         # Setup mocks
         mock_pipeline = MagicMock()
-        mock_result_image = np.random.default_rng(seed).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        mock_result_image = random_image(seed=seed)
         mock_pipeline.return_value = ([mock_result_image], False)
         mock_pipeline_class.from_pretrained.return_value = mock_pipeline
         mock_pipeline.to.return_value = mock_pipeline
@@ -198,11 +199,11 @@ class TestDiffusionPerturber(PerturberTestsMixin):
         mock_base_torch: MagicMock,  # noqa: ARG002
     ) -> None:
         """Verify is_static resets RNG each call."""
-        image = np.random.default_rng(1).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image(seed=1)
 
         # Setup mocks
         mock_pipeline = MagicMock()
-        mock_result_image = np.random.default_rng(42).integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        mock_result_image = random_image(seed=42)
         mock_pipeline.return_value = ([mock_result_image], False)
         mock_pipeline_class.from_pretrained.return_value = mock_pipeline
         mock_pipeline.to.return_value = mock_pipeline

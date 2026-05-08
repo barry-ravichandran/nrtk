@@ -10,8 +10,7 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionTarget,
 )
 from tests.interop.maite.perturber_fixtures import ResizePerturber
-
-random = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.maite
@@ -21,8 +20,8 @@ class TestMAITEObjectDetectionDataset:
         [
             (
                 [
-                    random.integers(0, 255, (3, 256, 256), dtype=np.uint8),
-                    random.integers(0, 255, (3, 128, 128), dtype=np.uint8),
+                    random_image(size=(3, 256, 256)),
+                    random_image(size=(3, 128, 128)),
                 ],
                 [
                     MAITEObjectDetectionTarget(

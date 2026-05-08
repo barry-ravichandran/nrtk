@@ -14,8 +14,7 @@ from nrtk.impls.perturb_image.photometric.blur import AverageBlurPerturber
 from tests.impls import INPUT_VISDRONE_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
-
-rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.opencv
@@ -38,7 +37,7 @@ class TestAverageBlurPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize(
         ("image", "ksize"),
         [
-            (rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8), 1),
+            (random_image(), 1),
             (np.ones((256, 256, 3), dtype=np.float32), 3),
             (np.ones((256, 256, 3), dtype=np.float64), 5),
         ],

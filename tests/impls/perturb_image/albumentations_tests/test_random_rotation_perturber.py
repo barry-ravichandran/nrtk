@@ -14,8 +14,7 @@ from nrtk.impls.perturb_image.geometric.random import RandomRotationPerturber
 from tests.impls import INPUT_TANK_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
-
-rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.opencv
@@ -152,7 +151,7 @@ class TestRandomRotationPerturber(PerturberTestsMixin):
 
     def test_non_deterministic_default(self) -> None:
         """Verify different results when seed=None (default)."""
-        image = rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image()
         # Use large rotation limit to ensure visible differences between non-deterministic runs
         limit = 90
         probability = 1.0
@@ -168,7 +167,7 @@ class TestRandomRotationPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize(
         ("image", "seed"),
         [
-            (rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8), 2),
+            (random_image(), 2),
         ],
     )
     def test_seed_reproducibility(self, image: np.ndarray, seed: int) -> None:
@@ -212,7 +211,7 @@ class TestRandomRotationPerturber(PerturberTestsMixin):
 
     def test_is_static(self) -> None:
         """Verify is_static resets RNG each call."""
-        image = rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image()
         # Use large rotation limit to ensure visible differences between non-deterministic runs
         # is_static=True ensures identical results on repeated calls with the same input
         inst = RandomRotationPerturber(limit=90, probability=1.0, seed=42, is_static=True)

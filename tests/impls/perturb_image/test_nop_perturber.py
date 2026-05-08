@@ -7,14 +7,13 @@ from smqtk_image_io.bbox import AxisAlignedBoundingBox
 
 from nrtk.impls.perturb_image._nop_perturber import _NOPPerturber
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
-
-rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.parametrize(
     "image",
     [
-        rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8),
+        random_image(),
         np.ones((256, 256, 3), dtype=np.float32),
     ],
 )

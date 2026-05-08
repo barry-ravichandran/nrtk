@@ -13,8 +13,7 @@ from nrtk.impls.perturb_image.photometric.noise import GaussianNoisePerturber
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
 from tests.impls.perturb_image.photometric.noise.noise_perturber_test_utils import seed_assertions
-
-test_rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.skimage
@@ -70,7 +69,7 @@ class TestGaussianNoisePerturber(PerturberTestsMixin):
 
     def test_non_deterministic_default(self) -> None:
         """Verify different results when seed=None (default)."""
-        dummy_image = test_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        dummy_image = random_image()
 
         inst1 = GaussianNoisePerturber()
         inst2 = GaussianNoisePerturber()
@@ -85,7 +84,7 @@ class TestGaussianNoisePerturber(PerturberTestsMixin):
 
     def test_is_static(self) -> None:
         """Verify is_static resets RNG each call."""
-        dummy_image = test_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        dummy_image = random_image()
         inst = GaussianNoisePerturber(seed=42, is_static=True)
         out1, _ = inst(image=dummy_image)
         out2, _ = inst(image=dummy_image)

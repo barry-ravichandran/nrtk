@@ -18,9 +18,7 @@ from nrtk.impls.perturb_image.environment._water_droplet_perturber import (
 from tests.impls import INPUT_TANK_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
-
-rng = np.random.default_rng(2345)
-reproduce_rng = np.random.default_rng(23456)
+from tests.utils import random_image
 
 
 @pytest.mark.waterdroplet
@@ -29,7 +27,7 @@ class TestWaterDropletPerturber(PerturberTestsMixin):
 
     def test_non_deterministic_default(self) -> None:
         """Verify different results when seed=None (default)."""
-        image = reproduce_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image(seed=23456)
 
         # Create two instances with default seed=None
         inst1 = WaterDropletPerturber()
@@ -42,7 +40,7 @@ class TestWaterDropletPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize(
         ("image", "seed"),
         [
-            (reproduce_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8), 2),
+            (random_image(seed=23456), 2),
         ],
     )
     def test_seed_reproducibility(self, image: np.ndarray, seed: int) -> None:
@@ -73,7 +71,7 @@ class TestWaterDropletPerturber(PerturberTestsMixin):
 
     def test_is_static(self) -> None:
         """Verify is_static resets RNG each call."""
-        image = reproduce_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image(seed=23456)
         inst = WaterDropletPerturber(seed=42, is_static=True)
         out1 = perturber_assertions(perturb=inst.perturb, image=image, expected=None)
         # Same result each call with is_static
@@ -281,9 +279,7 @@ class TestWaterDropletPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize("num_drops", [0, 1])
     def test_few_droplets_no_overlap_check(self, num_drops: int) -> None:
         """Test that perturb handles 0 or 1 droplets without overlap removal issues."""
-        # Use a local RNG to avoid affecting other tests that use the module-level rng
-        _rng = np.random.default_rng(2345)
-        image = _rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image(seed=2345)
         inst = WaterDropletPerturber(num_drops=num_drops, seed=42)
         out_image, _ = inst.perturb(image=image)
         # Verify the output is valid (same shape, uint8 type)

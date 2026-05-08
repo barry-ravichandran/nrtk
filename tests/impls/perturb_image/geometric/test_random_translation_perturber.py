@@ -13,8 +13,7 @@ from nrtk.impls.perturb_image.geometric.random import RandomTranslationPerturber
 from tests.impls import INPUT_TANK_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import bbox_perturber_assertions
-
-rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.core
@@ -72,7 +71,7 @@ class TestRandomTranslationPerturber(PerturberTestsMixin):
 
     def test_non_deterministic_default(self) -> None:
         """Verify different results when seed=None (default)."""
-        image = rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image()
 
         # Create two instances with default seed=None
         inst1 = RandomTranslationPerturber()
@@ -85,7 +84,7 @@ class TestRandomTranslationPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize(
         ("image", "seed"),
         [
-            (rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8), 2),
+            (random_image(), 2),
             (np.ones((256, 256, 3), dtype=np.float32), 2),
             (np.ones((256, 256, 3), dtype=np.float64), 2),
         ],
@@ -118,7 +117,7 @@ class TestRandomTranslationPerturber(PerturberTestsMixin):
 
     def test_is_static(self) -> None:
         """Verify is_static resets RNG each call."""
-        image = rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+        image = random_image()
         # is_static=True ensures identical results on repeated calls with the same input
         inst = RandomTranslationPerturber(seed=42, is_static=True)
         out_image, _ = bbox_perturber_assertions(
