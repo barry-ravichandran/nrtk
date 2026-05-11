@@ -80,6 +80,12 @@ tox:pytest:py3.13:
   variables:
     PYTHON_VERSION: "3.13"
 
+tox:pytest:py3.14:
+  extends: .tox:pytest
+  image: python:3.14
+  variables:
+    PYTHON_VERSION: "3.14"
+
 .tox:coverage:version:
   extends: .test-setup
   tags:
@@ -140,6 +146,16 @@ tox:coverage:py3.13:
     - job: tox:pytest:py3.13
       artifacts: true
 
+tox:coverage:py3.14:
+  extends: .tox:coverage:version
+  variables:
+    PYTHON_VERSION: "3.14"
+  dependencies:
+    - tox:pytest:py3.14
+  needs:
+    - job: tox:pytest:py3.14
+      artifacts: true
+
 tox:coverage:
   extends: .test-setup
   tags:
@@ -150,6 +166,7 @@ tox:coverage:
     - tox:coverage:py3.11
     - tox:coverage:py3.12
     - tox:coverage:py3.13
+    - tox:coverage:py3.14
   needs:
     - job: tox:coverage:py3.10
       artifacts: true
@@ -158,6 +175,8 @@ tox:coverage:
     - job: tox:coverage:py3.12
       artifacts: true
     - job: tox:coverage:py3.13
+      artifacts: true
+    - job: tox:coverage:py3.14
       artifacts: true
   script:
     - tox -e coverage
@@ -220,7 +239,6 @@ tox:notebooks:maite:
           "nrtk_radial_distortion_perturber_demo.ipynb",
           "nrtk_sensor_transformation_demo.ipynb",
           "nrtk_turbulence_perturber_demo.ipynb",
-          "jatic-perturbations-saliency.ipynb",
           "nrtk_water_droplet_perturber_demo.ipynb"
         ]
         RUNNER_TAG: autoscaler
@@ -237,7 +255,7 @@ xaitk-notebook-tests:
     - small-gpu
   parallel:
     matrix:
-      - PYTHON_IMAGE: ["python:3.10", "python:3.11", "python:3.12", "python:3.13"]
+      - PYTHON_IMAGE: ["python:3.10", "python:3.11", "python:3.12", "python:3.13", "python:3.14"]
   image: $PYTHON_IMAGE
   before_script:
     - !reference [.test-setup, before_script]
