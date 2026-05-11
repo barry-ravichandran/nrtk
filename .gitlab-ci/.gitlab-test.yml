@@ -239,7 +239,6 @@ tox:notebooks:maite:
           "nrtk_radial_distortion_perturber_demo.ipynb",
           "nrtk_sensor_transformation_demo.ipynb",
           "nrtk_turbulence_perturber_demo.ipynb",
-          "jatic-perturbations-saliency.ipynb",
           "nrtk_water_droplet_perturber_demo.ipynb"
         ]
         RUNNER_TAG: autoscaler
