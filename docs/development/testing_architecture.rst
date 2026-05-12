@@ -403,7 +403,7 @@ output arguments:
 
 .. prompt:: bash
 
-    tox -r -e papermill -- docs/examples/nrtk_tutorial.ipynb docs/examples/nrtk_tutorial.ipynb
+    tox -r -e papermill -- docs/examples/end_to_end_overview.ipynb docs/examples/end_to_end_overview.ipynb
 
 .. tip::
    The ``-r`` flag forces tox to recreate the environment. This is used in CI

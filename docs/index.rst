@@ -112,7 +112,7 @@ necessarily representing the official policies or endorsements, either expressed
    explanations/index
    validation_and_trust
    reference/index
-   interoperability/maite/jatic_interoperability
-   containers/aukus
+   interoperability/maite/maite_interoperability
+   containers/nrtk_perturber
    development/index
    release_notes/index

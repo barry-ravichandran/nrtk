@@ -21,7 +21,7 @@ the `nrtk` package. They are kept separate because:
 ## Directory Structure
 
 ```text
-nrtk_xaitk_workflow/
+xaitk_saliency_workflow/
 ├── README.md
 ├── image_classification_perturbation_saliency.ipynb   # IC notebook
 ├── object_detection_perturbation_saliency.ipynb       # OD notebook
@@ -84,12 +84,12 @@ Tests are organized by pytest markers:
 ```bash
 # Import guard tests (always pass — deps are mocked)
 python -m pytest -m "core" \
-  docs/examples/nrtk_xaitk_workflow/notebook_tests/ \
+  docs/examples/xaitk_saliency_workflow/notebook_tests/ \
   -o "addopts=" -o "testpaths=" -v --tb=short
 
 # Canary tests (require real dependencies)
 python -m pytest -m "xaitk" \
-  docs/examples/nrtk_xaitk_workflow/notebook_tests/ \
+  docs/examples/xaitk_saliency_workflow/notebook_tests/ \
   -o "addopts=" -o "testpaths=" -v --tb=short
 ```
 

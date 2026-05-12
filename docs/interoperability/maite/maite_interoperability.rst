@@ -21,7 +21,7 @@ Enable NRTK Perturbations as MAITE Augmentations
 ------------------------------------------------
 
 For tutorials utilizing these adapters to evaluate model robustness against key operational risks, see our
-:doc:`Testing & Evaluation Guides </tutorials/testing_and_evaluation_notebooks>`.
+:doc:`Testing & Evaluation Guides </tutorials/maite_testing_and_evaluation_guides>`.
 
 .. autosummary::
    :toctree: _implementations/interop

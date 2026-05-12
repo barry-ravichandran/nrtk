@@ -21,7 +21,7 @@ Tools
 .. toctree::
    :maxdepth: 1
 
-   utils
+   perturber_cli
 
 Glossary
 --------

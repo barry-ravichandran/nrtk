@@ -28,7 +28,7 @@ workflows, through interoperability with
 other [JATIC](https://cdao.pages.jatic.net/public/) tools. Users seeking to use
 NRTK to perturb MAITE-wrapped datasets or evaluate MAITE-wrapped models should
 utilize this module. Explore our
-[T&E guides](https://nrtk.readthedocs.io/en/latest/tutorials/testing_and_evaluation_notebooks.html)
+[T&E guides](https://nrtk.readthedocs.io/en/latest/tutorials/maite_testing_and_evaluation_guides.html)
 which demonstrate how `nrtk` perturbations and `maite` can be applied to assess
 operational risks.
 
@@ -247,7 +247,7 @@ poetry run pre-commit run --all-files
 ```
 
 For running the test suite, see the
-[Testing Architecture guide](https://nrtk.readthedocs.io/en/latest/development/test-architecture.html).
+[Testing Architecture guide](https://nrtk.readthedocs.io/en/latest/development/testing_architecture.html).
 
 <!-- :auto developer-tools: -->
 
