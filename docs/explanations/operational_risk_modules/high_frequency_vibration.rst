@@ -39,15 +39,22 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: pybsm
 .. code-block:: python
 
    from nrtk.impls.perturb_image.optical.otf import JitterPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = JitterPerturber(
        s_x=0.0,  # no jitter in x direction
        s_y=5e-4   # medium jitter in y direction
    )
-   perturbed_img, perturbed_boxes = perturber.perturb(image=img, boxes=boxes, img_gsd=0.03)
+   perturbed_img, _ = perturber.perturb(image=image, img_gsd=0.03)
 
 Key Parameters
 --------------

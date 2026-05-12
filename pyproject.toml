@@ -128,6 +128,7 @@ tests = [
     "Pillow>=12.1.1",  # GHSA-cfh3-3jmp-rvhc  # required for custom conftest.py fixtures
     "responses>=0.25.0", # rquired to test FastAPI (used by entrypoint app)
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)
+    "pytest-codeblock (>=0.5.8,<0.6.0)", # required for code block testing in docs
 ]
 
 [tool.pytest.ini_options]
@@ -145,6 +146,8 @@ addopts = [
 # Doctests require optional dependencies to be installed.
 testpaths = [
     "tests",
+    "**/*.rst",
+    "**/*.md",
 ]
 doctest_optionflags = [
     "NORMALIZE_WHITESPACE",
@@ -164,6 +167,9 @@ markers = [
     "tools: Run tests that require the tools extra",
     "optional: Run all tests except notebooks",
 ]
+
+[tool.pytest-codeblock]
+test_nameless_codeblocks = true
 
 [tool.coverage.run]
 omit = [

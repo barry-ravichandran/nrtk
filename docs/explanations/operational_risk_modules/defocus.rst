@@ -38,15 +38,22 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: pybsm
 .. code-block:: python
 
    from nrtk.impls.perturb_image.optical.otf import DefocusPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = DefocusPerturber(
        w_x=5.0e-6,  # blur spot radius in x direction (m)
        w_y=5.0e-6,  # blur spot radius in y direction (m)
    )
-   perturbed_img, boxes = perturber(image=img_in, boxes=boxes, img_gsd=0.03)
+   perturbed_img, _ = perturber(image=image, img_gsd=0.03)
 
 Key Parameters
 --------------

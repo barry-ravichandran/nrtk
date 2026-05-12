@@ -39,12 +39,19 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: core
 .. code-block:: python
 
    from nrtk.impls.perturb_image.environment import HazePerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = HazePerturber(factor=1.0)  # medium haze
-   img_out = perturber(image=img_in)
+   img_out, _ = perturber(image=image)
 
 Key Parameters
 --------------

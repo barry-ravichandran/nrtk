@@ -141,6 +141,8 @@ perturbation. This image represents the initial state before any transformation.
 
 Below is some example code that applies a Jitter OTF transformation:
 
+<!-- pytestmark: pybsm -->
+
 ```python
 from nrtk.impls.perturb_image.optical.otf import JitterPerturber
 import numpy as np
