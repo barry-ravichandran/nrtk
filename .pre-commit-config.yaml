@@ -48,11 +48,17 @@ repos:
       require_serial: true
       language: system
       types_or: [python, pyi, jupyter]
-    - id: pyright
-      name: pyright
+    - id: pyright-internal
+      name: pyright-internal
       require_serial: true
       language: system
       entry: poetry run pyright
+      types: [file, python]
+    - id: pyright-external
+      name: pyright-external
+      require_serial: true
+      language: system
+      entry: poetry run pyright --verifytypes nrtk --ignoreexternal src/nrtk
       types: [file, python]
     - id: extras-yaml
       name: Update src/nrtk/utils/_extras.yml from pyproject.toml
