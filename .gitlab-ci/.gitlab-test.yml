@@ -214,7 +214,7 @@ tox:notebooks:examples:
       - NOTEBOOK_DIR: "docs/examples"
         NOTEBOOK_FILE: [
           "albumentations_perturber.ipynb",
-          "nrtk_tutorial.ipynb",
+          "end_to_end_overview.ipynb",
           "optical_perturbers.ipynb",
           "photometric_perturbers.ipynb",
           "pybsm_default_config.ipynb"
@@ -230,22 +230,22 @@ tox:notebooks:maite:
     matrix:
       - NOTEBOOK_DIR: "docs/examples/maite"
         NOTEBOOK_FILE: [
-          "nrtk_affine_perturbers_demo.ipynb",
-          "nrtk_brightness_perturber_demo.ipynb",
-          "nrtk_focus_perturber_demo.ipynb",
-          "nrtk_haze_perturber_demo.ipynb",
-          "nrtk_jitter_perturber_demo.ipynb",
-          "nrtk_lens_flare_demo.ipynb",
-          "nrtk_radial_distortion_perturber_demo.ipynb",
-          "nrtk_sensor_transformation_demo.ipynb",
-          "nrtk_turbulence_perturber_demo.ipynb",
-          "nrtk_water_droplet_perturber_demo.ipynb"
+          "affine_transformations.ipynb",
+          "extreme_illumination.ipynb",
+          "visual_focus.ipynb",
+          "fog_haze.ipynb",
+          "motion_jitter.ipynb",
+          "lens_flare.ipynb",
+          "radial_distortion.ipynb",
+          "sensor_resolution_and_noise.ipynb",
+          "atmospheric_turbulence.ipynb",
+          "water_droplets.ipynb"
         ]
         RUNNER_TAG: autoscaler
 
 # NRTK-XAITK workflow utility tests
 # These tests verify the import guard behavior of the notebook helper modules
-# in docs/examples/nrtk_xaitk_workflow/. They are lightweight unit tests
+# in docs/examples/xaitk_saliency_workflow/. They are lightweight unit tests
 # (not notebook execution) and run on every MR push.
 # The "core"-marked tests mock missing dependencies to verify import guards.
 # The "xaitk"-marked canary tests verify real imports work when deps are present.
@@ -266,7 +266,7 @@ xaitk-notebook-tests:
     # Import guard tests — deps are NOT installed; mixin mocks missing packages
     - poetry run pytest -rfE --tb=short -q --no-header --disable-warnings
         -m "core"
-        docs/examples/nrtk_xaitk_workflow/notebook_tests/
+        docs/examples/xaitk_saliency_workflow/notebook_tests/
         -o "addopts=" -o "testpaths="
     # Install optional deps for canary tests
     - poetry run pip install -q maite xaitk-saliency torch ultralytics datasets transformers
@@ -276,5 +276,5 @@ xaitk-notebook-tests:
     # Canary tests — FAIL if deps are installed but imports still break
     - poetry run pytest -rfE --tb=short -q --no-header --disable-warnings
         -m "xaitk"
-        docs/examples/nrtk_xaitk_workflow/notebook_tests/
+        docs/examples/xaitk_saliency_workflow/notebook_tests/
         -o "addopts=" -o "testpaths="

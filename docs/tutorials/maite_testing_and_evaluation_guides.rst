@@ -36,7 +36,7 @@ Perturbations that alter pixel intensity, color balance, or lighting conditions.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_brightness_perturber_demo
+      .. button-ref:: /examples/maite/extreme_illumination
          :color: primary
          :outline:
 
@@ -49,7 +49,7 @@ Perturbations that alter pixel intensity, color balance, or lighting conditions.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_lens_flare_demo
+      .. button-ref:: /examples/maite/lens_flare
          :color: primary
          :outline:
 
@@ -74,7 +74,7 @@ Perturbations that change spatial layout through rotation, scaling, or translati
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_affine_perturbers_demo
+      .. button-ref:: /examples/maite/affine_transformations
          :color: primary
          :outline:
 
@@ -99,7 +99,7 @@ Perturbations that replicate weather and atmospheric visibility conditions.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_haze_perturber_demo
+      .. button-ref:: /examples/maite/fog_haze
          :color: primary
          :outline:
 
@@ -112,7 +112,7 @@ Perturbations that replicate weather and atmospheric visibility conditions.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_water_droplet_perturber_demo
+      .. button-ref:: /examples/maite/water_droplets
          :color: primary
          :outline:
 
@@ -141,7 +141,7 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_focus_perturber_demo
+      .. button-ref:: /examples/maite/visual_focus
          :color: primary
          :outline:
 
@@ -154,7 +154,7 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_sensor_transformation_demo
+      .. button-ref:: /examples/maite/sensor_resolution_and_noise
          :color: primary
          :outline:
 
@@ -167,7 +167,7 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_jitter_perturber_demo
+      .. button-ref:: /examples/maite/motion_jitter
          :color: primary
          :outline:
 
@@ -180,7 +180,7 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_turbulence_perturber_demo
+      .. button-ref:: /examples/maite/atmospheric_turbulence
          :color: primary
          :outline:
 
@@ -193,7 +193,7 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 
       +++
 
-      .. button-ref:: /examples/maite/nrtk_radial_distortion_perturber_demo
+      .. button-ref:: /examples/maite/radial_distortion
          :color: primary
          :outline:
 
@@ -204,13 +204,13 @@ Perturbations from sensor optics, camera physics, and atmospheric distortion.
 .. toctree::
    :hidden:
 
-   /examples/maite/nrtk_brightness_perturber_demo
-   /examples/maite/nrtk_lens_flare_demo
-   /examples/maite/nrtk_affine_perturbers_demo
-   /examples/maite/nrtk_haze_perturber_demo
-   /examples/maite/nrtk_water_droplet_perturber_demo
-   /examples/maite/nrtk_focus_perturber_demo
-   /examples/maite/nrtk_sensor_transformation_demo
-   /examples/maite/nrtk_jitter_perturber_demo
-   /examples/maite/nrtk_turbulence_perturber_demo
-   /examples/maite/nrtk_radial_distortion_perturber_demo
+   /examples/maite/extreme_illumination
+   /examples/maite/lens_flare
+   /examples/maite/affine_transformations
+   /examples/maite/fog_haze
+   /examples/maite/water_droplets
+   /examples/maite/visual_focus
+   /examples/maite/sensor_resolution_and_noise
+   /examples/maite/motion_jitter
+   /examples/maite/atmospheric_turbulence
+   /examples/maite/radial_distortion

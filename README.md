@@ -8,7 +8,7 @@ ______________________________________________________________________
 
 [![PyPI - Python Version](https://img.shields.io/pypi/v/nrtk)](https://pypi.org/project/nrtk/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/nrtk)
-[![Documentation Status](https://readthedocs.org/projects/nrtk/badge/?version=latest)](https://nrtk.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/nrtk/badge/?version=stable)](https://nrtk.readthedocs.io/en/stable/?badge=stable)
 
 <!-- :auto badges: -->
 
@@ -28,7 +28,7 @@ workflows, through interoperability with
 other [JATIC](https://cdao.pages.jatic.net/public/) tools. Users seeking to use
 NRTK to perturb MAITE-wrapped datasets or evaluate MAITE-wrapped models should
 utilize this module. Explore our
-[T&E guides](https://nrtk.readthedocs.io/en/latest/tutorials/testing_and_evaluation_notebooks.html)
+[T&E guides](https://nrtk.readthedocs.io/en/stable/tutorials/maite_testing_and_evaluation_guides.html)
 which demonstrate how `nrtk` perturbations and `maite` can be applied to assess
 operational risks.
 
@@ -102,13 +102,13 @@ pip install nrtk[pybsm]
 
 More information on extras and related perturbers, including a complete list of
 extras, is available in the
-[perturber requirements documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#perturber-requirements).
+[perturber requirements documentation](https://nrtk.readthedocs.io/en/stable/getting_started/installation.html#perturber-requirements).
 
 Details on the perturbers and their dependencies can be found in the
-[implementations reference](https://nrtk.readthedocs.io/en/latest/reference/api/implementations.html).
+[implementations reference](https://nrtk.readthedocs.io/en/stable/reference/api/implementations.html).
 
 For more detailed installation instructions, visit the
-[installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html).
+[installation documentation](https://nrtk.readthedocs.io/en/stable/getting_started/installation.html).
 
 <!-- :auto installation: -->
 
@@ -126,7 +126,7 @@ Jupyter notebooks provided in the `./docs/examples/` directory.
 Via the pyBSM package, NRTK exposes a large set of Optical Transfer Functions
 (OTFs). These OTFs can simulate different environmental and sensor-based
 effects. For example, the
-[JitterPerturber](https://nrtk.readthedocs.io/en/latest/reference/api/_implementations/nrtk.impls.perturb_image.optical.otf.JitterPerturber.html#nrtk.impls.perturb_image.optical.otf.JitterPerturber)
+[JitterPerturber](https://nrtk.readthedocs.io/en/stable/reference/api/_implementations/nrtk.impls.perturb_image.optical.otf.JitterPerturber.html#nrtk.impls.perturb_image.optical.otf.JitterPerturber)
 simulates different levels of sensor jitter. By modifying its input parameters,
 you can observe how sensor jitter affects image quality.
 
@@ -201,7 +201,7 @@ The following points help ensure contributions follow development practices.
   [JATIC Design Principles](https://cdao.pages.jatic.net/public/program/design-principles/).
 - Adopt the Git Flow branching strategy.
 - See the
-  [release process documentation](https://nrtk.readthedocs.io/en/latest/development/release_process.html)
+  [release process documentation](https://nrtk.readthedocs.io/en/stable/development/release_process.html)
   for detailed release information.
 - Additional contribution guidelines and issue reporting steps can be found in
   [CONTRIBUTING.md](https://github.com/Kitware/nrtk/blob/main/CONTRIBUTING.md).
@@ -221,7 +221,7 @@ You can install using [Poetry](https://python-poetry.org/):
 > [!IMPORTANT]
 >
 > NRTK requires Poetry 2.2 or higher. If you're new to Poetry, review the
-> [installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#from-source)
+> [installation documentation](https://nrtk.readthedocs.io/en/stable/getting_started/installation.html#from-source)
 > first — Poetry has its own conventions for virtual environments and dependency
 > resolution that can trip up users expecting pip semantics.
 
@@ -247,7 +247,7 @@ poetry run pre-commit run --all-files
 ```
 
 For running the test suite, see the
-[Testing Architecture guide](https://nrtk.readthedocs.io/en/latest/development/test-architecture.html).
+[Testing Architecture guide](https://nrtk.readthedocs.io/en/stable/development/testing_architecture.html).
 
 <!-- :auto developer-tools: -->
 

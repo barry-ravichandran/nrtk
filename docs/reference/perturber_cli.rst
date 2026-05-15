@@ -1,9 +1,8 @@
-=====
-Utils
-=====
+=============
+Perturber CLI
+=============
 
------------------------------
-NRTK perturber CLI Entrypoint
+nrtk-perturber CLI Entrypoint
 -----------------------------
 
 .. click:: nrtk.entrypoints:nrtk_perturber_cli

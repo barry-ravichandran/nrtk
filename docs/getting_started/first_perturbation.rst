@@ -25,7 +25,7 @@ When to Use This
   effects.
 * You're doing early **screening of robustness** to vibration before running
   heavier T&E analysis (see the full T&E Simulation Guide →
-  :doc:`JitterPerturber T&E guide </examples/maite/nrtk_jitter_perturber_demo>`).
+  :doc:`JitterPerturber T&E guide </examples/maite/motion_jitter>`).
 * You want to test model performance at **reduced effective resolution** due to
   motion.
 
@@ -171,12 +171,12 @@ References
   :doc:`High-Frequency Vibration Module </explanations/operational_risk_modules/high_frequency_vibration>`
   — Physics background, OTF modeling details, and limitations
 * **T&E Simulation Guide:**
-  :doc:`JitterPerturber T&E guide </examples/maite/nrtk_jitter_perturber_demo>`
+  :doc:`JitterPerturber T&E guide </examples/maite/motion_jitter>`
   — Detailed analysis, validation, datasets, and recommended parameter sweeps
 * **End-to-End Tutorial:**
-  :doc:`NRTK End-to-End Overview </examples/nrtk_tutorial>`
+  :doc:`NRTK End-to-End Overview </examples/end_to_end_overview>`
   — Complete workflow covering perturbation, factories, and model evaluation
-* **Concepts:** :doc:`/explanations/nrtk_explanation`
+* **Concepts:** :doc:`/explanations/robustness_concepts`
   — Conceptual guide to NRTK's architecture and approach
 * **Risk Matrix:** :doc:`/explanations/risk_factors`
   — Map real-world operational risks to NRTK perturbations

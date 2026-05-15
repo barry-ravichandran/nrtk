@@ -35,7 +35,7 @@ Use This When...
 * You need a **physics-based perturbation** that models realistic optical refraction effects.
 * You're doing early **screening of robustness** to lens contamination before running heavier
   T&E analysis (see the full T&E Simulation Guide →
-  :doc:`WaterDropletPerturber T&E guide </examples/maite/nrtk_water_droplet_perturber_demo>`).
+  :doc:`WaterDropletPerturber T&E guide </examples/maite/water_droplets>`).
 * You want to test model performance under **localized distortions** rather than global blur.
 
 Minimal Code Example

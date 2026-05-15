@@ -3,8 +3,8 @@ Validation and Trust
 ====================
 
 This page summarizes how NRTK is validated today, the available evidence, the remaining gaps, and how users
-should interpret perturbation-based robustness results (see :doc:`/explanations/nrtk_explanation`). It is not a full T&E
-manual, but a transparency resource for anyone integrating NRTK into evaluation workflows.
+should interpret perturbation-based robustness results (see :doc:`/explanations/robustness_concepts`). It is
+not a full T&E manual, but a transparency resource for anyone integrating NRTK into evaluation workflows.
 
 NRTK provides rapid, cost-effective perturbation testing to identify potential model vulnerabilities and
 robustness gaps. The perturbations are designed to be indicative rather than authoritative. They provide
@@ -202,7 +202,7 @@ Related Resources
 =================
 
 * :doc:`/explanations/risk_factors` - Which perturbations map to which operational risks
-* :doc:`/tutorials/testing_and_evaluation_notebooks` - Examples of NRTK in realistic testing workflows
+* :doc:`/tutorials/maite_testing_and_evaluation_guides` - Examples of NRTK in realistic testing workflows
 * :doc:`/release_notes/index` - Validation updates and known issue resolutions
 
 Publications & Presentations

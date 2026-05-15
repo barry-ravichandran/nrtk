@@ -24,7 +24,7 @@ Start Here
 
       +++
 
-      .. button-ref:: /examples/nrtk_tutorial
+      .. button-ref:: /examples/end_to_end_overview
          :color: primary
          :outline:
 
@@ -38,14 +38,14 @@ Continue Learning
    :padding: 2 2 0 0
 
    .. grid-item-card:: :material-regular:`science` T&E with MAITE
-      :link: /tutorials/testing_and_evaluation_notebooks
+      :link: /tutorials/maite_testing_and_evaluation_guides
       :link-type: doc
 
       Apply perturbations within standardized T&E workflows covering
       photometric, geometric, environmental, and optical risks.
 
    .. grid-item-card:: :material-regular:`visibility` NRTK + Saliency
-      :link: /tutorials/saliency_notebooks
+      :link: /tutorials/xaitk_saliency_analysis
       :link-type: doc
 
       Combine perturbations with XAITK saliency maps to understand
@@ -61,7 +61,7 @@ Continue Learning
 .. toctree::
    :hidden:
 
-   /examples/nrtk_tutorial
-   testing_and_evaluation_notebooks
-   saliency_notebooks
+   /examples/end_to_end_overview
+   maite_testing_and_evaluation_guides
+   xaitk_saliency_analysis
    webinars/index

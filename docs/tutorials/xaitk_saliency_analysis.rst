@@ -25,14 +25,14 @@ these tutorials, you'll be able to:
    :padding: 2 2 0 0
 
    .. grid-item-card:: :material-regular:`image` Classification + Saliency
-      :link: /examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency
+      :link: /examples/xaitk_saliency_workflow/image_classification_perturbation_saliency
       :link-type: doc
 
       Combine perturbations with XAITK saliency maps to understand
       classification model behavior under degradation.
 
    .. grid-item-card:: :material-regular:`center_focus_strong` Detection + Saliency
-      :link: /examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency
+      :link: /examples/xaitk_saliency_workflow/object_detection_perturbation_saliency
       :link-type: doc
 
       Extend the saliency workflow to object detection, visualizing
@@ -41,5 +41,5 @@ these tutorials, you'll be able to:
 .. toctree::
    :hidden:
 
-   /examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency
-   /examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency
+   /examples/xaitk_saliency_workflow/image_classification_perturbation_saliency
+   /examples/xaitk_saliency_workflow/object_detection_perturbation_saliency
