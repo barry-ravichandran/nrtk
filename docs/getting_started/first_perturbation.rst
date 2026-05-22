@@ -44,6 +44,7 @@ Example: Jitter Perturbation
 The following example loads an image, applies a jitter perturbation, and saves
 the result:
 
+.. pytestmark: pybsm
 .. code-block:: python
 
     from nrtk.impls.perturb_image.optical.otf import JitterPerturber
@@ -51,7 +52,8 @@ the result:
     from PIL import Image
 
     # Load your image
-    image = np.array(Image.open("your_image.jpg"))
+    INPUT_IMG_FILE = 'docs/images/input.jpg'
+    image = np.array(Image.open(INPUT_IMG_FILE))
 
     # Apply jitter perturbation
     # img_gsd = ground sample distance (meters/pixel) for your sensor

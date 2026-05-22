@@ -41,24 +41,32 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: pybsm
 .. code-block:: python
 
    from nrtk.impls.perturb_image.optical import PybsmPerturber
+   from nrtk.impls.perturb_image.optical.otf import load_default_config
    import numpy as np
+   from PIL import Image
+
+   # Generate an input image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    # Simulate moderate sensor noise (thermal + electronic)
    perturber = PybsmPerturber(
-       dark_current=3e11,  # e-/s - thermal noise
-       read_noise=25.0,   # e- RMS - electronic noise
-       D=275e-3,          # aperture diameter (meters)
-       f=4,               # focal length
-       p_x=8.0e-6,        # pixel pitch x (meters)
-       p_y=8.0e-6,        # pixel pitch y (meters)
-       altitude=10.0,     # camera height (meters)
-       ground_range=14.0, # distance to target
-       opt_trans_wavelengths=np.array([0.50e-6, 0.66e-6]),
+    dark_current=3994.5658425598544,  # e-/s - thermal noise
+    read_noise=25.0,      # e- RMS - electronic noise
+    D=275e-3,             # aperture diameter (meters)
+    f=4,                  # focal length
+    p_x=0.008e-3,         # pixel pitch x (meters)
+    p_y=0.008e-3,         # pixel pitch y (meters)
+    altitude=9000.0,      # camera height (meters)
+    ground_range=60000.0, # distance to target
+    opt_trans_wavelengths=np.array([5e-07, 6.6e-07]),
+
    )
-   perturbed_img, perturbed_boxes = perturber.perturb(image=img, boxes=boxes, img_gsd=0.03)
+   perturbed_img, _ = perturber.perturb(image=image, img_gsd=3.19/160)
 
 Key Parameters
 --------------

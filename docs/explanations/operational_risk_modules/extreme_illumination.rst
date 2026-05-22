@@ -46,17 +46,24 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: pillow
 .. code-block:: python
 
    from nrtk.impls.perturb_image.photometric.enhance import BrightnessPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    # Low brightness example
    perturber = BrightnessPerturber(factor=0.15)  # very dark
-   perturbed_img, perturbed_boxes = perturber(image=img, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
    # High brightness example
    perturber = BrightnessPerturber(factor=3.5)  # very bright
-   perturbed_img, perturbed_boxes = perturber(image=img, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
 Key Parameters
 --------------

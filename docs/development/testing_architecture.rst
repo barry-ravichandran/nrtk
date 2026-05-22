@@ -163,7 +163,11 @@ declares which optional dependency it requires. These markers are defined in
 
 Tests apply these as class-level decorators:
 
+.. pytestmark: skip
 .. code-block:: python
+
+   import pytest
+   from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 
    @pytest.mark.opencv
    class TestGaussianBlurPerturber(PerturberTestsMixin):
@@ -219,7 +223,10 @@ Each optional-dependency group includes a **canary test** that attempts to
 import the expected classes and calls ``pytest.fail()`` (not ``pytest.skip()``)
 if the import fails:
 
+.. pytestmark: opencv
 .. code-block:: python
+
+   import pytest
 
    @pytest.mark.opencv
    def test_opencv_public_imports() -> None:

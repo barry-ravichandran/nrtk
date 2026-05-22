@@ -37,17 +37,24 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: core
 .. code-block:: python
 
    from nrtk.impls.perturb_image.optical import RadialDistortionPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    # Fisheye (barrel) distortion - positive k values
    perturber = RadialDistortionPerturber(k=[0.3, 0.0, 0.0])
-   perturbed_img, boxes = perturber(image=img_in, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
    # Pincushion distortion - negative k values
    perturber = RadialDistortionPerturber(k=[-0.3, 0.0, 0.0])
-   perturbed_img, boxes = perturber(image=img_in, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
 Key Parameters
 --------------

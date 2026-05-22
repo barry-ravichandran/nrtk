@@ -41,16 +41,23 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: waterdroplet
 .. code-block:: python
 
    from nrtk.impls.perturb_image.environment import WaterDropletPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = WaterDropletPerturber(
        num_drops=20,
        size_range=[0.0, 1.0],
        blur_strength=0.25
    )
-   perturbed_img, boxes = perturber(image=img_in, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
 Key Parameters
 --------------
