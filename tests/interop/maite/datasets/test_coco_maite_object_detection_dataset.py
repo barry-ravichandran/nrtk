@@ -14,6 +14,7 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionDataset,
     MAITEObjectDetectionTarget,
 )
+from tests.utils import random_image
 
 random = np.random.default_rng()
 
@@ -24,7 +25,7 @@ random = np.random.default_rng()
     ("imgs", "input_dets", "datum_metadata", "dataset_id", "img_filenames", "categories", "expectation"),
     [
         (
-            [random.integers(0, 255, size=(3, 10, 10), dtype=np.uint8)],
+            [random_image(size=(3, 10, 10))],
             [
                 MAITEObjectDetectionTarget(
                     boxes=random.integers(0, 4, size=(2, 4)),
@@ -42,7 +43,7 @@ random = np.random.default_rng()
             does_not_raise(),
         ),
         (
-            [random.integers(0, 255, size=(3, 3, 3), dtype=np.uint8)] * 2,
+            [random_image(size=(3, 3, 3))] * 2,
             [
                 MAITEObjectDetectionTarget(
                     boxes=random.integers(0, 4, size=(2, 4)),
@@ -61,7 +62,7 @@ random = np.random.default_rng()
             does_not_raise(),
         ),
         (
-            [random.integers(0, 255, size=(3, 3, 3), dtype=np.uint8)] * 2,
+            [random_image(size=(3, 3, 3))] * 2,
             [
                 MAITEObjectDetectionTarget(
                     boxes=random.integers(0, 4, size=(2, 4)),

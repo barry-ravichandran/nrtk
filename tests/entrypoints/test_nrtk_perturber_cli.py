@@ -12,6 +12,7 @@ from maite.protocols.object_detection import Dataset
 from nrtk.entrypoints import nrtk_perturber_cli
 from nrtk.interop._maite.datasets import MAITEObjectDetectionDataset, MAITEObjectDetectionTarget
 from tests.interop.maite import DATASET_FOLDER
+from tests.utils import random_image
 
 _STUB_CONFIG = {"PerturberFactory": {"type": "stub"}}
 
@@ -26,7 +27,7 @@ def config_file(tmp_path: Path) -> Path:
 
 def make_mock_dataset() -> MAITEObjectDetectionDataset:
     return MAITEObjectDetectionDataset(
-        imgs=[np.random.default_rng().integers(low=0, high=255, size=(3, 256, 256), dtype=np.uint8)] * 2,
+        imgs=[random_image(size=(3, 256, 256))] * 2,
         dets=[
             MAITEObjectDetectionTarget(
                 boxes=np.array([[1.0, 2.0, 3.0, 4.0]]),

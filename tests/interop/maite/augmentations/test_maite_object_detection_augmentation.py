@@ -10,8 +10,7 @@ from nrtk.interop import MAITEObjectDetectionAugmentation
 from nrtk.interop._maite.datasets import MAITEObjectDetectionTarget
 from tests.fakes import FakePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
-
-random = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.maite
@@ -69,7 +68,7 @@ class TestMAITEObjectDetectionAugmentation:
         updated.
         """
         augmentation = MAITEObjectDetectionAugmentation(augment=perturber, augment_id="test_augment")
-        img_in = random.integers(0, 255, (3, 256, 256), dtype=np.uint8)
+        img_in = random_image(size=(3, 256, 256))
         md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
 
         # Get copies to check for modification
@@ -126,7 +125,7 @@ class TestMAITEObjectDetectionAugmentation:
         targets_in: Sequence[TargetType],
     ) -> None:
         """Test that the adapter appends, not overrides nrtk configs when multiple perturbations are applied."""
-        img_in = random.integers(0, 255, (3, 256, 256), dtype=np.uint8)  # MAITE is channels-first
+        img_in = random_image(size=(3, 256, 256))  # MAITE is channels-first
         md_in: list[DatumMetadataType] = [{"id": 1}]
 
         imgs_out = [img_in]
