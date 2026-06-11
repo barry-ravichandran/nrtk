@@ -14,5 +14,5 @@ __version__ = metadata.version("nrtk")
 
 __getattr__, __dir__, __all__ = lazy.attach(
     __name__,
-    submodules=["impls", "interfaces", "interop", "utils"],
+    submodules=["experimental", "impls", "interfaces", "interop", "utils"],
 )

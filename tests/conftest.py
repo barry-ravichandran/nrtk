@@ -10,6 +10,8 @@ from syrupy.assertion import SnapshotAssertion
 from syrupy.extensions.json import JSONSnapshotExtension
 from syrupy.extensions.single_file import SingleFileSnapshotExtension
 
+import nrtk.experimental  # noqa: F401 - experimental features are enabled for the test suite
+
 
 @pytest.fixture(scope="session", autouse=True)
 def set_numpy_printoptions() -> None:
