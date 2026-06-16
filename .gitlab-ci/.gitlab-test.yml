@@ -3,6 +3,10 @@
 # Stage -- Unit Testing
 ###############################################################################
 
+# Single source of truth for supported Python versions (matrix jobs only;
+# the per-version tox:pytest/tox:coverage jobs still enumerate by name).
+.python-versions: &python-versions ["3.10", "3.11", "3.12", "3.13"]
+
 .test-setup:
   extends: .tox-setup
   stage: test
@@ -181,7 +185,7 @@ tox:coverage:
     # If changes are made to an active merge request.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: manual
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TARGET != "prod"
       when: on_success
     - when: never  # explicit fail-exclude terminal condition.
   allow_failure: true
@@ -237,8 +241,8 @@ xaitk-notebook-tests:
     - small-gpu
   parallel:
     matrix:
-      - PYTHON_IMAGE: ["python:3.10", "python:3.11", "python:3.12", "python:3.13"]
-  image: $PYTHON_IMAGE
+      - PYTHON_VERSION: *python-versions
+  image: python:$PYTHON_VERSION
   before_script:
     - !reference [.test-setup, before_script]
     # Install nrtk (no optional extras yet) + test runner
