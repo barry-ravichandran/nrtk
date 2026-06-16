@@ -6,6 +6,11 @@ in the :doc:`Getting Started </getting_started/quickstart>` section, including
 installing from source. NRTK has been tested on Unix-based systems, including
 Linux, macOS, and WSL.
 
+.. seealso::
+   See :doc:`/development/system_requirements` for supported architectures
+   and recommended minimum hardware (CPU, GPU, memory, storage) for the library
+   and container.
+
 .. attention::
    **Not all perturbers are available with the base PyPI install** — many require
    optional third-party libraries such as pyBSM, OpenCV, or Pillow. With PyPI, you
