@@ -57,6 +57,20 @@ nrtk-perturber = "nrtk.entrypoints:nrtk_perturber_cli"
 "nrtk.impls.perturb_image.optical.otf" = "nrtk.impls.perturb_image.optical.otf"
 "nrtk.impls.perturb_image_factory" = "nrtk.impls.perturb_image_factory"
 
+[project.entry-points."maite.protocols.image_classification.Augmentation"]
+nrtk_MAITEImageClassificationAugmentation = "nrtk.interop:MAITEImageClassificationAugmentation"
+
+[project.entry-points."maite.protocols.object_detection.Augmentation"]
+nrtk_MAITEObjectDetectionAugmentation = "nrtk.interop:MAITEObjectDetectionAugmentation"
+
+[project.entry-points."maite.protocols.image_classification.Dataset"]
+nrtk_MAITEImageClassificationDataset = "nrtk.interop._maite.datasets:MAITEImageClassificationDataset"
+
+[project.entry-points."maite.protocols.object_detection.Dataset"]
+nrtk_MAITEObjectDetectionDataset = "nrtk.interop._maite.datasets:MAITEObjectDetectionDataset"
+nrtk_COCOMAITEObjectDetectionDataset = "nrtk.interop._maite.datasets:COCOMAITEObjectDetectionDataset"
+
+
 [project.optional-dependencies]
 graphics = ["opencv-python>=4.8.1.78"]  # CVE-2023-4863
 headless = ["opencv-python-headless>=4.8.1.78"]  # CVE-2023-4863
@@ -153,6 +167,7 @@ doctest_optionflags = [
 ]
 markers = [
     "core: Run tests that only require core functionality",
+    "required: Alias for core to satisfy a JATIC requirement",
     "opencv: Run tests that require the graphics or headless extra",
     "albumentations: Run tests that require the albumentations extra",
     "waterdroplet: Run tests that require the waterdroplet extra",

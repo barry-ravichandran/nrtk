@@ -106,6 +106,10 @@ If a patch release for an older release version is being created, see the
    d. If the release is at JATIC Maturity Level I or higher, apply the
       maturity label (see `Maturity Labeling`_).
 
+   e. Ensure the ``python-versions`` and the tox environment matrix in
+   ``nightly:tox:pytest`` (in ``.gitlab-ci/.gitlab-prod.yml``) are updated for
+   the new release.
+
 2. Push the created branch to the upstream repository, not your fork (this is
    an exception to the normal forking workflow).
 
@@ -133,6 +137,8 @@ If a patch release for an older release version is being created, see the
       $ git push upstream main
 
 8. `Draft a new release on GitLab`_ for the new version.
+
+9. `Update Mature Release CI`_ for the new version.
 
 Patching an Older Release
 """""""""""""""""""""""""
@@ -257,6 +263,18 @@ g. Click the "Create Release" button to create the GitLab release!
 In the future, this may be automated.
 See the `appropriate GitLab documentation <gitlab-release-using-cicd_>`_ for
 more details.
+
+
+Update Mature Release CI
+------------------------
+Once a new release is created, the nightly CI should be updated for the new
+release.
+
+a. Create a new schedule under **Build → Pipeline schedules → New schedule**
+   set to run daily with ``NRTK_RELEASE_REF`` set to the new GitLab release
+   tag and ``SCHEDULE_TARGET`` set to ``prod``.
+
+b. Disable (or delete) the nightly pipeline for previous mature release.
 
 
 .. _Poetry's version command: https://python-poetry.org/docs/cli/#version
