@@ -39,8 +39,13 @@ def require_marker(pytestconfig: pytest.Config) -> None:
 # PyTest all marker for DSO unit test component. PyTest requires the Config param, even though it's unused
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:  # noqa: ARG001
     for item in items:
-        if "notebooks" not in {mark.name for mark in item.iter_markers()}:
+        marker_names = {mark.name for mark in item.iter_markers()}
+        if "notebooks" not in marker_names:
             item.add_marker(pytest.mark.optional)
+        # `required` is an alias for `core` to satisfy a JATIC requirement that
+        # required-feature tests carry a marker literally named `required`.
+        if "core" in marker_names:
+            item.add_marker(pytest.mark.required)
 
 
 class FuzzyFloatSnapshotExtension(JSONSnapshotExtension):

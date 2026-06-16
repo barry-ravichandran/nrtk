@@ -167,6 +167,7 @@ doctest_optionflags = [
 ]
 markers = [
     "core: Run tests that only require core functionality",
+    "required: Alias for core to satisfy a JATIC requirement",
     "opencv: Run tests that require the graphics or headless extra",
     "albumentations: Run tests that require the albumentations extra",
     "waterdroplet: Run tests that require the waterdroplet extra",
