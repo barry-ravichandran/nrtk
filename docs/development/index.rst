@@ -10,6 +10,7 @@ and release updates to the toolkit.
 
    contributing
    testing_architecture
+   experimental
    live_doc_preview
    release_process
    style_sheet
