@@ -45,8 +45,6 @@
         RUNNER_TAG: autoscaler
       - TOX_ENV: optional
         RUNNER_TAG: autoscaler
-      - TOX_ENV: doctests
-        RUNNER_TAG: autoscaler
       - TOX_ENV: notebooks
         RUNNER_TAG: autoscaler
   script:
@@ -83,6 +81,21 @@ tox:pytest:py3.13:
   image: python:3.13
   variables:
     PYTHON_VERSION: "3.13"
+
+# Documentation tests: doctests + doc code blocks. Kept out of the .tox:pytest
+# matrix so they never feed the coverage combine/gate (they also run --no-cov).
+# They validate that docs/examples stay runnable, not package coverage.
+tox:docs:
+  extends: .test-setup
+  tags:
+    - autoscaler
+  image: python:$PYTHON_VERSION
+  parallel:
+    matrix:
+      - PYTHON_VERSION: *python-versions
+        TOX_ENV: ["doctests"]
+  script:
+    - tox -e "py${PYTHON_VERSION//./}-${TOX_ENV}"
 
 .tox:coverage:version:
   extends: .test-setup
