@@ -11,6 +11,7 @@ class TestInteropImportGuard(ImportGuardTestsMixin):
     CLASSES = [
         "MAITEImageClassificationAugmentation",
         "MAITEObjectDetectionAugmentation",
+        "MAITEMultiobjectTrackingAugmentation",
     ]
     ERROR_MATCH = (
         r"{class_name} requires the `maite` extra\. "
@@ -25,11 +26,13 @@ def test_maite_public_imports() -> None:
     try:
         from nrtk.interop import (
             MAITEImageClassificationAugmentation,
+            MAITEMultiobjectTrackingAugmentation,
             MAITEObjectDetectionAugmentation,
         )
 
         del MAITEImageClassificationAugmentation
         del MAITEObjectDetectionAugmentation
+        del MAITEMultiobjectTrackingAugmentation
     except ImportError as e:
         pytest.fail(
             f"Running with maite marker but classes not importable: {e}. Ensure maite extra is installed.",

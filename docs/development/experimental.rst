@@ -63,4 +63,5 @@ Implementations
 Interoperability
 ----------------
 
-No current experimental interoperability.
+.. autoclass:: nrtk.interop.MAITEMultiobjectTrackingAugmentation
+   :members:

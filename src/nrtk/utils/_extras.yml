@@ -12,7 +12,7 @@ graphics:
 headless:
 - opencv-python-headless>=4.8.1.78
 maite:
-- maite>=0.9.2,<0.10.0
+- maite>=0.9.5,<0.10.0
 pillow:
 - Pillow>=12.2.0
 pybsm:
