@@ -24,6 +24,12 @@ which provides a wrapper around functionality of the `Albumentations <https://al
 The :doc:`Apply Albumentations Perturbations </examples/albumentations_perturber>` notebook shows how to use
 Albumentations with NRTK.
 
+.. warning::
+   Albumentations is a third-party library wrapped by NRTK. Its perturbation
+   behavior and outputs are controlled by that library, not by NRTK. Use it at
+   your own risk -- NRTK does not guarantee, and is not responsible for, the
+   behavior of Albumentations transforms.
+
 Some of the risk factors listed don't have any associated functionality or documentation in NRTK but may be covered in
 the future.
 

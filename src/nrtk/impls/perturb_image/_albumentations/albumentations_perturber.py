@@ -45,6 +45,13 @@ class AlbumentationsPerturber(RandomPerturbImage):
             If True, resets seed after each call for consistent results.
         _transform (albumentations.Compose):
             albumentations pipeline for the transformation
+
+    Warning:
+        Albumentations is a third-party library (wrapped here via Kitware's
+        ``nrtk-albumentations`` fork). Its perturbation behavior and outputs are
+        controlled by that library, not by NRTK. Use it at your own risk -- NRTK
+        does not guarantee, and is not responsible for, the behavior of
+        Albumentations transforms.
     """
 
     def __init__(

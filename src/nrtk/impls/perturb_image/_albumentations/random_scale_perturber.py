@@ -47,6 +47,13 @@ class RandomScalePerturber(AlbumentationsPerturber):
             Random seed for reproducibility. None for non-deterministic behavior.
         is_static (bool):
             If True, resets seed after each call for consistent results.
+
+    Warning:
+        Albumentations is a third-party library (wrapped here via Kitware's
+        ``nrtk-albumentations`` fork). Its perturbation behavior and outputs are
+        controlled by that library, not by NRTK. Use it at your own risk -- NRTK
+        does not guarantee, and is not responsible for, the behavior of
+        Albumentations transforms.
     """
 
     def __init__(  # noqa: C901 - validation branches cannot be reduced further
