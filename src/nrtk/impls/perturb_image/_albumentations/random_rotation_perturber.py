@@ -44,6 +44,13 @@ class RandomRotationPerturber(AlbumentationsPerturber):
             If True, resets seed after each call for consistent results.
         fill (numpy.array):
             Background color fill for RGB image.
+
+    Warning:
+        Albumentations is a third-party library (wrapped here via Kitware's
+        ``nrtk-albumentations`` fork). Its perturbation behavior and outputs are
+        controlled by that library, not by NRTK. Use it at your own risk -- NRTK
+        does not guarantee, and is not responsible for, the behavior of
+        Albumentations transforms.
     """
 
     def __init__(
