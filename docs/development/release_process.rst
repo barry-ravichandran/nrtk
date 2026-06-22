@@ -172,7 +172,7 @@ When releasing:
 
 * **Patch releases**: do not add a new entry. Update the URL on the
   existing major/minor entry so it points at the new patch's tag (e.g.
-  ``1.0`` URL bumped from ``/en/v1.0.2/`` to ``/en/v1.0.3/``).
+  ``1.0`` URL bumped from ``/en/v1.0.3/`` to ``/en/v1.0.4/``).
 
 Entries follow the pattern:
 
@@ -180,7 +180,7 @@ Entries follow the pattern:
 
    {
        "version": "1.0",
-       "url": "https://nrtk.readthedocs.io/en/v1.0.3/"
+       "url": "https://nrtk.readthedocs.io/en/v1.0.4/"
    }
 
 Maturity Labeling
