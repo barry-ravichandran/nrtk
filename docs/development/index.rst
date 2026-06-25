@@ -12,4 +12,5 @@ and release updates to the toolkit.
    test-architecture
    live_doc_preview
    release_process
+   system_requirements
    style_sheet

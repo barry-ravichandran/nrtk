@@ -28,7 +28,7 @@
     rules:
       - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         when: on_success
-      - if: $CI_PIPELINE_SOURCE == "schedule"
+      - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TARGET != "prod"
         when: on_success
       - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         when: on_success
@@ -197,7 +197,7 @@ build-main:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TARGET != "prod"
       when: on_success
     - when: never
 
@@ -291,7 +291,7 @@ cleanup:
   extends: .container-setup
   image: alpine:3.21
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TARGET != "prod"
       when: on_success
     - when: never
   needs:

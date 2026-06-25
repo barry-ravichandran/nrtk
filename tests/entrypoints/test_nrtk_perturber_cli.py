@@ -77,17 +77,17 @@ class TestNRTKPerturberCLI:
 
         # Confirm dataset_to_coco arguments are as expected
         img_filenames = [
-            Path("0000006_00159_d_0000001.jpg"),
-            Path("0000006_00611_d_0000002.jpg"),
-            Path("0000006_01111_d_0000003.jpg"),
-            Path("0000006_01275_d_0000004.jpg"),
-            Path("0000006_01659_d_0000004.jpg"),
-            Path("0000006_02138_d_0000006.jpg"),
             Path("0000006_02616_d_0000007.jpg"),
             Path("0000006_03636_d_0000009.jpg"),
+            Path("0000006_00159_d_0000001.jpg"),
+            Path("0000006_01659_d_0000004.jpg"),
+            Path("0000161_01584_d_0000158.jpg"),
+            Path("0000006_01111_d_0000003.jpg"),
             Path("0000006_04050_d_0000010.jpg"),
             Path("0000006_04309_d_0000011.jpg"),
-            Path("0000161_01584_d_0000158.jpg"),
+            Path("0000006_01275_d_0000004.jpg"),
+            Path("0000006_00611_d_0000002.jpg"),
+            Path("0000006_02138_d_0000006.jpg"),
         ]
         dset_cats = [
             {"id": 0, "name": "pedestrian", "supercategory": "none"},
