@@ -13,4 +13,5 @@ and release updates to the toolkit.
    experimental
    live_doc_preview
    release_process
+   system_requirements
    style_sheet

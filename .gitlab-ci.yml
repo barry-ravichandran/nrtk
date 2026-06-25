@@ -47,6 +47,8 @@ include:
 
   - local: .gitlab-ci/.gitlab-security.yml
 
+  - local: .gitlab-ci/.gitlab-prod.yml
+
 # ###############################################################################
 # # Stage -- Trigger the DevSecOps components
 # ###############################################################################

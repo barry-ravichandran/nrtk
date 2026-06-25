@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "nrtk"
-version = "1.0.3"
+version = "1.0.4"
 description = "Natural Robustness Toolkit (NRTK) is a platform for generating validated, sensor-specific perturbations and transformations used to evaluate the robustness of computer vision models."
 license = "Apache-2.0"
 readme = "README.md"
@@ -56,6 +56,13 @@ nrtk-perturber = "nrtk.entrypoints:nrtk_perturber_cli"
 "nrtk.impls.perturb_image.optical.otf" = "nrtk.impls.perturb_image.optical.otf"
 "nrtk.impls.perturb_image_factory" = "nrtk.impls.perturb_image_factory"
 
+[project.entry-points."maite.protocols.image_classification.Augmentation"]
+nrtk_MAITEImageClassificationAugmentation = "nrtk.interop:MAITEImageClassificationAugmentation"
+
+[project.entry-points."maite.protocols.object_detection.Augmentation"]
+nrtk_MAITEObjectDetectionAugmentation = "nrtk.interop:MAITEObjectDetectionAugmentation"
+
+
 [project.optional-dependencies]
 graphics = ["opencv-python>=4.8.1.78"]  # CVE-2023-4863
 headless = ["opencv-python-headless>=4.8.1.78"]  # CVE-2023-4863
@@ -65,7 +72,7 @@ maite = [
 ]
 tools = [
     "kwcoco>=0.2.18",
-    "Pillow>=12.1.1",  # GHSA-cfh3-3jmp-rvhc
+    "Pillow>=12.2.0",  # CVE-2026-42311
     "click>=8.0.0",
     "fastapi>=0.110.0",
     "uvicorn>=0.29.0",
@@ -77,14 +84,14 @@ skimage = [
     "scikit-image>=0.20; python_version < '3.12'",
     "scikit-image>=0.22; python_version >= '3.12'"
 ]
-pillow = ["Pillow>=12.1.1"]  # GHSA-cfh3-3jmp-rvhc
+pillow = ["Pillow>=12.2.0"]  # CVE-2026-42311
 albumentations = ["nrtk-albumentations>=2.2.1"]
 waterdroplet = ["scipy>=1.10.0", "numba>=0.56.4"]
 diffusion = [
-    "torch>=2.6.0",  # GHSA-53q9-r3pm-6pq6
-    "diffusers>=0.21.0",
+    "torch>=2.10.0",  # CVE-2025-3001
+    "diffusers>=0.38.0",  # CVE-2026-44513
     "accelerate>=0.20.0",
-    "Pillow>=12.1.1",  # GHSA-cfh3-3jmp-rvhc
+    "Pillow>=12.2.0",  # CVE-2026-42311
     "transformers>=4.53.0",  # CVE-2025-6921
     "protobuf>=6.33.5",  # GHSA-8qvm-5x2c-j2w7, CVE-2026-0994
 ]
@@ -125,7 +132,7 @@ tests = [
     "pytest-cov>=4.0.0", # reports code coverage
     "pytest-xdist>=3.8.0", # allows -n auto|# to be used to run pytests in parallel
     "syrupy>=5.0.0", # required for snapshot/regression testing
-    "Pillow>=12.1.1",  # GHSA-cfh3-3jmp-rvhc  # required for custom conftest.py fixtures
+    "Pillow>=12.2.0",  # CVE-2026-42311  # required for custom conftest.py fixtures
     "responses>=0.25.0", # rquired to test FastAPI (used by entrypoint app)
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)
     "pytest-codeblock (>=0.5.8,<0.6.0)", # required for code block testing in docs
@@ -155,6 +162,7 @@ doctest_optionflags = [
 ]
 markers = [
     "core: Run tests that only require core functionality",
+    "required: Alias for core to satisfy a JATIC requirement",
     "opencv: Run tests that require the graphics or headless extra",
     "albumentations: Run tests that require the albumentations extra",
     "waterdroplet: Run tests that require the waterdroplet extra",

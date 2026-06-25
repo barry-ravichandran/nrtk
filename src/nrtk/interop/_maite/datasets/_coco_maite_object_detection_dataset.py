@@ -167,8 +167,8 @@ class COCOMAITEObjectDetectionDataset(Dataset):  # pyright: ignore [reportGenera
         )
 
     def get_img_path_list(self) -> list[Path]:
-        """Returns the sorted list of absolute paths for the input images."""
-        return sorted([Path(self._kwcoco_dataset.get_image_fpath(img_id)) for img_id in self._image_ids])
+        """Returns the list of absolute paths for the input images."""
+        return [Path(self._kwcoco_dataset.get_image_fpath(img_id)) for img_id in self._image_ids]
 
     def get_categories(self) -> list[dict[str, Any]]:
         """Returns the list of categories for this dataset."""

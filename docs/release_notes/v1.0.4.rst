@@ -1,0 +1,44 @@
+v1.0.4
+======
+
+.. admonition:: JATIC Maturity I
+   :class: note
+
+   Release v1.0.4 has been assessed against and meets the requirements
+   associated with JATIC Maturity Level I under JATIC program standards
+   v1.0.
+
+This patch release fixes a dataset ordering bug in the MAITE COCO dataset
+wrapper, refines NRTK's test and CI infrastructure, and improves packaging
+and documentation, including a warning that the third-party Albumentations
+library is used at your own risk.
+
+Fixes
+-----
+
+* Fixed missing MAITE component advertisement by adding the ability to
+  advertise ``maite`` components in ``pyproject.toml``.
+
+* Fixed missing documentation for supported architectures and minimum
+  hardware requirements.
+
+* Fixed missing third-party risk guidance by adding a warning to the
+  documentation and to ``AlbumentationsPerturber`` (and its child
+  perturbers) clarifying that Albumentations is a third-party library used
+  at your own risk, and that NRTK is not responsible for its behavior.
+
+* Fixed missing CI coverage for mature releases by adding
+  ``.gitlab-ci-nightly.yml``.
+
+* Fixed a missing JATIC testing-standard marker by adding a ``required``
+  pytest marker (an alias of ``core``) to tag required-feature tests.
+
+* Fixed a bug with dataset ordering in ``COCOMAITEObjectDetectionDataset``
+  that could result in images having incorrect names.
+
+* Fixed notebook type-checking tests running in environments that lack
+  their dependencies; they now run only when the ``notebooks`` marker is
+  explicitly selected.
+
+* Fixed doctests contributing to the project's code coverage measurement,
+  which now reflects only the unit test suite.

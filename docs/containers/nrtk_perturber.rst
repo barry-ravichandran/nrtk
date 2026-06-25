@@ -16,6 +16,11 @@ generate perturbed images for each image in the dataset. Each perturbed image wi
 to a given output directory as an individual image file. Once all perturbed images are saved,
 the container will terminate.
 
+.. seealso::
+   See :doc:`/development/system_requirements` for the container's supported
+   architecture and recommended minimum hardware (CPU, GPU, memory, storage),
+   including guidance for running under Kubernetes.
+
 Image Tags
 ----------
 

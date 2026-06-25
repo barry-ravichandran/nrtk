@@ -93,7 +93,7 @@ Acknowledgment
 .. admonition:: JATIC Maturity I
    :class: note
 
-   Release v1.0.3 has been assessed against and meets the requirements
+   Release v1.0.4 has been assessed against and meets the requirements
    associated with JATIC Maturity Level I.
 
 This material is based upon work supported by the Chief Digital and Artificial Intelligence Office under Contract No.
