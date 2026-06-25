@@ -263,6 +263,6 @@ Related Tools and Standards
 * **MAITE (MIT-LL AI Technology Evaluation)**: Standardized protocols for AI T&E workflows.
   https://mit-ll-ai-technology.github.io/maite/
 * **DataEval**: JATIC tool for dataset quality and coverage analysis.
-  https://dataeval.readthedocs.io/
+  https://dataeval.readthedocs.io/en/latest/
 * **XAITK-Saliency**: Explainability toolkit for understanding model decisions.
-  https://xaitk-saliency.readthedocs.io/
+  https://xaitk-saliency.readthedocs.io/en/stable/

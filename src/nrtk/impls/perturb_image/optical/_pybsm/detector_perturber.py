@@ -41,7 +41,7 @@ class DetectorPerturber(PybsmPerturberMixin):
     perturbations to images. This includes adjusting for detector width, focal length, and atmospheric
     conditions using pyBSM functionalities.
 
-    See https://pybsm.readthedocs.io/en/latest/explanation.html for image formation concepts and parameter details.
+    See https://pybsm.readthedocs.io/en/stable/explanation.html for image formation concepts and parameter details.
     """
 
     def __init__(
