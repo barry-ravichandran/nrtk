@@ -16,7 +16,7 @@ release-notes:
   allow_failure: true
   before_script: [] # We don't need poetry, git, or git-lfs
   script:
-    - git fetch origin main --depth 1
+    - git fetch origin ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME} --depth 1
     - scripts/check_for_release_notes.sh origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "release"
