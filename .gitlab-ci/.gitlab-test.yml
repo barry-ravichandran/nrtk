@@ -37,6 +37,8 @@
         RUNNER_TAG: medium-cpu
       - TOX_ENV: hcipy
         RUNNER_TAG: medium-cpu
+      - TOX_ENV: pyav
+        RUNNER_TAG: medium-cpu
       - TOX_ENV: maite
         RUNNER_TAG: medium-cpu
       - TOX_ENV: tools

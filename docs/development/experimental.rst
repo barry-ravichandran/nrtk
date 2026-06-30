@@ -63,6 +63,9 @@ Implementations
 .. autoclass:: nrtk.impls.perturb_video.optical.TurbulenceVideoPerturber
    :members:
 
+.. autoclass:: nrtk.impls.perturb_video.CodecMacroblockPerturber
+   :members:
+
 Interoperability
 ----------------
 

@@ -90,6 +90,7 @@ skimage = [
 pillow = ["Pillow>=12.2.0"]  # CVE-2026-42311
 albumentations = ["nrtk-albumentations>=2.2.1"]
 hcipy = ["hcipy>=0.7.0", "scipy>=1.10.0"]
+pyav = ["av>=17.1.0,<18.0.0"]
 waterdroplet = ["scipy>=1.10.0", "numba>=0.56.4"]
 diffusion = [
     "torch>=2.10.0",  # CVE-2025-3001
@@ -141,7 +142,7 @@ tests = [
     "pyyaml>=6.0", # read by the guard declaration tests and the extras pre-commit hook; only transitive otherwise
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)
     "pytest-codeblock (>=0.5.8,<0.6.0)", # required for code block testing in docs
-    "av (>=17.1.0,<18.0.0)", # required for video testing
+    "av (>=17.1.0,<18.0.0)", # required for pyav testing
 ]
 
 [tool.pytest.ini_options]
@@ -175,6 +176,7 @@ markers = [
     "skimage: Run tests that require the skimage extra",
     "diffusion: Run tests that require the diffusion extra",
     "hcipy: Run tests that require the hcipy extra",
+    "pyav: Run tests that require the pyav extra",
     "pybsm: Run tests that require the pybsm extra",
     "maite: Run tests that require the maite extra",
     "tools: Run tests that require the tools extra",
