@@ -1,6 +1,7 @@
 import io
 import json
 import math
+from collections.abc import Iterator
 from typing import Any
 
 import numpy as np
@@ -11,6 +12,8 @@ from syrupy.extensions.json import JSONSnapshotExtension
 from syrupy.extensions.single_file import SingleFileSnapshotExtension
 
 import nrtk.experimental  # noqa: F401 - experimental features are enabled for the test suite
+from nrtk.interfaces import VideoFrame
+from tests.utils.video_io import read_video, write_video
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -320,3 +323,48 @@ class SSIMImageSnapshotExtension(SingleFileSnapshotExtension):
 @pytest.fixture
 def ssim_tiff_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
     return snapshot.use_extension(SSIMImageSnapshotExtension)
+
+
+class LosslessMP4SnapshotExtension(SingleFileSnapshotExtension):
+    file_extension = "mp4"
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+
+    def serialize(self, data: Iterator[VideoFrame], **_: Any) -> bytes:
+        buffer = io.BytesIO()
+        write_video(file=buffer, frames=data, format_name="mp4")
+        return buffer.getbuffer().tobytes()
+
+    def deserialize(self, data: bytes) -> Iterator[VideoFrame]:
+        yield from read_video(io.BytesIO(data), format_name="mp4")
+
+    def matches(self, *, serialized_data: bytes, snapshot_data: bytes) -> bool:
+        expected_frames = self.deserialize(snapshot_data)
+        received_frames = self.deserialize(serialized_data)
+
+        for expected_frame, received_frame in zip(expected_frames, received_frames, strict=False):
+            if (
+                not np.array_equal(expected_frame.image, received_frame.image)
+                or expected_frame.timestamp != received_frame.timestamp
+            ):
+                return False
+
+        try:
+            next(expected_frames)
+            return False
+        except StopIteration:
+            pass
+
+        try:
+            next(received_frames)
+            return False
+        except StopIteration:
+            pass
+
+        return True
+
+
+@pytest.fixture
+def lossless_mp4_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
+    return snapshot.use_extension(LosslessMP4SnapshotExtension)

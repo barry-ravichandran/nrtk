@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Hashable, Iterable, Sequence
+from copy import deepcopy
 from typing import Any
 
 import numpy as np
@@ -37,7 +38,7 @@ class FakePerturber(PerturbImage):
         np.ndarray[Any, Any],
         Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None,
     ]:  # pragma: no cover
-        return np.copy(image), boxes
+        return np.copy(image), deepcopy(boxes)
 
     @override
     def get_config(self) -> dict[str, Any]:

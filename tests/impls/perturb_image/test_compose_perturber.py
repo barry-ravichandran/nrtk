@@ -32,7 +32,7 @@ def _perturb(
 
 
 m_dummy = mock.Mock(spec=PerturbImage)
-m_dummy = _perturb
+m_dummy.side_effect = _perturb
 
 
 @pytest.mark.core
