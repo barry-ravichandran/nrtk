@@ -136,6 +136,7 @@ tests = [
     "responses>=0.25.0", # rquired to test FastAPI (used by entrypoint app)
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)
     "pytest-codeblock (>=0.5.8,<0.6.0)", # required for code block testing in docs
+    "av (>=17.1.0,<18.0.0)", # required for video testing
 ]
 
 [tool.pytest.ini_options]

@@ -57,7 +57,8 @@ Interfaces
 Implementations
 ---------------
 
-No current experimental implementations.
+.. autoclass:: nrtk.impls.perturb_video.FramewisePerturber
+   :members:
 
 Interoperability
 ----------------
