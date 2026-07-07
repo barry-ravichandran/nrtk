@@ -40,8 +40,8 @@ class MAITEObjectDetectionAugmentation(Augmentation):  # pyright: ignore [report
     translation, or rotation.
 
     Attributes:
-        augmentations : Sequence[Augmentation] | None
-            Optional task-specific sequence of MAITE augmentations to be applied on a given batch.
+        augment : PerturbImage
+            The NRTK PerturbImage implementation to apply as a MAITE Augmentation.
         metadata: AugmentationMetadata
             Metadata for this augmentation.
     """

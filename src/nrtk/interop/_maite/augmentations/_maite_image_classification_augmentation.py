@@ -32,9 +32,9 @@ class MAITEImageClassificationAugmentation(Augmentation):  # pyright:  ignore [r
 
     Attributes:
         augment: PerturbImage
-            Augmentations to apply to an image.
-        name: str
-            Name of the augmentation. Will appear in metadata key.
+            The NRTK PerturbImage implementation to apply as a MAITE Augmentation.
+        metadata: AugmentationMetadata
+            Metadata for this augmentation.
     """
 
     def __init__(self, *, augment: PerturbImage, augment_id: str) -> None:
