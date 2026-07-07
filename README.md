@@ -291,8 +291,10 @@ reach out privately first, feel free to contact us at
 
 ## Acknowledgment
 
-> [!NOTE] JATIC Maturity I — Release v1.0.4 has been assessed against and meets
-> the requirements associated with JATIC Maturity Level I.
+> [!NOTE] JATIC Maturity I
+>
+> Release v1.0.4 has been assessed against and meets the requirements associated
+> with JATIC Maturity Level I.
 
 This material is based upon work supported by the Chief Digital and Artificial
 Intelligence Office under Contract No. 519TC-23-9-2032. The views and
