@@ -136,7 +136,7 @@ behavior or transformation a class performs.
 ## Issue Reporting
 
 If an issue is found, it can be reported on the
-[Issue Reporting Page](https://github.com/Kitware/nrtk/issues/new). In the
+[Issue Reporting Page](https://github.com/Kitware/nrtk/issues). In the
 description, provide an outline of the problem in as much detail as possible
 being sure to include any relevant logs and error tracebacks. Once the issue is
 created, it will be triaged by a maintainer in a timely manner.

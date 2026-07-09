@@ -10,7 +10,7 @@
 WaterDropletPerturber Implementation based on the work from these source papers:
 (1)
 https://openaccess.thecvf.com/content_ICCVW_2019/papers/PBDL/Hao_Learning_From_Synthetic_Photorealistic_Raindrop_for_Single_Image_Raindrop_Removal_ICCVW_2019_paper.pdf
-(2) https://www.giss.nasa.gov/pubs/abs/er05000f.html
+(2) https://arxiv.org/abs/2111.11567
 
 For additional research regarding Water Droplet modeling, please refer to this paper:
 https://www.cvlibs.net/publications/Roser2010ACCVWORK.pdf

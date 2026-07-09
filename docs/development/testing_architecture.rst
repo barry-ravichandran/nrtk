@@ -1,7 +1,7 @@
 Testing Architecture
 ********************
 
-NRTK uses `tox <https://tox.wiki>`_ to run its test suite in isolated
+NRTK uses `tox <https://tox.wiki/en/stable/>`_ to run its test suite in isolated
 environments. This page explains the architecture, the reasoning behind it,
 and how the pieces fit together — from import guards in the source code, to
 pytest markers on test classes, to the tox environments that tie it all
@@ -312,7 +312,7 @@ specialized purposes.
 
 ``papermill``
    Executes Jupyter notebooks end-to-end using
-   `papermill <https://papermill.readthedocs.io/>`_. This environment builds
+   `papermill <https://papermill.readthedocs.io/en/stable/>`_. This environment builds
    a local wheel of ``nrtk`` and installs it (simulating a PyPI install) so
    notebooks exercise the same code path users would see.
 

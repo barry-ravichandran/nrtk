@@ -8,7 +8,7 @@ ______________________________________________________________________
 
 [![PyPI - Python Version](https://img.shields.io/pypi/v/nrtk)](https://pypi.org/project/nrtk/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/nrtk)
-[![Documentation Status](https://readthedocs.org/projects/nrtk/badge/?version=stable)](https://nrtk.readthedocs.io/en/stable/?badge=stable)
+[![Documentation Status](https://app.readthedocs.org/projects/nrtk/badge/?version=stable)](https://nrtk.readthedocs.io/en/stable/?badge=stable)
 
 <!-- :auto badges: -->
 
@@ -39,15 +39,15 @@ to real-world operational conditions beyond what traditional image augmentation
 libraries cover. T&E engineers need precise methods to assess how models respond
 to sensor-specific variables (focal length, aperture diameter, pixel pitch) and
 environmental factors without the prohibitive costs of exhaustive data
-collection. NRTK leverages [pyBSM](https://pybsm.readthedocs.io)'s physics-based
-models to rigorously simulate how imaging sensors capture and process light,
-enabling systematic robustness testing across parameter sweeps, identification
-of performance boundaries, and visualization of model degradation. This
-capability is particularly valuable for satellite and aerial imaging
-applications, where engineers can simulate hypothetical sensor configurations to
-support cost-performance trade-off analysis during system design—ensuring AI
-models maintain reliability when deployed on actual hardware facing natural
-perturbations in the field.
+collection. NRTK leverages [pyBSM](https://pybsm.readthedocs.io/en/stable/)'s
+physics-based models to rigorously simulate how imaging sensors capture and
+process light, enabling systematic robustness testing across parameter sweeps,
+identification of performance boundaries, and visualization of model
+degradation. This capability is particularly valuable for satellite and aerial
+imaging applications, where engineers can simulate hypothetical sensor
+configurations to support cost-performance trade-off analysis during system
+design—ensuring AI models maintain reliability when deployed on actual hardware
+facing natural perturbations in the field.
 
 ## Target Audience
 
@@ -173,8 +173,10 @@ sensor jitter.
 
 ## Documentation
 
-Documentation for both release snapshots and the latest main branch is available
-on [ReadTheDocs](https://nrtk.readthedocs.io).
+Documentation for both
+[stable release snapshots](https://nrtk.readthedocs.io/en/stable/) and the
+[latest main branch](https://nrtk.readthedocs.io/en/latest/) are available on
+ReadTheDocs.
 
 To build the Sphinx-based documentation locally for the latest reference:
 

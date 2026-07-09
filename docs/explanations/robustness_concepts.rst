@@ -79,7 +79,7 @@ NRTK applies controlled image perturbations to assess model robustness. These pe
 
 NRTK integrates with pyBSM, an open source library that rigorously models radiative transfer and imaging-sensor physics
 [3]. This allows for highly realistic
-`perturbations tailored to specific sensor configurations <https://pybsm.readthedocs.io/en/latest/explanation.html>`_.
+`perturbations tailored to specific sensor configurations <https://pybsm.readthedocs.io/en/stable/explanation.html>`_.
 It also provides functionality through `Strategy <https://en.wikipedia.org/wiki/Strategy_pattern>`_ and
 `Adapter <https://en.wikipedia.org/wiki/Adapter_pattern>`_ patterns to allow for modular integration into systems and
 applications.

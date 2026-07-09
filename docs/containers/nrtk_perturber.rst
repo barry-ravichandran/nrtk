@@ -99,7 +99,7 @@ Error Codes
 Image Verification and SBOM
 ---------------------------
 
-Container images published to Harbor are signed with `cosign <https://docs.sigstore.dev/cosign/overview/>`_
+Container images published to Harbor are signed with `cosign <https://docs.sigstore.dev/quickstart/quickstart-cosign/>`_
 and include a signed SBOM (Software Bill of Materials) attestation in SPDX format.
 
 To verify the image signature::

@@ -40,7 +40,7 @@ class PybsmPerturber(PybsmPerturberMixin):
     pyBSM's simulation functionalities. It takes in a sensor and scenario, along with
     other optional parameters, to simulate environmental effects on the image.
 
-    See https://pybsm.readthedocs.io/en/latest/explanation.html for image formation concepts and parameter details.
+    See https://pybsm.readthedocs.io/en/stable/explanation.html for image formation concepts and parameter details.
 
     Attributes:
         reflectance_range (np.ndarray):
