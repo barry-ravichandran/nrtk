@@ -155,8 +155,6 @@ addopts = [
 # Doctests require optional dependencies to be installed.
 testpaths = [
     "tests",
-    "**/*.rst",
-    "**/*.md",
 ]
 doctest_optionflags = [
     "NORMALIZE_WHITESPACE",
