@@ -81,3 +81,9 @@ prod:pytest:py3.13:
   image: python:3.13
   variables:
     PYTHON_VERSION: "3.13"
+
+prod:pytest:py3.14:
+  extends: .prod:tox:pytest
+  image: python:3.14
+  variables:
+    PYTHON_VERSION: "3.14"
