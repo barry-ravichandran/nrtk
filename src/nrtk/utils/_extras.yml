@@ -16,7 +16,7 @@ maite:
 pillow:
 - Pillow>=12.2.0
 pybsm:
-- pybsm>=0.15.0
+- pybsm>=0.16.0
 skimage:
 - scikit-image>=0.20; python_version < '3.12'
 - scikit-image>=0.22; python_version >= '3.12'

@@ -104,28 +104,40 @@ def test_init_invalid_ihaze() -> None:
 @pytest.mark.parametrize("value", [2, 500, 1000, 5000, 12000, 14000, 18000, 20000, 24500, 1000000])
 def test_init_valid_altitude(value: float) -> None:
     """Test altitude validation."""
-    DummyPybsmPerturber(altitude=value)
+    DummyPybsmPerturber(altitude=value, interp=False)
 
 
 @pytest.mark.pybsm
 def test_init_invalid_altitude() -> None:
     """Test altitude validation."""
     with pytest.raises(ValueError, match="Invalid altitude value"):
-        DummyPybsmPerturber(altitude=99)
+        DummyPybsmPerturber(altitude=99, interp=False)
+
+
+@pytest.mark.pybsm
+def test_init_non_database_altitude_interp() -> None:
+    """Non-database altitude is accepted when atmospheric interpolation is enabled."""
+    DummyPybsmPerturber(altitude=99, interp=True)
 
 
 @pytest.mark.pybsm
 @pytest.mark.parametrize("value", [0, 100, 500, 1000, 10000, 20000, 22000, 78000, 85000, 100000, 300000])
 def test_init_valid_ground_range(value: float) -> None:
     """Test ground_range validation."""
-    DummyPybsmPerturber(ground_range=value)
+    DummyPybsmPerturber(ground_range=value, interp=False)
 
 
 @pytest.mark.pybsm
 def test_init_invalid_ground_range() -> None:
     """Test ground_range validation."""
     with pytest.raises(ValueError, match="Invalid ground range value"):
-        DummyPybsmPerturber(ground_range=99)
+        DummyPybsmPerturber(ground_range=99, interp=False)
+
+
+@pytest.mark.pybsm
+def test_init_non_database_ground_range_interp() -> None:
+    """Non-database ground range is accepted when atmospheric interpolation is enabled."""
+    DummyPybsmPerturber(ground_range=99, interp=True)
 
 
 @pytest.mark.pybsm

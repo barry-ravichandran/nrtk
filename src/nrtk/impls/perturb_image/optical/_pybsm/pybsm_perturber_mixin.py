@@ -180,7 +180,7 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
                 sensor height above ground level in meters; the database includes the
                 following altitude options: 2 32.55 75 150 225 500 meters, 1000 to
                 12000 in 1000 meter steps, and 14000 to 20000 in 2000 meter steps,
-                24500
+                24500. Exact database values are required only when ``interp=False``
             ground_range:
                 projection of line of sight between the camera and target along on the
                 ground in meters; the distance between the target and the camera is
@@ -189,6 +189,7 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
                 altitude until the ground range exceeds the distance to the spherical
                 earth horizon: 0 100 500 1000 to 20000 in 1000 meter steps, 22000 to
                 80000 in 2000 m steps, and  85000 to 300000 in 5000 meter steps.
+                Exact database values are required only when ``interp=False``
             aircraft_speed:
                 ground speed of the aircraft (m/s)
             target_reflectance:
@@ -214,7 +215,9 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
                 perturb call. Defaults to False.
             interp:
                 A flag to indicate whether atmospheric interpolation should be used.
-                Defaults to False.
+                When True (default), altitude and ground_range may be any value within
+                the database bounds (the atmosphere is bilinearly interpolated). When
+                False, exact database values are required.
             kwargs: sensor and/or scenario values to modify
         """
         super().__init__(seed=seed, is_static=is_static)
@@ -233,10 +236,14 @@ class PybsmPerturberMixin(NumpyRandomPerturbImage, ABC):
             raise ValueError(
                 f"Invalid ihaze value ({ihaze}) must be in {PybsmPerturberMixin.ihaze_values}",
             )
-        if altitude <= PybsmPerturberMixin.altitude_values[-1] and altitude not in PybsmPerturberMixin.altitude_values:
-            raise ValueError(f"Invalid altitude value ({altitude})")
-        if ground_range not in PybsmPerturberMixin.ground_range_values:
-            raise ValueError(f"Invalid ground range value ({ground_range})")
+        if not interp:
+            if (
+                altitude <= PybsmPerturberMixin.altitude_values[-1]
+                and altitude not in PybsmPerturberMixin.altitude_values
+            ):
+                raise ValueError(f"Invalid altitude value ({altitude})")
+            if ground_range not in PybsmPerturberMixin.ground_range_values:
+                raise ValueError(f"Invalid ground range value ({ground_range})")
 
         self._check_opt_trans_wavelengths(opt_trans_wavelengths)
 

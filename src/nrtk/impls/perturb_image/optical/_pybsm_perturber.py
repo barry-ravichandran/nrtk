@@ -22,14 +22,14 @@ from __future__ import annotations
 __all__ = ["PybsmPerturber"]
 
 from collections.abc import Hashable, Iterable
-from typing import Any
+from typing import Any, get_args
 
 import numpy as np
 from pybsm.simulation import ImageSimulator, SystemOTFSimulator
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import override
 
-from nrtk.impls.perturb_image.optical._pybsm._constants import DEFAULT_PYBSM_PARAMS
+from nrtk.impls.perturb_image.optical._pybsm._constants import DEFAULT_PYBSM_PARAMS, PixelConversionMode
 from nrtk.impls.perturb_image.optical._pybsm.pybsm_perturber_mixin import PybsmPerturberMixin
 
 
@@ -40,7 +40,35 @@ class PybsmPerturber(PybsmPerturberMixin):
     pyBSM's simulation functionalities. It takes in a sensor and scenario, along with
     other optional parameters, to simulate environmental effects on the image.
 
-    See https://pybsm.readthedocs.io/en/stable/explanation.html for image formation concepts and parameter details.
+    See https://pybsm.readthedocs.io/en/stable/explanation.html for image formation concepts
+    and parameter details.
+
+    The simulation produces raw sensor measurements (photoelectron counts) that must be scaled
+    to 0-255 to form the output image. ``pixel_conversion_mode`` selects how that scaling is done:
+
+    - ``"radiometric"`` (default) uses a fixed mapping determined by the configured
+      sensor and scenario. Darker or lower-contrast simulations produce darker or
+      lower-contrast outputs — a dim or hazy scene stays dim in the output and may
+      not use the full 0-255 range. Since the scale never changes from image to
+      image, outputs can be compared directly across different sensor settings,
+      across sweep steps, or between consecutive video frames.
+
+    - ``"minmax"`` rescales each image individually so its darkest pixel becomes 0
+      and its brightest becomes 255. Every output looks bright and full-contrast,
+      even when the simulated sensor would have produced a dim or washed-out image
+      (the brightness/contrast part of the perturbation is removed from the
+      output). Since each image gets its own scale, pixel values are not
+      comparable between images, and video frames can visibly flicker. Choose
+      ``"minmax"`` to visually inspect a single image or to mimic a camera pipeline
+      that auto-adjusts gain/contrast on every frame before the model sees it.
+
+    If unsure, use the default ``"radiometric"``. It applies the same sensor-defined
+    mapping to every output, so pixel values accurately represent the simulated
+    sensor response.
+
+    For the conversion details (calibration inversion, clipping/saturation
+    warnings, ADC fallback), see ``ImageSimulator.photoelectrons_to_pixels``:
+    https://github.com/Kitware/pybsm/blob/main/src/pybsm/simulation/image_simulator.py
 
     Attributes:
         reflectance_range (np.ndarray):
@@ -55,6 +83,7 @@ class PybsmPerturber(PybsmPerturberMixin):
         self,
         *,
         reflectance_range: np.ndarray[Any, Any] = DEFAULT_PYBSM_PARAMS["reflectance_range"],
+        pixel_conversion_mode: PixelConversionMode = DEFAULT_PYBSM_PARAMS["pixel_conversion_mode"],
         seed: int | None = None,
         is_static: bool = False,
         sensor_name: str = "Sensor",
@@ -99,6 +128,10 @@ class PybsmPerturber(PybsmPerturberMixin):
         Args:
             reflectance_range:
                 Array of reflectances that correspond to pixel values.
+            pixel_conversion_mode:
+                Defines how simulated photoelectrons are converted to uint8 pixels:
+                "radiometric" (default) or "minmax". See the class docstring for
+                details on each mode.
             seed:
                 Random seed for reproducible results. Defaults to None for non-deterministic
                 behavior.
@@ -176,7 +209,7 @@ class PybsmPerturber(PybsmPerturberMixin):
                 sensor height above ground level in meters; the database includes the
                 following altitude options: 2 32.55 75 150 225 500 meters, 1000 to
                 12000 in 1000 meter steps, and 14000 to 20000 in 2000 meter steps,
-                24500
+                24500; exact database values are only required when interp is False
             ground_range:
                 projection of line of sight between the camera and target along on the
                 ground in meters; the distance between the target and the camera is
@@ -185,6 +218,7 @@ class PybsmPerturber(PybsmPerturberMixin):
                 altitude until the ground range exceeds the distance to the spherical
                 earth horizon: 0 100 500 1000 to 20000 in 1000 meter steps, 22000 to
                 80000 in 2000 m steps, and  85000 to 300000 in 5000 meter steps.
+                Exact database values are only required when interp is False.
             aircraft_speed:
                 ground speed of the aircraft (m/s)
             target_reflectance:
@@ -204,13 +238,17 @@ class PybsmPerturber(PybsmPerturberMixin):
                 default, 1.7e-14, is the HV 5/7 profile value
             interp:
                 A flag to indicate whether atmospheric interpolation should be used.
-                Defaults to False.
+                When True, altitude and ground_range can be any value within the
+                database bounds (the atmosphere is bilinearly interpolated). Exact
+                database values are only required when False. (Defaults to True).
 
         Raises:
             ValueError:
                 If reflectance_range length != 2
             ValueError:
                 If reflectance_range not strictly ascending
+            ValueError:
+                If pixel_conversion_mode is not "radiometric" or "minmax"
         """
         # Convert list inputs to numpy arrays (needed when loading from JSON config)
         reflectance_range = np.asarray(reflectance_range)
@@ -223,6 +261,10 @@ class PybsmPerturber(PybsmPerturberMixin):
             raise ValueError(f"Reflectance range array must have length of 2, got {reflectance_range.shape[0]}")
         if reflectance_range[0] >= reflectance_range[1]:
             raise ValueError(f"Reflectance range array values must be strictly ascending, got {reflectance_range}")
+        if pixel_conversion_mode not in get_args(PixelConversionMode):
+            raise ValueError(
+                f'Invalid pixel_conversion_mode ({pixel_conversion_mode}) must be "radiometric" or "minmax"',
+            )
 
         # Initialize base class (which handles seed/is_static via RandomPerturbImage)
         super().__init__(
@@ -264,6 +306,7 @@ class PybsmPerturber(PybsmPerturberMixin):
         )
 
         self._reflectance_range: np.ndarray[Any, Any] = reflectance_range
+        self._pixel_conversion_mode: PixelConversionMode = pixel_conversion_mode
         self._simulator = self._create_simulator()
 
     @override
@@ -307,6 +350,7 @@ class PybsmPerturber(PybsmPerturberMixin):
         """Get current configuration including perturber-specific parameters."""
         cfg = super().get_config()
         cfg["reflectance_range"] = self._reflectance_range.tolist()
+        cfg["pixel_conversion_mode"] = self._pixel_conversion_mode
 
         return cfg
 
@@ -325,12 +369,10 @@ class PybsmPerturber(PybsmPerturberMixin):
         boxes: Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None,
         orig_shape: tuple,
     ) -> tuple[np.ndarray, Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None]:
-        """Override to normalize and handle box rescaling and format conversion to uint8."""
-        sim = sim_img
-        smin, smax = float(sim.min()), float(sim.max())
-        if smax > smin:
-            sim = (sim - smin) / (smax - smin) * 255.0
-        # Convert to uint8
+        """Override to convert photoelectrons to pixels, rescale boxes, and cast to uint8."""
+        # Choose between "radiometric" or "minmax" to convert photoelectrons to pixels
+        sim = self._simulator.photoelectrons_to_pixels(sim_img, mode=self._pixel_conversion_mode)
+        # Convert to uint8 (already clipped to [0, 255] by the conversion)
         sim_img_uint8 = sim.astype(np.uint8)
 
         # Rescale boxes if provided
