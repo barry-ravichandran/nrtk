@@ -66,7 +66,7 @@ nrtk_MAITEObjectDetectionAugmentation = "nrtk.interop:MAITEObjectDetectionAugmen
 [project.optional-dependencies]
 graphics = ["opencv-python>=4.8.1.78"]  # CVE-2023-4863
 headless = ["opencv-python-headless>=4.8.1.78"]  # CVE-2023-4863
-pybsm = ["pybsm>=0.15.0"]
+pybsm = ["pybsm>=0.16.0"]
 maite = [
     "maite>=0.9.5,<0.10.0",
 ]

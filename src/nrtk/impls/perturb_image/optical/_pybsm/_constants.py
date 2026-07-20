@@ -1,8 +1,10 @@
-from typing import Any
+from typing import Any, Literal
 
 __all__ = []
 
 import numpy as np
+
+PixelConversionMode = Literal["radiometric", "minmax"]
 
 DEFAULT_PYBSM_PARAMS: dict[str, Any] = {
     # Sensor parameters
@@ -41,4 +43,5 @@ DEFAULT_PYBSM_PARAMS: dict[str, Any] = {
     "cn2_at_1m": 1.7e-14,
     "interp": True,
     "reflectance_range": np.array([0.05, 0.5]),
+    "pixel_conversion_mode": "radiometric",
 }
