@@ -79,6 +79,7 @@ class MAITEMultiobjectTrackingAugmentation(Augmentation):
         *,
         frame: MAITEVideoFrameProtocol,
         single_frame_target: SingleFrameObjectTrackingTarget,
+        datum_params: dict[str, Any] | None = None,
     ) -> VideoFrame:
         # copy=True here only preserves what np.array did; nothing writes to these.
         frame_bboxes = [
@@ -99,6 +100,7 @@ class MAITEMultiobjectTrackingAugmentation(Augmentation):
             timestamp=frame.time_s,
             boxes=zip(frame_bboxes, frame_labels, strict=True),
             additional_params={
+                **(datum_params if datum_params else {}),
                 "pts": frame.pts,
                 "frame_index": frame.frame_index,
                 "track_ids": to_numpy(single_frame_target.track_ids, copy=True),
@@ -162,6 +164,7 @@ class MAITEMultiobjectTrackingAugmentation(Augmentation):
                 MAITEMultiobjectTrackingAugmentation._maite_to_nrtk_frame(
                     frame=frame,
                     single_frame_target=single_frame_target,
+                    datum_params=dict(md),
                 )
                 for frame, single_frame_target in zip(video_stream, anns.frame_tracks, strict=True)
             ]

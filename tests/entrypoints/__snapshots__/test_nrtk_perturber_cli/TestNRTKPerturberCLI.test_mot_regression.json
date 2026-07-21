@@ -1,0 +1,27 @@
+{
+  "codec": "h264",
+  "codec_fourcc": "h264",
+  "codec_label": "H.264",
+  "container": "mp4",
+  "duration": 5.005,
+  "filename": "drone_clip.mp4",
+  "format": "flat_mp4",
+  "height": 540,
+  "metadata": {},
+  "params": {
+    "annotation_frame_rate": 29.97002997002997,
+    "videoMetadata": {
+      "video": {
+        "fps": 29.97002997002997
+      }
+    }
+  },
+  "response": {
+    "annotations": {},
+    "events": {}
+  },
+  "status": "completed",
+  "task_id": "roundtrip-0",
+  "type": "videoannotation",
+  "width": 960
+}

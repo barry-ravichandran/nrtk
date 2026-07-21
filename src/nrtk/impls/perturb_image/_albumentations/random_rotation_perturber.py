@@ -27,7 +27,7 @@ from typing import Any
 import numpy as np
 from typing_extensions import override
 
-from nrtk.impls.perturb_image import AlbumentationsPerturber
+from nrtk.impls.perturb_image._albumentations.albumentations_perturber import AlbumentationsPerturber
 
 
 class RandomRotationPerturber(AlbumentationsPerturber):

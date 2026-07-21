@@ -2,9 +2,11 @@
 
 from pathlib import Path
 
-# Files that require the tools extra (kwcoco, click) in addition to maite
+# Files that require the tools extra (datamaite, click) in addition to maite
 _TOOLS_FILES = {
     "test_nrtk_perturber_cli.py",
+    "test_nrtk_eo_image_perturber.py",
+    "test_nrtk_eo_video_perturber.py",
 }
 
 
@@ -18,10 +20,11 @@ def pytest_ignore_collect(collection_path: Path) -> bool | None:
     except ImportError:
         return True
 
-    # Some test files also require the tools extra (kwcoco, click)
+    # The datamaite-native EO perturber tests require datamaite
     if collection_path.name in _TOOLS_FILES:
         try:
-            import kwcoco  # noqa: F401
+            import av  # noqa: F401
+            import datamaite  # noqa: F401
         except ImportError:
             return True
 
