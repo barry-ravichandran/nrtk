@@ -60,6 +60,9 @@ Implementations
 .. autoclass:: nrtk.impls.perturb_video.FramewisePerturber
    :members:
 
+.. autoclass:: nrtk.impls.perturb_video.optical.TurbulenceVideoPerturber
+   :members:
+
 Interoperability
 ----------------
 
