@@ -1,0 +1,4848 @@
+{
+  "width": 1280,
+  "height": 720,
+  "duration": 5.005,
+  "task_id": "roundtrip-0",
+  "status": "completed",
+  "type": "videoannotation",
+  "metadata": {},
+  "params": {
+    "annotation_frame_rate": 23.976023976023978,
+    "videoMetadata": {
+      "video": {
+        "fps": 23.976023976023978
+      }
+    }
+  },
+  "response": {
+    "annotations": {
+      "track-2": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 775.074462890625,
+            "top": 437.3555908203125,
+            "width": 110.82373046875,
+            "height": 95.94671630859375,
+            "key": 0,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 777.5309448242188,
+            "top": 445.7242126464844,
+            "width": 113.73089599609375,
+            "height": 95.54098510742188,
+            "key": 1,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 780.0430908203125,
+            "top": 450.7936706542969,
+            "width": 116.503662109375,
+            "height": 99.86422729492188,
+            "key": 2,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 785.4212646484375,
+            "top": 457.03045654296875,
+            "width": 118.013916015625,
+            "height": 102.87835693359375,
+            "key": 3,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 790.3670043945312,
+            "top": 463.99822998046875,
+            "width": 119.6304931640625,
+            "height": 105.9830322265625,
+            "key": 4,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 792.8876342773438,
+            "top": 472.4736633300781,
+            "width": 122.65924072265625,
+            "height": 105.16555786132812,
+            "key": 5,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 796.2393798828125,
+            "top": 479.6643371582031,
+            "width": 124.8818359375,
+            "height": 108.03073120117188,
+            "key": 6,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 800.1316528320312,
+            "top": 487.0521240234375,
+            "width": 127.4234619140625,
+            "height": 111.8817138671875,
+            "key": 7,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 805.08984375,
+            "top": 496.92584228515625,
+            "width": 130.21527099609375,
+            "height": 112.43341064453125,
+            "key": 8,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 807.780517578125,
+            "top": 505.184814453125,
+            "width": 134.1607666015625,
+            "height": 115.1395263671875,
+            "key": 9,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 813.18798828125,
+            "top": 513.9674072265625,
+            "width": 136.49627685546875,
+            "height": 119.5916748046875,
+            "key": 10,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 818.1831665039062,
+            "top": 523.0005493164062,
+            "width": 139.475341796875,
+            "height": 120.377197265625,
+            "key": 11,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 823.1238403320312,
+            "top": 531.9779663085938,
+            "width": 143.8687744140625,
+            "height": 125.13128662109375,
+            "key": 12,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 827.8119506835938,
+            "top": 542.986572265625,
+            "width": 146.71600341796875,
+            "height": 130.56707763671875,
+            "key": 13,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 832.2178344726562,
+            "top": 553.1846313476562,
+            "width": 151.17132568359375,
+            "height": 134.24896240234375,
+            "key": 14,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 837.6690673828125,
+            "top": 564.5033569335938,
+            "width": 154.11041259765625,
+            "height": 136.7720947265625,
+            "key": 15,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 842.003173828125,
+            "top": 576.8431396484375,
+            "width": 162.93072509765625,
+            "height": 139.67767333984375,
+            "key": 16,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 849.1322021484375,
+            "top": 589.85791015625,
+            "width": 163.9576416015625,
+            "height": 130.14208984375,
+            "key": 17,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 855.7679443359375,
+            "top": 603.8268432617188,
+            "width": 166.49871826171875,
+            "height": 114.8641357421875,
+            "key": 18,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 862.7918090820312,
+            "top": 616.9466552734375,
+            "width": 180.45855712890625,
+            "height": 102.8309326171875,
+            "key": 19,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 869.0300903320312,
+            "top": 631.7371215820312,
+            "width": 187.36676025390625,
+            "height": 88.26287841796875,
+            "key": 20,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 875.2732543945312,
+            "top": 647.010986328125,
+            "width": 181.41510009765625,
+            "height": 72.2706298828125,
+            "key": 21,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 884.995849609375,
+            "top": 662.1060180664062,
+            "width": 161.11083984375,
+            "height": 57.89398193359375,
+            "key": 22,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-3": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 417.82879638671875,
+            "top": 352.443603515625,
+            "width": 84.66522216796875,
+            "height": 70.0667724609375,
+            "key": 0,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 416.3547668457031,
+            "top": 355.1965026855469,
+            "width": 85.38421630859375,
+            "height": 71.60784912109375,
+            "key": 1,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 413.7230529785156,
+            "top": 359.0614929199219,
+            "width": 87.9888916015625,
+            "height": 69.51504516601562,
+            "key": 2,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 412.039794921875,
+            "top": 362.18927001953125,
+            "width": 88.49783325195312,
+            "height": 72.61843872070312,
+            "key": 3,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 408.9094543457031,
+            "top": 366.1680603027344,
+            "width": 90.2718505859375,
+            "height": 72.34100341796875,
+            "key": 4,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 407.39752197265625,
+            "top": 369.29473876953125,
+            "width": 90.91769409179688,
+            "height": 74.26385498046875,
+            "key": 5,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 404.2467956542969,
+            "top": 371.8606872558594,
+            "width": 93.51138305664062,
+            "height": 73.82855224609375,
+            "key": 6,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 402.2861633300781,
+            "top": 375.11688232421875,
+            "width": 93.3497314453125,
+            "height": 75.33859252929688,
+            "key": 7,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 400.6435546875,
+            "top": 378.6301574707031,
+            "width": 92.02987670898438,
+            "height": 78.09149169921875,
+            "key": 8,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 398.26007080078125,
+            "top": 382.8990173339844,
+            "width": 94.25567626953125,
+            "height": 78.37347412109375,
+            "key": 9,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 395.7574768066406,
+            "top": 386.7469177246094,
+            "width": 93.03811645507812,
+            "height": 80.4285888671875,
+            "key": 10,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 392.12689208984375,
+            "top": 390.97271728515625,
+            "width": 95.18771362304688,
+            "height": 81.08901977539062,
+            "key": 11,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 389.1793518066406,
+            "top": 394.255126953125,
+            "width": 98.681640625,
+            "height": 83.16290283203125,
+            "key": 12,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 387.1399841308594,
+            "top": 400.3232116699219,
+            "width": 99.60040283203125,
+            "height": 82.21713256835938,
+            "key": 13,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 384.9350891113281,
+            "top": 404.2533264160156,
+            "width": 101.00704956054688,
+            "height": 84.4317626953125,
+            "key": 14,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 383.0492858886719,
+            "top": 408.19232177734375,
+            "width": 101.73333740234375,
+            "height": 86.13400268554688,
+            "key": 15,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 378.6471252441406,
+            "top": 414.602783203125,
+            "width": 103.79745483398438,
+            "height": 87.41024780273438,
+            "key": 16,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 375.66815185546875,
+            "top": 419.5361633300781,
+            "width": 104.98663330078125,
+            "height": 89.07452392578125,
+            "key": 17,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 371.8179626464844,
+            "top": 423.70001220703125,
+            "width": 108.61618041992188,
+            "height": 89.33740234375,
+            "key": 18,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 369.23358154296875,
+            "top": 429.4022521972656,
+            "width": 110.37005615234375,
+            "height": 92.22726440429688,
+            "key": 19,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 366.6844177246094,
+            "top": 435.02606201171875,
+            "width": 108.2518310546875,
+            "height": 94.89495849609375,
+            "key": 20,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 362.45361328125,
+            "top": 440.04486083984375,
+            "width": 111.78482055664062,
+            "height": 97.280029296875,
+            "key": 21,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 358.5615539550781,
+            "top": 446.0098876953125,
+            "width": 113.21261596679688,
+            "height": 96.80126953125,
+            "key": 22,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 355.1351318359375,
+            "top": 451.9386901855469,
+            "width": 114.9405517578125,
+            "height": 99.86288452148438,
+            "key": 23,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 352.450927734375,
+            "top": 458.74456787109375,
+            "width": 118.082275390625,
+            "height": 101.6094970703125,
+            "key": 24,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 348.6200256347656,
+            "top": 465.2991027832031,
+            "width": 120.26214599609375,
+            "height": 103.98709106445312,
+            "key": 25,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 344.3863220214844,
+            "top": 470.9927062988281,
+            "width": 121.8280029296875,
+            "height": 104.57540893554688,
+            "key": 26,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 339.35870361328125,
+            "top": 478.38818359375,
+            "width": 124.60394287109375,
+            "height": 106.3975830078125,
+            "key": 27,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 335.6961669921875,
+            "top": 484.8291320800781,
+            "width": 126.48300170898438,
+            "height": 110.51651000976562,
+            "key": 28,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 330.6717529296875,
+            "top": 492.4071350097656,
+            "width": 130.09466552734375,
+            "height": 112.60812377929688,
+            "key": 29,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 327.2264404296875,
+            "top": 499.4497985839844,
+            "width": 130.08822631835938,
+            "height": 114.51565551757812,
+            "key": 30,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 322.51806640625,
+            "top": 508.6029052734375,
+            "width": 132.91949462890625,
+            "height": 116.34698486328125,
+            "key": 31,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 318.2464294433594,
+            "top": 515.7261962890625,
+            "width": 135.467529296875,
+            "height": 120.2750244140625,
+            "key": 32,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 313.3793029785156,
+            "top": 523.5654296875,
+            "width": 137.12921142578125,
+            "height": 120.23211669921875,
+            "key": 33,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 307.16455078125,
+            "top": 532.08544921875,
+            "width": 141.2147216796875,
+            "height": 126.18914794921875,
+            "key": 34,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 302.1090393066406,
+            "top": 541.7642211914062,
+            "width": 144.3460693359375,
+            "height": 127.61968994140625,
+            "key": 35,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 295.537109375,
+            "top": 550.0820922851562,
+            "width": 147.56369018554688,
+            "height": 130.2333984375,
+            "key": 36,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 289.7112731933594,
+            "top": 560.9801635742188,
+            "width": 150.37478637695312,
+            "height": 135.995361328125,
+            "key": 37,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 284.7151184082031,
+            "top": 570.046142578125,
+            "width": 152.11309814453125,
+            "height": 137.0572509765625,
+            "key": 38,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 278.304443359375,
+            "top": 579.702880859375,
+            "width": 155.63577270507812,
+            "height": 137.9158935546875,
+            "key": 39,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 272.689208984375,
+            "top": 592.126708984375,
+            "width": 158.5975341796875,
+            "height": 127.873291015625,
+            "key": 40,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 266.2347106933594,
+            "top": 602.0413818359375,
+            "width": 161.30917358398438,
+            "height": 117.4808349609375,
+            "key": 41,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 258.8439025878906,
+            "top": 613.0215454101562,
+            "width": 166.36495971679688,
+            "height": 106.97845458984375,
+            "key": 42,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 251.78147888183594,
+            "top": 626.210693359375,
+            "width": 168.82264709472656,
+            "height": 93.789306640625,
+            "key": 43,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 251.284912109375,
+            "top": 638.2118530273438,
+            "width": 166.88824462890625,
+            "height": 80.77972412109375,
+            "key": 44,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 245.4217071533203,
+            "top": 652.56005859375,
+            "width": 169.38746643066406,
+            "height": 67.061767578125,
+            "key": 45,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 249.12962341308594,
+            "top": 664.5812377929688,
+            "width": 155.3448028564453,
+            "height": 54.99652099609375,
+            "key": 46,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 249.82550048828125,
+            "top": 679.7050170898438,
+            "width": 144.0087890625,
+            "height": 39.76702880859375,
+            "key": 47,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-4": {
+        "label": "http://kitware.com/nrtk/ontology/truck",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 543.38330078125,
+            "top": 227.85491943359375,
+            "width": 145.419921875,
+            "height": 262.70623779296875,
+            "key": 0,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 543.16650390625,
+            "top": 228.22732543945312,
+            "width": 151.01611328125,
+            "height": 268.7430114746094,
+            "key": 1,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 542.5032958984375,
+            "top": 231.32394409179688,
+            "width": 154.3662109375,
+            "height": 273.9675598144531,
+            "key": 2,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 544.4539794921875,
+            "top": 234.46006774902344,
+            "width": 152.423828125,
+            "height": 278.4230499267578,
+            "key": 3,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 542.4901123046875,
+            "top": 238.49681091308594,
+            "width": 156.21734619140625,
+            "height": 279.4330596923828,
+            "key": 4,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 541.8818359375,
+            "top": 242.6930389404297,
+            "width": 159.92529296875,
+            "height": 281.4865264892578,
+            "key": 5,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 540.7157592773438,
+            "top": 246.94314575195312,
+            "width": 161.94451904296875,
+            "height": 287.0021057128906,
+            "key": 6,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 538.9331665039062,
+            "top": 249.00958251953125,
+            "width": 166.90362548828125,
+            "height": 294.79766845703125,
+            "key": 7,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 536.449951171875,
+            "top": 250.94046020507812,
+            "width": 172.4925537109375,
+            "height": 300.5183410644531,
+            "key": 8,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 536.8466186523438,
+            "top": 255.0250244140625,
+            "width": 175.23150634765625,
+            "height": 301.929443359375,
+            "key": 9,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 535.9758911132812,
+            "top": 256.80255126953125,
+            "width": 178.24542236328125,
+            "height": 309.57012939453125,
+            "key": 10,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 537.3540649414062,
+            "top": 259.9619445800781,
+            "width": 178.281005859375,
+            "height": 318.9936828613281,
+            "key": 11,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 537.8145751953125,
+            "top": 261.2791748046875,
+            "width": 179.3211669921875,
+            "height": 325.576904296875,
+            "key": 12,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 537.4284057617188,
+            "top": 262.88037109375,
+            "width": 181.8671875,
+            "height": 336.04290771484375,
+            "key": 13,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 533.27099609375,
+            "top": 265.030517578125,
+            "width": 187.64862060546875,
+            "height": 346.892578125,
+            "key": 14,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 531.5363159179688,
+            "top": 274.101318359375,
+            "width": 193.26025390625,
+            "height": 346.6502685546875,
+            "key": 15,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 529.0239868164062,
+            "top": 275.4471435546875,
+            "width": 196.85174560546875,
+            "height": 358.0167236328125,
+            "key": 16,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 530.4901123046875,
+            "top": 280.3592529296875,
+            "width": 197.733642578125,
+            "height": 366.28839111328125,
+            "key": 17,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 527.1142578125,
+            "top": 281.2625427246094,
+            "width": 208.6802978515625,
+            "height": 377.0714416503906,
+            "key": 18,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 527.036376953125,
+            "top": 284.2510986328125,
+            "width": 206.061767578125,
+            "height": 390.83343505859375,
+            "key": 19,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 526.0602416992188,
+            "top": 292.2936096191406,
+            "width": 212.61993408203125,
+            "height": 394.7602844238281,
+            "key": 20,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 523.476806640625,
+            "top": 293.0989990234375,
+            "width": 218.234619140625,
+            "height": 408.50146484375,
+            "key": 21,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 522.5027465820312,
+            "top": 305.6201477050781,
+            "width": 220.1693115234375,
+            "height": 409.4331359863281,
+            "key": 22,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 521.8436279296875,
+            "top": 300.0953063964844,
+            "width": 224.4600830078125,
+            "height": 417.5796813964844,
+            "key": 23,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 520.6915893554688,
+            "top": 304.4703063964844,
+            "width": 225.37945556640625,
+            "height": 411.9562683105469,
+            "key": 24,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 519.1582641601562,
+            "top": 305.859130859375,
+            "width": 242.05322265625,
+            "height": 411.849365234375,
+            "key": 25,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 516.7574462890625,
+            "top": 309.5122375488281,
+            "width": 253.0616455078125,
+            "height": 409.0615539550781,
+            "key": 26,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 515.2202758789062,
+            "top": 316.8583679199219,
+            "width": 254.77496337890625,
+            "height": 400.7752380371094,
+            "key": 27,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 514.95263671875,
+            "top": 322.7215576171875,
+            "width": 259.9798583984375,
+            "height": 392.29522705078125,
+            "key": 28,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 511.567138671875,
+            "top": 325.1006164550781,
+            "width": 267.4639892578125,
+            "height": 391.3882751464844,
+            "key": 29,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 511.510498046875,
+            "top": 330.9086608886719,
+            "width": 276.12408447265625,
+            "height": 387.1849060058594,
+            "key": 30,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 511.6583557128906,
+            "top": 337.014404296875,
+            "width": 282.4628601074219,
+            "height": 380.1435546875,
+            "key": 31,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 509.4302978515625,
+            "top": 343.7995300292969,
+            "width": 288.892333984375,
+            "height": 373.5392761230469,
+            "key": 32,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 520.3800048828125,
+            "top": 349.2596130371094,
+            "width": 260.48236083984375,
+            "height": 370.1196594238281,
+            "key": 33,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 521.6304931640625,
+            "top": 354.7674255371094,
+            "width": 254.3397216796875,
+            "height": 362.2416076660156,
+            "key": 34,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 521.2537231445312,
+            "top": 361.1564636230469,
+            "width": 257.30328369140625,
+            "height": 355.6656188964844,
+            "key": 35,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 519.86181640625,
+            "top": 367.8293151855469,
+            "width": 263.51177978515625,
+            "height": 350.0628967285156,
+            "key": 36,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-5": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 678.6467895507812,
+            "top": 208.39903259277344,
+            "width": 48.935546875,
+            "height": 45.91590881347656,
+            "key": 5,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 678.0796508789062,
+            "top": 211.54885864257812,
+            "width": 49.1068115234375,
+            "height": 45.138885498046875,
+            "key": 6,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 676.1306762695312,
+            "top": 214.07803344726562,
+            "width": 50.93377685546875,
+            "height": 43.9180908203125,
+            "key": 7,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 674.6979370117188,
+            "top": 215.02645874023438,
+            "width": 52.087890625,
+            "height": 44.3704833984375,
+            "key": 8,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 674.0353393554688,
+            "top": 216.43601989746094,
+            "width": 52.48931884765625,
+            "height": 44.28315734863281,
+            "key": 9,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 672.7918090820312,
+            "top": 217.61241149902344,
+            "width": 53.7562255859375,
+            "height": 45.04466247558594,
+            "key": 10,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 672.6868896484375,
+            "top": 216.73789978027344,
+            "width": 53.71917724609375,
+            "height": 48.14927673339844,
+            "key": 11,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.8960571289062,
+            "top": 218.23333740234375,
+            "width": 54.486083984375,
+            "height": 48.654693603515625,
+            "key": 12,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.7644653320312,
+            "top": 220.6527557373047,
+            "width": 53.9591064453125,
+            "height": 47.69288635253906,
+            "key": 13,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.3418579101562,
+            "top": 221.98057556152344,
+            "width": 54.09967041015625,
+            "height": 48.13298034667969,
+            "key": 14,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.3115844726562,
+            "top": 222.80166625976562,
+            "width": 54.3294677734375,
+            "height": 49.0557861328125,
+            "key": 15,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.5945434570312,
+            "top": 224.2300567626953,
+            "width": 54.44097900390625,
+            "height": 49.01026916503906,
+            "key": 16,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.1196899414062,
+            "top": 225.8677520751953,
+            "width": 55.31005859375,
+            "height": 48.35606384277344,
+            "key": 17,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.4213256835938,
+            "top": 228.69554138183594,
+            "width": 55.6474609375,
+            "height": 46.50062561035156,
+            "key": 18,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 670.53515625,
+            "top": 229.40538024902344,
+            "width": 57.00811767578125,
+            "height": 49.52388000488281,
+            "key": 19,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 670.653564453125,
+            "top": 230.9972686767578,
+            "width": 57.55352783203125,
+            "height": 51.44050598144531,
+            "key": 20,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 670.6393432617188,
+            "top": 232.8565673828125,
+            "width": 57.63311767578125,
+            "height": 51.9688720703125,
+            "key": 21,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 671.1174926757812,
+            "top": 233.28199768066406,
+            "width": 57.8626708984375,
+            "height": 53.26780700683594,
+            "key": 22,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 670.8541259765625,
+            "top": 237.17864990234375,
+            "width": 59.12786865234375,
+            "height": 51.039825439453125,
+            "key": 23,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 672.3224487304688,
+            "top": 237.5332489013672,
+            "width": 58.34478759765625,
+            "height": 52.27244567871094,
+            "key": 24,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 673.378662109375,
+            "top": 239.10699462890625,
+            "width": 59.6021728515625,
+            "height": 52.427978515625,
+            "key": 25,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 674.8875732421875,
+            "top": 241.40501403808594,
+            "width": 59.34539794921875,
+            "height": 52.40696716308594,
+            "key": 26,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 674.78173828125,
+            "top": 243.2511749267578,
+            "width": 59.73907470703125,
+            "height": 53.79920959472656,
+            "key": 27,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 675.82568359375,
+            "top": 244.08270263671875,
+            "width": 60.147216796875,
+            "height": 55.478424072265625,
+            "key": 28,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 676.9417114257812,
+            "top": 246.72842407226562,
+            "width": 60.81365966796875,
+            "height": 55.80133056640625,
+            "key": 29,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 677.8086547851562,
+            "top": 248.5695037841797,
+            "width": 62.2291259765625,
+            "height": 55.65419006347656,
+            "key": 30,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 678.385498046875,
+            "top": 250.88082885742188,
+            "width": 62.81072998046875,
+            "height": 55.470458984375,
+            "key": 31,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 679.5092163085938,
+            "top": 252.42127990722656,
+            "width": 62.774658203125,
+            "height": 56.83424377441406,
+            "key": 32,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 678.9293823242188,
+            "top": 253.1742401123047,
+            "width": 64.402587890625,
+            "height": 59.19148254394531,
+            "key": 33,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 679.5419921875,
+            "top": 254.3393096923828,
+            "width": 64.52752685546875,
+            "height": 61.08998107910156,
+            "key": 34,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 680.5619506835938,
+            "top": 256.33685302734375,
+            "width": 64.4525146484375,
+            "height": 61.14202880859375,
+            "key": 35,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 681.431396484375,
+            "top": 255.72434997558594,
+            "width": 65.669189453125,
+            "height": 64.48847961425781,
+            "key": 36,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 682.6481323242188,
+            "top": 259.459228515625,
+            "width": 66.24835205078125,
+            "height": 62.776885986328125,
+            "key": 37,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 683.6632690429688,
+            "top": 262.6397399902344,
+            "width": 66.54071044921875,
+            "height": 62.890380859375,
+            "key": 38,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.0796508789062,
+            "top": 266.13397216796875,
+            "width": 67.690185546875,
+            "height": 61.9447021484375,
+            "key": 39,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 686.1289672851562,
+            "top": 268.0644836425781,
+            "width": 67.6746826171875,
+            "height": 62.89898681640625,
+            "key": 40,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 687.9998779296875,
+            "top": 272.714111328125,
+            "width": 67.629150390625,
+            "height": 60.82421875,
+            "key": 41,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 688.908203125,
+            "top": 272.3636474609375,
+            "width": 68.43743896484375,
+            "height": 65.39013671875,
+            "key": 42,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 689.376220703125,
+            "top": 273.7018737792969,
+            "width": 69.572021484375,
+            "height": 67.46444702148438,
+            "key": 43,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 690.2611694335938,
+            "top": 276.00897216796875,
+            "width": 70.51690673828125,
+            "height": 68.375244140625,
+            "key": 44,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 692.2152709960938,
+            "top": 278.5914611816406,
+            "width": 70.2093505859375,
+            "height": 69.80838012695312,
+            "key": 45,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 693.294921875,
+            "top": 280.59478759765625,
+            "width": 72.41839599609375,
+            "height": 70.671142578125,
+            "key": 46,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 694.5824584960938,
+            "top": 282.34808349609375,
+            "width": 72.60430908203125,
+            "height": 71.58868408203125,
+            "key": 47,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 695.3680419921875,
+            "top": 283.2723083496094,
+            "width": 73.82501220703125,
+            "height": 73.592529296875,
+            "key": 48,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 695.6058349609375,
+            "top": 285.8142395019531,
+            "width": 76.55535888671875,
+            "height": 76.15936279296875,
+            "key": 49,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 696.5003051757812,
+            "top": 291.839111328125,
+            "width": 77.46044921875,
+            "height": 73.92001342773438,
+            "key": 50,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 697.6914672851562,
+            "top": 295.4691162109375,
+            "width": 77.35980224609375,
+            "height": 73.18179321289062,
+            "key": 51,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 698.4451904296875,
+            "top": 296.4410095214844,
+            "width": 80.7271728515625,
+            "height": 76.21743774414062,
+            "key": 52,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 700.679443359375,
+            "top": 300.0928649902344,
+            "width": 80.5728759765625,
+            "height": 76.35272216796875,
+            "key": 53,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 703.2952270507812,
+            "top": 305.15252685546875,
+            "width": 79.4754638671875,
+            "height": 75.56057739257812,
+            "key": 54,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 705.8355712890625,
+            "top": 308.9763488769531,
+            "width": 80.4598388671875,
+            "height": 74.49185180664062,
+            "key": 55,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 707.6300048828125,
+            "top": 310.5929260253906,
+            "width": 80.91558837890625,
+            "height": 77.817138671875,
+            "key": 56,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 709.1240844726562,
+            "top": 310.9768981933594,
+            "width": 81.81903076171875,
+            "height": 82.36093139648438,
+            "key": 57,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 709.8865356445312,
+            "top": 311.4902038574219,
+            "width": 83.7784423828125,
+            "height": 86.56692504882812,
+            "key": 58,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 711.83935546875,
+            "top": 320.5542297363281,
+            "width": 84.43975830078125,
+            "height": 81.787109375,
+            "key": 59,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 712.72412109375,
+            "top": 323.3932189941406,
+            "width": 88.1004638671875,
+            "height": 83.13943481445312,
+            "key": 60,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 714.2606201171875,
+            "top": 325.4036560058594,
+            "width": 89.68109130859375,
+            "height": 86.22760009765625,
+            "key": 61,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 715.4970703125,
+            "top": 326.85528564453125,
+            "width": 90.57318115234375,
+            "height": 89.27325439453125,
+            "key": 62,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 720.0012817382812,
+            "top": 332.39813232421875,
+            "width": 89.351318359375,
+            "height": 88.41448974609375,
+            "key": 63,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 721.6185913085938,
+            "top": 336.1634521484375,
+            "width": 90.91741943359375,
+            "height": 90.23873901367188,
+            "key": 64,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 722.7980346679688,
+            "top": 339.1959533691406,
+            "width": 93.65301513671875,
+            "height": 91.3355712890625,
+            "key": 65,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 725.1959228515625,
+            "top": 340.7054748535156,
+            "width": 95.4227294921875,
+            "height": 96.20590209960938,
+            "key": 66,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 726.1654663085938,
+            "top": 346.0951232910156,
+            "width": 97.80401611328125,
+            "height": 97.37518310546875,
+            "key": 67,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 727.147705078125,
+            "top": 349.6615905761719,
+            "width": 101.27459716796875,
+            "height": 98.16140747070312,
+            "key": 68,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 730.2847900390625,
+            "top": 354.2854919433594,
+            "width": 102.4564208984375,
+            "height": 99.73263549804688,
+            "key": 69,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 735.042724609375,
+            "top": 358.08355712890625,
+            "width": 101.12042236328125,
+            "height": 102.44943237304688,
+            "key": 70,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 736.5347290039062,
+            "top": 363.73065185546875,
+            "width": 101.74481201171875,
+            "height": 101.78561401367188,
+            "key": 71,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 738.8585815429688,
+            "top": 368.38922119140625,
+            "width": 106.93499755859375,
+            "height": 104.56777954101562,
+            "key": 72,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 741.8316650390625,
+            "top": 371.7224426269531,
+            "width": 108.08843994140625,
+            "height": 107.4371337890625,
+            "key": 73,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 742.3289184570312,
+            "top": 377.288330078125,
+            "width": 110.7861328125,
+            "height": 108.12966918945312,
+            "key": 74,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 745.2665405273438,
+            "top": 383.2994384765625,
+            "width": 112.396240234375,
+            "height": 109.65237426757812,
+            "key": 75,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 747.217529296875,
+            "top": 388.631591796875,
+            "width": 115.3319091796875,
+            "height": 110.408935546875,
+            "key": 76,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 750.7611694335938,
+            "top": 392.75360107421875,
+            "width": 118.16119384765625,
+            "height": 115.3994140625,
+            "key": 77,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 755.3231811523438,
+            "top": 397.9178161621094,
+            "width": 119.89044189453125,
+            "height": 118.34823608398438,
+            "key": 78,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 759.233154296875,
+            "top": 403.4401550292969,
+            "width": 121.74615478515625,
+            "height": 121.91580200195312,
+            "key": 79,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 762.424560546875,
+            "top": 410.13330078125,
+            "width": 123.41595458984375,
+            "height": 122.8214111328125,
+            "key": 80,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 766.0028076171875,
+            "top": 416.8469543457031,
+            "width": 125.54742431640625,
+            "height": 125.22695922851562,
+            "key": 81,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 768.8489990234375,
+            "top": 422.544921875,
+            "width": 132.03265380859375,
+            "height": 128.6448974609375,
+            "key": 82,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 773.0941772460938,
+            "top": 428.3797302246094,
+            "width": 133.74725341796875,
+            "height": 132.73782348632812,
+            "key": 83,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 776.8155517578125,
+            "top": 434.8889465332031,
+            "width": 137.524658203125,
+            "height": 136.74752807617188,
+            "key": 84,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 781.9328002929688,
+            "top": 442.5220642089844,
+            "width": 138.6783447265625,
+            "height": 138.75137329101562,
+            "key": 85,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 787.4472045898438,
+            "top": 450.3349609375,
+            "width": 141.94677734375,
+            "height": 141.56097412109375,
+            "key": 86,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 791.439208984375,
+            "top": 456.87982177734375,
+            "width": 146.1455078125,
+            "height": 145.46563720703125,
+            "key": 87,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 797.24609375,
+            "top": 465.2398376464844,
+            "width": 147.4754638671875,
+            "height": 148.88919067382812,
+            "key": 88,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 801.89892578125,
+            "top": 473.6746826171875,
+            "width": 150.8050537109375,
+            "height": 152.14398193359375,
+            "key": 89,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 806.246337890625,
+            "top": 482.44879150390625,
+            "width": 157.25286865234375,
+            "height": 155.5167236328125,
+            "key": 90,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 812.60205078125,
+            "top": 490.63330078125,
+            "width": 158.8687744140625,
+            "height": 159.53985595703125,
+            "key": 91,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 818.990966796875,
+            "top": 500.0523986816406,
+            "width": 162.12530517578125,
+            "height": 164.97457885742188,
+            "key": 92,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 824.9037475585938,
+            "top": 508.3027038574219,
+            "width": 167.427001953125,
+            "height": 171.95584106445312,
+            "key": 93,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 831.909423828125,
+            "top": 517.616455078125,
+            "width": 172.832275390625,
+            "height": 178.09149169921875,
+            "key": 94,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 838.414306640625,
+            "top": 528.8253784179688,
+            "width": 176.4254150390625,
+            "height": 179.88409423828125,
+            "key": 95,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 844.4581909179688,
+            "top": 540.2516479492188,
+            "width": 182.23065185546875,
+            "height": 176.71258544921875,
+            "key": 96,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 853.0111694335938,
+            "top": 552.8460693359375,
+            "width": 186.82135009765625,
+            "height": 167.1539306640625,
+            "key": 97,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 861.26025390625,
+            "top": 564.9724731445312,
+            "width": 191.8079833984375,
+            "height": 155.02752685546875,
+            "key": 98,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 869.7821655273438,
+            "top": 577.310791015625,
+            "width": 195.98895263671875,
+            "height": 142.689208984375,
+            "key": 99,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 878.375,
+            "top": 591.0927124023438,
+            "width": 199.9049072265625,
+            "height": 128.90728759765625,
+            "key": 100,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 886.7387084960938,
+            "top": 606.3919677734375,
+            "width": 202.13714599609375,
+            "height": 113.6029052734375,
+            "key": 101,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 897.1229858398438,
+            "top": 622.2775268554688,
+            "width": 203.74102783203125,
+            "height": 97.72247314453125,
+            "key": 102,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 913.9732666015625,
+            "top": 639.8544921875,
+            "width": 192.0977783203125,
+            "height": 80.1455078125,
+            "key": 103,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 926.5415649414062,
+            "top": 657.3455200195312,
+            "width": 184.26800537109375,
+            "height": 61.90362548828125,
+            "key": 104,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-6": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 737.6328735351562,
+            "top": 165.42071533203125,
+            "width": 34.3974609375,
+            "height": 18.804153442382812,
+            "key": 34,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 734.7135009765625,
+            "top": 165.7259979248047,
+            "width": 34.1280517578125,
+            "height": 20.536544799804688,
+            "key": 35,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 730.9393920898438,
+            "top": 166.4970703125,
+            "width": 36.66143798828125,
+            "height": 20.45062255859375,
+            "key": 36,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 729.5546264648438,
+            "top": 166.77781677246094,
+            "width": 35.66839599609375,
+            "height": 21.511260986328125,
+            "key": 37,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 727.5125732421875,
+            "top": 167.79507446289062,
+            "width": 35.25067138671875,
+            "height": 21.944976806640625,
+            "key": 38,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 725.8538208007812,
+            "top": 168.6811981201172,
+            "width": 35.3876953125,
+            "height": 22.5274658203125,
+            "key": 39,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 723.5198974609375,
+            "top": 169.28370666503906,
+            "width": 35.8990478515625,
+            "height": 22.64068603515625,
+            "key": 40,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 720.6988525390625,
+            "top": 170.14512634277344,
+            "width": 36.197265625,
+            "height": 21.845199584960938,
+            "key": 41,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 718.9816284179688,
+            "top": 171.45059204101562,
+            "width": 36.11956787109375,
+            "height": 21.99578857421875,
+            "key": 42,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 716.780029296875,
+            "top": 171.89581298828125,
+            "width": 35.76171875,
+            "height": 22.544219970703125,
+            "key": 43,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 713.9228515625,
+            "top": 172.11183166503906,
+            "width": 37.24114990234375,
+            "height": 23.381057739257812,
+            "key": 44,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 712.2637939453125,
+            "top": 172.5229034423828,
+            "width": 36.14617919921875,
+            "height": 23.4432373046875,
+            "key": 45,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 703.0908203125,
+            "top": 178.12413024902344,
+            "width": 34.24041748046875,
+            "height": 21.932220458984375,
+            "key": 50,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 697.3400268554688,
+            "top": 177.22821044921875,
+            "width": 36.84637451171875,
+            "height": 24.64208984375,
+            "key": 52,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 695.7269897460938,
+            "top": 177.58731079101562,
+            "width": 36.22552490234375,
+            "height": 25.408538818359375,
+            "key": 53,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 694.530517578125,
+            "top": 180.79043579101562,
+            "width": 35.631591796875,
+            "height": 22.694366455078125,
+            "key": 54,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 693.0269775390625,
+            "top": 182.16123962402344,
+            "width": 35.86773681640625,
+            "height": 21.997802734375,
+            "key": 55,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 690.482177734375,
+            "top": 183.24681091308594,
+            "width": 36.703125,
+            "height": 21.455581665039062,
+            "key": 56,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 688.6972045898438,
+            "top": 183.08055114746094,
+            "width": 35.73760986328125,
+            "height": 22.889999389648438,
+            "key": 57,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 687.3046875,
+            "top": 183.76849365234375,
+            "width": 34.61480712890625,
+            "height": 23.670822143554688,
+            "key": 58,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.2387084960938,
+            "top": 184.5342254638672,
+            "width": 36.234375,
+            "height": 23.558242797851562,
+            "key": 59,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 682.1002807617188,
+            "top": 185.04336547851562,
+            "width": 37.01068115234375,
+            "height": 23.386215209960938,
+            "key": 60,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 680.4697265625,
+            "top": 186.00172424316406,
+            "width": 37.06207275390625,
+            "height": 23.009719848632812,
+            "key": 61,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 678.84375,
+            "top": 187.00723266601562,
+            "width": 36.93402099609375,
+            "height": 22.61834716796875,
+            "key": 62,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 677.4002685546875,
+            "top": 187.49761962890625,
+            "width": 37.23583984375,
+            "height": 22.945159912109375,
+            "key": 63,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 675.0492553710938,
+            "top": 187.40206909179688,
+            "width": 38.8048095703125,
+            "height": 24.065399169921875,
+            "key": 64,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 672.0702514648438,
+            "top": 191.9172821044922,
+            "width": 37.3802490234375,
+            "height": 23.020797729492188,
+            "key": 66,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 669.1946411132812,
+            "top": 192.57583618164062,
+            "width": 37.5645751953125,
+            "height": 23.453582763671875,
+            "key": 67,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 667.05078125,
+            "top": 193.428955078125,
+            "width": 37.67364501953125,
+            "height": 23.890090942382812,
+            "key": 68,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 665.3335571289062,
+            "top": 193.72402954101562,
+            "width": 38.16259765625,
+            "height": 24.925048828125,
+            "key": 69,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 664.1257934570312,
+            "top": 195.3163604736328,
+            "width": 37.94488525390625,
+            "height": 23.8935546875,
+            "key": 70,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 662.7203369140625,
+            "top": 197.92420959472656,
+            "width": 36.94256591796875,
+            "height": 22.575531005859375,
+            "key": 71,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 661.1272583007812,
+            "top": 198.6653289794922,
+            "width": 37.04998779296875,
+            "height": 23.201736450195312,
+            "key": 72,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 658.5955200195312,
+            "top": 199.28622436523438,
+            "width": 39.04669189453125,
+            "height": 23.937698364257812,
+            "key": 73,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 657.5139770507812,
+            "top": 199.4416961669922,
+            "width": 38.97705078125,
+            "height": 24.339370727539062,
+            "key": 74,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 656.7296752929688,
+            "top": 199.94776916503906,
+            "width": 38.6490478515625,
+            "height": 24.644378662109375,
+            "key": 75,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 654.3560180664062,
+            "top": 199.25637817382812,
+            "width": 39.51824951171875,
+            "height": 26.745803833007812,
+            "key": 76,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 651.8441162109375,
+            "top": 200.3728485107422,
+            "width": 41.75555419921875,
+            "height": 26.780502319335938,
+            "key": 77,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 649.6534423828125,
+            "top": 200.14453125,
+            "width": 41.770751953125,
+            "height": 27.56317138671875,
+            "key": 78,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 648.22412109375,
+            "top": 202.9607391357422,
+            "width": 40.69677734375,
+            "height": 25.353057861328125,
+            "key": 79,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 646.9806518554688,
+            "top": 204.25367736816406,
+            "width": 40.76873779296875,
+            "height": 24.489486694335938,
+            "key": 80,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 646.0020751953125,
+            "top": 204.27767944335938,
+            "width": 40.65240478515625,
+            "height": 25.854446411132812,
+            "key": 81,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 644.7555541992188,
+            "top": 205.364990234375,
+            "width": 40.31378173828125,
+            "height": 25.297149658203125,
+            "key": 82,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 643.8026123046875,
+            "top": 206.7289276123047,
+            "width": 40.46124267578125,
+            "height": 24.976333618164062,
+            "key": 83,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 641.8399047851562,
+            "top": 207.31671142578125,
+            "width": 41.7325439453125,
+            "height": 27.036407470703125,
+            "key": 84,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 640.981201171875,
+            "top": 208.9954833984375,
+            "width": 41.956298828125,
+            "height": 26.44854736328125,
+            "key": 85,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 639.824462890625,
+            "top": 210.91334533691406,
+            "width": 40.50714111328125,
+            "height": 24.61712646484375,
+            "key": 86,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 638.7311401367188,
+            "top": 211.6280059814453,
+            "width": 40.63671875,
+            "height": 24.958267211914062,
+            "key": 87,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 636.552734375,
+            "top": 212.166259765625,
+            "width": 41.6995849609375,
+            "height": 25.204177856445312,
+            "key": 88,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 634.5594482421875,
+            "top": 212.71888732910156,
+            "width": 42.67083740234375,
+            "height": 25.573623657226562,
+            "key": 89,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 633.3230590820312,
+            "top": 212.90220642089844,
+            "width": 42.46630859375,
+            "height": 25.936752319335938,
+            "key": 90,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 631.6845092773438,
+            "top": 213.29458618164062,
+            "width": 42.9420166015625,
+            "height": 26.072174072265625,
+            "key": 91,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 630.7280883789062,
+            "top": 214.31634521484375,
+            "width": 41.87738037109375,
+            "height": 26.0626220703125,
+            "key": 92,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 629.6442260742188,
+            "top": 215.02975463867188,
+            "width": 42.2520751953125,
+            "height": 26.56414794921875,
+            "key": 93,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 628.5159301757812,
+            "top": 215.8238983154297,
+            "width": 42.6197509765625,
+            "height": 26.537933349609375,
+            "key": 94,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 627.2263793945312,
+            "top": 216.48419189453125,
+            "width": 42.6031494140625,
+            "height": 26.6380615234375,
+            "key": 95,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 625.1490478515625,
+            "top": 216.72352600097656,
+            "width": 43.86651611328125,
+            "height": 26.32745361328125,
+            "key": 96,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 618.2555541992188,
+            "top": 222.65892028808594,
+            "width": 43.3406982421875,
+            "height": 27.924606323242188,
+            "key": 101,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 617.2740478515625,
+            "top": 223.86009216308594,
+            "width": 42.68475341796875,
+            "height": 27.489288330078125,
+            "key": 102,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 616.5995483398438,
+            "top": 223.7100830078125,
+            "width": 42.5438232421875,
+            "height": 28.43719482421875,
+            "key": 103,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 615.5316772460938,
+            "top": 224.07847595214844,
+            "width": 42.4375,
+            "height": 29.6663818359375,
+            "key": 104,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 613.7136840820312,
+            "top": 225.16754150390625,
+            "width": 43.04913330078125,
+            "height": 30.048965454101562,
+            "key": 105,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 612.3561401367188,
+            "top": 227.84669494628906,
+            "width": 43.9337158203125,
+            "height": 28.809951782226562,
+            "key": 106,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 610.8287963867188,
+            "top": 230.38986206054688,
+            "width": 44.81634521484375,
+            "height": 27.32373046875,
+            "key": 107,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 609.5411376953125,
+            "top": 229.7782440185547,
+            "width": 45.517333984375,
+            "height": 29.121047973632812,
+            "key": 108,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 607.322998046875,
+            "top": 230.58734130859375,
+            "width": 46.78900146484375,
+            "height": 29.907562255859375,
+            "key": 109,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 606.2218627929688,
+            "top": 230.93612670898438,
+            "width": 46.73321533203125,
+            "height": 31.104827880859375,
+            "key": 110,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 606.50732421875,
+            "top": 232.23838806152344,
+            "width": 45.67327880859375,
+            "height": 31.233108520507812,
+            "key": 111,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 604.2269897460938,
+            "top": 233.49398803710938,
+            "width": 46.89898681640625,
+            "height": 31.902252197265625,
+            "key": 112,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 604.9225463867188,
+            "top": 234.04019165039062,
+            "width": 45.7755126953125,
+            "height": 33.2734375,
+            "key": 113,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 604.5221557617188,
+            "top": 234.76805114746094,
+            "width": 45.72711181640625,
+            "height": 33.67152404785156,
+            "key": 114,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 602.578857421875,
+            "top": 235.06349182128906,
+            "width": 46.77642822265625,
+            "height": 34.93400573730469,
+            "key": 115,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 601.3987426757812,
+            "top": 235.63844299316406,
+            "width": 47.16070556640625,
+            "height": 35.64881896972656,
+            "key": 116,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 600.7620239257812,
+            "top": 237.31976318359375,
+            "width": 47.4423828125,
+            "height": 35.192138671875,
+            "key": 117,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 599.6583251953125,
+            "top": 238.45848083496094,
+            "width": 48.22113037109375,
+            "height": 35.04112243652344,
+            "key": 118,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 599.2227783203125,
+            "top": 238.934814453125,
+            "width": 47.81060791015625,
+            "height": 36.2191162109375,
+            "key": 119,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-8": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 567.5867919921875,
+            "top": 373.2754821777344,
+            "width": 88.88018798828125,
+            "height": 69.55551147460938,
+            "key": 45,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 567.5347900390625,
+            "top": 382.2608947753906,
+            "width": 91.14495849609375,
+            "height": 72.3280029296875,
+            "key": 46,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 567.2759399414062,
+            "top": 387.3174743652344,
+            "width": 93.3394775390625,
+            "height": 74.25030517578125,
+            "key": 47,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 567.1900634765625,
+            "top": 390.7070617675781,
+            "width": 95.92919921875,
+            "height": 77.05621337890625,
+            "key": 48,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 568.5143432617188,
+            "top": 394.2661437988281,
+            "width": 95.454833984375,
+            "height": 80.829345703125,
+            "key": 49,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 569.4345092773438,
+            "top": 398.27520751953125,
+            "width": 95.47039794921875,
+            "height": 82.5723876953125,
+            "key": 50,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 569.512939453125,
+            "top": 402.49310302734375,
+            "width": 97.540283203125,
+            "height": 83.87677001953125,
+            "key": 51,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 570.5866088867188,
+            "top": 408.4393615722656,
+            "width": 98.54437255859375,
+            "height": 83.31674194335938,
+            "key": 52,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.4579467773438,
+            "top": 413.23956298828125,
+            "width": 100.5126953125,
+            "height": 86.0611572265625,
+            "key": 53,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.3169555664062,
+            "top": 417.8191223144531,
+            "width": 104.10760498046875,
+            "height": 88.31317138671875,
+            "key": 54,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.1842651367188,
+            "top": 423.024658203125,
+            "width": 104.0699462890625,
+            "height": 88.8160400390625,
+            "key": 55,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.105712890625,
+            "top": 428.3304138183594,
+            "width": 106.27093505859375,
+            "height": 90.85104370117188,
+            "key": 56,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.1347045898438,
+            "top": 432.6876525878906,
+            "width": 108.33172607421875,
+            "height": 93.19332885742188,
+            "key": 57,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 572.0441284179688,
+            "top": 440.27825927734375,
+            "width": 108.87261962890625,
+            "height": 94.9552001953125,
+            "key": 58,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 572.7771606445312,
+            "top": 446.96368408203125,
+            "width": 110.94158935546875,
+            "height": 95.27972412109375,
+            "key": 59,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.0009765625,
+            "top": 452.542236328125,
+            "width": 114.07891845703125,
+            "height": 97.82745361328125,
+            "key": 60,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 572.97607421875,
+            "top": 459.8458251953125,
+            "width": 115.00982666015625,
+            "height": 99.038818359375,
+            "key": 61,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 572.2210083007812,
+            "top": 466.1666259765625,
+            "width": 116.7366943359375,
+            "height": 102.68231201171875,
+            "key": 62,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.5072631835938,
+            "top": 473.00067138671875,
+            "width": 118.5849609375,
+            "height": 104.16357421875,
+            "key": 63,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.8765258789062,
+            "top": 480.9256591796875,
+            "width": 121.677490234375,
+            "height": 104.19512939453125,
+            "key": 64,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 572.927490234375,
+            "top": 487.78363037109375,
+            "width": 121.924072265625,
+            "height": 109.94500732421875,
+            "key": 65,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.5791015625,
+            "top": 495.4423522949219,
+            "width": 126.77874755859375,
+            "height": 111.22592163085938,
+            "key": 66,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 574.2979736328125,
+            "top": 503.43658447265625,
+            "width": 127.62200927734375,
+            "height": 113.75927734375,
+            "key": 67,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.6998291015625,
+            "top": 512.7388305664062,
+            "width": 130.0596923828125,
+            "height": 116.49444580078125,
+            "key": 68,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.996826171875,
+            "top": 520.9641723632812,
+            "width": 133.4923095703125,
+            "height": 119.8602294921875,
+            "key": 69,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.5604858398438,
+            "top": 530.6071166992188,
+            "width": 135.55657958984375,
+            "height": 121.29052734375,
+            "key": 70,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.7500610351562,
+            "top": 541.9244384765625,
+            "width": 141.20849609375,
+            "height": 124.64178466796875,
+            "key": 71,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 571.9462280273438,
+            "top": 548.9906005859375,
+            "width": 144.01300048828125,
+            "height": 130.7415771484375,
+            "key": 72,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.2312622070312,
+            "top": 560.7952880859375,
+            "width": 145.94525146484375,
+            "height": 133.47894287109375,
+            "key": 73,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 572.1160888671875,
+            "top": 571.4159545898438,
+            "width": 150.23492431640625,
+            "height": 135.67303466796875,
+            "key": 74,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.6306762695312,
+            "top": 581.2849731445312,
+            "width": 153.68646240234375,
+            "height": 136.96337890625,
+            "key": 75,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 574.613525390625,
+            "top": 593.7252807617188,
+            "width": 154.08917236328125,
+            "height": 126.27471923828125,
+            "key": 76,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 574.236572265625,
+            "top": 607.3248901367188,
+            "width": 157.29656982421875,
+            "height": 112.38250732421875,
+            "key": 77,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.6358642578125,
+            "top": 619.0508422851562,
+            "width": 161.6434326171875,
+            "height": 100.94915771484375,
+            "key": 78,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.4532470703125,
+            "top": 633.5474853515625,
+            "width": 168.55792236328125,
+            "height": 86.4525146484375,
+            "key": 79,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 573.0082397460938,
+            "top": 645.8887329101562,
+            "width": 169.33935546875,
+            "height": 73.47808837890625,
+            "key": 80,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 574.925537109375,
+            "top": 660.2515258789062,
+            "width": 171.36212158203125,
+            "height": 59.74847412109375,
+            "key": 81,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-9": {
+        "label": "http://kitware.com/nrtk/ontology/truck",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 555.2888793945312,
+            "top": 259.7630920410156,
+            "width": 85.33575439453125,
+            "height": 117.90054321289062,
+            "key": 49,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 553.6141967773438,
+            "top": 264.2842102050781,
+            "width": 89.119873046875,
+            "height": 119.13449096679688,
+            "key": 50,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 552.21728515625,
+            "top": 266.5032043457031,
+            "width": 91.12548828125,
+            "height": 122.215087890625,
+            "key": 51,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 552.0396118164062,
+            "top": 269.2754821777344,
+            "width": 91.549072265625,
+            "height": 124.39501953125,
+            "key": 52,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 551.2974853515625,
+            "top": 269.9773864746094,
+            "width": 91.70697021484375,
+            "height": 126.63833618164062,
+            "key": 53,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 551.120849609375,
+            "top": 271.6455078125,
+            "width": 91.92266845703125,
+            "height": 128.994140625,
+            "key": 54,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 552.65576171875,
+            "top": 278.24908447265625,
+            "width": 90.71710205078125,
+            "height": 126.48959350585938,
+            "key": 55,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 554.1437377929688,
+            "top": 278.5491638183594,
+            "width": 89.4239501953125,
+            "height": 131.57061767578125,
+            "key": 56,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 554.7575073242188,
+            "top": 280.1864013671875,
+            "width": 89.52874755859375,
+            "height": 133.79461669921875,
+            "key": 57,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 551.9518432617188,
+            "top": 282.8038024902344,
+            "width": 92.88543701171875,
+            "height": 135.85806274414062,
+            "key": 58,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 549.2998657226562,
+            "top": 283.7228698730469,
+            "width": 96.8048095703125,
+            "height": 139.32244873046875,
+            "key": 59,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-10": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 520.1827392578125,
+            "top": 215.37619018554688,
+            "width": 42.34417724609375,
+            "height": 34.91282653808594,
+            "key": 58,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 516.9105224609375,
+            "top": 218.16226196289062,
+            "width": 41.93646240234375,
+            "height": 35.060760498046875,
+            "key": 59,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 513.648681640625,
+            "top": 221.0978240966797,
+            "width": 42.6158447265625,
+            "height": 34.45991516113281,
+            "key": 60,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 511.3780212402344,
+            "top": 222.71559143066406,
+            "width": 43.263153076171875,
+            "height": 34.94544982910156,
+            "key": 61,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 508.4411315917969,
+            "top": 223.37892150878906,
+            "width": 45.485565185546875,
+            "height": 36.12541198730469,
+            "key": 62,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 506.21343994140625,
+            "top": 222.7886505126953,
+            "width": 45.97698974609375,
+            "height": 38.36515808105469,
+            "key": 63,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 504.71649169921875,
+            "top": 224.08978271484375,
+            "width": 46.27978515625,
+            "height": 38.4866943359375,
+            "key": 64,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 503.29888916015625,
+            "top": 226.10105895996094,
+            "width": 45.9737548828125,
+            "height": 37.55598449707031,
+            "key": 65,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 500.3667907714844,
+            "top": 227.84210205078125,
+            "width": 47.051239013671875,
+            "height": 37.887542724609375,
+            "key": 66,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 498.68096923828125,
+            "top": 229.4831085205078,
+            "width": 45.834228515625,
+            "height": 38.23258972167969,
+            "key": 67,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 497.2130432128906,
+            "top": 231.46444702148438,
+            "width": 45.940765380859375,
+            "height": 37.994720458984375,
+            "key": 68,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 495.28643798828125,
+            "top": 232.53900146484375,
+            "width": 46.48858642578125,
+            "height": 38.845489501953125,
+            "key": 69,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 492.281494140625,
+            "top": 233.89222717285156,
+            "width": 48.2342529296875,
+            "height": 38.39735412597656,
+            "key": 70,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 490.01104736328125,
+            "top": 237.53091430664062,
+            "width": 48.704345703125,
+            "height": 36.712310791015625,
+            "key": 71,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 489.0300598144531,
+            "top": 239.17596435546875,
+            "width": 48.161102294921875,
+            "height": 37.243072509765625,
+            "key": 72,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 488.5448303222656,
+            "top": 239.4125518798828,
+            "width": 46.765289306640625,
+            "height": 38.94239807128906,
+            "key": 73,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 487.09625244140625,
+            "top": 241.3500213623047,
+            "width": 47.2247314453125,
+            "height": 37.94758605957031,
+            "key": 74,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 484.8114929199219,
+            "top": 242.07974243164062,
+            "width": 47.834930419921875,
+            "height": 39.34228515625,
+            "key": 75,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 483.3752746582031,
+            "top": 243.18017578125,
+            "width": 48.026641845703125,
+            "height": 40.4503173828125,
+            "key": 76,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 482.1955261230469,
+            "top": 244.87936401367188,
+            "width": 47.900360107421875,
+            "height": 41.304901123046875,
+            "key": 77,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 479.96527099609375,
+            "top": 246.95970153808594,
+            "width": 48.54998779296875,
+            "height": 40.76805114746094,
+            "key": 78,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 476.6302185058594,
+            "top": 248.63919067382812,
+            "width": 50.974395751953125,
+            "height": 41.82513427734375,
+            "key": 79,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 474.9982604980469,
+            "top": 249.79296875,
+            "width": 52.217681884765625,
+            "height": 43.011260986328125,
+            "key": 80,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 474.09307861328125,
+            "top": 252.04588317871094,
+            "width": 51.79571533203125,
+            "height": 42.22911071777344,
+            "key": 81,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 473.07281494140625,
+            "top": 254.6861572265625,
+            "width": 51.52911376953125,
+            "height": 42.13104248046875,
+            "key": 82,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 472.5993957519531,
+            "top": 257.39337158203125,
+            "width": 50.906585693359375,
+            "height": 41.958038330078125,
+            "key": 83,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 471.0450439453125,
+            "top": 259.54681396484375,
+            "width": 52.3896484375,
+            "height": 42.77752685546875,
+            "key": 84,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 469.1064453125,
+            "top": 261.3798828125,
+            "width": 52.6976318359375,
+            "height": 42.54962158203125,
+            "key": 85,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 466.9480285644531,
+            "top": 262.7404479980469,
+            "width": 53.752105712890625,
+            "height": 43.1358642578125,
+            "key": 86,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 465.02294921875,
+            "top": 264.2068176269531,
+            "width": 54.62249755859375,
+            "height": 43.685638427734375,
+            "key": 87,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 463.5055236816406,
+            "top": 266.1759338378906,
+            "width": 54.905364990234375,
+            "height": 44.103759765625,
+            "key": 88,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 461.8592224121094,
+            "top": 267.37298583984375,
+            "width": 55.678192138671875,
+            "height": 45.3704833984375,
+            "key": 89,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 459.84326171875,
+            "top": 269.9973449707031,
+            "width": 56.598876953125,
+            "height": 45.3436279296875,
+            "key": 90,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 458.6483154296875,
+            "top": 272.2981872558594,
+            "width": 56.64178466796875,
+            "height": 45.41754150390625,
+            "key": 91,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 457.88470458984375,
+            "top": 275.0740661621094,
+            "width": 56.614501953125,
+            "height": 43.728179931640625,
+            "key": 92,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 456.9618225097656,
+            "top": 276.2427062988281,
+            "width": 55.995208740234375,
+            "height": 45.431854248046875,
+            "key": 93,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 454.74188232421875,
+            "top": 278.2436218261719,
+            "width": 57.60137939453125,
+            "height": 45.562896728515625,
+            "key": 94,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 452.1220703125,
+            "top": 279.5906982421875,
+            "width": 59.276580810546875,
+            "height": 47.30841064453125,
+            "key": 95,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 451.34454345703125,
+            "top": 282.0256652832031,
+            "width": 59.158935546875,
+            "height": 47.738189697265625,
+            "key": 96,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 450.1477966308594,
+            "top": 283.4972839355469,
+            "width": 58.739349365234375,
+            "height": 48.26971435546875,
+            "key": 97,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 448.3931579589844,
+            "top": 286.2940979003906,
+            "width": 59.374237060546875,
+            "height": 47.85772705078125,
+            "key": 98,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 446.4500732421875,
+            "top": 288.79248046875,
+            "width": 59.761566162109375,
+            "height": 48.077606201171875,
+            "key": 99,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 443.6640319824219,
+            "top": 291.1776123046875,
+            "width": 60.231658935546875,
+            "height": 47.88037109375,
+            "key": 100,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 441.2269592285156,
+            "top": 293.0858459472656,
+            "width": 61.82177734375,
+            "height": 49.321746826171875,
+            "key": 101,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 440.4065856933594,
+            "top": 294.76971435546875,
+            "width": 61.890106201171875,
+            "height": 51.6949462890625,
+            "key": 102,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 439.45355224609375,
+            "top": 297.2237548828125,
+            "width": 61.726531982421875,
+            "height": 52.318603515625,
+            "key": 103,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 438.2386779785156,
+            "top": 299.314208984375,
+            "width": 62.747894287109375,
+            "height": 51.878875732421875,
+            "key": 104,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 437.2381591796875,
+            "top": 302.3284912109375,
+            "width": 62.74725341796875,
+            "height": 52.297332763671875,
+            "key": 105,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 433.823486328125,
+            "top": 305.982666015625,
+            "width": 63.847503662109375,
+            "height": 52.280487060546875,
+            "key": 106,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 433.20849609375,
+            "top": 308.35565185546875,
+            "width": 63.942352294921875,
+            "height": 53.699676513671875,
+            "key": 107,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 430.5594177246094,
+            "top": 311.6234436035156,
+            "width": 65.4727783203125,
+            "height": 54.2647705078125,
+            "key": 108,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 428.2399597167969,
+            "top": 315.0937805175781,
+            "width": 66.35101318359375,
+            "height": 53.95587158203125,
+            "key": 109,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 426.26715087890625,
+            "top": 317.9591979980469,
+            "width": 67.79830932617188,
+            "height": 55.662628173828125,
+            "key": 110,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 425.4431457519531,
+            "top": 321.6824035644531,
+            "width": 67.35394287109375,
+            "height": 56.119415283203125,
+            "key": 111,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 423.9550476074219,
+            "top": 323.04962158203125,
+            "width": 68.8646240234375,
+            "height": 58.278106689453125,
+            "key": 112,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 422.5814514160156,
+            "top": 327.64080810546875,
+            "width": 67.51205444335938,
+            "height": 56.892425537109375,
+            "key": 113,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 421.331298828125,
+            "top": 330.61114501953125,
+            "width": 67.8350830078125,
+            "height": 57.574951171875,
+            "key": 114,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 418.8551940917969,
+            "top": 333.7624206542969,
+            "width": 69.205322265625,
+            "height": 59.34173583984375,
+            "key": 115,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 416.4463195800781,
+            "top": 337.0876770019531,
+            "width": 71.00039672851562,
+            "height": 60.392120361328125,
+            "key": 116,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 415.10565185546875,
+            "top": 340.9248352050781,
+            "width": 70.46914672851562,
+            "height": 59.974578857421875,
+            "key": 117,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 411.93316650390625,
+            "top": 344.6396789550781,
+            "width": 72.91964721679688,
+            "height": 61.07244873046875,
+            "key": 118,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 409.7263488769531,
+            "top": 346.0773010253906,
+            "width": 75.68630981445312,
+            "height": 64.854736328125,
+            "key": 119,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-11": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 685.1492309570312,
+            "top": 234.003173828125,
+            "width": 55.6141357421875,
+            "height": 52.46148681640625,
+            "key": 69,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 685.5282592773438,
+            "top": 236.039306640625,
+            "width": 57.0926513671875,
+            "height": 52.21844482421875,
+            "key": 70,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.9974975585938,
+            "top": 239.28372192382812,
+            "width": 56.254638671875,
+            "height": 52.286834716796875,
+            "key": 71,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.4364013671875,
+            "top": 240.46417236328125,
+            "width": 56.48675537109375,
+            "height": 53.270660400390625,
+            "key": 72,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.0233764648438,
+            "top": 241.2237091064453,
+            "width": 57.49981689453125,
+            "height": 54.99455261230469,
+            "key": 73,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.7161865234375,
+            "top": 242.8509521484375,
+            "width": 57.12591552734375,
+            "height": 55.971832275390625,
+            "key": 74,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.5386962890625,
+            "top": 245.1571502685547,
+            "width": 57.87921142578125,
+            "height": 56.55339050292969,
+            "key": 75,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 685.2535400390625,
+            "top": 247.38177490234375,
+            "width": 57.5941162109375,
+            "height": 56.375244140625,
+            "key": 76,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.6153564453125,
+            "top": 249.3035430908203,
+            "width": 59.1932373046875,
+            "height": 56.48149108886719,
+            "key": 77,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.5733642578125,
+            "top": 251.30337524414062,
+            "width": 59.99041748046875,
+            "height": 56.279876708984375,
+            "key": 78,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 684.5372924804688,
+            "top": 253.81240844726562,
+            "width": 61.064697265625,
+            "height": 56.540069580078125,
+            "key": 79,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 685.3313598632812,
+            "top": 255.04917907714844,
+            "width": 61.5367431640625,
+            "height": 57.59373474121094,
+            "key": 80,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 685.7882690429688,
+            "top": 256.54852294921875,
+            "width": 63.31982421875,
+            "height": 58.13690185546875,
+            "key": 81,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 685.9922485351562,
+            "top": 257.5868835449219,
+            "width": 64.93890380859375,
+            "height": 60.399444580078125,
+            "key": 82,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 687.5513916015625,
+            "top": 259.6389465332031,
+            "width": 64.2685546875,
+            "height": 60.12152099609375,
+            "key": 83,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 688.1307983398438,
+            "top": 261.1685791015625,
+            "width": 64.2750244140625,
+            "height": 61.196441650390625,
+            "key": 84,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 687.395263671875,
+            "top": 264.0826416015625,
+            "width": 65.5975341796875,
+            "height": 60.56103515625,
+            "key": 85,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 688.0557861328125,
+            "top": 264.8675537109375,
+            "width": 66.03961181640625,
+            "height": 61.931182861328125,
+            "key": 86,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 688.7479248046875,
+            "top": 267.9532470703125,
+            "width": 67.24664306640625,
+            "height": 63.071746826171875,
+            "key": 87,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 689.2689819335938,
+            "top": 270.06072998046875,
+            "width": 68.19757080078125,
+            "height": 64.05892944335938,
+            "key": 88,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 690.4769287109375,
+            "top": 271.2393798828125,
+            "width": 67.96038818359375,
+            "height": 65.06747436523438,
+            "key": 89,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 690.9616088867188,
+            "top": 272.81561279296875,
+            "width": 68.230224609375,
+            "height": 66.00439453125,
+            "key": 90,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 691.0980834960938,
+            "top": 275.9598388671875,
+            "width": 68.98223876953125,
+            "height": 65.91989135742188,
+            "key": 91,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 691.8179321289062,
+            "top": 277.7409973144531,
+            "width": 69.8082275390625,
+            "height": 67.481689453125,
+            "key": 92,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 693.0130615234375,
+            "top": 281.6683044433594,
+            "width": 70.6876220703125,
+            "height": 65.96749877929688,
+            "key": 93,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 693.6277465820312,
+            "top": 282.8392639160156,
+            "width": 72.80963134765625,
+            "height": 68.1314697265625,
+            "key": 94,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 694.6924438476562,
+            "top": 284.0528259277344,
+            "width": 75.72235107421875,
+            "height": 69.3011474609375,
+            "key": 95,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 695.7219848632812,
+            "top": 286.23455810546875,
+            "width": 75.40924072265625,
+            "height": 69.15023803710938,
+            "key": 96,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 697.803466796875,
+            "top": 288.0335388183594,
+            "width": 74.99981689453125,
+            "height": 70.82186889648438,
+            "key": 97,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 697.4185180664062,
+            "top": 290.1673278808594,
+            "width": 76.53314208984375,
+            "height": 72.62408447265625,
+            "key": 98,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 698.07275390625,
+            "top": 292.3915710449219,
+            "width": 76.531982421875,
+            "height": 74.3902587890625,
+            "key": 99,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 699.3142700195312,
+            "top": 296.0535888671875,
+            "width": 76.86163330078125,
+            "height": 72.99948120117188,
+            "key": 100,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 701.1941528320312,
+            "top": 298.3619079589844,
+            "width": 77.343994140625,
+            "height": 75.103271484375,
+            "key": 101,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 703.0020141601562,
+            "top": 300.5400390625,
+            "width": 79.489501953125,
+            "height": 77.19134521484375,
+            "key": 102,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 704.0224609375,
+            "top": 304.0455017089844,
+            "width": 79.8028564453125,
+            "height": 77.31539916992188,
+            "key": 103,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 706.9849243164062,
+            "top": 306.4986267089844,
+            "width": 78.9881591796875,
+            "height": 79.01834106445312,
+            "key": 104,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 708.5557861328125,
+            "top": 310.69573974609375,
+            "width": 79.61578369140625,
+            "height": 78.55538940429688,
+            "key": 105,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 708.83349609375,
+            "top": 313.73907470703125,
+            "width": 81.6099853515625,
+            "height": 79.77850341796875,
+            "key": 106,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 710.9181518554688,
+            "top": 316.0655822753906,
+            "width": 81.9241943359375,
+            "height": 81.50857543945312,
+            "key": 107,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 712.4462890625,
+            "top": 319.3406066894531,
+            "width": 82.50811767578125,
+            "height": 82.07302856445312,
+            "key": 108,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 713.7459716796875,
+            "top": 321.9419860839844,
+            "width": 88.27825927734375,
+            "height": 84.19351196289062,
+            "key": 109,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 714.7826538085938,
+            "top": 325.4980773925781,
+            "width": 90.743408203125,
+            "height": 86.38552856445312,
+            "key": 110,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 716.6640014648438,
+            "top": 328.643798828125,
+            "width": 90.4388427734375,
+            "height": 87.20529174804688,
+            "key": 111,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 718.0249633789062,
+            "top": 332.0528869628906,
+            "width": 91.8602294921875,
+            "height": 88.67727661132812,
+            "key": 112,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 720.4473266601562,
+            "top": 336.5696716308594,
+            "width": 93.8621826171875,
+            "height": 89.79461669921875,
+            "key": 113,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 722.1854858398438,
+            "top": 341.3681640625,
+            "width": 96.4495849609375,
+            "height": 89.28860473632812,
+            "key": 114,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 725.6802978515625,
+            "top": 344.9238586425781,
+            "width": 95.34600830078125,
+            "height": 91.7652587890625,
+            "key": 115,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 726.439453125,
+            "top": 347.91168212890625,
+            "width": 98.11334228515625,
+            "height": 95.43255615234375,
+            "key": 116,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 728.7699584960938,
+            "top": 351.1562805175781,
+            "width": 99.21014404296875,
+            "height": 96.1258544921875,
+            "key": 117,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 730.7868041992188,
+            "top": 355.027587890625,
+            "width": 102.90191650390625,
+            "height": 98.05517578125,
+            "key": 118,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 734.2160034179688,
+            "top": 358.4159851074219,
+            "width": 103.17413330078125,
+            "height": 100.21963500976562,
+            "key": 119,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-13": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 540.1549682617188,
+            "top": 381.5330810546875,
+            "width": 90.187744140625,
+            "height": 69.55917358398438,
+            "key": 91,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 540.4363403320312,
+            "top": 387.7310791015625,
+            "width": 91.3426513671875,
+            "height": 74.14590454101562,
+            "key": 92,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 539.3549194335938,
+            "top": 391.7285461425781,
+            "width": 92.923828125,
+            "height": 76.66244506835938,
+            "key": 93,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 539.9149169921875,
+            "top": 396.61767578125,
+            "width": 92.208984375,
+            "height": 79.2545166015625,
+            "key": 94,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 539.46728515625,
+            "top": 401.14642333984375,
+            "width": 94.0115966796875,
+            "height": 82.48629760742188,
+            "key": 95,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 541.4759521484375,
+            "top": 406.9159851074219,
+            "width": 93.11907958984375,
+            "height": 82.91098022460938,
+            "key": 96,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 540.7239379882812,
+            "top": 411.5552978515625,
+            "width": 94.959716796875,
+            "height": 83.20736694335938,
+            "key": 97,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 535.2293701171875,
+            "top": 415.44189453125,
+            "width": 100.70947265625,
+            "height": 85.9847412109375,
+            "key": 98,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 535.4115600585938,
+            "top": 420.84942626953125,
+            "width": 101.1273193359375,
+            "height": 87.03173828125,
+            "key": 99,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 534.8898315429688,
+            "top": 426.83453369140625,
+            "width": 102.81182861328125,
+            "height": 88.69403076171875,
+            "key": 100,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 534.935791015625,
+            "top": 432.2265319824219,
+            "width": 104.33258056640625,
+            "height": 90.81484985351562,
+            "key": 101,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 535.0462646484375,
+            "top": 438.6239929199219,
+            "width": 105.64666748046875,
+            "height": 92.42727661132812,
+            "key": 102,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 534.3983764648438,
+            "top": 446.1869201660156,
+            "width": 107.10272216796875,
+            "height": 93.57559204101562,
+            "key": 103,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 533.971923828125,
+            "top": 451.7493591308594,
+            "width": 108.46380615234375,
+            "height": 95.98135375976562,
+            "key": 104,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 532.5252685546875,
+            "top": 457.2974853515625,
+            "width": 111.02203369140625,
+            "height": 98.57879638671875,
+            "key": 105,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 534.78955078125,
+            "top": 464.3965148925781,
+            "width": 109.03570556640625,
+            "height": 101.51730346679688,
+            "key": 106,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 525.7913818359375,
+            "top": 471.9058837890625,
+            "width": 120.69354248046875,
+            "height": 102.29962158203125,
+            "key": 107,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 521.434814453125,
+            "top": 480.1436462402344,
+            "width": 126.40771484375,
+            "height": 103.07077026367188,
+            "key": 108,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 522.3773803710938,
+            "top": 487.1421813964844,
+            "width": 127.21881103515625,
+            "height": 107.77969360351562,
+            "key": 109,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 522.0377197265625,
+            "top": 494.4935302734375,
+            "width": 126.82183837890625,
+            "height": 110.1944580078125,
+            "key": 110,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 521.789794921875,
+            "top": 503.72869873046875,
+            "width": 128.1588134765625,
+            "height": 111.1239013671875,
+            "key": 111,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 522.6597290039062,
+            "top": 512.586181640625,
+            "width": 128.5916748046875,
+            "height": 115.33966064453125,
+            "key": 112,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 521.8174438476562,
+            "top": 520.2542724609375,
+            "width": 132.66241455078125,
+            "height": 119.3499755859375,
+            "key": 113,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 519.6422729492188,
+            "top": 530.825439453125,
+            "width": 136.5406494140625,
+            "height": 118.51641845703125,
+            "key": 114,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 515.3052978515625,
+            "top": 542.2791748046875,
+            "width": 143.5068359375,
+            "height": 122.419189453125,
+            "key": 115,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 513.9808349609375,
+            "top": 550.31787109375,
+            "width": 146.7518310546875,
+            "height": 128.802001953125,
+            "key": 116,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 513.1829833984375,
+            "top": 561.7177734375,
+            "width": 149.9931640625,
+            "height": 131.09881591796875,
+            "key": 117,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 513.7887573242188,
+            "top": 574.0037231445312,
+            "width": 151.1158447265625,
+            "height": 133.976318359375,
+            "key": 118,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 513.892822265625,
+            "top": 583.3973388671875,
+            "width": 152.62109375,
+            "height": 135.19659423828125,
+            "key": 119,
+            "attributes": {}
+          }
+        ]
+      },
+      "track-15": {
+        "label": "http://kitware.com/nrtk/ontology/car",
+        "geometry": "box",
+        "frames": [
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 886.4287109375,
+            "top": 619.826171875,
+            "width": 208.5364990234375,
+            "height": 99.873046875,
+            "key": 118,
+            "attributes": {}
+          },
+          {
+            "keyframeType": "middle",
+            "isInferredKeyframe": false,
+            "left": 907.9547729492188,
+            "top": 652.70849609375,
+            "width": 194.19219970703125,
+            "height": 67.29150390625,
+            "key": 119,
+            "attributes": {}
+          }
+        ]
+      }
+    },
+    "events": {}
+  }
+}
