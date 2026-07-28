@@ -14,6 +14,7 @@ vcrm:
     PY_COLORS: "1"  # colors for python/pip installs
     FORCE_COLOR: "1" # colors for pytest
     VCRM_DIR: "${CI_PROJECT_DIR}/metarepo/NRTK/.vcrm"
+    NRTK_DEV_PATH: "${CI_PROJECT_DIR}"
   rules:
     # If changes are make to an active merge request.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -42,7 +43,6 @@ vcrm:
   script:
     - git clone https://robot:${GITLAB_KITWARE_GROUP_TOKEN}@gitlab.jatic.net/jatic/kitware/metarepo.git
     - cd metarepo/NRTK/.vcrm
-    - sed -i "s|^nrtk *=.*|nrtk = ${CI_PROJECT_DIR}|" tox.dev.ini
     - tox -c tox.dev.ini
 
   after_script:
