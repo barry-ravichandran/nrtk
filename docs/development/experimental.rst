@@ -65,3 +65,11 @@ Interoperability
 
 .. autoclass:: nrtk.interop.MAITEMultiobjectTrackingAugmentation
    :members:
+
+Notebooks
+---------
+
+.. toctree::
+   :titlesonly:
+
+   /examples/maite/framewise_video

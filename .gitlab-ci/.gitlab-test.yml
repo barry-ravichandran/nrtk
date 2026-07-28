@@ -256,7 +256,8 @@ tox:notebooks:maite:
           "radial_distortion.ipynb",
           "sensor_resolution_and_noise.ipynb",
           "atmospheric_turbulence.ipynb",
-          "water_droplets.ipynb"
+          "water_droplets.ipynb",
+          "framewise_video.ipynb"
         ]
         RUNNER_TAG: autoscaler
 
