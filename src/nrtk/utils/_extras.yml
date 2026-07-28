@@ -9,6 +9,9 @@ diffusion:
 - protobuf>=6.33.5
 graphics:
 - opencv-python>=4.8.1.78
+hcipy:
+- hcipy>=0.7.0
+- scipy>=1.10.0
 headless:
 - opencv-python-headless>=4.8.1.78
 maite:

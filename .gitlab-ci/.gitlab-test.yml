@@ -35,6 +35,8 @@
         RUNNER_TAG: small-cpu
       - TOX_ENV: pybsm
         RUNNER_TAG: medium-cpu
+      - TOX_ENV: hcipy
+        RUNNER_TAG: medium-cpu
       - TOX_ENV: maite
         RUNNER_TAG: medium-cpu
       - TOX_ENV: tools
