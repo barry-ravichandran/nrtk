@@ -1,27 +1,38 @@
 """Module for all implementations of PerturbImageFactory."""
 
-from nrtk.impls.perturb_image_factory._perturber_linspace_factory import (
-    PerturberLinspaceFactory,
-)
-from nrtk.impls.perturb_image_factory._perturber_multivariate_factory import (
-    PerturberMultivariateFactory,
-)
-from nrtk.impls.perturb_image_factory._perturber_one_step_factory import (
-    PerturberOneStepFactory,
-)
-from nrtk.impls.perturb_image_factory._perturber_step_factory import (
-    PerturberStepFactory,
-)
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
-# Override __module__ to reflect the public API path for plugin discovery
-PerturberLinspaceFactory.__module__ = __name__
-PerturberMultivariateFactory.__module__ = __name__
-PerturberOneStepFactory.__module__ = __name__
-PerturberStepFactory.__module__ = __name__
+from nrtk._guard import Group, guard
 
-__all__ = [
-    "PerturberLinspaceFactory",
-    "PerturberMultivariateFactory",
-    "PerturberOneStepFactory",
-    "PerturberStepFactory",
-]
+if TYPE_CHECKING:
+    from nrtk.impls.perturb_image_factory._perturber_linspace_factory import (
+        PerturberLinspaceFactory as PerturberLinspaceFactory,
+    )
+    from nrtk.impls.perturb_image_factory._perturber_multivariate_factory import (
+        PerturberMultivariateFactory as PerturberMultivariateFactory,
+    )
+    from nrtk.impls.perturb_image_factory._perturber_one_step_factory import (
+        PerturberOneStepFactory as PerturberOneStepFactory,
+    )
+    from nrtk.impls.perturb_image_factory._perturber_step_factory import (
+        PerturberStepFactory as PerturberStepFactory,
+    )
+
+__getattr__: Callable[[str], Any]
+__dir__: Callable[[], list[str]]
+__all__: list[str]
+
+__getattr__, __dir__, __all__ = guard(
+    namespace=globals(),
+    groups=[
+        Group(
+            symbols={
+                "PerturberLinspaceFactory": "nrtk.impls.perturb_image_factory._perturber_linspace_factory",
+                "PerturberMultivariateFactory": "nrtk.impls.perturb_image_factory._perturber_multivariate_factory",
+                "PerturberOneStepFactory": "nrtk.impls.perturb_image_factory._perturber_one_step_factory",
+                "PerturberStepFactory": "nrtk.impls.perturb_image_factory._perturber_step_factory",
+            },
+        ),
+    ],
+)

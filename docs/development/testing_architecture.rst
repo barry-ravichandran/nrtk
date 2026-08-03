@@ -90,7 +90,8 @@ Adding a New Implementation
 
 When adding a perturber (or any class) that depends on an optional package:
 
-1. Add an import guard to the source module (see `Import Guards`_ below).
+1. Add the class to a ``Group`` in the owning module's ``guard()`` call, and to
+   its ``if TYPE_CHECKING:`` imports (see :doc:`import_guards`).
 2. Add a pytest marker to :file:`pyproject.toml` if the dependency group is
    new (see `Pytest Markers`_).
 3. Decorate test classes with ``@pytest.mark.<marker>``.
@@ -120,46 +121,14 @@ dependency leak that would affect users.
 Import Guards
 =============
 
-Every module that depends on an optional package wraps its imports in a
-``try``/``except ImportError`` block at module level:
+Every module that exposes a conditional implementation declares it through
+``nrtk._guard.guard()``, which installs the module's :pep:`562` hooks. That is
+what makes the isolation above testable: ``import nrtk`` succeeds regardless of
+which extras are installed, and a user only sees an error — naming the extra to
+install — when they reach for a perturber whose dependency is missing.
 
-.. code-block:: python
-
-   # src/nrtk/impls/perturb_image/photometric/blur.py (simplified)
-
-   _CV2_CLASSES = ["AverageBlurPerturber", "GaussianBlurPerturber", "MedianBlurPerturber"]
-   __all__: list[str] = []
-   _import_error: ImportError | None = None
-
-   try:
-       from nrtk.impls.perturb_image.photometric._blur.average_blur_perturber import (
-           AverageBlurPerturber as AverageBlurPerturber,
-       )
-       # ... other imports ...
-       __all__ += _CV2_CLASSES
-   except ImportError as _ex:
-       _import_error = _ex
-
-   def __getattr__(name: str) -> None:
-       if name in _CV2_CLASSES:
-           msg = (
-               f"{name} requires the `graphics` or `headless` extra. "
-               f"Install with: `pip install nrtk[graphics]` or `pip install nrtk[headless]`"
-           )
-           if _import_error is not None:
-               msg += f"\n\n... upstream error:\n  {type(_import_error).__name__}: {_import_error}"
-           raise ImportError(msg)
-       raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
-
-This pattern achieves two things:
-
-1. **Safe imports** — ``import nrtk`` never fails regardless of which extras
-   are installed. Users only see an error when they try to *use* a perturber
-   whose dependency is missing.
-
-2. **Actionable errors** — The ``ImportError`` message tells the user exactly
-   which extra to install. If the extra *is* installed but a transitive
-   dependency failed, the original upstream error is surfaced as well.
+:doc:`import_guards` is the reference for how to declare one. This page only
+covers how the guards are *tested*; see `Import Guard Mixin Tests`_ below.
 
 
 Pytest Markers
@@ -279,6 +248,43 @@ dependency, then verifies:
 - Guarded classes are excluded from the module's ``__all__``.
 - Always-available classes remain importable.
 - Unknown attribute access raises ``AttributeError``.
+
+The guard itself is covered by two further modules. ``tests/test_guard.py``
+unit-tests ``nrtk._guard`` against throwaway leaf modules in
+``tests/_utils/guard_leaves/`` — message wording for each requirement shape,
+eager versus lazy resolution, and the rule that ``__dir__`` never advertises a
+name ``__getattr__`` would reject. It also holds the two checks that need the
+real packages rather than fakes but still run *in-process* — in the same
+interpreter as the rest of the suite, where ``tests/conftest.py`` has already
+opted in to experimental features: that no experimental name reaches ``__all__``,
+and that a serialized config records the public path.
+
+``tests/test_import_guards_e2e.py`` is reserved for the claims that cannot hold
+in-process, because they only mean anything in an interpreter that has not
+already imported half of nrtk. Each is checked by running a *program* — an
+ordinary module under ``tests/_utils/guard_programs/``, run as a subprocess,
+which prints a single line the test asserts on. There are only two, one per
+program:
+
+``packages_import_without_extras``
+    The compliance walk. Every package under ``nrtk`` imports with all optional
+    dependencies blocked by a meta-path finder, so the check is real even in the
+    all-extras environment.
+
+``discovery_across_opt_in``
+    Confirms ``get_impls()`` neither comes back empty nor depends on import order. Walking
+    the experimental gate from closed to open in one interpreter: entrypoints stay
+    inert while it is shut, a package imported first advertises nothing, discovery
+    reaches the implementation through its entrypoint once opted in, and the
+    already-imported package advertises it afterwards. Those five observations are
+    one program because each depends on the state the previous one left behind, and
+    none survive an interpreter where ``tests/conftest.py`` has already opted in.
+
+The two programs under ``tests/_utils/guard_programs/`` are real ``.py`` files
+rather than source passed to ``python -c``, so that ruff and pyright check them,
+and so that a failure points at a real line. Reach for one only when import order or a
+process-global gate is the thing under test; anything else belongs in
+``tests/test_guard.py``.
 
 
 Tox Configuration

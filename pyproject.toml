@@ -24,7 +24,6 @@ classifiers = [
     'Programming Language :: Python :: 3.14',
 ]
 dependencies = [
-    "lazy-loader>=0.4",
     # CVE-2021-34141 (numpy < 1.26)
     "numpy>=1.26",
     "smqtk-classifier>=0.20.0",
@@ -55,6 +54,10 @@ nrtk-perturber = "nrtk.entrypoints:nrtk_perturber_cli"
 "nrtk.impls.perturb_image.optical" = "nrtk.impls.perturb_image.optical"
 "nrtk.impls.perturb_image.optical.otf" = "nrtk.impls.perturb_image.optical.otf"
 "nrtk.impls.perturb_image_factory" = "nrtk.impls.perturb_image_factory"
+# Experimental modules. Inert unless `nrtk.experimental` is imported: with the gate
+# closed their `__dir__` advertises nothing, so discovery never reaches a gated name.
+"nrtk.impls.perturb_video" = "nrtk.impls.perturb_video"
+"nrtk.impls.perturb_video.optical" = "nrtk.impls.perturb_video.optical"
 
 [project.entry-points."maite.protocols.image_classification.Augmentation"]
 nrtk_MAITEImageClassificationAugmentation = "nrtk.interop:MAITEImageClassificationAugmentation"

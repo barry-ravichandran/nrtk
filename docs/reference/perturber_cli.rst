@@ -13,6 +13,4 @@ nrtk-perturber CLI Entrypoint
 Augmented MAITE dataset(s) generator
 ------------------------------------
 
-.. automodule:: nrtk.entrypoints.nrtk_perturber
-    :members:
-    :special-members:
+.. autofunction:: nrtk.entrypoints.nrtk_perturber

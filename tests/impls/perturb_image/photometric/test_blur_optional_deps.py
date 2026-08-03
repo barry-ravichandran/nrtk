@@ -12,7 +12,7 @@ class TestBlurImportGuard(ImportGuardTestsMixin):
     DEPS_TO_MOCK = ["cv2"]
     CLASSES = ["AverageBlurPerturber", "GaussianBlurPerturber", "MedianBlurPerturber"]
     ERROR_MATCH = (
-        r"{class_name} requires the `graphics` or `headless` extra\. "
+        r"{class_name} requires the \(`graphics` or `headless`\) extra\. "
         r"Install with: `pip install nrtk\[graphics\]` or `pip install nrtk\[headless\]`"
     )
 

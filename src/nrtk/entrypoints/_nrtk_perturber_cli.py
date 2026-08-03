@@ -15,7 +15,7 @@ from maite.protocols import DatumMetadata
 from maite.protocols.object_detection import Dataset
 from smqtk_core.configuration import from_config_dict
 
-from nrtk.entrypoints import nrtk_perturber
+from nrtk.entrypoints._nrtk_perturber import nrtk_perturber
 from nrtk.interfaces import PerturbImageFactory
 from nrtk.interop._maite.datasets import (
     COCOMAITEObjectDetectionDataset,
