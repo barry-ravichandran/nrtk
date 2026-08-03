@@ -411,8 +411,25 @@ Numba Parallelization Note
 
 The ``pybsm`` and ``waterdroplet`` environments disable ``pytest-xdist``
 parallelization by passing ``-n0`` (overriding the default ``-n auto``).
-Numba's JIT compiler uses its own process-level parallelization internally,
-which conflicts with ``pytest-xdist`` spawning multiple worker processes.
+Numba parallelizes with a thread pool inside a single process, so under
+``pytest-xdist`` every worker process brings up a pool of its own and the
+machine ends up oversubscribed by a factor of the worker count.
+
+That pool is sized from the detected CPU count, which on a workstation means a
+test run takes the whole machine even with ``-n0``. ``[testenv]`` lists
+``NUMBA_NUM_THREADS`` in ``pass_env``, so capping it is just:
+
+.. prompt:: bash
+
+    NUMBA_NUM_THREADS=4 tox -e py310-waterdroplet
+
+Every environment inherits that ``pass_env``, including the standalone ones.
+The cap is worth reaching for even below the core count: capping
+``waterdroplet`` at 4 threads took it from 198s to 11s on a 20-core machine.
+These tests call many short-lived kernels rather than a few long ones, so the
+per-call cost of synchronizing the pool dominates, and that cost grows with the
+number of threads in it. ``optional`` and ``doctests`` run the same numba-backed
+tests and benefit the same way.
 
 
 Updating Notebooks Before Committing
