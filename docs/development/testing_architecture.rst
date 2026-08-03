@@ -52,7 +52,7 @@ Run the linting, formatting and type checks:
 
 .. prompt:: bash
 
-    tox -e pre-commit
+    tox -e precommit
 
 .. tip::
    Replace ``310`` with your Python version (``311``, ``312``, ``313``, or ``314``).
@@ -63,7 +63,7 @@ in whatever environment invoked ``pre-commit``. ``poetry run pre-commit run
 checks; they differ only in which environment the hooks inherit. Whichever you
 use has to satisfy :file:`pyproject.toml` including its extras, because
 ``pyright`` reports real failures against a stale or extras-less environment.
-The ``pre-commit`` tox environment is rebuilt from the declared constraints, so
+The ``precommit`` tox environment is rebuilt from the declared constraints, so
 it cannot drift; a Poetry environment needs keeping in sync:
 
 .. prompt:: bash
@@ -335,7 +335,7 @@ specialized purposes.
    a local wheel of ``nrtk`` and installs it (simulating a PyPI install) so
    notebooks exercise the same code path users would see.
 
-``pre-commit``
+``precommit``
    Runs every hook in :file:`.pre-commit-config.yaml` over all files:
    `ruff <https://docs.astral.sh/ruff/>`_ lint and format,
    `sphinx-lint <https://github.com/sphinx-contrib/sphinx-lint>`_,
@@ -345,7 +345,10 @@ specialized purposes.
    This replaced the separate ``ruff``, ``pyright`` and ``sphinx``
    environments, so there is one definition of "the checks" rather than one per
    CI job. The environment installs the package with every extra, which the
-   ``pyright`` hooks need in order to resolve optional dependencies.
+   ``pyright`` hooks need in order to resolve optional dependencies. The name
+   is spelled without a hyphen because tox splits environment names on hyphens
+   into factors: ``pre-commit`` would be read as the two factors ``pre`` and
+   ``commit`` rather than as a literal name.
 
 
 How CI Uses Tox
@@ -389,7 +392,7 @@ Quality Stage
 -------------
 
 Defined in :file:`.gitlab-ci/.gitlab-quality.yml`, this is a single
-``pre-commit`` job running ``tox -e pre-commit``. Every check lives in
+``precommit`` job running ``tox -e precommit``. Every check lives in
 :file:`.pre-commit-config.yaml` — ruff lint and format, sphinx-lint, pyright
 internal type checking, and pyright ``--verifytypes`` for public API
 completeness — so the same command reproduces CI exactly.

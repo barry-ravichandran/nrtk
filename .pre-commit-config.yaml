@@ -38,9 +38,9 @@ repos:
   #
   # Pick whichever fits; all three run identically:
   #
-  #   tox -e pre-commit                    # what CI runs; installs every extra
+  #   tox -e precommit                     # what CI runs; installs every extra
   #   poetry run pre-commit run --all-files
-  #   PATH="$PWD/.tox/pre-commit/bin:$PATH" pre-commit run --all-files
+  #   PATH="$PWD/.tox/precommit/bin:$PATH" pre-commit run --all-files
   #
   # The same applies at commit time -- `poetry run git commit` and a plain
   # `git commit` differ only in which environment the hooks inherit.
