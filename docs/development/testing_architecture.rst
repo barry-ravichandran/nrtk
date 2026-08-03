@@ -48,8 +48,27 @@ List all available environments:
 
     tox list
 
+Run the linting, formatting and type checks:
+
+.. prompt:: bash
+
+    tox -e pre-commit
+
 .. tip::
    Replace ``310`` with your Python version (``311``, ``312``, ``313``, or ``314``).
+
+The hooks are declared as bare commands with ``language: system``, so they run
+in whatever environment invoked ``pre-commit``. ``poetry run pre-commit run
+--all-files`` and a plain ``git commit`` are equivalent ways to run the same
+checks; they differ only in which environment the hooks inherit. Whichever you
+use has to satisfy :file:`pyproject.toml` including its extras, because
+``pyright`` reports real failures against a stale or extras-less environment.
+The ``pre-commit`` tox environment is rebuilt from the declared constraints, so
+it cannot drift; a Poetry environment needs keeping in sync:
+
+.. prompt:: bash
+
+    poetry sync --with main,linting,tests,docs --all-extras
 
 The first run will be slow as tox creates a fresh virtualenv for every
 environment. Subsequent runs reuse cached environments and are significantly
