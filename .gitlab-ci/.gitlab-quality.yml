@@ -8,7 +8,7 @@
   before_script:
     - !reference [.tox-setup, before_script]
 
-pre-commit:
+precommit:
   extends: .quality-setup
   script:
-    - tox -e pre-commit
+    - tox -e precommit

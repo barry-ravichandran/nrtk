@@ -48,8 +48,27 @@ List all available environments:
 
     tox list
 
+Run the linting, formatting and type checks:
+
+.. prompt:: bash
+
+    tox -e precommit
+
 .. tip::
    Replace ``310`` with your Python version (``311``, ``312``, ``313``, or ``314``).
+
+The hooks are declared as bare commands with ``language: system``, so they run
+in whatever environment invoked ``pre-commit``. ``poetry run pre-commit run
+--all-files`` and a plain ``git commit`` are equivalent ways to run the same
+checks; they differ only in which environment the hooks inherit. Whichever you
+use has to satisfy :file:`pyproject.toml` including its extras, because
+``pyright`` reports real failures against a stale or extras-less environment.
+The ``precommit`` tox environment is rebuilt from the declared constraints, so
+it cannot drift; a Poetry environment needs keeping in sync:
+
+.. prompt:: bash
+
+    poetry sync --with main,linting,tests,docs --all-extras
 
 The first run will be slow as tox creates a fresh virtualenv for every
 environment. Subsequent runs reuse cached environments and are significantly
@@ -274,7 +293,7 @@ The default matrix is:
 
 .. code-block:: ini
 
-   py{310,311,312,313,314}-{core,opencv,albumentations,pillow,waterdroplet,skimage,diffusion,pybsm,maite,tools,optional,doctests}
+   py{310,311,312,313,314}-{core,opencv,albumentations,pillow,waterdroplet,skimage,diffusion,pybsm,hcipy,maite,tools,optional,doctests}
 
 Each environment:
 
@@ -316,24 +335,20 @@ specialized purposes.
    a local wheel of ``nrtk`` and installs it (simulating a PyPI install) so
    notebooks exercise the same code path users would see.
 
-``ruff``
-   Runs the `ruff <https://docs.astral.sh/ruff/>`_ linter and formatter in
-   check mode. Combines what were previously two separate CI jobs
-   (``ruff-lint`` and ``ruff-format``) into a single invocation.
-
-``pyright``
-   Runs `pyright <https://github.com/microsoft/pyright>`_ type checking.
-   By default (``tox -e pyright``), it runs internal type checking across the
-   source tree. Pass ``--verifytypes`` via posargs for public API completeness
-   checking:
-
-   .. prompt:: bash
-
-       tox -e pyright -- --verifytypes nrtk --ignoreexternal src/nrtk
-
-``sphinx``
-   Lints Sphinx/RST documentation using
-   `sphinx-lint <https://github.com/sphinx-contrib/sphinx-lint>`_.
+``precommit``
+   Runs every hook in :file:`.pre-commit-config.yaml` over all files:
+   `ruff <https://docs.astral.sh/ruff/>`_ lint and format,
+   `sphinx-lint <https://github.com/sphinx-contrib/sphinx-lint>`_,
+   `pyright <https://github.com/microsoft/pyright>`_ (both internal type
+   checking and ``--verifytypes`` public API completeness), and the hook that
+   regenerates :file:`src/nrtk/utils/_extras.yml` from :file:`pyproject.toml`.
+   This replaced the separate ``ruff``, ``pyright`` and ``sphinx``
+   environments, so there is one definition of "the checks" rather than one per
+   CI job. The environment installs the package with every extra, which the
+   ``pyright`` hooks need in order to resolve optional dependencies. The name
+   is spelled without a hyphen because tox splits environment names on hyphens
+   into factors: ``pre-commit`` would be read as the two factors ``pre`` and
+   ``commit`` rather than as a literal name.
 
 
 How CI Uses Tox
@@ -356,8 +371,8 @@ Defined in :file:`.gitlab-ci/.gitlab-test.yml`:
    tags based on resource requirements:
 
    - ``small-cpu``: core, opencv, albumentations, pillow, skimage
-   - ``medium-cpu``: pybsm, maite, tools, waterdroplet
-   - ``autoscaler``: diffusion, doctests, notebooks
+   - ``medium-cpu``: pybsm, hcipy, maite, tools, waterdroplet
+   - ``autoscaler``: diffusion, optional, doctests, notebooks
    - ``single-gpu``: generative notebook (requires GPU)
 
 2. **Per-version coverage combine** — After all factor jobs for a Python
@@ -376,15 +391,11 @@ Defined in :file:`.gitlab-ci/.gitlab-test.yml`:
 Quality Stage
 -------------
 
-Defined in :file:`.gitlab-ci/.gitlab-quality.yml`:
-
-1. **Ruff** — Runs ``tox -e ruff`` (linting + format checking).
-2. **Pyright internal** — Runs ``tox -e pyright`` for full source type checking.
-3. **Pyright external** — Runs ``tox -e pyright -- --verifytypes ...`` and
-   validates 100% public API type completeness. The completeness validation
-   logic (score parsing, threshold enforcement, artifact generation) remains
-   in the CI script.
-4. **Sphinx lint** — Runs ``tox -e sphinx`` to lint RST documentation.
+Defined in :file:`.gitlab-ci/.gitlab-quality.yml`, this is a single
+``precommit`` job running ``tox -e precommit``. Every check lives in
+:file:`.pre-commit-config.yaml` — ruff lint and format, sphinx-lint, pyright
+internal type checking, and pyright ``--verifytypes`` for public API
+completeness — so the same command reproduces CI exactly.
 
 
 Numba Parallelization Note
@@ -392,8 +403,25 @@ Numba Parallelization Note
 
 The ``pybsm`` and ``waterdroplet`` environments disable ``pytest-xdist``
 parallelization by passing ``-n0`` (overriding the default ``-n auto``).
-Numba's JIT compiler uses its own process-level parallelization internally,
-which conflicts with ``pytest-xdist`` spawning multiple worker processes.
+Numba parallelizes with a thread pool inside a single process, so under
+``pytest-xdist`` every worker process brings up a pool of its own and the
+machine ends up oversubscribed by a factor of the worker count.
+
+That pool is sized from the detected CPU count, which on a workstation means a
+test run takes the whole machine even with ``-n0``. ``[testenv]`` lists
+``NUMBA_NUM_THREADS`` in ``pass_env``, so capping it is just:
+
+.. prompt:: bash
+
+    NUMBA_NUM_THREADS=4 tox -e py310-waterdroplet
+
+Every environment inherits that ``pass_env``, including the standalone ones.
+The cap is worth reaching for even below the core count: capping
+``waterdroplet`` at 4 threads took it from 198s to 11s on a 20-core machine.
+These tests call many short-lived kernels rather than a few long ones, so the
+per-call cost of synchronizing the pool dominates, and that cost grows with the
+number of threads in it. ``optional`` and ``doctests`` run the same numba-backed
+tests and benefit the same way.
 
 
 Updating Notebooks Before Committing
