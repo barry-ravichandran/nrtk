@@ -1,6 +1,6 @@
 """Plugin discovery must find experimental implementations, and only after opting in.
 
-This is the program behind the requirement that ``get_impls()`` not return an empty
+This is the script behind the requirement that ``get_impls()`` not return an empty
 set and not depend on what has already been imported. Before this change
 ``nrtk.impls.perturb_video`` was not registered under ``smqtk_plugins`` and the
 experimental gate was read at first import rather than at lookup, so
@@ -26,7 +26,7 @@ Prints five labelled booleans, all expected ``True``, in the order the steps run
     The package imported back in ``hidden_before`` advertises the name now -- the
     "not influenced by import order" half, and what reading the gate at lookup buys.
 
-One program rather than five because each step depends on the state the previous one
+One script rather than five because each step depends on the state the previous one
 left behind. A fresh interpreter because ``tests/conftest.py`` opts in for the whole
 suite, so in-process there is no closed gate left to observe.
 """
@@ -52,7 +52,7 @@ def main() -> None:
     import nrtk.experimental  # noqa: F401 - opting in is the whole point
 
     # Sampled before PerturbVideo is pulled in, so the flag below cannot be confused by
-    # an import this program did itself. Also keeps a statement between the opt-in and
+    # an import this script did itself. Also keeps a statement between the opt-in and
     # the import that depends on it, where an import sorter could otherwise swap them.
     leaf = "nrtk.impls.perturb_video._framewise_perturber"
     leaf_was_imported = leaf in sys.modules

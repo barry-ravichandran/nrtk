@@ -261,10 +261,9 @@ and that a serialized config records the public path.
 
 ``tests/test_import_guards_e2e.py`` is reserved for the claims that cannot hold
 in-process, because they only mean anything in an interpreter that has not
-already imported half of nrtk. Each is checked by running a *program* — an
-ordinary module under ``tests/_utils/guard_programs/``, run as a subprocess,
-which prints a single line the test asserts on. There are only two, one per
-program:
+already imported half of nrtk. Each is checked by running a script from
+``tests/scripts/guard/`` as a subprocess, which prints a single line the
+test asserts on. There are only two, one per script:
 
 ``packages_import_without_extras``
     The compliance walk. Every package under ``nrtk`` imports with all optional
@@ -277,10 +276,10 @@ program:
     inert while it is shut, a package imported first advertises nothing, discovery
     reaches the implementation through its entrypoint once opted in, and the
     already-imported package advertises it afterwards. Those five observations are
-    one program because each depends on the state the previous one left behind, and
+    one script because each depends on the state the previous one left behind, and
     none survive an interpreter where ``tests/conftest.py`` has already opted in.
 
-The two programs under ``tests/_utils/guard_programs/`` are real ``.py`` files
+The two scripts under ``tests/scripts/guard/`` are real ``.py`` files
 rather than source passed to ``python -c``, so that ruff and pyright check them,
 and so that a failure points at a real line. Reach for one only when import order or a
 process-global gate is the thing under test; anything else belongs in
