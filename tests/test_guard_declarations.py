@@ -9,7 +9,10 @@ either importable in this environment or it is not, and the guard has to behave
 correctly either way. Asserting that invariant means the ``core`` environment
 exercises every "extra is missing" path and the ``optional`` environment
 exercises every "extra is present" path, over every guarded module, without
-evicting anything from ``sys.modules``.
+evicting anything from ``sys.modules``. The single-extra environments run only
+the canaries, so a partially-satisfied multi-extra group (maite installed, tools
+absent) is exercised at the code-path level here, never as a live environment
+state.
 """
 
 from __future__ import annotations
@@ -17,8 +20,10 @@ from __future__ import annotations
 import ast
 import importlib
 import pathlib
+import re
 from collections import defaultdict
 from typing import TYPE_CHECKING, cast
+from unittest.mock import patch
 
 import pytest
 import yaml
@@ -30,6 +35,7 @@ if TYPE_CHECKING:
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / "src" / "nrtk"
 EXTRAS_YML = SRC / "utils" / "_extras.yml"
+PYPROJECT = SRC.parent.parent / "pyproject.toml"
 
 
 def _calls_guard(path: pathlib.Path) -> bool:
@@ -66,8 +72,9 @@ def _guard_of(module: str) -> _Guard:
     test installed a guard over a throwaway namespace.
 
     Importing is always safe here -- a guarded module has to import with no extras
-    installed, which is the whole point of the guard and what
-    ``test_import_guards_e2e.py`` pins.
+    installed. ``test_import_guards_e2e.py`` pins that for every package; the
+    plain-module call sites, which its walk never imports, are pinned by this
+    file's own run in the ``core`` environment.
     """
     imported = importlib.import_module(module)
     hook = imported.__getattr__  # type: ignore[attr-defined]
@@ -76,6 +83,32 @@ def _guard_of(module: str) -> _Guard:
 
 GUARDED = _guarded_modules()
 DECLARED = [(module, group) for module in GUARDED for group in _guard_of(module)._groups]
+
+
+@pytest.mark.core
+def test_every_module_installing_the_hook_is_in_the_guarded_set() -> None:
+    """``GUARDED`` must not silently shrink.
+
+    Discovery matches the literal call ``guard(...)``, so a future call through an
+    alias or a wrapper would quietly drop its module from every test in this file.
+    The ``__getattr__`` assignment anchors the derivation independently: binding
+    the hook is required for a guard to function however the call is spelled.
+    """
+    hooked = []
+    for path in sorted(SRC.rglob("*.py")):
+        targets = {
+            name.id
+            for node in ast.parse(path.read_text()).body
+            if isinstance(node, ast.Assign)
+            for target in node.targets
+            for name in (target.elts if isinstance(target, ast.Tuple) else [target])
+            if isinstance(name, ast.Name)
+        }
+        if "__getattr__" in targets:
+            relative = path.parent if path.name == "__init__.py" else path.with_suffix("")
+            hooked.append(".".join(("nrtk", *relative.relative_to(SRC).parts)))
+
+    assert hooked == GUARDED
 
 
 def _terms(extras: Extras) -> set[str]:
@@ -98,6 +131,47 @@ def _type_checking_names(module: str) -> set[str]:
             if isinstance(child, ast.ImportFrom):
                 names.update(alias.asname or alias.name for alias in child.names)
     return names
+
+
+def _registered_for_discovery() -> set[str]:
+    """Modules listed under ``smqtk_plugins`` in :file:`pyproject.toml`.
+
+    Read from the file rather than from installed metadata, because the question is
+    whether a module was ever declared, not whether this environment happens to have
+    been reinstalled since.
+    """
+    block = re.search(
+        r'\[project\.entry-points\."smqtk_plugins"\](.*?)(?:\n\[|\Z)',
+        PYPROJECT.read_text(),
+        re.DOTALL,
+    )
+    assert block, "pyproject.toml has no smqtk_plugins entry-point table"
+    return set(re.findall(r'=\s*"([^"]+)"', block.group(1)))
+
+
+@pytest.mark.core
+def test_every_module_publishing_implementations_is_registered() -> None:
+    """Being importable is not being discoverable.
+
+    Half of the bug this guard work fixed was ``nrtk.impls.perturb_video`` never being
+    registered: the guard was correct, the module imported cleanly, and
+    ``get_impls()`` still came back empty because discovery had no entry to walk.
+
+    Scoped to ``nrtk.impls`` because that is where implementations live --
+    ``nrtk.interfaces`` publishes the interfaces themselves and ``nrtk.interop``
+    publishes adapters, neither of which is discovered as a plugin. The check is one
+    directional: a module may be registered without installing a guard.
+    """
+    registered = _registered_for_discovery()
+    unregistered = sorted(
+        module
+        for module in GUARDED
+        if module == "nrtk.impls" or module.startswith("nrtk.impls.")
+        if any(group.symbols for group in _guard_of(module)._groups)
+        if module not in registered
+    )
+
+    assert not unregistered, "declare implementations but have no smqtk_plugins entry:\n" + "\n".join(unregistered)
 
 
 @pytest.mark.core
@@ -181,9 +255,12 @@ def test_declaration_holds_in_this_environment(module: str) -> None:
     imported = importlib.import_module(module)
     module_guard = _guard_of(module)
 
-    for group in module_guard._groups:
-        for name in group.symbols:
-            _assert_symbol_is_consistent(module=module, imported=imported, name=name, group=group)
+    # The gate is opened explicitly rather than inherited from tests/conftest.py's
+    # session-wide opt-in, so this file does not silently depend on suite state.
+    with patch("nrtk._experimental.enabled", new=True):
+        for group in module_guard._groups:
+            for name in group.symbols:
+                _assert_symbol_is_consistent(module=module, imported=imported, name=name, group=group)
 
 
 def _assert_symbol_is_consistent(*, module: str, imported: ModuleType, name: str, group: Group) -> None:
@@ -320,13 +397,16 @@ def _is_submodule(*, package: str, name: str) -> bool:
 
 
 def _self_imports(*, path: pathlib.Path) -> list[str]:
-    """Report every bound name *path* imports from the package that contains it."""
+    """Report every bound name *path* imports from the package that contains it.
+
+    ``from . import X`` is the same import spelled relatively, so it is matched too.
+    """
     relative = str(path.relative_to(SRC)).removesuffix(".py")
     dotted = "nrtk." + relative.replace("/", ".")
     package = dotted.rsplit(".", maxsplit=1)[0]
     offenders = []
     for node in ast.walk(ast.parse(path.read_text())):
-        if isinstance(node, ast.ImportFrom) and node.module == package:
+        if isinstance(node, ast.ImportFrom) and (node.module == package or (node.level == 1 and node.module is None)):
             offenders += [
                 f"{path.relative_to(SRC.parent)}:{node.lineno} imports {alias.name!r} from "
                 f"{package!r}; import it from its leaf module instead"

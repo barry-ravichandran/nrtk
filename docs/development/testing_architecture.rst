@@ -272,6 +272,9 @@ declared actually holds:
   modules — re-homing sets ``__module__`` globally, so the second binding would
   silently win.
 - The ``if TYPE_CHECKING:`` block and the declaration agree in both directions.
+- Every module under ``nrtk.impls`` that publishes implementations has an
+  ``smqtk_plugins`` entry, without which discovery has nothing to walk however
+  correct the guard is.
 - Every declared symbol either resolves and is re-homed, or raises an
   ``ImportError`` naming the extras it needs.
 
@@ -292,9 +295,9 @@ requirement shape, eager versus lazy resolution, and the rule that ``__dir__``
 never advertises a name ``__getattr__`` would reject. Nothing there reads the
 real package, so it does not grow as implementations are added.
 
-``ImportGuardTestsMixin`` (in ``tests/_utils/import_guard_tests_mixin.py``) is no
-longer used for NRTK's own guards. It remains only for the notebook example tests
-under :file:`docs/examples/`, which guard notebook-local modules that
+The notebook example tests under
+:file:`docs/examples/xaitk_saliency_workflow/notebook_tests/` use their own
+``ImportGuardTestsMixin``, which guards notebook-local modules that
 ``test_guard_declarations.py`` does not walk.
 
 ``tests/test_import_guards_e2e.py`` is reserved for the claims that cannot hold
@@ -312,10 +315,19 @@ test asserts on. There are only two, one per script:
     Confirms ``get_impls()`` neither comes back empty nor depends on import order. Walking
     the experimental gate from closed to open in one interpreter: entrypoints stay
     inert while it is shut, a package imported first advertises nothing, discovery
-    reaches the implementation through its entrypoint once opted in, and the
-    already-imported package advertises it afterwards. Those five observations are
-    one script because each depends on the state the previous one left behind, and
-    none survive an interpreter where ``tests/conftest.py`` has already opted in.
+    returns the implementation once opted in, it reaches it through the entrypoint
+    rather than the earlier import, and the already-imported package advertises it
+    afterwards. Those five observations are one script because each depends on the
+    state the previous one left behind, and none survive an interpreter where
+    ``tests/conftest.py`` has already opted in.
+
+    The subject is a fixture, ``tests/_utils/guard_plugin``, registered under
+    ``smqtk_plugins`` by a throwaway distribution the script writes at runtime. Using
+    a real implementation would tie a check of the guard's machinery to whatever NRTK
+    currently ships: the only one that fits — experimental, and importable with no
+    extras — is temporary, and once it graduates there may be none left. That
+    a real module is registered at all is checked separately, by
+    ``tests/test_guard_declarations.py``.
 
 The two scripts under ``tests/scripts/guard/`` are real ``.py`` files
 rather than source passed to ``python -c``, so that ruff and pyright check them,
