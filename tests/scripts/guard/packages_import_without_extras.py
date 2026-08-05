@@ -14,34 +14,159 @@ check is real in the all-extras environment too, where they are installed. Print
 ``all packages import`` on success, or the list of failures.
 """
 
+import ast
 import importlib
 import pathlib
 import sys
 import warnings
 
-BLOCKED = {
-    "av",
-    "click",
-    "cv2",
-    "diffusers",
-    "accelerate",
-    "fastapi",
-    "hcipy",
-    "kwcoco",
-    "maite",
-    "numba",
-    "nrtk_albumentations",
-    "PIL",
-    "pybsm",
-    "pydantic",
-    "pydantic_settings",
-    "pythonjsonlogger",
-    "scipy",
-    "skimage",
-    "torch",
-    "transformers",
-    "uvicorn",
-}
+SRC = pathlib.Path("src/nrtk")
+
+
+def _module_name(path: pathlib.Path) -> str:
+    """The dotted name of a file under ``src/nrtk``."""
+    relative = path.parent if path.name == "__init__.py" else path.with_suffix("")
+    return ".".join(("nrtk", *relative.relative_to(SRC).parts))
+
+
+def _imported_roots(tree: ast.Module) -> set[str]:
+    """Top-level names *tree* imports at runtime, e.g. ``cv2`` for ``import cv2.aruco``.
+
+    ``if TYPE_CHECKING:`` blocks are skipped: those imports never execute, so they
+    are no evidence a root must stay importable -- counting one in a non-gated
+    module would quietly remove its root from the blocked set.
+    """
+    type_checking = {
+        child
+        for node in ast.walk(tree)
+        if isinstance(node, ast.If) and getattr(node.test, "id", None) == "TYPE_CHECKING"
+        for child in ast.walk(node)
+    }
+    roots: set[str] = set()
+    for node in ast.walk(tree):
+        if node in type_checking:
+            continue
+        if isinstance(node, ast.Import):
+            roots |= {alias.name.split(".")[0] for alias in node.names}
+        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+            roots.add(node.module.split(".")[0])
+    return roots
+
+
+def _string_constants(tree: ast.Module) -> dict[str, str]:
+    """Module-level ``_NAME = "value"`` assignments, which leaf paths interpolate."""
+    constants: dict[str, str] = {}
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+            constants.update({t.id: node.value.value for t in node.targets if isinstance(t, ast.Name)})
+    return constants
+
+
+def _resolve(*, node: ast.expr, constants: dict[str, str]) -> str | None:  # noqa: C901 - one branch per f-string part shape
+    """A leaf path written literally or as ``f"{_PREFIX}.leaf"``, or None if unreadable."""
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    if not isinstance(node, ast.JoinedStr):
+        return None
+    parts = []
+    for value in node.values:
+        if isinstance(value, ast.Constant) and isinstance(value.value, str):
+            parts.append(value.value)
+        elif isinstance(value, ast.FormattedValue) and isinstance(value.value, ast.Name):
+            resolved = constants.get(value.value.id)
+            if resolved is None:
+                return None
+            parts.append(resolved)
+        else:
+            return None
+    return "".join(parts)
+
+
+def _gated_leaves(trees: dict[str, ast.Module]) -> tuple[set[str], list[str]]:  # noqa: C901 - one branch per way a declaration can be unreadable
+    """Leaf modules declared by a ``Group`` that names extras, plus anything unreadable.
+
+    A path this cannot read statically would silently shrink the blocked set and make
+    the whole check weaker without failing, so it is reported rather than skipped.
+    """
+    leaves: set[str] = set()
+    unreadable: list[str] = []
+    for module, tree in trees.items():
+        constants = _string_constants(tree)
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            func_name = getattr(node.func, "id", None) or getattr(node.func, "attr", None)
+            if func_name != "Group":
+                continue
+            if node.args:
+                unreadable.append(f"{module}: line {node.lineno}: a Group call uses positional arguments")
+                continue
+            keywords = {keyword.arg: keyword.value for keyword in node.keywords}
+            extras = keywords.get("extras")
+            if extras is None:
+                continue
+            if not isinstance(extras, ast.List):
+                unreadable.append(f"{module}: line {extras.lineno}: a Group's extras= is not a list literal")
+                continue
+            if not extras.elts:
+                continue
+            symbols = keywords.get("symbols")
+            if not isinstance(symbols, ast.Dict):
+                unreadable.append(f"{module}: a gated Group's symbols= is not a dict literal")
+                continue
+            for value in symbols.values:
+                if (leaf := _resolve(node=value, constants=constants)) is None:
+                    unreadable.append(f"{module}: line {value.lineno}: cannot read a gated leaf path")
+                else:
+                    leaves.add(leaf)
+    return leaves, unreadable
+
+
+def _nrtk_imports(tree: ast.Module) -> set[str]:
+    """The fully qualified ``nrtk.*`` modules *tree* imports."""
+    modules: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            modules |= {alias.name for alias in node.names}
+        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+            modules.add(node.module)
+    return {module for module in modules if module.startswith("nrtk.")}
+
+
+def _blocked(trees: dict[str, ast.Module]) -> set[str]:
+    """Third-party modules only extras-gated code imports.
+
+    Derived rather than listed, so adding an implementation cannot leave a new
+    dependency unblocked and quietly make this check vacuous. A hand-written list had
+    drifted both ways: it blocked ``nrtk_albumentations`` while the source imports
+    ``albumentations``, and missed ``requests`` entirely.
+
+    Reading the ``Group`` declarations is what makes the split possible. Anything a
+    non-gated module imports is a required dependency and must stay importable, or
+    every package would fail here for the wrong reason.
+    """
+    leaves, unreadable = _gated_leaves(trees)
+    if unreadable:
+        raise RuntimeError("\n".join(unreadable))
+
+    gated, stack = set(), list(leaves)
+    while stack:  # a gated leaf's private helpers are gated too
+        current = stack.pop()
+        if current in gated or current not in trees:
+            continue
+        gated.add(current)
+        stack += _nrtk_imports(trees[current])
+
+    def third_party(names: set[str]) -> set[str]:
+        return {name for name in names if name != "nrtk" and name not in sys.stdlib_module_names}
+
+    inside = {root for name in gated for root in third_party(_imported_roots(trees[name]))}
+    outside = {root for name, tree in trees.items() if name not in gated for root in third_party(_imported_roots(tree))}
+    return inside - outside
+
+
+TREES = {_module_name(path): ast.parse(path.read_text()) for path in sorted(SRC.rglob("*.py"))}
+BLOCKED = _blocked(TREES)
 
 
 class Blocker:
@@ -62,6 +187,11 @@ class Blocker:
 def main() -> None:
     """Install the blocker, then import every nrtk package and report the failures."""
     warnings.simplefilter("ignore")
+
+    if not BLOCKED:
+        print("nothing derived to block -- this check would be vacuous")
+        return
+
     sys.meta_path.insert(0, Blocker())
 
     try:
