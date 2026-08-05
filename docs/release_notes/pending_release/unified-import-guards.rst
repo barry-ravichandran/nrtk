@@ -33,6 +33,15 @@
   ``__all__`` without the ``pybsm`` extra. It reads JSON into a plain dict and needs
   pybsm neither to import nor to call.
 
+* Fixed ``get_impls()`` returning NRTK's private implementations. Plugin discovery also
+  walks subclasses, which no import guard can gate, so private base classes and helpers
+  were listed alongside the real implementations.
+
+* Changed ``FramewisePerturber`` to default ``frame_perturber`` to ``None``, meaning
+  frames pass through unchanged, rather than to a private no-op perturber. Behaviour is
+  the same, but a default instance's serialized configuration now records ``None`` for
+  ``frame_perturber`` instead of that perturber's configuration.
+
 * Fixed the reference documentation for ``nrtk_perturber``, which showed a list of
   internal Python methods instead of the function's signature, arguments, and
   description.

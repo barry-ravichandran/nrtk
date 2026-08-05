@@ -223,12 +223,53 @@ def test_experimental_names_stay_out_of_the_public_all() -> None:
     assert "VideoFrame" not in nrtk.interfaces.__all__
 
 
+def _is_private_nrtk_path(*, path: str) -> bool:
+    """Whether *path* is an nrtk path with a private module or symbol anywhere in it."""
+    parts = path.split(".")
+    return parts[0] == "nrtk" and any(part.startswith("_") for part in parts)
+
+
+def _private_type_paths(config: object) -> list[str]:
+    """Every ``type`` string anywhere in *config* that names a private nrtk path."""
+    if isinstance(config, list):
+        return [path for value in config for path in _private_type_paths(value)]
+    if not isinstance(config, dict):
+        return []
+    recorded = config.get("type")
+    here = [recorded] if isinstance(recorded, str) and _is_private_nrtk_path(path=recorded) else []
+    return here + [path for value in config.values() for path in _private_type_paths(value)]
+
+
+@pytest.mark.core
+def test_discovery_never_returns_a_private_implementation() -> None:
+    """``__subclasses__`` recursion sees every class, so private ones must be filtered.
+
+    smqtk discovers via ``__subclasses__()`` as well as entrypoints, and that path
+    consults no name, ``__all__``, ``__dir__``, or entrypoint. A private base class or
+    helper therefore reaches ``get_impls()`` the moment anything imports it, which the
+    import guard cannot prevent. ``nrtk.interfaces._plugfigurable`` filters it instead.
+    """
+    from nrtk.interfaces import PerturbImage, PerturbImageFactory, PerturbVideo
+
+    leaked = [
+        f"{impl.__module__}.{impl.__name__}"
+        for interface in (PerturbImage, PerturbImageFactory, PerturbVideo)
+        for impl in interface.get_impls()
+        if _is_private_nrtk_path(path=f"{impl.__module__}.{impl.__name__}")
+    ]
+
+    assert not leaked, "\n".join(leaked)
+
+
 @pytest.mark.core
 def test_config_round_trip_records_the_public_path() -> None:
     """Re-homing is what keeps a serialized config on the stable name.
 
     Without it the config would record the private leaf module, which is not a
     path anyone should be pinning, and which discovery cannot resolve back.
+
+    Checked recursively: a nested default is just as capable of pinning a private
+    path as the outer type, and only the outer one used to be asserted on.
     """
     from smqtk_core.configuration import from_config_dict, to_config_dict
 
@@ -237,6 +278,7 @@ def test_config_round_trip_records_the_public_path() -> None:
 
     config = json.loads(json.dumps(to_config_dict(FramewisePerturber())))
     assert "nrtk.impls.perturb_video.FramewisePerturber" in config, config
+    assert not _private_type_paths(config), config
 
     rebuilt = from_config_dict(config=config, type_iter=PerturbVideo.get_impls())
     assert type(rebuilt).__name__ == "FramewisePerturber"
