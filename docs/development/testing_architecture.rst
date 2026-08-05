@@ -97,10 +97,11 @@ When adding a perturber (or any class) that depends on an optional package:
 3. Decorate test classes with ``@pytest.mark.<marker>``.
 4. Add a ``conftest.py`` with ``pytest_ignore_collect()`` in the test
    directory (see `Directory-Level Collection Skipping`_).
-5. Add a canary test for the new dependency group (see `Canary Tests`_).
-6. Add an ``ImportGuardTestsMixin`` subclass (see `Import Guard Mixin Tests`_).
-7. Wire up a new tox environment in :file:`tox.ini` if the dependency group
+5. Wire up a new tox environment in :file:`tox.ini` if the dependency group
    is new (see `Tox Configuration`_).
+
+No guard test and no canary test is needed. Both are generated from the ``Group``
+you declared in step 1 — see `Import Guard Tests`_ and `Canary Tests`_.
 
 
 Why Isolated Test Environments?
@@ -116,19 +117,6 @@ To guarantee this, each test group runs in an environment that has *only* the
 extras that group needs. If a test accidentally imports ``cv2`` in an
 environment that only has ``pillow`` installed, it fails — catching a real
 dependency leak that would affect users.
-
-
-Import Guards
-=============
-
-Every module that exposes a conditional implementation declares it through
-``nrtk._guard.guard()``, which installs the module's :pep:`562` hooks. That is
-what makes the isolation above testable: ``import nrtk`` succeeds regardless of
-which extras are installed, and a user only sees an error — naming the extra to
-install — when they reach for a perturber whose dependency is missing.
-
-:doc:`import_guards` is the reference for how to declare one. This page only
-covers how the guards are *tested*; see `Import Guard Mixin Tests`_ below.
 
 
 Pytest Markers
@@ -207,57 +195,107 @@ silently skipped rather than causing a test run failure.
 Canary Tests
 ------------
 
-Each optional-dependency group includes a **canary test** that attempts to
-import the expected classes and calls ``pytest.fail()`` (not ``pytest.skip()``)
-if the import fails:
+A **canary test** calls ``pytest.fail()`` — not ``pytest.skip()`` — when a marker is
+selected but the extra behind it is not actually installed. This catches CI
+configuration errors where a tox environment is supposed to have an extra but
+does not, producing an explicit failure rather than silently skipping every test
+that depends on it.
 
-.. pytestmark: opencv
+There is nothing to write. ``tests/test_guard_canaries.py`` generates one canary
+per ``Group`` that declares extras, carrying the marker for those extras, so
+declaring the group is what creates its canary:
+
+.. pytestmark: skip
 .. code-block:: python
 
-   import pytest
+   CANARIES = [
+       pytest.param(
+           module,
+           group,
+           marks=[getattr(pytest.mark, marker) for marker in _markers_for(group.extras)],
+           id=f"{module}-{'+'.join(_markers_for(group.extras))}",
+       )
+       for module, group in DECLARED
+       if group.extras
+   ]
 
-   @pytest.mark.opencv
-   def test_opencv_public_imports() -> None:
-       """Canary test: FAIL if opencv marker is used but blur perturbers can't be imported."""
-       try:
-           from nrtk.impls.perturb_image.photometric.blur import (
-               AverageBlurPerturber, GaussianBlurPerturber, MedianBlurPerturber,
-           )
-           del AverageBlurPerturber, GaussianBlurPerturber, MedianBlurPerturber
-       except ImportError as e:
-           pytest.fail(
-               f"Running with opencv marker but blur perturbers not importable: {e}. "
-               f"Ensure graphics or headless extra is installed.",
-           )
+Markers are named after the extra they require, so the mapping is the identity
+with one exception: ``graphics`` and ``headless`` ship the same library, so both
+map to the ``opencv`` marker. That exception is the only package-specific fact in
+the file.
 
-This catches CI configuration errors where a tox environment is supposed to
-have an extra installed but doesn't, producing an explicit failure rather than
-silently skipping all the tests that depend on it.
+A group declaring no extras gets no canary — its symbols resolve in every
+environment, so the check would assert nothing about how that environment was
+built.
 
-Import Guard Mixin Tests
-------------------------
+Import Guard Tests
+------------------
 
-Import guard behavior itself is tested via the ``ImportGuardTestsMixin``
-(in ``tests/_utils/import_guard_tests_mixin.py``). These tests are marked
-``core`` — they run in the core environment with no extras installed. The
-mixin temporarily injects ``None`` into ``sys.modules`` to simulate a missing
-dependency, then verifies:
+Every module that exposes a conditional implementation declares it through
+``nrtk._guard.guard()``, which installs the module's :pep:`562` hooks. That is
+what makes the isolation above testable: ``import nrtk`` succeeds regardless of
+which extras are installed, and a user only sees an error — naming the extra to
+install — when they reach for a perturber whose dependency is missing.
+:doc:`import_guards` is the reference for how to declare one; this page covers
+how they are tested.
 
-- Guarded classes raise the expected ``ImportError`` with correct
-  installation instructions.
-- Guarded classes are excluded from the module's ``__all__``.
-- Always-available classes remain importable.
-- Unknown attribute access raises ``AttributeError``.
+Four files cover the guard, and **none of them are edited when adding an
+implementation** — a new ``Group`` is picked up automatically:
 
-The guard itself is covered by two further modules. ``tests/test_guard.py``
-unit-tests ``nrtk._guard`` against throwaway leaf modules in
-``tests/_utils/guard_leaves/`` — message wording for each requirement shape,
-eager versus lazy resolution, and the rule that ``__dir__`` never advertises a
-name ``__getattr__`` would reject. It also holds the two checks that need the
-real packages rather than fakes but still run *in-process* — in the same
-interpreter as the rest of the suite, where ``tests/conftest.py`` has already
-opted in to experimental features: that no experimental name reaches ``__all__``,
-and that a serialized config records the public path.
+``tests/test_guard_declarations.py``
+    What each module declares, and what follows from it. Parametrized over every
+    ``guard()`` call site.
+
+``tests/test_guard_canaries.py``
+    That a selected marker's extras are really installed. One case per ``Group``
+    that declares extras (see `Canary Tests`_).
+
+``tests/test_guard.py``
+    The guard's own mechanics, against throwaway leaves. Edited only when
+    ``nrtk._guard`` itself changes.
+
+``tests/test_import_guards_e2e.py``
+    The two claims that only hold across a whole process.
+
+Every module that installs a guard is checked by
+``tests/test_guard_declarations.py``, which asserts that what the module
+declared actually holds:
+
+- Every extra named in a ``Group`` really exists. The check reads
+  :file:`src/nrtk/utils/_extras.yml`, which a pre-commit hook regenerates from
+  ``[project.optional-dependencies]`` in :file:`pyproject.toml` — so
+  :file:`pyproject.toml` is the source of truth, reached indirectly. Add an extra
+  there without running the hook and this check still sees the old list, so a
+  ``Group`` naming the new extra is reported as unknown until the file is
+  regenerated.
+- No symbol is claimed by two groups, and no class is published from two
+  modules — re-homing sets ``__module__`` globally, so the second binding would
+  silently win.
+- The ``if TYPE_CHECKING:`` block and the declaration agree in both directions.
+- Every declared symbol either resolves and is re-homed, or raises an
+  ``ImportError`` naming the extras it needs.
+
+That last check deliberately does no dependency mocking. A symbol is either
+importable in the current environment or it is not, so the ``core`` environment
+exercises every "extra is missing" path and the ``optional`` environment
+exercises every "extra is present" path, across every guarded module, without
+touching ``sys.modules``.
+
+It also holds three checks that follow from a declaration but only show up
+elsewhere: that plugin discovery never returns a private implementation, that a
+serialized config records public paths at every level of nesting, and that no
+module imports a guard-bound name from the package containing it.
+
+``tests/test_guard.py`` covers the guard's mechanics instead, against throwaway
+leaf modules in ``tests/_utils/guard_leaves/`` — message wording for each
+requirement shape, eager versus lazy resolution, and the rule that ``__dir__``
+never advertises a name ``__getattr__`` would reject. Nothing there reads the
+real package, so it does not grow as implementations are added.
+
+``ImportGuardTestsMixin`` (in ``tests/_utils/import_guard_tests_mixin.py``) is no
+longer used for NRTK's own guards. It remains only for the notebook example tests
+under :file:`docs/examples/`, which guard notebook-local modules that
+``test_guard_declarations.py`` does not walk.
 
 ``tests/test_import_guards_e2e.py`` is reserved for the claims that cannot hold
 in-process, because they only mean anything in an interpreter that has not
@@ -282,8 +320,8 @@ test asserts on. There are only two, one per script:
 The two scripts under ``tests/scripts/guard/`` are real ``.py`` files
 rather than source passed to ``python -c``, so that ruff and pyright check them,
 and so that a failure points at a real line. Reach for one only when import order or a
-process-global gate is the thing under test; anything else belongs in
-``tests/test_guard.py``.
+process-global gate is the thing under test; anything else belongs in one of the
+other two files.
 
 
 Tox Configuration

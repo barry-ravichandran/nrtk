@@ -9,6 +9,12 @@ Can be used as:
   - A pre-commit hook to ensure extras.yml stays in sync with pyproject.toml
   - An importable module for reporting dependency status inside notebooks or diagnostics
 
+The generated ``_extras.yml`` is not only for diagnostics: ``tests/test_guard_declarations.py``
+reads it as the list of extras that exist, and fails any ``Group`` in an import guard that
+names one which does not. That makes the file the test suite's view of
+``[project.optional-dependencies]``, so letting it drift out of sync with pyproject.toml
+reports valid extras as unknown.
+
 Includes warnings suppression and automatic git staging of updated files when run as a script.
 
 Developed with assistance from AI (ChatGPT and GitHub Copilot).

@@ -1,26 +1,22 @@
-* Replaced the four hand-written import-guard patterns with a single helper,
-  ``nrtk._guard.guard``, and retrofitted every implementation module onto it. A module
-  now declares what it exposes as one ``Group`` per set of requirements, covering stable and
-  experimental implementations, with or without extras, in the same way. The same call
-  also attaches lazily-imported submodules, so every module in ``nrtk`` that installs
-  ``__getattr__``/``__dir__``/``__all__`` now does it the one way, rather than mixing
-  ``lazy_loader`` with a hand-written guard. ``lazy-loader`` is consequently no longer
-  a dependency.
+* Unified how NRTK guards implementations that need an optional dependency (an
+  "extra") or an experimental opt-in. Using an implementation whose extra is not
+  installed now raises the same style of error everywhere, naming the missing extra
+  and the exact ``pip install`` command that provides it. Internally, every module
+  now uses one helper, ``nrtk._guard.guard``, in place of four hand-written guard
+  patterns, and ``lazy-loader`` is no longer a dependency.
 
-* Fixed experimental implementations being invisible to ``get_impls()``. The gate is
-  now read at lookup time rather than at first import, so ``import nrtk.experimental``
-  works regardless of what has already been imported, and ``nrtk.impls.perturb_video``
-  and ``nrtk.impls.perturb_video.optical`` are registered as ``smqtk_plugins``
-  entrypoints. Both stay inert until experimental features are enabled.
+* Fixed experimental implementations being invisible to ``get_impls()``. Enabling
+  experimental features now takes effect no matter what was imported first, and the
+  experimental video perturbers are now discoverable through ``get_impls()`` once you
+  opt in. Until then they stay hidden, as before.
 
 * Changed ``ExperimentalWarning`` to be emitted once, when ``nrtk.experimental`` is
-  imported, rather than once per symbol on first access. Plugin discovery calls
-  ``getattr`` on every name a module advertises, so a per-symbol warning meant any
-  ``get_impls()`` call warned about experimental classes the caller had never asked
-  for.
+  imported, rather than once per symbol on first access — previously a single
+  ``get_impls()`` call could warn about experimental classes the caller had never
+  asked for.
 
-* Fixed ``nrtk.impls.perturb_video.optical._hcipy`` importing its perturber in its
-  ``__init__.py``, which made the package unimportable without the ``hcipy`` extra.
+* Fixed ``nrtk.impls.perturb_video.optical`` failing to import without the ``hcipy``
+  extra installed.
 
 * Fixed ``nrtk.impls`` advertising a ``perturb`` submodule that does not exist, and
   never advertising ``perturb_image``.
@@ -33,9 +29,8 @@
   ``__all__`` without the ``pybsm`` extra. It reads JSON into a plain dict and needs
   pybsm neither to import nor to call.
 
-* Fixed ``get_impls()`` returning NRTK's private implementations. Plugin discovery also
-  walks subclasses, which no import guard can gate, so private base classes and helpers
-  were listed alongside the real implementations.
+* Fixed ``get_impls()`` returning NRTK's private base classes and helpers alongside
+  the real implementations.
 
 * Changed ``FramewisePerturber`` to default ``frame_perturber`` to ``None``, meaning
   frames pass through unchanged, rather than to a private no-op perturber. Behaviour is
@@ -51,6 +46,6 @@
 
 .. note::
 
-   With experimental features enabled, ``get_impls()`` now imports the modules that
-   experimental implementations are written in, so it lists only the ones you can
-   actually use. Nothing changes if you have not opted in.
+   With experimental features enabled, ``get_impls()`` now reports experimental
+   implementations, alongside stable implementations. If you have not opted into
+   experimental features, only stable implementations will be reported.
