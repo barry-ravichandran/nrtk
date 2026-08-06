@@ -57,7 +57,7 @@ from scipy.special import binom
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import override
 
-from nrtk.impls.perturb_image._base import NumpyRandomPerturbImage
+from nrtk.impls.perturb_image._base._numpy_random_perturb_image import NumpyRandomPerturbImage
 
 
 def points_in_polygon_impl(*, points: np.ndarray, polygon: np.ndarray) -> np.ndarray:

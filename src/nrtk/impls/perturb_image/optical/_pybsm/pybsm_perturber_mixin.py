@@ -25,7 +25,7 @@ from pybsm.simulation.sensor import Sensor
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import override
 
-from nrtk.impls.perturb_image._base import NumpyRandomPerturbImage
+from nrtk.impls.perturb_image._base._numpy_random_perturb_image import NumpyRandomPerturbImage
 from nrtk.impls.perturb_image.optical._pybsm._constants import DEFAULT_PYBSM_PARAMS
 
 

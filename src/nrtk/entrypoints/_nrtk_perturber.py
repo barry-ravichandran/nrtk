@@ -22,7 +22,7 @@ def nrtk_perturber(*, maite_dataset: Dataset, perturber_factory: PerturbImageFac
 
     Generate augmented dataset(s) of type maite.protocols.object_detection.Dataset
     given an input dataset of the same type and a perturber factory
-    implementation. Each perturber dcombination will result in a newly
+    implementation. Each perturber combination will result in a newly
     generated dataset.
 
     Args:

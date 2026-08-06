@@ -36,7 +36,7 @@ from typing import Any
 
 from typing_extensions import override
 
-from nrtk.interfaces import PerturbVideo
+from nrtk.interfaces._perturb_video import PerturbVideo
 
 
 class RandomPerturbVideo(PerturbVideo):

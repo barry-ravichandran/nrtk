@@ -1,23 +1,12 @@
 """pyBSM OTF perturber implementations."""
 
-_OTF_CLASSES = [
-    "CircularAperturePerturber",
-    "DefocusPerturber",
-    "DetectorPerturber",
-    "JitterPerturber",
-    "TurbulenceAperturePerturber",
-]
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
-_PYBSM_FUNCTIONS = [
-    "load_default_config",
-]
+from nrtk._guard import Group, guard
 
-__all__: list[str] = []
-
-_import_error: ImportError | None = None
-
-try:
-    from nrtk.impls.perturb_image.optical._pybsm import (
+if TYPE_CHECKING:
+    from nrtk.impls.perturb_image.optical._pybsm._default_config import (
         load_default_config as load_default_config,
     )
     from nrtk.impls.perturb_image.optical._pybsm.circular_aperture_perturber import (
@@ -36,25 +25,26 @@ try:
         TurbulenceAperturePerturber as TurbulenceAperturePerturber,
     )
 
-    # Override __module__ to reflect the public API path for plugin discovery
-    CircularAperturePerturber.__module__ = __name__
-    DefocusPerturber.__module__ = __name__
-    DetectorPerturber.__module__ = __name__
-    JitterPerturber.__module__ = __name__
-    TurbulenceAperturePerturber.__module__ = __name__
+_PYBSM = "nrtk.impls.perturb_image.optical._pybsm"
 
-    __all__ += _PYBSM_FUNCTIONS + _OTF_CLASSES
-except ImportError as _ex:
-    _import_error = _ex
+__getattr__: Callable[[str], Any]
+__dir__: Callable[[], list[str]]
+__all__: list[str]
 
-
-def __getattr__(name: str) -> None:
-    if name in _OTF_CLASSES or name in _PYBSM_FUNCTIONS:
-        msg = f"{name} requires the `pybsm` extra. Install with: `pip install nrtk[pybsm]`"
-        if _import_error is not None:
-            msg += (
-                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
-                f"\n  {type(_import_error).__name__}: {_import_error}"
-            )
-        raise ImportError(msg)
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+__getattr__, __dir__, __all__ = guard(
+    namespace=globals(),
+    groups=[
+        # Reads JSON into a plain dict, so it needs pybsm neither to import nor to call.
+        Group(symbols={"load_default_config": f"{_PYBSM}._default_config"}),
+        Group(
+            symbols={
+                "CircularAperturePerturber": f"{_PYBSM}.circular_aperture_perturber",
+                "DefocusPerturber": f"{_PYBSM}.defocus_perturber",
+                "DetectorPerturber": f"{_PYBSM}.detector_perturber",
+                "JitterPerturber": f"{_PYBSM}.jitter_perturber",
+                "TurbulenceAperturePerturber": f"{_PYBSM}.turbulence_aperture_perturber",
+            },
+            extras=["pybsm"],
+        ),
+    ],
+)

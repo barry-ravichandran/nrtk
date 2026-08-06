@@ -1,5 +1,6 @@
-"""Private base classes for perturb_video implementations."""
+"""Private base classes for perturb_video implementations.
 
-from nrtk.impls.perturb_video._base.numpy_random_perturb_video import NumpyRandomPerturbVideo
-
-__all__ = ["NumpyRandomPerturbVideo"]
+Intentionally empty, like the other private packages. Implementations import a
+base class from its own leaf module, so there is never a second path to one and
+no question of whether this package can be imported without an extra installed.
+"""

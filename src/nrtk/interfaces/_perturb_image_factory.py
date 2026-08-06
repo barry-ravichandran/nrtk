@@ -24,7 +24,7 @@ from typing import Any
 
 from typing_extensions import Self, override
 
-from nrtk.interfaces import PerturbImage
+from nrtk.interfaces._perturb_image import PerturbImage
 from nrtk.interfaces._plugfigurable import Plugfigurable
 
 

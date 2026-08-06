@@ -10,7 +10,7 @@ import pytest
 from smqtk_core.configuration import configuration_test_helper
 from typing_extensions import override
 
-from nrtk.impls.perturb_video._base import NumpyRandomPerturbVideo
+from nrtk.impls.perturb_video._base.numpy_random_perturb_video import NumpyRandomPerturbVideo
 from nrtk.interfaces import VideoFrame
 from nrtk.interfaces._perturb_video import _perturb_guard
 from tests.interfaces.test_random_perturb_video import TestRandomPerturbVideo

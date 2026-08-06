@@ -49,7 +49,7 @@ from scipy.signal import fftconvolve
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import override
 
-from nrtk.impls.perturb_video._base import NumpyRandomPerturbVideo
+from nrtk.impls.perturb_video._base.numpy_random_perturb_video import NumpyRandomPerturbVideo
 from nrtk.interfaces import VideoFrame
 from nrtk.interfaces._perturb_video import _perturb_guard
 

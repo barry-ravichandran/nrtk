@@ -45,7 +45,7 @@ from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from transformers import CLIPTextModel
 from typing_extensions import override
 
-from nrtk.impls.perturb_image._base import TorchRandomPerturbImage
+from nrtk.impls.perturb_image._base._torch_random_perturb_image import TorchRandomPerturbImage
 
 
 class DiffusionPerturber(TorchRandomPerturbImage):

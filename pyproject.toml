@@ -24,7 +24,6 @@ classifiers = [
     'Programming Language :: Python :: 3.14',
 ]
 dependencies = [
-    "lazy-loader>=0.4",
     # CVE-2021-34141 (numpy < 1.26)
     "numpy>=1.26",
     "smqtk-classifier>=0.20.0",
@@ -55,6 +54,10 @@ nrtk-perturber = "nrtk.entrypoints:nrtk_perturber_cli"
 "nrtk.impls.perturb_image.optical" = "nrtk.impls.perturb_image.optical"
 "nrtk.impls.perturb_image.optical.otf" = "nrtk.impls.perturb_image.optical.otf"
 "nrtk.impls.perturb_image_factory" = "nrtk.impls.perturb_image_factory"
+# Experimental modules. Inert unless `nrtk.experimental` is imported: with the gate
+# closed their `__dir__` advertises nothing, so discovery never reaches a gated name.
+"nrtk.impls.perturb_video" = "nrtk.impls.perturb_video"
+"nrtk.impls.perturb_video.optical" = "nrtk.impls.perturb_video.optical"
 
 [project.entry-points."maite.protocols.image_classification.Augmentation"]
 nrtk_MAITEImageClassificationAugmentation = "nrtk.interop:MAITEImageClassificationAugmentation"
@@ -135,6 +138,7 @@ tests = [
     "syrupy>=5.0.0", # required for snapshot/regression testing
     "Pillow>=12.2.0",  # CVE-2026-42311  # required for custom conftest.py fixtures
     "responses>=0.25.0", # rquired to test FastAPI (used by entrypoint app)
+    "pyyaml>=6.0", # read by the guard declaration tests and the extras pre-commit hook; only transitive otherwise
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)
     "pytest-codeblock (>=0.5.8,<0.6.0)", # required for code block testing in docs
     "av (>=17.1.0,<18.0.0)", # required for video testing
@@ -184,13 +188,18 @@ test_nameless_codeblocks = true
 omit = [
     "src/nrtk/utils/_extras.py",
     "src/nrtk/utils/_extras.yml",
+    # Scripts run as subprocesses in a fresh interpreter, so the tracer never sees
+    # them; counting them reports permanent false "dead spots".
+    "tests/scripts/*",
 ]
 
 [tool.ruff]
 # Exclude content as appropriate.
 extend-exclude = [
     "__pycache__",
-    "scripts",
+    # Anchored: a bare "scripts" would also swallow tests/scripts, which must stay
+    # linted -- the guard scripts are real .py files precisely so ruff checks them.
+    "./scripts",
     "docs/_build",
     "docs/_implementations",
     # Webinar notebooks are live-coded demo material; they intentionally relax

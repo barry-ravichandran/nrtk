@@ -7,7 +7,7 @@ Functions:
     load_default_config: Load default sensor and scenario configurations from config files.
 
 Example usage:
-    from nrtk.impls.perturb_image.optical._pybsm import load_default_config
+    from nrtk.impls.perturb_image.optical.otf import load_default_config
 
     # Load Blackfly configuration
     sensor, scenario = load_default_config(preset="blackfly")

@@ -2,7 +2,7 @@
 
 import pytest
 
-from tests._utils.import_guard_tests_mixin import ImportGuardTestsMixin
+from notebook_tests.import_guard_tests_mixin import ImportGuardTestsMixin
 
 
 class TestICDatasetImportGuard(ImportGuardTestsMixin):

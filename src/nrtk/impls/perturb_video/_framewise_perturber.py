@@ -10,10 +10,10 @@ from collections.abc import Generator, Iterator
 from copy import deepcopy
 from typing import Any
 
+import numpy as np
 from smqtk_core.configuration import from_config_dict, to_config_dict
 from typing_extensions import Self, override
 
-from nrtk.impls.perturb_image._nop_perturber import _NOPPerturber as NOPPerturber
 from nrtk.interfaces import PerturbImage, PerturbVideo, VideoFrame
 from nrtk.interfaces._perturb_video import _perturb_guard
 
@@ -22,8 +22,8 @@ class FramewisePerturber(PerturbVideo):
     """Applies an image perturbation to each frame of an input video.
 
     Attributes:
-        frame_perturber: PerturbImage:
-            Perturber to apply to each frame.
+        frame_perturber: PerturbImage | None:
+            Perturber to apply to each frame, or ``None`` to pass frames through.
     """
 
     def __init__(self, frame_perturber: PerturbImage | None = None) -> None:
@@ -31,12 +31,10 @@ class FramewisePerturber(PerturbVideo):
 
         Args:
             frame_perturber:
-                Perturber to apply to each frame.
+                Perturber to apply to each frame. ``None`` passes each frame
+                through unchanged.
         """
         super().__init__()
-
-        if frame_perturber is None:
-            frame_perturber = NOPPerturber()
 
         self.frame_perturber = frame_perturber
 
@@ -63,11 +61,15 @@ class FramewisePerturber(PerturbVideo):
         """
         for frame in frames:
             frame_params: dict[str, Any] = {} if frame.additional_params is None else frame.additional_params
-            perturbed_image, perturbed_boxes = self.frame_perturber(
-                image=frame.image,
-                boxes=frame.boxes,
-                **frame_params,
-            )
+            if self.frame_perturber is None:
+                # Same copies a pass-through perturber would have returned.
+                perturbed_image, perturbed_boxes = np.copy(frame.image), deepcopy(frame.boxes)
+            else:
+                perturbed_image, perturbed_boxes = self.frame_perturber(
+                    image=frame.image,
+                    boxes=frame.boxes,
+                    **frame_params,
+                )
             yield VideoFrame(
                 image=perturbed_image,
                 timestamp=frame.timestamp,
@@ -83,7 +85,7 @@ class FramewisePerturber(PerturbVideo):
             :return dict[str, Any]: Configuration dictionary containing perturber configurations.
         """
         cfg = super().get_config()
-        cfg["frame_perturber"] = to_config_dict(self.frame_perturber)
+        cfg["frame_perturber"] = None if self.frame_perturber is None else to_config_dict(self.frame_perturber)
         return cfg
 
     @override
@@ -106,9 +108,10 @@ class FramewisePerturber(PerturbVideo):
         """
         config_dict = dict(config_dict)
 
-        config_dict["frame_perturber"] = from_config_dict(
-            config=config_dict["frame_perturber"],
-            type_iter=PerturbImage.get_impls(),
-        )
+        if config_dict.get("frame_perturber") is not None:
+            config_dict["frame_perturber"] = from_config_dict(
+                config=config_dict["frame_perturber"],
+                type_iter=PerturbImage.get_impls(),
+            )
 
         return super().from_config(config_dict, merge_default=merge_default)
