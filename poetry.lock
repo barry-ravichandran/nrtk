@@ -373,7 +373,7 @@ version = "17.1.0"
 description = "Pythonic bindings for FFmpeg's libraries."
 optional = false
 python-versions = ">=3.10"
-groups = ["tests"]
+groups = ["main", "tests"]
 files = [
     {file = "av-17.1.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:19c84fd72af5ef81a20f18fbc6f9aedff9e1455e53a7062c1d4c95926d73da4e"},
     {file = "av-17.1.0-cp310-cp310-macosx_14_0_arm64.whl", hash = "sha256:19264c9bb4bee404accc7ce9ec461f2044b7f577a70234d29aafde31ed17de46"},
@@ -7997,6 +7997,7 @@ hcipy = ["hcipy", "scipy"]
 headless = ["opencv-python-headless"]
 maite = ["maite"]
 pillow = ["Pillow"]
+pyav = ["av"]
 pybsm = ["pybsm"]
 skimage = ["scikit-image", "scikit-image"]
 tools = ["Pillow", "click", "fastapi", "kwcoco", "pydantic", "pydantic-settings", "python-json-logger", "uvicorn"]
@@ -8005,4 +8006,4 @@ waterdroplet = ["numba", "scipy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.15"
-content-hash = "688f0c773db447fd5c5869c8195b92be9ed052aeccb910adc222eec9e1f7bd76"
+content-hash = "0670494e9ab4bcd617b9cdaf0c213cbafcd19f6fdc107a0405da7689be92e88b"

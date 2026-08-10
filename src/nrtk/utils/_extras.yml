@@ -18,6 +18,8 @@ maite:
 - maite>=0.9.5,<0.10.0
 pillow:
 - Pillow>=12.2.0
+pyav:
+- av>=17.1.0,<18.0.0
 pybsm:
 - pybsm>=0.16.0
 skimage:
