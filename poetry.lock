@@ -7993,7 +7993,7 @@ type = ["pytest-mypy"]
 albumentations = ["nrtk-albumentations"]
 diffusion = ["Pillow", "accelerate", "diffusers", "protobuf", "torch", "transformers"]
 graphics = ["opencv-python"]
-hcipy = ["hcipy", "scipy"]
+hcipy = ["hcipy", "scipy", "xxhash"]
 headless = ["opencv-python-headless"]
 maite = ["maite"]
 pillow = ["Pillow"]
@@ -8006,4 +8006,4 @@ waterdroplet = ["numba", "scipy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.15"
-content-hash = "0670494e9ab4bcd617b9cdaf0c213cbafcd19f6fdc107a0405da7689be92e88b"
+content-hash = "7fd194a03d84935deaaf6dfec2d06185048b8f1e387cb75ff8dd0f4ba41ce7e3"

@@ -12,6 +12,7 @@ graphics:
 hcipy:
 - hcipy>=0.7.0
 - scipy>=1.10.0
+- xxhash>=3.6.0,<4.0.0
 headless:
 - opencv-python-headless>=4.8.1.78
 maite:
