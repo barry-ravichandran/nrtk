@@ -89,7 +89,14 @@ skimage = [
 ]
 pillow = ["Pillow>=12.2.0"]  # CVE-2026-42311
 albumentations = ["nrtk-albumentations>=2.2.1"]
-hcipy = ["hcipy>=0.7.0", "scipy>=1.10.0"]
+hcipy = [
+    "hcipy>=0.7.0",
+    "scipy>=1.10.0",
+    # temporary upper bound until hcipy releases 0.7.1; xxhash 4.0.0 rejects str
+    # input to update(), which hcipy's Grid.__hash__ passes it
+    # (https://github.com/ehpor/hcipy/issues/365)
+    "xxhash>=3.6.0,<4.0.0",
+]
 pyav = ["av>=17.1.0,<18.0.0"]
 waterdroplet = ["scipy>=1.10.0", "numba>=0.56.4"]
 diffusion = [
