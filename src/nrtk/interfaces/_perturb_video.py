@@ -35,7 +35,7 @@ import numpy as np
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import ParamSpec
 
-from nrtk.interfaces._plugfigurable import Plugfigurable
+from nrtk.interfaces._perturb_data import PerturbData
 
 
 class VideoFrame:
@@ -66,7 +66,7 @@ class VideoFrame:
         self.additional_params: dict[str, Any] = additional_params if additional_params is not None else {}
 
 
-class PerturbVideo(Plugfigurable):
+class PerturbVideo(PerturbData):
     """Algorithm that generates a perturbed video for given input video stimulus."""
 
     def __init__(self) -> None:
@@ -104,24 +104,6 @@ class PerturbVideo(Plugfigurable):
     ) -> Generator[VideoFrame, None, None]:
         """Calls ``perturb()`` with the given input video."""
         return self.perturb(frames=frames, **additional_params)
-
-    @classmethod
-    def get_type_string(cls) -> str:
-        """Returns the fully qualified type string of the `PerturbVideo` class or its subclass.
-
-        Returns:
-            A string representing the fully qualified type, in the format `<module>.<class_name>`.
-            For example, "my_module.CustomPerturbVideo".
-        """
-        return f"{cls.__module__}.{cls.__name__}"
-
-    def get_config(self) -> dict[str, Any]:
-        """Returns the current configuration of the PerturbVideo instance.
-
-        Returns:
-            dict[str, Any]: Configuration dictionary with current settings.
-        """
-        return {}
 
 
 S = TypeVar("S", bound=PerturbVideo)

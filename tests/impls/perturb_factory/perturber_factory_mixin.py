@@ -1,7 +1,7 @@
-"""Base test class for PerturbImageFactory implementations.
+"""Base test class for PerturbFactory implementations.
 
 This module provides ``PerturberFactoryMixin``, an abstract base test class that
-defines shared test cases for all PerturbImageFactory implementations. Concrete
+defines shared test cases for all PerturbFactory implementations. Concrete
 factory test classes (e.g., TestPerturberLinspaceFactory, TestPerturberStepFactory)
 inherit from this class to automatically run common tests.
 
@@ -17,7 +17,7 @@ Usage:
 
 Shared Test Cases:
     Plugin Discovery
-        - Factory is discoverable via PerturbImageFactory.get_impls()
+        - Factory is discoverable via PerturbFactory.get_impls()
 
     Iteration (Valid)
         - Iteration produces perturbers with correct theta values
@@ -52,44 +52,59 @@ Shared Test Cases:
         - theta_key property returns a string
         - thetas property returns a Sequence
         - factory[i] matches i-th item from iteration
+
+    Create Perturber
+        - Tests internal _create_perturber explicitly
 """
 
 from __future__ import annotations
 
 import json
-from abc import abstractmethod
 from collections.abc import Sequence
 from contextlib import AbstractContextManager
 from pathlib import Path
 from typing import Any
 
 import pytest
-from smqtk_core.configuration import configuration_test_helper, from_config_dict, to_config_dict
+from smqtk_core.configuration import (
+    configuration_test_helper,
+    from_config_dict,
+    to_config_dict,
+)
 
-from nrtk.interfaces import PerturbImageFactory
-from tests.fakes import FakePerturber
+from nrtk.interfaces import PerturbFactory
+from nrtk.interfaces._perturb_data import PerturbData
 from tests.utils import deep_equals
 
 
 class PerturberFactoryMixin:
-    """Base test class for PerturbImageFactory implementations.
+    """Base test class for PerturbFactory implementations.
 
     See module docstring for full list of shared test cases and usage instructions.
     """
 
     default_factory_kwargs: dict[str, Any]
 
-    @abstractmethod
-    def _make_factory(self, **kwargs: Any) -> PerturbImageFactory:
-        """Create a factory instance for testing. Subclasses must implement."""
-        ...  # pragma: no cover
+    # Note: You must parameterize your class with `perturber_class` and `factory_class`
+    @pytest.fixture(autouse=True)
+    def _set_class(
+        self,
+        perturber_class: type[PerturbData],
+        factory_class: type[PerturbFactory],
+    ) -> None:
+        self.perturber_class = perturber_class
+        self.factory_class = factory_class
+
+    def _make_factory(self, **kwargs: Any) -> PerturbFactory:
+        """Create a factory with perturber_class pre-filled."""
+        return self.factory_class(perturber=self.perturber_class, **kwargs)
 
     # ========================== Plugin Discovery ==========================
 
     def test_discoverability(self) -> None:
-        """Factory is discoverable via PerturbImageFactory.get_impls()."""
+        """Factory is discoverable via PerturbFactory.get_impls()."""
         factory = self._make_factory(**self.default_factory_kwargs)
-        assert type(factory) in PerturbImageFactory.get_impls()
+        assert type(factory) in PerturbFactory.get_impls()
 
     # ========================= Iteration (Valid) ==========================
 
@@ -106,7 +121,7 @@ class PerturberFactoryMixin:
 
         assert len(list(factory)) == len(expected)
         for perturber, expected_val in zip(factory, expected, strict=True):
-            assert isinstance(perturber, FakePerturber)
+            assert isinstance(perturber, self.perturber_class)
             assert perturber.get_config()[theta_key] == expected_val
 
     # ========================= Iteration (Empty) ==========================
@@ -187,7 +202,7 @@ class PerturberFactoryMixin:
         # Read back and hydrate
         with open(config_file_path) as f:
             config = json.load(f)
-            hydrated_factory = from_config_dict(config=config, type_iter=PerturbImageFactory.get_impls())
+            hydrated_factory = from_config_dict(config=config, type_iter=PerturbFactory.get_impls())
             hydrated_config = hydrated_factory.get_config()
 
         assert deep_equals(a=original_config, b=hydrated_config)
@@ -198,7 +213,7 @@ class PerturberFactoryMixin:
         """Passing perturber instance (not type) raises TypeError."""
         impl_class = type(self._make_factory(**self.default_factory_kwargs))
         with pytest.raises(TypeError, match=r"Passed a perturber instance, expected type"):
-            impl_class(perturber=FakePerturber(), **self.default_factory_kwargs)  # type: ignore[arg-type]
+            impl_class(perturber=self.perturber_class(), **self.default_factory_kwargs)  # type: ignore[arg-type]
 
     # ===================== perturber_kwargs Parameter =====================
 
@@ -240,3 +255,10 @@ class PerturberFactoryMixin:
         for i, perturber in enumerate(iterated):
             indexed = factory[i]
             assert perturber.get_config() == indexed.get_config()
+
+    # ========================== Create Perturber ==========================
+
+    def test_create_perturber(self, kwargs: dict[str, Any], expected_config: dict[str, Any]) -> None:
+        """Verifies that create perturber is sucessful."""
+        factory = self._make_factory(**self.default_factory_kwargs)
+        assert factory._create_perturber(kwargs).get_config() == expected_config

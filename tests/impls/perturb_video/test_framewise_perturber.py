@@ -17,7 +17,7 @@ from syrupy.assertion import SnapshotAssertion
 import nrtk.experimental  # noqa: F401 - enable experimental features
 from nrtk.impls.perturb_video import FramewisePerturber
 from nrtk.interfaces import PerturbImage, VideoFrame
-from tests.fakes import FakePerturber
+from tests.fakes import FakeImagePerturber
 from tests.impls import INPUT_DRONE_VIDEO_FILE_PATH as INPUT_VIDEO_FILE_PATH
 from tests.impls import INPUT_TANK_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_video.perturber_tests_mixin import PerturbVideoTestsMixin
@@ -44,7 +44,7 @@ class TestFramewisePerturber(PerturbVideoTestsMixin):
     impl_class = FramewisePerturber
 
     def make_perturber(self) -> FramewisePerturber:
-        return FramewisePerturber(FakePerturber())
+        return FramewisePerturber(FakeImagePerturber())
 
     def make_frames(self) -> list[VideoFrame]:
         return [
@@ -105,7 +105,7 @@ class TestFramewisePerturber(PerturbVideoTestsMixin):
         ],
     )
     def test_invalid_value(self, frames: Iterator[VideoFrame], expectation: AbstractContextManager) -> None:
-        inst = FramewisePerturber(FakePerturber())
+        inst = FramewisePerturber(FakeImagePerturber())
         with expectation:
             for _ in perturber_assertions(perturb=inst, frames=frames):
                 pass
@@ -185,7 +185,7 @@ class TestFramewisePerturber(PerturbVideoTestsMixin):
             n=30,
         )
 
-        inst = FramewisePerturber(FakePerturber())
+        inst = FramewisePerturber(FakeImagePerturber())
 
         output1 = perturber_assertions(perturb=inst, frames=frames1, expecteds=frames1)
         next(output1)
@@ -224,8 +224,8 @@ class TestFramewisePerturber(PerturbVideoTestsMixin):
         param1: float,
         param2: float,
     ) -> None:
-        inst = FramewisePerturber(FakePerturber(param1=param1, param2=param2))
+        inst = FramewisePerturber(FakeImagePerturber(param1=param1, param2=param2))
         for i in configuration_test_helper(inst):
-            assert isinstance(i.frame_perturber, FakePerturber)
+            assert isinstance(i.frame_perturber, FakeImagePerturber)
             assert i.frame_perturber.param1 == param1
             assert i.frame_perturber.param2 == param2

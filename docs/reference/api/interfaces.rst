@@ -23,8 +23,8 @@ configuration fed in from an outside resource.
 Image Perturbation
 ------------------
 
-Interface: PerturbImage
------------------------
+PerturbImage
+------------
 .. autoclass:: nrtk.interfaces.PerturbImage
    :members:
    :special-members:
@@ -33,8 +33,15 @@ Interface: PerturbImage
 Perturbation Factory
 --------------------
 
-Interface: PerturbImageFactory
-------------------------------
+PerturbFactory
+--------------
+.. autoclass:: nrtk.interfaces.PerturbFactory
+   :members:
+   :special-members:
+
+PerturbImageFactory
+-------------------
 .. autoclass:: nrtk.interfaces.PerturbImageFactory
    :members:
    :special-members:
+   :exclude-members: __init_subclass__, __new__

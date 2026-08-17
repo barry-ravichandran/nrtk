@@ -1,15 +1,11 @@
-"""Defines PerturberStepFactory, which creates PerturbImage instances varying a parameter over a range in steps.
+"""Defines PerturberStepFactory, which creates perturber instances varying a parameter over a range in steps.
 
 Classes:
-    PerturberStepFactory: Factory for producing `PerturbImage` instances with a specific
+    PerturberStepFactory: Factory for producing perturber instances with a specific
     parameter (`theta_key`) varying over a specified range.
 
-Dependencies:
-    - math for range calculations.
-    - nrtk.interfaces for the `PerturbImage` and `PerturbImageFactory` interfaces.
-
 Usage:
-    Instantiate `PerturberStepFactory` with a `PerturbImage` type, a `theta_key` to vary,
+    Instantiate `PerturberStepFactory` with a perturber type, a `theta_key` to vary,
     and the start, stop, and step values for the parameter range. This factory can then be
     used to generate perturbed image instances with controlled variations.
 
@@ -24,24 +20,18 @@ from __future__ import annotations
 
 __all__ = ["PerturberStepFactory"]
 
+import math
 from collections.abc import Sequence
-from typing import Any
+from typing import Any, Generic
 
 from typing_extensions import deprecated, override
 
-from nrtk.impls.perturb_factory._perturber_step_factory import (
-    PerturberStepFactory as GenericStepFactory,
-)
-from nrtk.interfaces import PerturbImage, PerturbImageFactory
+from nrtk.interfaces import PerturbFactory
+from nrtk.interfaces._perturb_factory import PerturbT_co
 
 
-@deprecated("Use nrtk.impls.perturb_factory.PerturberStepFactory instead.")
-class PerturberStepFactory(PerturbImageFactory):
-    """Deprecated PerturbImageFactory implementation to step through the given range of values.
-
-    .. deprecated:: 1.1
-        Use :class:`nrtk.impls.perturb_factory.PerturberStepFactory` instead.
-        :mod:`nrtk.impls.perturb_image_factory` will be removed in a future major release.
+class PerturberStepFactory(PerturbFactory[PerturbT_co], Generic[PerturbT_co]):
+    """PerturbFactory implementation to step through the given range of values.
 
     Attributes:
         perturber (type[PerturbT_co]):
@@ -79,7 +69,7 @@ class PerturberStepFactory(PerturbImageFactory):
     def __init__(
         self,
         *,
-        perturber: type[PerturbImage],
+        perturber: type[PerturbT_co],
         theta_key: str,
         start: float,
         stop: float,
@@ -87,14 +77,14 @@ class PerturberStepFactory(PerturbImageFactory):
         to_int: bool = False,
         perturber_kwargs: dict[str, Any] | None = None,
     ) -> None:
-        """Initialize the factory to produce PerturbImage instances of the given type.
+        """Initialize the factory to produce perturber instances of the given type.
 
-        Initialize the factory to produce PerturbImage instances of the given type,
+        Initialize the factory to produce perturber instances of the given type,
         varying the given ``theta_key`` parameter from start to stop with given step.
 
         Args:
             perturber:
-                Python implementation type of the PerturbImage interface to produce.
+                Python implementation type of the perturber to produce.
             theta_key:
                 Perturber parameter to vary between instances.
             start:
@@ -114,77 +104,79 @@ class PerturberStepFactory(PerturbImageFactory):
         """
         super().__init__(perturber=perturber, theta_key=theta_key, perturber_kwargs=perturber_kwargs)
 
-        self._new_impl = GenericStepFactory(
-            perturber=perturber,
-            theta_key=theta_key,
-            start=start,
-            stop=stop,
-            step=step,
-            to_int=to_int,
-            perturber_kwargs=perturber_kwargs,
-        )
+        self._to_int = to_int
+        self._start = start
+        self._stop = stop
+        self._step = step
 
     @property
     @override
     def thetas(self) -> Sequence[float] | Sequence[int]:
-        return self._new_impl.thetas
+        if not self._to_int:
+            return [self._start + i * self._step for i in range(math.ceil((self._stop - self._start) / self._step))]
+        return [int(self._start + i * self._step) for i in range(math.ceil((self._stop - self._start) / self._step))]
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def start(self) -> float:
-        return self._new_impl.start
+        return self._start
 
     @start.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def start(self, start: float) -> None:
-        self._new_impl.start = start
+        self._start = start
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def stop(self) -> float:
-        return self._new_impl.stop
+        return self._stop
 
     @stop.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def stop(self, stop: float) -> None:
-        self._new_impl.stop = stop
+        self._stop = stop
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def step(self) -> float:
-        return self._new_impl.step
+        return self._step
 
     @step.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def step(self, step: float) -> None:
-        self._new_impl.step = step
+        self._step = step
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def to_int(self) -> bool:
-        return self._new_impl.to_int
+        return self._to_int
 
     @to_int.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def to_int(self, to_int: bool) -> None:
-        self._new_impl.to_int = to_int
+        self._to_int = to_int
 
     @override
     def get_config(self) -> dict[str, Any]:
-        return self._new_impl.get_config()
+        cfg = super().get_config()
+        cfg["start"] = self._start
+        cfg["stop"] = self._stop
+        cfg["step"] = self._step
+        cfg["to_int"] = self._to_int
+        return cfg

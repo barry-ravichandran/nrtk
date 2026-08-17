@@ -35,14 +35,11 @@ import numpy as np
 from numpy.typing import ArrayLike
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 
-from nrtk.interfaces._plugfigurable import Plugfigurable
+from nrtk.interfaces._perturb_data import PerturbData
 
 
-class PerturbImage(Plugfigurable):
+class PerturbImage(PerturbData):
     """Algorithm that generates a perturbed image for given input image stimulus as a ``numpy.ndarray`` type array."""
-
-    def __init__(self) -> None:
-        """Initializes the PerturbImage."""
 
     @abc.abstractmethod
     def perturb(
@@ -141,12 +138,3 @@ class PerturbImage(Plugfigurable):
     ) -> tuple[np.ndarray[Any, Any], Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None]:
         """Calls ``perturb()`` with the given input image."""
         return self.perturb(image=image, boxes=boxes, **kwargs)
-
-    @classmethod
-    def get_type_string(cls) -> str:
-        """Returns the fully qualified type string of the `PerturbImage` class or its subclass."""
-        return f"{cls.__module__}.{cls.__name__}"
-
-    def get_config(self) -> dict[str, Any]:
-        """Returns the current configuration of the PerturbImage instance."""
-        return {}

@@ -6,8 +6,11 @@ from typing import TYPE_CHECKING, Any
 from nrtk._guard import Group, guard
 
 if TYPE_CHECKING:
+    from nrtk.interfaces._perturb_factory import PerturbFactory as PerturbFactory
     from nrtk.interfaces._perturb_image import PerturbImage as PerturbImage
-    from nrtk.interfaces._perturb_image_factory import PerturbImageFactory as PerturbImageFactory
+    from nrtk.interfaces._perturb_image_factory import (
+        PerturbImageFactory as PerturbImageFactory,  # Deprecated, but kept for compatibility
+    )
     from nrtk.interfaces._perturb_video import PerturbVideo as PerturbVideo
     from nrtk.interfaces._perturb_video import VideoFrame as VideoFrame
 
@@ -21,7 +24,8 @@ __getattr__, __dir__, __all__ = guard(
         Group(
             symbols={
                 "PerturbImage": "nrtk.interfaces._perturb_image",
-                "PerturbImageFactory": "nrtk.interfaces._perturb_image_factory",
+                "PerturbImageFactory": "nrtk.interfaces._perturb_image_factory",  # Deprecated, kept for compat
+                "PerturbFactory": "nrtk.interfaces._perturb_factory",
             },
         ),
         Group(

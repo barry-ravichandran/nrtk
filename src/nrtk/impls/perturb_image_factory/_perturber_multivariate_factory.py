@@ -18,44 +18,43 @@ __all__ = ["PerturberMultivariateFactory"]
 from collections.abc import Iterable, Iterator, Sequence
 from typing import Any
 
-from typing_extensions import override
+from typing_extensions import deprecated, override
 
+from nrtk.impls.perturb_factory._perturber_multivariate_factory import (
+    PerturberMultivariateFactory as GenericMultivariateFactory,
+)
 from nrtk.interfaces import PerturbImage, PerturbImageFactory
 
 
+@deprecated("Use nrtk.impls.perturb_factory.PerturberMultivariateFactory instead.")
 class PerturberMultivariateFactory(PerturbImageFactory):
-    """Base factory for creating `PerturbImage` instances with customizable parameters.
+    """Deprecated base factory for creating `PerturbImage` instances with customizable parameters.
 
     This factory generates multiple `PerturbImage` instances, each configured with a unique combination
     of specified perturbation parameters (`theta_keys` and `thetas`). These instances allow for flexible
     image perturbation.
 
+    .. deprecated:: 1.1
+        Use :class:`nrtk.impls.perturb_factory.PerturberMultivariateFactory` instead.
+        :mod:`nrtk.impls.perturb_image_factory` will be removed in a future major release.
+
     Attributes:
-        perturber (type[PerturbImage]): Type of the PerturbImage interface to produce.
-        theta_keys (Iterable[str]): Names of parameters to vary across instances.
-        _thetas (Sequence[Any]): Values to vary for each parameter in `theta_keys`.
-        sets (Sequence[list[int]]): Index combinations for each parameter variation.
+        perturber (type[PerturbT_co]):
+            Type of the perturber to produce.
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        theta_keys (Iterable[str]):
+            Names of parameters to vary across instances.
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        sets (Sequence[list[int]]):
+            Index combinations for each parameter variation.
+
+            .. deprecated:: 1.1
+                This property will be removed in a future major release.
     """
-
-    @staticmethod
-    def _build_set_list(*, layer: int, top: Sequence[int]) -> Sequence[list[int]]:
-        """Recursively builds a list of index sets to access combinations of parameter values.
-
-        Args:
-            layer (int): Current depth of recursion.
-            top (Sequence[int]): Maximum index values for each parameter.
-
-        Returns:
-            Sequence[list[int]]: A list of index combinations to access parameter values.
-        """
-        if layer == len(top) - 1:
-            return [[i] for i in range(top[layer])]
-
-        return [
-            [i] + e
-            for i in range(top[layer])
-            for e in PerturberMultivariateFactory._build_set_list(layer=layer + 1, top=top)
-        ]
 
     def __init__(
         self,
@@ -83,42 +82,28 @@ class PerturberMultivariateFactory(PerturbImageFactory):
             ValueError:
                 If theta_keys is empty or theta_keys and thetas have different lengths.
         """
-        # Validate perturber is a type, not an instance
-        if not isinstance(perturber, type):
-            raise TypeError("Passed a perturber instance, expected type")
+        self._new_impl = GenericMultivariateFactory(
+            perturber=perturber,
+            theta_keys=theta_keys,
+            thetas=thetas,
+            perturber_kwargs=perturber_kwargs,
+        )
+        self._iterator = iter(self._new_impl)
 
-        # Convert theta_keys to list to allow len() and reuse
-        theta_keys_list = list(theta_keys)
-
-        # Validate theta_keys is not empty
-        if len(theta_keys_list) == 0:
-            raise ValueError("theta_keys must not be empty; at least one parameter key is required")
-
-        # Validate theta_keys and thetas have same length
-        if len(theta_keys_list) != len(thetas):
-            raise ValueError(
-                f"theta_keys and thetas must have the same length; "
-                f"got {len(theta_keys_list)} keys and {len(thetas)} theta sequences",
-            )
-
-        self.perturber = perturber
-        self.theta_keys = theta_keys_list
-        self._thetas = thetas
-
-        top = [len(entry) for entry in self.thetas]
-        self.sets: Sequence[list[int]] = PerturberMultivariateFactory._build_set_list(layer=0, top=top)
-        self.n: int = 0
-        self.perturber_kwargs: dict[str, Any] = {} if perturber_kwargs is None else perturber_kwargs
+    @override
+    def _create_perturber(self, kwargs: dict[str, Any]) -> PerturbImage:
+        """Returns perturber implementation with given input args."""
+        return self._new_impl._create_perturber(kwargs)  # noqa: SLF001
 
     @override
     def __len__(self) -> int:
         """Returns the number of possible perturbation instances."""
-        return len(self.sets)
+        return len(self._new_impl)
 
     @override
     def __iter__(self) -> Iterator[PerturbImage]:
         """Resets the iterator and returns itself for use in for-loops."""
-        self.n = 0
+        self._iterator = iter(self._new_impl)
         return self
 
     @override
@@ -129,12 +114,7 @@ class PerturberMultivariateFactory(PerturbImageFactory):
             StopIteration:
                 When all configurations have been iterated over.
         """
-        if self.n < len(self.sets):
-            kwargs = {k: self.thetas[i][self.sets[self.n][i]] for i, k in enumerate(self.theta_keys)}
-            func = self._create_perturber(kwargs=kwargs)
-            self.n += 1
-            return func
-        raise StopIteration
+        return next(self._iterator)
 
     @override
     def __getitem__(self, idx: int) -> PerturbImage:
@@ -146,31 +126,70 @@ class PerturberMultivariateFactory(PerturbImageFactory):
         Returns:
             PerturbImage: The configured `PerturbImage` instance.
         """
-        kwargs = {k: self.thetas[i][self.sets[idx][i]] for i, k in enumerate(self.theta_keys)}
-        return self._create_perturber(kwargs=kwargs)
+        return self._new_impl[idx]
 
     @property
     @override
     def thetas(self) -> Sequence[Sequence[Any]]:
         """Returns the current values for each parameter to be varied."""
-        return self._thetas
+        return self._new_impl.thetas
 
     @property
     @override
+    @deprecated(
+        "This property will be removed in a future major release.",
+    )
     def theta_key(self) -> str:
         """Returns the parameter key associated with the perturbation settings.
 
         Returns:
             str: The parameter key name, "params".
         """
-        return "params"
+        return self._new_impl.theta_key
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def theta_keys(self) -> Iterable[str]:
+        return self._new_impl.theta_keys
+
+    @theta_keys.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def theta_keys(self, theta_keys: Iterable[str]) -> None:
+        self._new_impl.theta_keys = theta_keys
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def perturber(self) -> type[PerturbImage]:
+        return self._new_impl.perturber
+
+    @perturber.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def perturber(self, perturber: type[PerturbImage]) -> None:
+        self._new_impl.perturber = perturber
+
+    @property
+    @deprecated(
+        "This property will be removed in a future major release.",
+    )
+    def sets(self) -> Sequence[list[int]]:
+        return self._new_impl.sets
+
+    @sets.setter
+    @deprecated(
+        "This property will be removed in a future major release.",
+    )
+    def sets(self, sets: Sequence[list[int]]) -> None:
+        self._new_impl.sets = sets
 
     @override
     def get_config(self) -> dict[str, Any]:
         """Returns the current configuration of the `PerturberMultivariateFactory` instance."""
-        return {
-            "perturber": self.perturber.get_type_string(),
-            "theta_keys": self.theta_keys,
-            "thetas": self.thetas,
-            "perturber_kwargs": self.perturber_kwargs,
-        }
+        return self._new_impl.get_config()
