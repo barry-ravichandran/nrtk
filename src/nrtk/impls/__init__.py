@@ -17,6 +17,7 @@ __getattr__, __dir__, __all__ = guard(
     namespace=globals(),
     submodules=[
         "perturb_image",
-        "perturb_image_factory",
+        "perturb_image_factory",  # Deprecated, but kept for compatibility
+        "perturb_factory",
     ],
 )

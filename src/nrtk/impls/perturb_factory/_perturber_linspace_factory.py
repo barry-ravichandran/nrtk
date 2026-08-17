@@ -1,15 +1,11 @@
-"""Defines PerturberLinspaceFactory to create PerturbImage instances with parameters linearly spaced over a range.
+"""Defines PerturberLinspaceFactory to create perturber instances with parameters linearly spaced over a range.
 
 Classes:
-    PerturberLinspaceFactory: A factory class for creating `PerturbImage` instances
+    PerturberLinspaceFactory: A factory class for creating perturber instances
     where a specified parameter varies over a defined range in linearly spaced steps.
 
-Dependencies:
-    - numpy for generating linearly spaced values.
-    - nrtk.interfaces for the `PerturbImage` and `PerturbImageFactory` interfaces.
-
 Usage:
-    To use `PerturberLinspaceFactory`, initialize it with a `PerturbImage` type, a `theta_key`
+    To use `PerturberLinspaceFactory`, initialize it with a perturber type, a `theta_key`
     to vary, and specify the start, stop, and number of samples. This factory can then be used to
     generate perturbed image instances with linearly spaced parameter variations.
 
@@ -25,23 +21,17 @@ from __future__ import annotations
 __all__ = ["PerturberLinspaceFactory"]
 
 from collections.abc import Sequence
-from typing import Any
+from typing import Any, Generic
 
+import numpy as np
 from typing_extensions import deprecated, override
 
-from nrtk.impls.perturb_factory._perturber_linspace_factory import (
-    PerturberLinspaceFactory as GenericLinspaceFactory,
-)
-from nrtk.interfaces import PerturbImage, PerturbImageFactory
+from nrtk.interfaces import PerturbFactory
+from nrtk.interfaces._perturb_factory import PerturbT_co
 
 
-@deprecated("Use nrtk.impls.perturb_factory.PerturberLinspaceFactory instead.")
-class PerturberLinspaceFactory(PerturbImageFactory):
-    """Deprecated PerturbImageFactory implementation to iterate over the given linspace.
-
-    .. deprecated:: 1.1
-        Use :class:`nrtk.impls.perturb_factory.PerturberLinspaceFactory` instead.
-        :mod:`nrtk.impls.perturb_image_factory` will be removed in a future major release.
+class PerturberLinspaceFactory(PerturbFactory[PerturbT_co], Generic[PerturbT_co]):
+    """PerturbFactory implementation to iterate over the given linspace.
 
     Attributes:
         perturber (type[PerturbImage]):
@@ -79,7 +69,7 @@ class PerturberLinspaceFactory(PerturbImageFactory):
     def __init__(
         self,
         *,
-        perturber: type[PerturbImage],
+        perturber: type[PerturbT_co],
         theta_key: str,
         start: float,
         stop: float,
@@ -87,9 +77,9 @@ class PerturberLinspaceFactory(PerturbImageFactory):
         endpoint: bool = True,
         perturber_kwargs: dict[str, Any] | None = None,
     ) -> None:
-        """Initialize the factory to produce PerturbImage instances of the given type.
+        """Initialize the factory to produce perturber instances of the given type.
 
-        Initialize the factory to produce PerturbImage instances of the given type,
+        Initialize the factory to produce perturber instances of the given type,
         varying the given ``theta_key`` parameter from start to stop with given num.
 
         Args:
@@ -114,78 +104,78 @@ class PerturberLinspaceFactory(PerturbImageFactory):
         """
         super().__init__(perturber=perturber, theta_key=theta_key, perturber_kwargs=perturber_kwargs)
 
-        self._new_impl = GenericLinspaceFactory(
-            perturber=perturber,
-            theta_key=theta_key,
-            start=start,
-            stop=stop,
-            num=num,
-            endpoint=endpoint,
-            perturber_kwargs=perturber_kwargs,
-        )
+        self._start = start
+        self._stop = stop
+        self._num = num
+        self._endpoint = endpoint
 
     @property
     @override
     def thetas(self) -> Sequence[float]:
         """Use linspace to generate the desired range of values."""
-        return self._new_impl.thetas
+        return np.linspace(self._start, self._stop, self._num, endpoint=self._endpoint).tolist()
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def start(self) -> float:
-        return self._new_impl.start
+        return self._start
 
     @start.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def start(self, start: float) -> None:
-        self._new_impl.start = start
+        self._start = start
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def stop(self) -> float:
-        return self._new_impl.stop
+        return self._stop
 
     @stop.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def stop(self, stop: float) -> None:
-        self._new_impl.stop = stop
+        self._stop = stop
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def num(self) -> int:
-        return self._new_impl.num
+        return self._num
 
     @num.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def num(self, num: int) -> None:
-        self._new_impl.num = num
+        self._num = num
 
     @property
     @deprecated(
         "Use get_config() instead.",
     )
     def endpoint(self) -> bool:
-        return self._new_impl.endpoint
+        return self._endpoint
 
     @endpoint.setter
     @deprecated(
         "Setting this property will be removed in a future major release.",
     )
     def endpoint(self, endpoint: bool) -> None:
-        self._new_impl.endpoint = endpoint
+        self._endpoint = endpoint
 
     @override
     def get_config(self) -> dict[str, Any]:
-        return self._new_impl.get_config()
+        cfg = super().get_config()
+        cfg["start"] = self._start
+        cfg["stop"] = self._stop
+        cfg["num"] = self._num
+        cfg["endpoint"] = self._endpoint
+        return cfg

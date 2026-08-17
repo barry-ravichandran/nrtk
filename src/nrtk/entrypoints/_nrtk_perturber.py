@@ -39,7 +39,7 @@ def nrtk_perturber(*, maite_dataset: Dataset, perturber_factory: PerturbImageFac
         perturb_factory_keys = perturber_factory_config["theta_keys"]
         thetas = perturber_factory.thetas
     else:
-        perturb_factory_keys = [perturber_factory.theta_key]
+        perturb_factory_keys = [perturber_factory_config["theta_key"]]
         thetas = [perturber_factory.thetas]
 
     perturber_combinations = [dict(zip(perturb_factory_keys, v, strict=False)) for v in itertools.product(*thetas)]

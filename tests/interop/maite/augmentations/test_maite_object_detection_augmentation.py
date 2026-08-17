@@ -8,7 +8,7 @@ from maite.protocols.object_detection import DatumMetadataType, TargetType
 from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEObjectDetectionAugmentation
 from nrtk.interop._maite.datasets import MAITEObjectDetectionTarget
-from tests.fakes import FakePerturber
+from tests.fakes import FakeImagePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
 from tests.utils import random_image
 
@@ -19,7 +19,7 @@ class TestMAITEObjectDetectionAugmentation:
         ("perturber", "targets_in", "expected_targets_out"),
         [
             (
-                FakePerturber(),
+                FakeImagePerturber(),
                 [
                     MAITEObjectDetectionTarget(
                         boxes=np.asarray([[1.0, 2.0, 3.0, 4.0], [2.0, 4.0, 6.0, 8.0]]),
@@ -108,7 +108,7 @@ class TestMAITEObjectDetectionAugmentation:
         ("perturbers", "targets_in"),
         [
             (
-                [FakePerturber(), ResizePerturber(w=64, h=512)],
+                [FakeImagePerturber(), ResizePerturber(w=64, h=512)],
                 [
                     MAITEObjectDetectionTarget(
                         boxes=np.asarray([[1.0, 2.0, 3.0, 4.0], [2.0, 4.0, 6.0, 8.0]]),

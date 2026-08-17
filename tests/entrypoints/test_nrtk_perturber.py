@@ -7,7 +7,7 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionDataset,
     MAITEObjectDetectionTarget,
 )
-from tests.fakes import FakePerturber, PerturberFakeFactory
+from tests.fakes import FakeImagePerturber, FakePerturbFactory
 from tests.utils import random_image
 
 
@@ -22,8 +22,8 @@ class TestNRTKPerturber:
         ("perturber_factory", "img_dirs"),
         [
             (
-                PerturberFakeFactory(
-                    perturber=FakePerturber,
+                FakePerturbFactory(
+                    perturber=FakeImagePerturber,
                     theta_key="param1",
                     theta_values=[1, 3],
                 ),

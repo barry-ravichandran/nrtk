@@ -15,7 +15,7 @@ from nrtk.interop._maite.augmentations._maite_multiobject_tracking_augmentation 
     MAITESingleFrameObjectTrackingTarget,
     MAITEVideoFrame,
 )
-from tests.fakes import FakePerturber
+from tests.fakes import FakeImagePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
 from tests.utils import random_image
 
@@ -223,7 +223,7 @@ class TestMAITEMultiobjectTrackingAugmentation:
         ("perturber", "nrtk_vid_in", "vid_in", "targets_in", "expected_targets_out"),
         [
             (
-                FramewisePerturber(FakePerturber()),
+                FramewisePerturber(FakeImagePerturber()),
                 [
                     VideoFrame(
                         image=np.ones((8, 16, 3), dtype=np.uint8),
@@ -396,7 +396,7 @@ class TestMAITEMultiobjectTrackingAugmentation:
     @pytest.mark.parametrize(
         ("perturbers"),
         [
-            [FramewisePerturber(FakePerturber()), FramewisePerturber(ResizePerturber(w=64, h=512))],
+            [FramewisePerturber(FakeImagePerturber()), FramewisePerturber(ResizePerturber(w=64, h=512))],
         ],
     )
     def test_multiple_augmentations(

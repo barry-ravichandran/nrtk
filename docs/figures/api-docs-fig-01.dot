@@ -16,7 +16,7 @@ edge [style=solid; dir=back; arrowtail=empty];
 Pluggable -> Plugfigurable;
 Configurable -> Plugfigurable;
 Plugfigurable -> PerturbImage;
-Plugfigurable -> PerturbImageFactory;
+Plugfigurable -> PerturbFactory;
 
 subgraph cluster_smqtk {
   label="Package: SMQTK-Core";
@@ -29,10 +29,10 @@ subgraph cluster_nrtk {
     subgraph cluster_perturb {
       label="Perturbation";
       PerturbImage;
-      PerturbImageFactory;
+      PerturbFactory;
     }
 
-    PerturbImageFactory -> PerturbImage [arrowtail=diamond, constraint=false];
+    PerturbFactory -> PerturbImage [arrowtail=diamond, constraint=false];
   }
 }
 
@@ -40,7 +40,7 @@ subgraph cluster_nrtk {
 { rank=same; A; Pluggable; Configurable; }
 { rank=same; B; Plugfigurable; }
 { rank=same; C; PerturbImage;
-                PerturbImageFactory; }
+                PerturbFactory; }
 
 }
 

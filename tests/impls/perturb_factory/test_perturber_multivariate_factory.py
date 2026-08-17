@@ -55,12 +55,28 @@ from typing import Any
 import pytest
 from typing_extensions import override
 
-from nrtk.impls.perturb_image_factory import PerturberMultivariateFactory
-from tests.fakes import FakePerturber
-from tests.impls.perturb_image_factory import PerturberFactoryMixin
+from nrtk.impls.perturb_factory import PerturberMultivariateFactory
+from nrtk.impls.perturb_image_factory import (
+    PerturberMultivariateFactory as DeprecatedImageFactory,
+)
+from tests.fakes import FakeImagePerturber, FakeVideoPerturber
+from tests.impls.perturb_factory import PerturberFactoryMixin
 
 
 @pytest.mark.core
+@pytest.mark.parametrize(
+    ("factory_class", "perturber_class"),
+    [
+        (PerturberMultivariateFactory, FakeImagePerturber),
+        (PerturberMultivariateFactory, FakeVideoPerturber),
+        (DeprecatedImageFactory, FakeImagePerturber),
+    ],
+    ids=(
+        "Generic Factory+Image Perturber",
+        "Generic Factory+FMV Perturber",
+        "Deprecated Image Factory+Image Perturber",
+    ),
+)
 class TestPerturberMultivariateFactory(PerturberFactoryMixin):
     """Tests for PerturberMultivariateFactory. See module docstring for test cases."""
 
@@ -68,11 +84,6 @@ class TestPerturberMultivariateFactory(PerturberFactoryMixin):
         "theta_keys": ["param1", "param2"],
         "thetas": [[1, 3], [2, 4]],
     }
-
-    @override
-    def _make_factory(self, **kwargs: Any) -> PerturberMultivariateFactory:
-        """Create a factory with FakePerturber pre-filled."""
-        return PerturberMultivariateFactory(perturber=FakePerturber, **kwargs)
 
     # ========================= Iteration (Valid) ==========================
     # Override: multivariate uses theta_keys (plural) and cartesian products
@@ -118,7 +129,7 @@ class TestPerturberMultivariateFactory(PerturberFactoryMixin):
 
         assert len(list(factory)) == len(expected)
         for perturber, expected_vals in zip(factory, expected, strict=True):
-            assert isinstance(perturber, FakePerturber)
+            assert isinstance(perturber, self.perturber_class)
             config = perturber.get_config()
             for key, expected_val in zip(theta_keys, expected_vals, strict=True):
                 assert config[key] == expected_val
@@ -237,7 +248,14 @@ class TestPerturberMultivariateFactory(PerturberFactoryMixin):
     # ========================= theta_key Property =========================
 
     def test_theta_key_returns_params(self) -> None:
-        """theta_key property returns "params" (fixed value for multivariate)."""
+        """theta_key property returns "params" (fixed value for multivariate).
+
+        This property will be removed in a future release, this test will need
+        to be removed with it. The property is already not used in our library
+        code, so just checking user expectations aren't broken while the
+        property is still around, which requires the deprecated usage of the
+        property here.
+        """
         factory = self._make_factory(**self.default_factory_kwargs)
         assert factory.theta_key == "params"
 
@@ -253,3 +271,22 @@ class TestPerturberMultivariateFactory(PerturberFactoryMixin):
         config = factory[0].get_config()
         assert config["param1"] == 1
         assert config["param2"] == 2
+
+    # ========================== Create Perturber ==========================
+
+    @pytest.mark.parametrize(
+        ("kwargs", "expected_config"),
+        [
+            pytest.param(
+                {},
+                {"param1": 1, "param2": 2},
+            ),
+            pytest.param(
+                {"param2": 50},
+                {"param1": 1, "param2": 50},
+            ),
+        ],
+    )
+    @override
+    def test_create_perturber(self, kwargs: dict[str, Any], expected_config: dict[str, Any]) -> None:
+        super().test_create_perturber(kwargs=kwargs, expected_config=expected_config)

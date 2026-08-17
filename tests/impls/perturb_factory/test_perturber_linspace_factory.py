@@ -32,12 +32,28 @@ import numpy as np
 import pytest
 from typing_extensions import override
 
-from nrtk.impls.perturb_image_factory import PerturberLinspaceFactory
-from tests.fakes import FakePerturber
-from tests.impls.perturb_image_factory import PerturberFactoryMixin
+from nrtk.impls.perturb_factory import PerturberLinspaceFactory
+from nrtk.impls.perturb_image_factory import (
+    PerturberLinspaceFactory as DeprecatedImageFactory,
+)
+from tests.fakes import FakeImagePerturber, FakeVideoPerturber
+from tests.impls.perturb_factory import PerturberFactoryMixin
 
 
 @pytest.mark.core
+@pytest.mark.parametrize(
+    ("factory_class", "perturber_class"),
+    [
+        (PerturberLinspaceFactory, FakeImagePerturber),
+        (PerturberLinspaceFactory, FakeVideoPerturber),
+        (DeprecatedImageFactory, FakeImagePerturber),
+    ],
+    ids=(
+        "Generic Factory+Image Perturber",
+        "Generic Factory+FMV Perturber",
+        "Deprecated Image Factory+Image Perturber",
+    ),
+)
 class TestPerturberLinspaceFactory(PerturberFactoryMixin):
     """Tests for PerturberLinspaceFactory. See module docstring for test cases."""
 
@@ -47,11 +63,6 @@ class TestPerturberLinspaceFactory(PerturberFactoryMixin):
         "stop": 1.0,
         "num": 5,
     }
-
-    @override
-    def _make_factory(self, **kwargs: Any) -> PerturberLinspaceFactory:
-        """Create a factory with FakePerturber pre-filled."""
-        return PerturberLinspaceFactory(perturber=FakePerturber, **kwargs)
 
     # ========================= Iteration (Valid) ==========================
 
@@ -181,3 +192,22 @@ class TestPerturberLinspaceFactory(PerturberFactoryMixin):
         expected = [-1.0, -0.5, 0.0, 0.5, 1.0]
         for actual, exp in zip(factory.thetas, expected, strict=False):
             assert np.isclose(actual, exp, atol=1e-4)
+
+    # ========================== Create Perturber ==========================
+
+    @pytest.mark.parametrize(
+        ("kwargs", "expected_config"),
+        [
+            pytest.param(
+                {},
+                {"param1": 1, "param2": 2},
+            ),
+            pytest.param(
+                {"param2": 50},
+                {"param1": 1, "param2": 50},
+            ),
+        ],
+    )
+    @override
+    def test_create_perturber(self, kwargs: dict[str, Any], expected_config: dict[str, Any]) -> None:
+        super().test_create_perturber(kwargs=kwargs, expected_config=expected_config)

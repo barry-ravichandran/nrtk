@@ -1,7 +1,7 @@
-"""Tests for PerturbImageFactory interface.
+"""Tests for PerturbFactory interface.
 
-This module tests the abstract PerturbImageFactory interface behavior using
-PerturberFakeFactory as the concrete implementation, inheriting shared test
+This module tests the abstract PerturbFactory interface behavior using
+FakePerturbFactory as the concrete implementation, inheriting shared test
 cases from PerturberFactoryMixin.
 
 Test Cases (inherited from PerturberFactoryMixin):
@@ -27,28 +27,40 @@ from typing import Any
 import pytest
 from typing_extensions import override
 
-from nrtk.interfaces import PerturbImageFactory
-from tests.fakes import FakePerturber, PerturberFakeFactory
-from tests.impls.perturb_image_factory import PerturberFactoryMixin
+from tests.fakes import (
+    FakeImagePerturber,
+    FakePerturbFactory,
+    FakePerturbImageFactory,
+    FakeVideoPerturber,
+)
+from tests.impls.perturb_factory import PerturberFactoryMixin
 
 
 @pytest.mark.core
-class TestPerturbImageFactory(PerturberFactoryMixin):
-    """Tests for PerturbImageFactory interface."""
+@pytest.mark.parametrize(
+    ("factory_class", "perturber_class"),
+    [
+        (FakePerturbFactory, FakeImagePerturber),
+        (FakePerturbFactory, FakeVideoPerturber),
+        (FakePerturbImageFactory, FakeImagePerturber),
+    ],
+    ids=(
+        "Generic Factory+Image Perturber",
+        "Generic Factory+FMV Perturber",
+        "Deprecated Image Factory+Image Perturber",
+    ),
+)
+class TestPerturbFactory(PerturberFactoryMixin):
+    """Tests for PerturbFactory interface."""
 
     default_factory_kwargs = {
         "theta_key": "param1",
         "theta_values": [1, 2, 3],
     }
 
-    @override
-    def _make_factory(self, **kwargs: Any) -> PerturbImageFactory:
-        """Create a PerturberFakeFactory for testing."""
-        return PerturberFakeFactory(perturber=FakePerturber, **kwargs)
-
     # =========================== Skipped Tests ============================
 
-    @pytest.mark.skip(reason="PerturberFakeFactory is not a registered plugin")
+    @pytest.mark.skip(reason="Fake factory is not a registered plugin")
     @override
     def test_discoverability(self) -> None:
         pass  # pragma: no cover
@@ -107,17 +119,34 @@ class TestPerturbImageFactory(PerturberFactoryMixin):
     ) -> None:
         super().test_indexing(idx=idx, expected_val=expected_val, expectation=expectation)
 
+    @pytest.mark.parametrize(
+        ("kwargs", "expected_config"),
+        [
+            pytest.param(
+                {},
+                {"param1": 1, "param2": 2},
+            ),
+            pytest.param(
+                {"param2": 50},
+                {"param1": 1, "param2": 50},
+            ),
+        ],
+    )
+    @override
+    def test_create_perturber(self, kwargs: dict[str, Any], expected_config: dict[str, Any]) -> None:
+        super().test_create_perturber(kwargs=kwargs, expected_config=expected_config)
+
     # ====================== Interface-Specific Tests ======================
 
     def test_from_config_resolves_perturber_type(self) -> None:
         """from_config resolves perturber type string to class."""
         config = {
-            "perturber": FakePerturber.get_type_string(),
+            "perturber": self.perturber_class.get_type_string(),
             "theta_key": "param1",
             "theta_values": [1, 2, 3],
         }
-        factory = PerturberFakeFactory.from_config(config)
-        assert factory.perturber is FakePerturber
+        factory = self.factory_class.from_config(config)
+        assert factory._perturber is self.perturber_class
 
     def test_from_config_rejects_invalid_perturber(self) -> None:
         """from_config rejects invalid perturber type string."""
@@ -127,4 +156,4 @@ class TestPerturbImageFactory(PerturberFactoryMixin):
             "theta_values": [1],
         }
         with pytest.raises(ValueError, match=r"not a valid perturber"):
-            PerturberFakeFactory.from_config(config)
+            self.factory_class.from_config(config)
