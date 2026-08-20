@@ -60,6 +60,12 @@ Implementations
 .. autoclass:: nrtk.impls.perturb_video.FramewisePerturber
    :members:
 
+   .. seealso::
+      :doc:`/examples/maite/framewise_video`
+
+   .. seealso::
+      :doc:`/development/framewise_perturber`
+
 .. autoclass:: nrtk.impls.perturb_video.optical.TurbulenceVideoPerturber
    :members:
 
@@ -71,11 +77,3 @@ Interoperability
 
 .. autoclass:: nrtk.interop.MAITEMultiobjectTrackingAugmentation
    :members:
-
-Notebooks
----------
-
-.. toctree::
-   :titlesonly:
-
-   /examples/maite/framewise_video
