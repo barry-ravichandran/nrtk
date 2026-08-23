@@ -124,7 +124,7 @@ class COCOMAITEObjectDetectionDataset(Dataset):  # pyright: ignore [reportGenera
             raise ValueError("Image metadata length mismatch, metadata needed for every image.")
 
         self.metadata: DatasetMetadata = DatasetMetadata(
-            id=dataset_id if dataset_id else kwcoco_dataset.fpath,
+            id=dataset_id if dataset_id else str(kwcoco_dataset.fpath),
             index2label={c["id"]: c["name"] for c in kwcoco_dataset.cats.values()},
         )
 
