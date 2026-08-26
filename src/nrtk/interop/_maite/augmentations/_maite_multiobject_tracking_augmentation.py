@@ -4,7 +4,6 @@ from __future__ import annotations
 
 __all__ = ["MAITEMultiobjectTrackingAugmentation"]
 
-import copy
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
@@ -24,6 +23,7 @@ from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from nrtk.interfaces import PerturbVideo, VideoFrame
 from nrtk.interop._maite.metadata import NRTKDatumMetadata
 from nrtk.interop._maite.metadata._nrtk_datum_metadata import _forward_md_keys
+from nrtk.utils._array import to_numpy
 
 MULTIOBJECT_TRACKING_BATCH_T = tuple[Sequence[InputType], Sequence[TargetType], Sequence[DatumMetadataType]]
 
@@ -80,29 +80,28 @@ class MAITEMultiobjectTrackingAugmentation(Augmentation):
         frame: MAITEVideoFrameProtocol,
         single_frame_target: SingleFrameObjectTrackingTarget,
     ) -> VideoFrame:
+        # copy=True here only preserves what np.array did; nothing writes to these.
         frame_bboxes = [
             AxisAlignedBoundingBox(min_vertex=bbox[0:2], max_vertex=bbox[2:4])
-            for bbox in np.array(
-                single_frame_target.boxes,
-            )
+            for bbox in to_numpy(single_frame_target.boxes, copy=True)
         ]
         frame_labels = [
             {label: score}
             for label, score in zip(
-                np.array(single_frame_target.labels),
-                np.array(single_frame_target.scores),
+                to_numpy(single_frame_target.labels, copy=True),
+                to_numpy(single_frame_target.scores, copy=True),
                 strict=True,
             )
         ]
 
         return VideoFrame(
-            image=np.transpose(np.asarray(copy.deepcopy(frame.pixels)), (1, 2, 0)),
+            image=np.transpose(to_numpy(frame.pixels, copy=True), (1, 2, 0)),
             timestamp=frame.time_s,
             boxes=zip(frame_bboxes, frame_labels, strict=True),
             additional_params={
                 "pts": frame.pts,
                 "frame_index": frame.frame_index,
-                "track_ids": single_frame_target.track_ids,
+                "track_ids": to_numpy(single_frame_target.track_ids, copy=True),
             },
         )
 

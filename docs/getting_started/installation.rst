@@ -338,6 +338,11 @@ Generative Perturbers
         - ``diffusion``
         - ``torch``, ``diffusers``, ``accelerate``, ``Pillow``
 
+  .. note::
+     The ``diffusion`` extra runs on the CPU by default and on an NVIDIA GPU when
+     one is usable. Which PyTorch releases can reach the GPU depends on the
+     installed NVIDIA driver.
+
 Utility Perturbers
 ^^^^^^^^^^^^^^^^^^
 

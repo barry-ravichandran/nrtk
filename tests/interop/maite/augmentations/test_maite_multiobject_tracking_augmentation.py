@@ -1,6 +1,7 @@
 import copy
 from collections.abc import Sequence
 from fractions import Fraction
+from typing import Any
 
 import numpy as np
 import pytest
@@ -15,7 +16,7 @@ from nrtk.interop._maite.augmentations._maite_multiobject_tracking_augmentation 
     MAITESingleFrameObjectTrackingTarget,
     MAITEVideoFrame,
 )
-from tests.fakes import FakeImagePerturber
+from tests.fakes import FakeDeviceTensor, FakeImagePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
 from tests.utils import random_image
 
@@ -438,3 +439,72 @@ class TestMAITEMultiobjectTrackingAugmentation:
         assert "nrtk_perturber_config" in md_out[0]
         all_perturber_configs = [perturber.get_config() for perturber in perturbers]
         assert md_out[0].get("nrtk_perturber_config") == all_perturber_configs
+
+    @staticmethod
+    def _single_frame_batch(*, pixels: Any, boxes: Any, labels: Any, scores: Any, track_ids: Any = None) -> tuple:  # noqa: ANN401
+        """Build a one-frame, one-video batch around the given frame data."""
+        frame = MAITEVideoFrame(pixels=pixels, time_s=0.0, pts=0, frame_index=0)
+        target = MAITEMultiobjectTrackingTarget(
+            frame_tracks=[
+                MAITESingleFrameObjectTrackingTarget(
+                    boxes=boxes,
+                    labels=labels,
+                    scores=scores,
+                    track_ids=np.asarray([0]) if track_ids is None else track_ids,
+                ),
+            ],
+        )
+        md: DatumMetadataType = {"id": 1, "height": 8, "width": 8, "time_base": Fraction("1/60"), "size": 192}
+        return ([[frame]], [target], [md])
+
+    def test_device_tensor_batch(self) -> None:
+        """Test that frame data which cannot convert directly is still augmented.
+
+        The tracking wrapper converts the most per frame -- pixels, boxes, labels
+        and scores -- so it has the most to lose from a device-resident batch.
+        """
+        augmentation = MAITEMultiobjectTrackingAugmentation(
+            augment=FramewisePerturber(FakeImagePerturber()),
+            augment_id="test_augment",
+        )
+
+        pixels = np.arange(3 * 8 * 8, dtype=np.uint8).reshape((3, 8, 8))
+        batch = self._single_frame_batch(
+            pixels=FakeDeviceTensor(pixels),
+            boxes=FakeDeviceTensor(np.asarray([[1.0, 2.0, 3.0, 4.0]])),
+            labels=FakeDeviceTensor(np.asarray([0])),
+            scores=FakeDeviceTensor(np.asarray([0.8])),
+            track_ids=FakeDeviceTensor(np.asarray([7])),
+        )
+
+        frames_out, targets_out, _ = augmentation(batch)
+
+        frame_out = next(iter(frames_out[0]))
+        assert isinstance(frame_out.pixels, np.ndarray)
+        assert np.array_equal(frame_out.pixels, pixels)
+
+        track_out = targets_out[0].frame_tracks[0]
+        assert np.allclose(np.asarray(track_out.boxes), np.asarray([[1.0, 2.0, 3.0, 4.0]]))
+        # track_ids is passed through additional_params rather than converted with the
+        # boxes, so it needs its own assertion that it came back host-resident.
+        assert isinstance(track_out.track_ids, np.ndarray)
+        assert np.array_equal(track_out.track_ids, np.asarray([7]))
+
+    def test_perturber_cannot_write_through_to_input(self) -> None:
+        """Test that a perturber writing in place cannot reach the caller's frame."""
+        augmentation = MAITEMultiobjectTrackingAugmentation(
+            augment=FramewisePerturber(FakeImagePerturber(in_place_fill=0)),
+            augment_id="test_augment",
+        )
+
+        pixels = np.full((3, 8, 8), 7, dtype=np.uint8)
+        batch = self._single_frame_batch(
+            pixels=pixels,
+            boxes=np.asarray([[1.0, 2.0, 3.0, 4.0]]),
+            labels=np.asarray([0]),
+            scores=np.asarray([0.8]),
+        )
+
+        augmentation(batch)
+
+        assert np.array_equal(pixels, np.full((3, 8, 8), 7, dtype=np.uint8))

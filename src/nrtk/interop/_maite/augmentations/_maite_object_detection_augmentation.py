@@ -4,7 +4,6 @@ from __future__ import annotations
 
 __all__ = ["MAITEObjectDetectionAugmentation"]
 
-import copy
 from collections.abc import Iterable, Sequence
 from typing import TYPE_CHECKING
 
@@ -22,6 +21,7 @@ from nrtk.interfaces import PerturbImage
 from nrtk.interop._maite.datasets import MAITEObjectDetectionTarget
 from nrtk.interop._maite.metadata import NRTKDatumMetadata
 from nrtk.interop._maite.metadata._nrtk_datum_metadata import _forward_md_keys
+from nrtk.utils._array import to_numpy
 
 OBJ_DETECTION_BATCH_T = tuple[Sequence[InputType], Sequence[TargetType], Sequence[DatumMetadataType]]
 
@@ -72,20 +72,26 @@ class MAITEObjectDetectionAugmentation(Augmentation):  # pyright: ignore [report
 
         for img, img_anns, md in zip(imgs, anns, metadata, strict=False):  # pyright: ignore [reportArgumentType]
             # Perform augmentation
-            aug_img = np.asarray(copy.deepcopy(img))
+            aug_img = to_numpy(img, copy=True)
             aug_img = np.transpose(aug_img, (1, 2, 0))
 
             # format annotations for passing to perturber
+            # copy=True here only preserves what np.array did; nothing writes to these.
             img_bboxes = [
-                AxisAlignedBoundingBox(min_vertex=bbox[0:2], max_vertex=bbox[2:4]) for bbox in np.array(img_anns.boxes)
+                AxisAlignedBoundingBox(min_vertex=bbox[0:2], max_vertex=bbox[2:4])
+                for bbox in to_numpy(img_anns.boxes, copy=True)
             ]  # pyright: ignore [reportAttributeAccessIssue]
             img_labels = [
                 {label: score}
-                for label, score in zip(np.array(img_anns.labels), np.array(img_anns.scores), strict=False)  # pyright: ignore [reportAttributeAccessIssue]
+                for label, score in zip(  # pyright: ignore [reportAttributeAccessIssue]
+                    to_numpy(img_anns.labels, copy=True),
+                    to_numpy(img_anns.scores, copy=True),
+                    strict=False,
+                )
             ]
 
             aug_img, aug_img_anns = self.augment(
-                image=np.asarray(aug_img),
+                image=aug_img,
                 boxes=zip(img_bboxes, img_labels, strict=False),
                 **dict(md),
             )

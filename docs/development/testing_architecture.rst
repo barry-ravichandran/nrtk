@@ -85,6 +85,15 @@ where the factor directly corresponds to one of the project's optional extras
 factor installs nrtk with no extras, and ``doctests`` installs all of them.
 Run ``tox list`` to see every available environment.
 
+One factor is not an extra: appending ``-gpu`` (e.g. ``py313-diffusion-gpu``)
+leaves the extras alone and passes ``CUDA_VISIBLE_DEVICES`` through instead of
+blanking it, which is what every other environment does so results don't depend
+on the runner's hardware. The variable still has to be set — a ``-gpu`` environment
+run without it is CPU-only like any other. It is used by the GPU CI job, which sets
+it explicitly, to exercise the device-transfer paths in ``DiffusionPerturber`` and
+the MAITE augmentation wrappers; see :ref:`gpu-driver-compatibility` for the driver
+those paths require.
+
 Adding a New Implementation
 ---------------------------
 

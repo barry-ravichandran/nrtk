@@ -47,6 +47,9 @@
         RUNNER_TAG: medium-cpu
       - TOX_ENV: diffusion
         RUNNER_TAG: autoscaler
+      - TOX_ENV: diffusion-gpu
+        RUNNER_TAG: single-gpu
+        CUDA_VISIBLE_DEVICES: "0"
       - TOX_ENV: optional
         RUNNER_TAG: autoscaler
       - TOX_ENV: notebooks
@@ -241,9 +244,14 @@ tox:notebooks:examples:
           "pybsm_default_config.ipynb"
         ]
         RUNNER_TAG: autoscaler
-      - NOTEBOOK_DIR: "docs/examples"
-        NOTEBOOK_FILE: "generative_perturbers.ipynb"
-        RUNNER_TAG: single-gpu
+
+tox:notebooks:generative-gpu:
+  extends: .tox:notebooks
+  variables:
+    NOTEBOOK_DIR: "docs/examples"
+    NOTEBOOK_FILE: "generative_perturbers.ipynb"
+    RUNNER_TAG: single-gpu
+    CUDA_VISIBLE_DEVICES: "0"
 
 tox:notebooks:maite:
   extends: .tox:notebooks

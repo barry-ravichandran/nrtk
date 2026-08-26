@@ -14,6 +14,7 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionDataset,
     MAITEObjectDetectionTarget,
 )
+from tests.fakes import FakeDeviceTensor
 from tests.utils import random_image
 
 random = np.random.default_rng()
@@ -156,3 +157,40 @@ def test_dataset_to_coco(
             # loaded dataset.
             for k, v in md.items():  # pyright: ignore [reportAttributeAccessIssue]
                 assert v == c_md[k]
+
+
+@pytest.mark.maite
+@pytest.mark.tools
+def test_dataset_to_coco_device_resident_data(tmpdir: py.path.local) -> None:
+    """Test that a dataset whose elements cannot convert directly is still exported.
+
+    Regression test: the export used to call ``np.asarray`` straight on the image
+    and detections, which raises for a tensor still on an accelerator.
+    """
+    from nrtk.interop._maite.datasets import dataset_to_coco
+
+    tmp_path = Path(tmpdir)
+    pixels = random_image(size=(3, 10, 10))
+
+    dataset = MAITEObjectDetectionDataset(
+        imgs=[FakeDeviceTensor(pixels)],  # pyright: ignore [reportArgumentType]
+        dets=[
+            MAITEObjectDetectionTarget(
+                boxes=FakeDeviceTensor(np.asarray([[1.0, 2.0, 3.0, 4.0]])),  # pyright: ignore [reportArgumentType]
+                labels=FakeDeviceTensor(np.asarray([0])),  # pyright: ignore [reportArgumentType]
+                scores=np.asarray([0.8]),
+            ),
+        ],
+        datum_metadata=[{"id": 0}],
+        dataset_id="device-resident",
+    )
+
+    dataset_to_coco(
+        dataset=dataset,
+        output_dir=tmp_path,
+        img_filenames=[Path("img.png")],
+        dataset_categories=[{"id": 0, "name": "cat", "supercategory": None}],
+    )
+
+    assert (tmp_path / "annotations.json").is_file()
+    assert (tmp_path / "img_0.png").is_file()
