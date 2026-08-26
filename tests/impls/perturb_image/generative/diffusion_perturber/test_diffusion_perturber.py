@@ -17,6 +17,7 @@ from smqtk_core.configuration import configuration_test_helper
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 
 from nrtk.impls.perturb_image.generative import DiffusionPerturber
+from tests.fakes import FakeDeviceTensor
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
 from tests.utils import random_image
@@ -347,3 +348,84 @@ class TestDiffusionPerturber(PerturberTestsMixin):
                 assert not w, f"Expected no UserWarnings, but got: {[str(warn.message) for warn in w]}"
 
         mock_pipeline.to.assert_called_with(expected_device)
+
+    @pytest.mark.parametrize("tensor_device", ["cpu", "cuda"])
+    @patch(_BASE_TORCH)
+    @patch(_DIFFUSION_TORCH)
+    @patch(_DIFFUSION_PIPELINE)
+    @patch(_DIFFUSION_SCHEDULER)
+    def test_perturb_tensor_output(
+        self,
+        mock_scheduler_class: MagicMock,
+        mock_pipeline_class: MagicMock,
+        mock_torch: MagicMock,
+        mock_base_torch: MagicMock,
+        tensor_device: str,
+    ) -> None:
+        """Test that tensor pipeline output is converted, including from a CUDA device.
+
+        Regression test: the conversion used to call ``np.array`` straight on the
+        pipeline output, which raises ``TypeError: can't convert cuda:0 device
+        type tensor to numpy`` when the tensor is still on the GPU. The rest of
+        the suite mocks the pipeline with numpy arrays, so it never saw this.
+        """
+        torch = pytest.importorskip("torch")
+        if tensor_device == "cuda" and not torch.cuda.is_available():
+            pytest.skip("CUDA is not available")
+
+        # channels-first float in [0, 1], which is what a "pt" output looks like.
+        # Distinct per-channel values so the transpose and the scaling are both pinned.
+        channels = torch.tensor([0.0, 0.5, 1.0], dtype=torch.float32).reshape((3, 1, 1))
+        tensor_image = (channels * torch.ones((3, 256, 256), dtype=torch.float32)).to(tensor_device)
+
+        mock_pipeline = MagicMock()
+        mock_pipeline.return_value = ([tensor_image], False)
+        mock_pipeline_class.from_pretrained.return_value = mock_pipeline
+        mock_pipeline.to.return_value = mock_pipeline
+        mock_pipeline.scheduler.config = {"test": "config"}
+        mock_scheduler_class.from_config.return_value = MagicMock()
+        mock_torch.cuda.is_available.return_value = True
+        mock_base_torch.cuda.is_available.return_value = True
+
+        perturber = DiffusionPerturber(model_name="test/model", device=tensor_device, prompt="test", seed=42)
+
+        perturbed_image, _ = perturber.perturb(image=np.ones((256, 256, 3), dtype=np.uint8))
+
+        assert isinstance(perturbed_image, np.ndarray)
+        assert perturbed_image.shape == (256, 256, 3)
+        assert perturbed_image.dtype == np.uint8
+        # 0.5 -> 128 not 127: diffusers rounds, so truncating here would be off by one.
+        assert perturbed_image[0, 0].tolist() == [0, 128, 255]
+
+    @patch(_BASE_TORCH)
+    @patch(_DIFFUSION_TORCH)
+    @patch(_DIFFUSION_PIPELINE)
+    @patch(_DIFFUSION_SCHEDULER)
+    def test_perturb_device_tensor_output(
+        self,
+        mock_scheduler_class: MagicMock,
+        mock_pipeline_class: MagicMock,
+        mock_torch: MagicMock,
+        mock_base_torch: MagicMock,
+    ) -> None:
+        """Test that pipeline output which cannot convert directly is still handled.
+
+        The CUDA case above can only run on a GPU, so on every other runner nothing
+        checks that the conversion goes through ``to_numpy`` at all -- ``np.asarray``
+        works fine on a host tensor. This fakes the device so the check always runs.
+        """
+        mock_pipeline = MagicMock()
+        mock_pipeline.return_value = ([FakeDeviceTensor(np.zeros((256, 256, 3), dtype=np.uint8))], False)
+        mock_pipeline_class.from_pretrained.return_value = mock_pipeline
+        mock_pipeline.to.return_value = mock_pipeline
+        mock_pipeline.scheduler.config = {"test": "config"}
+        mock_scheduler_class.from_config.return_value = MagicMock()
+        mock_torch.cuda.is_available.return_value = True
+        mock_base_torch.cuda.is_available.return_value = True
+
+        perturber = DiffusionPerturber(model_name="test/model", device="cuda", prompt="test", seed=42)
+
+        perturbed_image, _ = perturber.perturb(image=np.ones((256, 256, 3), dtype=np.uint8))
+
+        assert isinstance(perturbed_image, np.ndarray)
+        assert perturbed_image.shape == (256, 256, 3)

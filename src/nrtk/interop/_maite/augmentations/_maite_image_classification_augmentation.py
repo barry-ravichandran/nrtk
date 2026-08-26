@@ -20,6 +20,7 @@ from maite.protocols.image_classification import (
 from nrtk.interfaces import PerturbImage
 from nrtk.interop._maite.metadata import NRTKDatumMetadata
 from nrtk.interop._maite.metadata._nrtk_datum_metadata import _forward_md_keys
+from nrtk.utils._array import to_numpy
 
 IMG_CLASSIFICATION_BATCH_T = tuple[Sequence[InputType], Sequence[TargetType], Sequence[DatumMetadataType]]
 
@@ -63,7 +64,7 @@ class MAITEImageClassificationAugmentation(Augmentation):  # pyright:  ignore [r
 
         for img, ann, md in zip(imgs, anns, metadata, strict=False):  # pyright: ignore [reportArgumentType]
             # Perform augmentation
-            aug_img = np.transpose(np.asarray(copy.deepcopy(img)), (1, 2, 0))  # Convert to channels-last
+            aug_img = np.transpose(to_numpy(img, copy=True), (1, 2, 0))  # Convert to channels-last
             aug_img, _ = self.augment(image=aug_img, boxes=None, **dict(md))
             if aug_img.ndim > 2:
                 # Convert back to channels first

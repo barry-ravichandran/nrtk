@@ -8,7 +8,7 @@ from maite.protocols.object_detection import DatumMetadataType, TargetType
 from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEObjectDetectionAugmentation
 from nrtk.interop._maite.datasets import MAITEObjectDetectionTarget
-from tests.fakes import FakeImagePerturber
+from tests.fakes import FakeDeviceTensor, FakeImagePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
 from tests.utils import random_image
 
@@ -138,3 +138,43 @@ class TestMAITEObjectDetectionAugmentation:
         assert "nrtk_perturber_config" in md_out[0]
         all_perturber_configs = [perturber.get_config() for perturber in perturbers]
         assert md_out[0].get("nrtk_perturber_config") == all_perturber_configs
+
+    def test_device_tensor_batch(self) -> None:
+        """Test that batch elements which cannot convert directly are still augmented.
+
+        Regression test: the adapter used to call ``np.asarray`` straight on the
+        batch elements, which raises for a tensor still on an accelerator. A CPU
+        tensor cannot catch that -- it converts fine -- so this fakes the device.
+        """
+        augmentation = MAITEObjectDetectionAugmentation(augment=FakeImagePerturber(), augment_id="test_augment")
+
+        pixels = np.arange(3 * 16 * 16, dtype=np.uint8).reshape((3, 16, 16))
+        target = MAITEObjectDetectionTarget(
+            boxes=FakeDeviceTensor(np.asarray([[1.0, 2.0, 3.0, 4.0]])),  # pyright: ignore [reportArgumentType]
+            labels=FakeDeviceTensor(np.asarray([0])),  # pyright: ignore [reportArgumentType]
+            scores=FakeDeviceTensor(np.asarray([0.8])),  # pyright: ignore [reportArgumentType]
+        )
+
+        imgs_out, targets_out, _ = augmentation(([FakeDeviceTensor(pixels)], [target], [{"id": 0}]))
+
+        assert isinstance(imgs_out[0], np.ndarray)
+        assert np.array_equal(imgs_out[0], pixels)
+        assert np.allclose(np.asarray(targets_out[0].boxes), np.asarray([[1.0, 2.0, 3.0, 4.0]]))
+
+    def test_perturber_cannot_write_through_to_input(self) -> None:
+        """Test that a perturber writing in place cannot reach the caller's image."""
+        augmentation = MAITEObjectDetectionAugmentation(
+            augment=FakeImagePerturber(in_place_fill=0),
+            augment_id="test_augment",
+        )
+
+        image = np.full((3, 4, 4), 7, dtype=np.uint8)
+        target = MAITEObjectDetectionTarget(
+            boxes=np.asarray([[1.0, 2.0, 3.0, 4.0]]),
+            labels=np.asarray([0]),
+            scores=np.asarray([0.8]),
+        )
+
+        augmentation(([image], [target], [{"id": 0}]))
+
+        assert np.array_equal(image, np.full((3, 4, 4), 7, dtype=np.uint8))

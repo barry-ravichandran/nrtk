@@ -7,7 +7,7 @@ from maite.protocols.image_classification import DatumMetadataType
 
 from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEImageClassificationAugmentation
-from tests.fakes import FakeImagePerturber
+from tests.fakes import FakeDeviceTensor, FakeImagePerturber
 from tests.interop.maite.perturber_fixtures import ResizePerturber
 from tests.utils import random_image
 
@@ -90,3 +90,27 @@ class TestMAITEImageClassificationAugmentation:
         assert "nrtk_perturber_config" in md_out[0]
         all_perturber_configs = [perturber.get_config() for perturber in perturbers]
         assert md_out[0].get("nrtk_perturber_config") == all_perturber_configs
+
+    def test_device_tensor_batch(self) -> None:
+        """Test that batch elements which cannot convert directly are still augmented."""
+        augmentation = MAITEImageClassificationAugmentation(augment=FakeImagePerturber(), augment_id="test_augment")
+
+        pixels = np.arange(3 * 8 * 8, dtype=np.uint8).reshape((3, 8, 8))
+
+        imgs_out, _, _ = augmentation(([FakeDeviceTensor(pixels)], [np.asarray([0])], [{"id": 0}]))
+
+        assert isinstance(imgs_out[0], np.ndarray)
+        assert np.array_equal(imgs_out[0], pixels)
+
+    def test_perturber_cannot_write_through_to_input(self) -> None:
+        """Test that a perturber writing in place cannot reach the caller's image."""
+        augmentation = MAITEImageClassificationAugmentation(
+            augment=FakeImagePerturber(in_place_fill=0),
+            augment_id="test_augment",
+        )
+
+        image = np.full((3, 4, 4), 7, dtype=np.uint8)
+
+        augmentation(([image], [np.asarray([0])], [{"id": 0}]))
+
+        assert np.array_equal(image, np.full((3, 4, 4), 7, dtype=np.uint8))

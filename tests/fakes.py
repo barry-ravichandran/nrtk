@@ -1,4 +1,4 @@
-"""Fake perturbers for testing perturb image factories."""
+"""Fakes and test doubles shared across the test suite."""
 
 from __future__ import annotations
 
@@ -14,6 +14,27 @@ from nrtk.interfaces import PerturbFactory, PerturbImage, PerturbImageFactory, P
 from nrtk.interfaces._perturb_data import PerturbData
 
 
+class FakeDeviceTensor:
+    """Array-like that refuses numpy conversion until it is moved to the host.
+
+    Stands in for a device tensor without needing torch or a GPU: a path reaching
+    for ``np.asarray`` instead of ``to_numpy`` fails here, where a CPU tensor
+    would convert fine and hide the bug.
+    """
+
+    def __init__(self, array: np.ndarray) -> None:
+        self._array = np.asarray(array)
+
+    def detach(self) -> FakeDeviceTensor:
+        return self
+
+    def cpu(self) -> np.ndarray:
+        return self._array.copy()  # a real .cpu() allocates a fresh host buffer
+
+    def __array__(self, dtype: Any = None, copy: bool | None = None) -> np.ndarray:  # noqa: ANN401
+        raise TypeError("can't convert cuda:0 device type tensor to numpy")
+
+
 class FakeImagePerturber(PerturbImage):
     """Fake image perturber for testing purposes.
 
@@ -21,11 +42,23 @@ class FakeImagePerturber(PerturbImage):
     This allows it to be used with any theta_key in factory tests.
 
     Default parameters param1 and param2 are provided for common test cases.
+
+    With in_place_fill set, perturb() writes that value into the image it is given
+    and returns that same buffer rather than a copy, which is what lets a test tell
+    whether an adapter really copied before handing the image over.
     """
 
-    def __init__(self, *, param1: float = 1, param2: float = 2, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        *,
+        param1: float = 1,
+        param2: float = 2,
+        in_place_fill: int | None = None,
+        **kwargs: Any,
+    ) -> None:
         self.param1 = param1
         self.param2 = param2
+        self.in_place_fill = in_place_fill
         self._extra_kwargs = kwargs
 
     @override
@@ -39,11 +72,17 @@ class FakeImagePerturber(PerturbImage):
         np.ndarray[Any, Any],
         Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None,
     ]:  # pragma: no cover
+        if self.in_place_fill is not None:
+            image[...] = self.in_place_fill
+            return image, boxes
         return np.copy(image), deepcopy(boxes)
 
     @override
     def get_config(self) -> dict[str, Any]:
         config: dict[str, Any] = {"param1": self.param1, "param2": self.param2}
+        # Only when set, so the factory tests' expected_config dicts stay as they are.
+        if self.in_place_fill is not None:
+            config["in_place_fill"] = self.in_place_fill
         config.update(self._extra_kwargs)
         return config
 

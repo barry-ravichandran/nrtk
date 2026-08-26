@@ -46,6 +46,7 @@ from transformers import CLIPTextModel
 from typing_extensions import override
 
 from nrtk.impls.perturb_image._base._torch_random_perturb_image import TorchRandomPerturbImage
+from nrtk.utils._array import to_numpy
 
 
 class DiffusionPerturber(TorchRandomPerturbImage):
@@ -247,6 +248,28 @@ class DiffusionPerturber(TorchRandomPerturbImage):
         """Return torch generator from base class. Manages reproducibility."""
         return self._generator
 
+    @staticmethod
+    def _to_uint8_image(image: Any) -> np.ndarray[Any, Any]:  # noqa: ANN401
+        """Normalize a single pipeline output into an ``(H, W, C)`` uint8 array.
+
+        Args:
+            image: A single image from the pipeline result: PIL, numpy, or tensor.
+
+        Returns:
+            The image as an ``(H, W, C)`` uint8 numpy array.
+        """
+        array = to_numpy(image)
+
+        # Tensor output is channels-first; PIL and numpy output is already channels-last.
+        if array.ndim == 3 and array.shape[0] in {1, 3, 4} and array.shape[-1] not in {1, 3, 4}:
+            array = np.transpose(array, (1, 2, 0))
+
+        # diffusers converts with (images * 255).round(); truncating is off by one.
+        if np.issubdtype(array.dtype, np.floating):
+            array = np.rint(np.clip(array, 0.0, 1.0) * 255.0)
+
+        return array.astype(np.uint8)
+
     @override
     def perturb(
         self,
@@ -300,15 +323,16 @@ class DiffusionPerturber(TorchRandomPerturbImage):
                 guidance_scale=self.text_guidance_scale,
                 image_guidance_scale=self.image_guidance_scale,
                 generator=generator,
+                output_type="pil",
                 return_dict=False,
             )
             # pull single image from list of images
             _images, _ = pipeline_result
 
             if isinstance(_images, Image):
-                perturbed_image = np.array(_images, dtype=np.uint8)
+                perturbed_image = self._to_uint8_image(_images)
             else:
-                perturbed_image = np.array(_images[0], dtype=np.uint8)
+                perturbed_image = self._to_uint8_image(_images[0])
 
             return perturbed_image, perturbed_boxes
 

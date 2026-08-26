@@ -30,6 +30,7 @@ from nrtk.interop._maite.datasets._maite_object_detection_dataset import (
     MAITEObjectDetectionTarget,
     _xywh_bbox_xform,
 )
+from nrtk.utils._array import to_numpy
 from nrtk.utils._logging import setup_logging
 
 logger: logging.Logger = setup_logging(name=__name__)
@@ -225,11 +226,11 @@ def dataset_to_coco(
         filename = output_dir / f"{img_filename.with_suffix('')}_{metadata['id']}{img_filename.suffix}"
         filename.parent.mkdir(parents=True, exist_ok=True)
 
-        im = Image.fromarray(np.transpose(np.asarray(image), (1, 2, 0)))
+        im = Image.fromarray(np.transpose(to_numpy(image), (1, 2, 0)))
         im.save(filename)
 
-        labels = np.asarray(dets.labels)
-        bboxes = np.asarray(dets.boxes)
+        labels = to_numpy(dets.labels)
+        bboxes = to_numpy(dets.boxes)
         annotations.add_images([{"id": i, "file_name": str(filename)}])
         for lbl, bbox in zip(labels, bboxes, strict=False):
             annotations.add_annotation(
