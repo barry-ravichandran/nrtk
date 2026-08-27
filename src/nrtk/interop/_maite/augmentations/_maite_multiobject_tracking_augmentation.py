@@ -81,6 +81,11 @@ class MAITEMultiobjectTrackingAugmentation(Augmentation):
         single_frame_target: SingleFrameObjectTrackingTarget,
         datum_params: dict[str, Any] | None = None,
     ) -> VideoFrame:
+        # maite makes time_s optional for containers without a usable time base, but
+        # VideoFrame requires a timestamp, so an absent one cannot be carried across.
+        if frame.time_s is None:
+            raise ValueError("MAITE video frame has no time_s; NRTK's VideoFrame requires a timestamp.")
+
         # copy=True here only preserves what np.array did; nothing writes to these.
         frame_bboxes = [
             AxisAlignedBoundingBox(min_vertex=bbox[0:2], max_vertex=bbox[2:4])
