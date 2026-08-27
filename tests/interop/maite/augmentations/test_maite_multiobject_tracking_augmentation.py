@@ -383,7 +383,7 @@ class TestMAITEMultiobjectTrackingAugmentation:
         # Check that input data was not modified
         for frame_in, frame_copy in zip(vid_in, vid_copy, strict=True):
             assert np.allclose(frame_in.pixels, frame_copy.pixels)
-            assert np.isclose(frame_in.time_s, frame_copy.time_s)
+            assert frame_in.time_s == frame_copy.time_s
             assert frame_in.pts == frame_copy.pts
             assert frame_in.frame_index == frame_copy.frame_index
         assert len(targets_copy.frame_tracks) == len(targets_in.frame_tracks)

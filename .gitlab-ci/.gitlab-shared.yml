@@ -6,6 +6,8 @@
   image: python:3.10
   interruptible: true
   allow_failure: false
+  # Retrying helps with runner failures and driver incompatibilities
+  retry: 1
   needs: []
   dependencies: []
   rules:
