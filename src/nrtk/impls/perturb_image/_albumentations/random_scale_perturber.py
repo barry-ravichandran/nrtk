@@ -27,7 +27,7 @@ from typing import Any
 import cv2
 from typing_extensions import override
 
-from nrtk.impls.perturb_image import AlbumentationsPerturber
+from nrtk.impls.perturb_image._albumentations.albumentations_perturber import AlbumentationsPerturber
 
 
 class RandomScalePerturber(AlbumentationsPerturber):

@@ -44,9 +44,12 @@ RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
     pip install torch --index-url https://download.pytorch.org/whl/cpu
 
 COPY --from=wheel-builder /dist /tmp/dist
+# Install the locally built wheel by explicit path (not `nrtk[...]`), so pip
+# cannot substitute a same-versioned release from PyPI. Extras' transitive
+# dependencies still resolve from the index normally.
 RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
-    pip install --find-links /tmp/dist \
-    "nrtk[pybsm,maite,tools,headless,pillow,skimage,albumentations,waterdroplet,diffusion]" && \
+    WHEEL="$(ls -1 /tmp/dist/nrtk-*.whl | head -n1)" && \
+    pip install "${WHEEL}[pybsm,maite,tools,headless,pillow,skimage,albumentations,waterdroplet,diffusion,hcipy,pyav]" && \
     rm -rf /tmp/dist
 
 # Set non-root user
@@ -55,9 +58,13 @@ USER appuser
 
 # Setup environment variables with default args
 ENV INPUT_DATASET_PATH="/input/data/dataset/"
+ENV INPUT_DATASET_FORMAT="COCO"
 ENV OUTPUT_DATASET_PATH="/output/data/result/"
+ENV OUTPUT_DATASET_FORMAT="COCO"
 ENV CONFIG_FILE="/input/nrtk_config.json"
 ENV COMBINE_OUTPUT="false"
+ENV ENABLE_EXPERIMENTAL="false"
+ENV OVERWRITE="false"
 
 ENTRYPOINT [ "/usr/local/bin/nrtk-perturber" ]
 
@@ -76,7 +83,7 @@ RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
 
 ARG NRTK_VERSION
 RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
-    pip install "nrtk[pybsm,maite,tools,headless,pillow,skimage,albumentations,waterdroplet,diffusion]==${NRTK_VERSION}"
+    pip install "nrtk[pybsm,maite,tools,headless,pillow,skimage,albumentations,waterdroplet,diffusion,hcipy,pyav]==${NRTK_VERSION}"
 
 # Set non-root user
 RUN useradd --uid 100 --create-home --shell /bin/bash appuser
@@ -84,8 +91,13 @@ USER appuser
 
 # Setup environment variables with default args
 ENV INPUT_DATASET_PATH="/input/data/dataset/"
+ENV INPUT_DATASET_FORMAT="COCO"
 ENV OUTPUT_DATASET_PATH="/output/data/result/"
+ENV OUTPUT_DATASET_FORMAT="COCO"
 ENV CONFIG_FILE="/input/nrtk_config.json"
+ENV COMBINE_OUTPUT="false"
+ENV ENABLE_EXPERIMENTAL="false"
+ENV OVERWRITE="false"
 
 ENTRYPOINT [ "/usr/local/bin/nrtk-perturber" ]
 
