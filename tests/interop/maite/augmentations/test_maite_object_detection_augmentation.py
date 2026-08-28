@@ -9,7 +9,7 @@ from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEObjectDetectionAugmentation
 from nrtk.interop._maite.datasets import MAITEObjectDetectionTarget
 from tests.fakes import FakeDeviceTensor, FakeImagePerturber
-from tests.interop.maite.perturber_fixtures import ResizePerturber
+from tests.interop.maite.perturber_fixtures import ResizePerturber, StridePreservingPerturber
 from tests.utils import random_image
 
 
@@ -178,3 +178,35 @@ class TestMAITEObjectDetectionAugmentation:
         augmentation(([image], [target], [{"id": 0}]))
 
         assert np.array_equal(image, np.full((3, 4, 4), 7, dtype=np.uint8))
+
+    def test_perturber_receives_contiguous_image(self) -> None:
+        """Test that a datum with an awkward memory layout still reaches the perturber contiguous.
+
+        Channels-first data is often a view rather than its own buffer, and transposing
+        it to channels-last only produces another view. Perturbers return an array
+        carrying their input's strides, so without a copy the caller gets a
+        non-contiguous image back, which consumers such as ultralytics reject.
+        """
+        perturber = StridePreservingPerturber()
+        augmentation = MAITEObjectDetectionAugmentation(augment=perturber, augment_id="test_augment")
+
+        # Built the way the example notebooks build theirs: read as RGB, reversed to
+        # BGR, then transposed to channels-first. Neither step copies.
+        img_in = np.transpose(random_image(size=(256, 256, 3))[:, :, ::-1], (2, 0, 1))
+        assert not img_in.flags["C_CONTIGUOUS"]
+
+        targets: Sequence[TargetType] = [  # pyright: ignore [reportInvalidTypeForm]
+            MAITEObjectDetectionTarget(
+                boxes=np.asarray([[1.0, 2.0, 3.0, 4.0]]),
+                labels=np.asarray([0]),
+                scores=np.asarray([0.8]),
+            ),
+        ]
+        md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
+
+        imgs_out, _, _ = augmentation(([img_in], targets, md_in))
+
+        assert perturber.saw_contiguous_input
+        # The adapter hands back a channels-first view, so a caller transposing to
+        # channels-last recovers the contiguous buffer the perturber worked on.
+        assert np.transpose(imgs_out[0], (1, 2, 0)).flags["C_CONTIGUOUS"]

@@ -101,7 +101,7 @@ class MAITEMultiobjectTrackingAugmentation(Augmentation):
         ]
 
         return VideoFrame(
-            image=np.transpose(to_numpy(frame.pixels, copy=True), (1, 2, 0)),
+            image=np.transpose(to_numpy(frame.pixels), (1, 2, 0)).copy(),
             timestamp=frame.time_s,
             boxes=zip(frame_bboxes, frame_labels, strict=True),
             additional_params={
