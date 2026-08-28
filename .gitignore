@@ -147,6 +147,9 @@ cython_debug/
 # Example notebooks
 docs/examples/data
 docs/examples/pybsm/data
+# Seeded into / downloaded to the working directory by the papermill tox env
+/yolo11n.pt
+/data/
 
 # cosign private key
 cosign.key
