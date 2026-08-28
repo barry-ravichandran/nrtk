@@ -1,6 +1,6 @@
 {
   "codec": "h264",
-  "codec_fourcc": "h264",
+  "codec_fourcc": "avc1",
   "codec_label": "H.264",
   "container": "mp4",
   "duration": 5.005,

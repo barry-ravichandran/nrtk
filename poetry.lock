@@ -291,7 +291,7 @@ description = "Astronomy and astrophysics core library"
 optional = true
 python-versions = ">=3.11"
 groups = ["main"]
-markers = "extra == \"hcipy\" and python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" and extra == \"hcipy\""
 files = [
     {file = "astropy-8.0.1-cp311-abi3-macosx_10_9_x86_64.whl", hash = "sha256:24813c764d5ea111e7f716127121e22a0cfe233ca1eac2ed23c4a3848390610e"},
     {file = "astropy-8.0.1-cp311-abi3-macosx_11_0_arm64.whl", hash = "sha256:222f0b9837e79fd3d101e6d4e4579e3aa98c490000bb01e35cd32fd3e3c12bf5"},
@@ -1162,15 +1162,15 @@ tests = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
 name = "datamaite"
-version = "0.4.1"
+version = "0.5.0"
 description = "A unified framework for dataset loading, conversion, and quality validation."
 optional = true
 python-versions = "<3.15,>=3.10"
 groups = ["main"]
 markers = "extra == \"tools\""
 files = [
-    {file = "datamaite-0.4.1-py3-none-any.whl", hash = "sha256:4e4533511c11d54d02cc648be606c73797ea987bce3178fc181f7f67163b8064"},
-    {file = "datamaite-0.4.1.tar.gz", hash = "sha256:9b9706e858dc3c400d46229a96c9f01e813cc43f9b4a4c1a72e6a83e07c0dd45"},
+    {file = "datamaite-0.5.0-py3-none-any.whl", hash = "sha256:3a8d8510dc227e27602f3cdf4294b7777d4bfdf719e8eb970a933958a26db8bd"},
+    {file = "datamaite-0.5.0.tar.gz", hash = "sha256:5c3d30034b80d1c6b4ef7f77bb5cfcda8a786e74c4269c4f61012081e5d332af"},
 ]
 
 [package.dependencies]
@@ -2712,7 +2712,7 @@ description = "lightweight wrapper around basic LLVM functionality"
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "(extra == \"pybsm\" or extra == \"waterdroplet\") and python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" and (extra == \"pybsm\" or extra == \"waterdroplet\")"
 files = [
     {file = "llvmlite-0.47.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:41270b0b1310717f717cf6f2a9c68d3c43bd7905c33f003825aebc361d0d1b17"},
     {file = "llvmlite-0.47.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:f9d118bc1dd7623e0e65ca9ac485ec6dd543c3b77bc9928ddc45ebd34e1e30a7"},
@@ -3375,7 +3375,7 @@ description = "compiling Python code using LLVM"
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "(extra == \"pybsm\" or extra == \"waterdroplet\") and python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" and (extra == \"pybsm\" or extra == \"waterdroplet\")"
 files = [
     {file = "numba-0.65.1-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:9d993ed0a257aa4116e6f553f114004bcfdee540c7276ab8ea48f650d514c452"},
     {file = "numba-0.65.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:5f098109f361681e57295f7e84d8ab2426902539a141811de0703ace52826981"},
@@ -3923,7 +3923,7 @@ description = "Wrapper package for OpenCV python bindings."
 optional = true
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "extra == \"graphics\" and python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" and extra == \"graphics\""
 files = [
     {file = "opencv_python-4.13.0.92-cp37-abi3-macosx_13_0_arm64.whl", hash = "sha256:caf60c071ec391ba51ed00a4a920f996d0b64e3e46068aac1f646b5de0326a19"},
     {file = "opencv_python-4.13.0.92-cp37-abi3-macosx_14_0_x86_64.whl", hash = "sha256:5868a8c028a0b37561579bfb8ac1875babdc69546d236249fff296a8c010ccf9"},
@@ -3971,7 +3971,7 @@ description = "Wrapper package for OpenCV python bindings."
 optional = true
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "(extra == \"headless\" or extra == \"tools\") and python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" and (extra == \"headless\" or extra == \"tools\")"
 files = [
     {file = "opencv_python_headless-4.13.0.92-cp37-abi3-macosx_13_0_arm64.whl", hash = "sha256:1a7d040ac656c11b8c38677cc8cccdc149f98535089dbe5b081e80a4e5903209"},
     {file = "opencv_python_headless-4.13.0.92-cp37-abi3-macosx_14_0_x86_64.whl", hash = "sha256:3e0a6f0a37994ec6ce5f59e936be21d5d6384a4556f2d2da9c2f9c5dc948394c"},
@@ -7292,7 +7292,7 @@ description = "Read and write TIFF files"
 optional = true
 python-versions = ">=3.12"
 groups = ["main"]
-markers = "(extra == \"tools\" or extra == \"skimage\") and python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" and (extra == \"tools\" or extra == \"skimage\")"
 files = [
     {file = "tifffile-2026.5.2-py3-none-any.whl", hash = "sha256:5129b53b826e768a5b1af26b765eeea75c2d0a227d2d12849617e0737588e105"},
     {file = "tifffile-2026.5.2.tar.gz", hash = "sha256:21b10227ede8493814a34676774797f721f487e36cb0530e7c3bd882caa87f5a"},
@@ -8125,4 +8125,4 @@ waterdroplet = ["numba", "scipy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.15"
-content-hash = "543be46816b4f063d03c7244020a886ed23c196ea6357bba85b84549f13724fb"
+content-hash = "f35597c1a50d154edb303c92bccc067f307d52f6e5cb69ec18254c42ac9d0711"
