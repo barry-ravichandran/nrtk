@@ -1,0 +1,244 @@
+v1.1.0
+======
+
+This is the first minor release since v1.0 and introduces full-motion video (FMV) support.
+
+FMV support is available through a new opt-in experimental namespace, ``nrtk.experimental``.
+This namespace provides a way to quickly preview features and APIs that are still in
+development. These features and APIs do not yet have the same stability guarantees as the
+rest of the NRTK package and may change without warning.
+
+This release also adds support for Python 3.14.
+
+Breaking Changes
+----------------
+
+* ``nrtk_perturber_cli`` now uses ``datamaite`` to write datasets, so the file structure of
+  the output COCO dataset differs from previous versions. The ``annotations.json`` file is
+  one directory deeper and ``image_metadata.json`` is no longer written out.
+
+Deprecations
+------------
+
+* Deprecated the ``PerturbImageFactory`` interface in favor of ``nrtk.interfaces.PerturbFactory``.
+
+* Deprecated attributes that were inadvertently advertised as public in ``PerturbFactory`` classes.
+
+Updates / New Features
+----------------------
+
+**Experimental Features**
+
+* NRTK now has an opt-in space for experimental, in-development features. Add ``import nrtk.experimental``
+  to enable them. Without it, experimental APIs won't import; with it, the first use of one warns that
+  its API may change without a deprecation warning.
+
+* Added a ``PerturbVideo`` interface and a ``VideoFrame`` data structure for writing video
+  perturbers, importable from ``nrtk.interfaces``.
+
+* Added ``FramewisePerturber``, which applies an image perturber to each frame of a video.
+
+* Added ``TurbulenceVideoPerturber`` for physics-based atmospheric turbulence simulation on video using
+  HCIPy, and added ``hcipy`` as an optional dependency.
+
+* Added ``CodecMacroblockPerturber`` for codec-backed video macroblocking perturbations using PyAV.
+  This includes codec quality controls, explicit rate-control options, optional packet-loss simulation,
+  normalized floating-point frame input, and black-frame filling for missing decoded frames.
+
+* Added ``nrtk.interop.MAITEMultiobjectTrackingAugmentation`` for multi-object tracking (MOT)
+  workflows, applying an NRTK video perturber to a MAITE tracking dataset.
+
+.. note::
+
+   With experimental features enabled, ``get_impls()`` now reports experimental
+   implementations, alongside stable implementations. If you have not opted into
+   experimental features, only stable implementations will be reported.
+
+**Perturbation Factories**
+
+* Added support for factories with FMV perturbers via a new Generic ``PerturbFactory`` interface. Implementations
+  can be found at ``nrtk.impls.perturb_factory``.
+
+**PyBSM Improvements**
+
+* ``PybsmPerturber`` now converts photoelectrons to pixels using pyBSM's sensor-calibrated
+  radiometric conversion, so sensor and scenario settings affect output brightness and contrast.
+  Pass ``pixel_conversion_mode="minmax"`` for the previous behavior.
+
+* Updated ``PybsmPerturberMixin`` to only enforce exact atmosphere database values for
+  ``altitude`` and ``ground_range`` when ``interp=False``.
+
+**Import Guards**
+
+* Using an implementation whose extra is not installed now raises the same error everywhere,
+  naming the missing extra and the exact ``pip install`` command for it.
+
+**Entrypoint & Container Updates**
+
+* Added a new option ``--combine_output`` to ``nrtk-perturber-cli`` to allow for augmented datasets to be
+  flattened into one dataset.
+
+* Added support for FMV perturbers in ``nrtk_perturber_cli``.
+
+* Updated ``nrtk_perturber_cli`` to use ``datamaite`` for loading and writing datasets. New
+  ``--input_dataset_format`` and ``--output_dataset_format`` options accept any format
+  `datamaite <https://pypi.org/project/datamaite/>`_ supports, so the CLI can now read one
+  format and write another rather than being limited to COCO.
+
+**Dependencies & Platform Support**
+
+* Added support for Python version 3.14.
+
+* Updated the ``pybsm`` optional dependency pin from ``>=0.14.3`` to ``>=0.16.0``.
+
+* Relaxed the ``maite`` optional dependency pin from ``>=0.9.5,<0.10.0`` to
+  ``>=0.9.5,<1.0.0``.
+
+* Added a temporary ``pytest<9.0.0`` upper bound until ``pytest-codeblock``
+  patches its deprecated ``pytest_collect_file`` hook for pytest 9.
+
+* The ``hcipy`` extra pins ``xxhash<4.0.0``. This is temporary, pending ``hcipy`` 0.7.1,
+  which will either pin ``xxhash`` itself or stop hashing ``str``.
+
+Fixes
+-----
+
+* Fixed ``get_impls()`` returning NRTK's private base classes and helpers alongside
+  the real implementations.
+
+* Fixed passing GPU-resident tensors to the MAITE augmentation wrappers, which used to
+  raise ``TypeError: can't convert cuda:0 device type tensor to numpy``. Batch images,
+  boxes, labels, and scores are now copied back to host memory first.
+
+* Fixed the MAITE augmentation wrappers returning perturbed images that were not
+  C-contiguous, which libraries such as ``ultralytics`` reject.
+
+* Fixed ``DiffusionPerturber`` failing on GPU-resident pipeline output. Perturbed images
+  are now returned as channels-last ``uint8`` arrays regardless of the compute device.
+
+* Fixed ``TQDM_DISABLE`` having no effect on ``DiffusionPerturber``. Setting it now suppresses
+  the diffusion progress bar.
+
+* Fixed ``dataset_to_coco`` raising on GPU-resident datasets. Images, boxes, and labels are
+  now copied back to host memory before export, so a MAITE dataset backed by a GPU
+  dataloader can be written out directly.
+
+* Fixed ``dataset_to_coco`` failing when the length of ``dataset`` is a multiple of the
+  length of ``img_filenames``.
+
+* Fixed a type error in ``COCOMAITEObjectDetectionDataset`` when constructing its ``DatasetMetadata``.
+
+* Fixed ``PerturbImageFactory.get_default_config()`` returning a non-default value for the ``perturber`` parameter.
+  This parameter no longer reports a default value, consistent with the constructor.
+
+* Fixed ``nrtk.impls`` advertising a ``perturb`` submodule that does not exist, and
+  never advertising ``perturb_image``.
+
+* Fixed ``nrtk.entrypoints`` not being attached to the ``nrtk`` package, so
+  ``import nrtk`` followed by ``nrtk.entrypoints`` raised ``AttributeError`` where
+  every other subpackage resolved.
+
+* Fixed ``nrtk.impls.perturb_image.optical.otf.load_default_config`` being dropped from
+  ``__all__`` without the ``pybsm`` extra. It reads JSON into a plain dict and needs
+  pybsm neither to import nor to call.
+
+* Fixed a bug with ``build-from-source`` in ``Dockerfile`` not consistently building from source.
+
+* Fixed a medium-severity vulnerability in ``Dockerfile`` by updating ``pip`` to ``26.1.2``.
+
+* Fixed a few docstrings where an attribute was misnamed.
+
+
+Documentation
+-------------
+
+* Added a one-pager explaining best practices for using ``FramewisePerturber``.
+
+* Added an experimental ``FramewisePerturber`` T&E guide.
+
+* Documented the NVIDIA driver versions required to use a GPU with the ``diffusion``
+  extra, including how to install a PyTorch build matching an older driver's CUDA
+  version.
+
+* Renamed documentation pages and notebook files to better match their current content and updated cross-references.
+
+* Fixed the reference documentation for ``nrtk_perturber``, which showed a list of
+  internal Python methods instead of the function's signature, arguments, and
+  description.
+
+* Updated broken and redirected external URLs.
+
+Developer Notes
+---------------
+
+**Testing & CI**
+
+* Replaced the per-module ``ImportGuardTestsMixin`` subclasses with
+  ``tests/test_guard_declarations.py``, which checks every ``guard()`` call site rather
+  than re-testing one shared code path once per module. It verifies that each extra
+  named in a ``Group`` really exists, that no symbol is claimed by
+  two groups and no class is published from two modules, that the ``if TYPE_CHECKING:``
+  block and the declaration agree, and that every declared symbol either resolves or
+  raises an ``ImportError`` naming the extras it needs.
+
+* Replaced the per-module canary tests with ``tests/test_guard_canaries.py``, which
+  generates one case per ``Group`` that declares extras and carries the marker for those
+  extras. Adding an implementation no longer means writing a canary, and every declared
+  group now has one.
+
+* Added an end-to-end discovery check that runs against a test fixture rather than a real
+  implementation. That a real module is registered for discovery is checked directly, by
+  asserting every module publishing implementations has an ``smqtk_plugins`` entry.
+
+* Changed import-guard testing to stop simulating missing dependencies. A symbol is
+  either importable in a given environment or it is not, so the ``core`` environment now
+  covers every "extra is missing" path and ``optional`` covers every "extra is present"
+  path, without evicting anything from ``sys.modules``.
+
+* Added ``pytest-codeblock`` to test the code blocks in our documentation, and updated
+  various code blocks to work with it.
+
+* Added a ``gpu`` factor to ``tox.ini`` and a CI job running the ``diffusion-gpu``
+  environment on every supported Python version, so the device-transfer paths are
+  exercised on a real GPU. Every other test environment stays CPU-only. This also fixes
+  the generative perturber notebook running on the CPU despite being scheduled on a GPU
+  runner.
+
+* Added a canary that fails when an environment requests a GPU that ``torch`` cannot use.
+
+* Added ``retry: 1`` to the shared CI job template, so transient runner failures no longer
+  need a manual re-run. ``publish`` opts out, since publishing is not idempotent.
+
+* Replaced separate linting CI jobs with a single git pre-commit hook.
+
+* Fixed the local ``pre-commit`` hooks hard-coding ``poetry run``, which pinned every
+  check to one environment regardless of how it was invoked. They are now bare commands,
+  so ``tox -e precommit`` (what CI runs), ``poetry run pre-commit run --all-files`` and
+  the git hook all run the same checks in the environment they were started from.
+
+* Renamed the ``pre-commit`` tox environment to ``precommit``, so it is run with
+  ``tox -e precommit``. tox splits environment names on hyphens into factors, so the
+  hyphenated name was never a literal name and only matched dependency conditionals as
+  the factors ``pre`` and ``commit``. The GitLab quality job was renamed to match.
+
+* Added ``NUMBA_NUM_THREADS`` to ``pass_env`` in ``tox.ini``, so the numba-backed
+  environments can be kept from claiming every core.
+
+* Consolidated the RNG logic used in tests and prevented order-dependent behavior.
+
+* Added a missing ``_create_perturber`` test to the factory mixin class.
+
+* Removed the ``docs/examples/maite/jatic-perturbations-saliency.ipynb`` example
+  notebook, along with its references in CI, the pyright notebook test list, and
+  the now-unused ``datasets`` pin in ``tox.ini``.
+
+* Upgraded to DSO Components v1.1.0.
+
+**Documentation**
+
+* Documented how to add an implementation behind a guard in
+  ``docs/development/import_guards.rst``.
+
+* Updated ``docs/development/testing_architecture.rst`` to describe the ``precommit``
+  tox environment and its single CI job, and to include the ``hcipy`` factor in the tox
+  matrix and runner-tag lists.
