@@ -42,3 +42,27 @@ class ResizePerturber(PerturbImage):
     @override
     def get_config(self) -> dict[str, Any]:
         return {"w": self.w, "h": self.h}
+
+
+class StridePreservingPerturber(PerturbImage):
+    """Perturber that records whether the image it was handed is C-contiguous.
+
+    Returns a view carrying its input's strides, the way the element-wise perturbers
+    do, so a test can check both what the adapter passed in and what a caller gets
+    back out of the round trip.
+    """
+
+    def __init__(self) -> None:
+        self.saw_contiguous_input: bool | None = None
+
+    @override
+    def perturb(
+        self,
+        *,
+        image: np.ndarray,
+        boxes: Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None = None,
+        **_: Any,
+    ) -> tuple[np.ndarray, Iterable[tuple[AxisAlignedBoundingBox, dict[Hashable, float]]] | None]:
+        """Record the input's contiguity and return a stride-preserving view of it."""
+        self.saw_contiguous_input = bool(image.flags["C_CONTIGUOUS"])
+        return image[...], boxes

@@ -43,7 +43,7 @@ class TurbulenceAperturePerturber(PybsmPerturberMixin):
     It supports adjustable wavelengths, weights, and other environmental parameters for
     realistic perturbations.
 
-    See https://pybsm.readthedocs.io/en/latest/explanation.html for image formation concepts and parameter details.
+    See https://pybsm.readthedocs.io/en/stable/explanation.html for image formation concepts and parameter details.
     """
 
     def __init__(  # noqa: C901 - sensor/scenario initialization with unavoidable branching

@@ -30,6 +30,7 @@ from nrtk.interop._maite.datasets._maite_object_detection_dataset import (
     MAITEObjectDetectionTarget,
     _xywh_bbox_xform,
 )
+from nrtk.utils._array import to_numpy
 from nrtk.utils._logging import setup_logging
 
 logger: logging.Logger = setup_logging(name=__name__)
@@ -124,7 +125,7 @@ class COCOMAITEObjectDetectionDataset(Dataset):  # pyright: ignore [reportGenera
             raise ValueError("Image metadata length mismatch, metadata needed for every image.")
 
         self.metadata: DatasetMetadata = DatasetMetadata(
-            id=dataset_id if dataset_id else kwcoco_dataset.fpath,
+            id=dataset_id if dataset_id else str(kwcoco_dataset.fpath),
             index2label={c["id"]: c["name"] for c in kwcoco_dataset.cats.values()},
         )
 
@@ -205,10 +206,15 @@ def dataset_to_coco(
 
     Raises:
         ValueError:
+            Image filename is empty
+        ValueError:
             Image filename and dataset length mismatch.
     """
-    if len(img_filenames) != len(dataset):
-        raise ValueError(f"Image filename and dataset length mismatch ({len(img_filenames)} != {len(dataset)})")
+    if len(img_filenames) == 0:
+        raise ValueError("Image filenames is empty")
+
+    if len(dataset) % len(img_filenames) != 0:
+        raise ValueError(f"Image filename and dataset length mismatch ({len(dataset)} % {len(img_filenames)} != 0)")
 
     mod_metadata = []
 
@@ -216,14 +222,15 @@ def dataset_to_coco(
 
     for i in range(len(dataset)):
         image, dets, metadata = dataset[i]
-        filename = output_dir / img_filenames[i]
+        img_filename = img_filenames[i % len(img_filenames)]
+        filename = output_dir / f"{img_filename.with_suffix('')}_{metadata['id']}{img_filename.suffix}"
         filename.parent.mkdir(parents=True, exist_ok=True)
 
-        im = Image.fromarray(np.transpose(np.asarray(image), (1, 2, 0)))
+        im = Image.fromarray(np.transpose(to_numpy(image), (1, 2, 0)))
         im.save(filename)
 
-        labels = np.asarray(dets.labels)
-        bboxes = np.asarray(dets.boxes)
+        labels = to_numpy(dets.labels)
+        bboxes = to_numpy(dets.boxes)
         annotations.add_images([{"id": i, "file_name": str(filename)}])
         for lbl, bbox in zip(labels, bboxes, strict=False):
             annotations.add_annotation(

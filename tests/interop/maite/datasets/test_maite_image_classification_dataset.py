@@ -7,8 +7,7 @@ from maite.protocols.image_classification import TargetType
 from nrtk.interop import MAITEImageClassificationAugmentation
 from nrtk.interop._maite.datasets import MAITEImageClassificationDataset
 from tests.interop.maite.perturber_fixtures import ResizePerturber
-
-random = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.maite
@@ -19,8 +18,8 @@ class TestMAITEImageClassificationDataset:
             (
                 MAITEImageClassificationDataset(
                     imgs=[
-                        random.integers(0, 255, (3, 256, 256), dtype=np.uint8),
-                        random.integers(0, 255, (3, 128, 128), dtype=np.uint8),
+                        random_image(size=(3, 256, 256)),
+                        random_image(size=(3, 128, 128)),
                     ],
                     labels=[np.asarray([0]), np.asarray([1])],
                     datum_metadata=[{"id": 0}, {"id": 1}],
@@ -32,8 +31,8 @@ class TestMAITEImageClassificationDataset:
             (
                 MAITEImageClassificationDataset(
                     imgs=[
-                        random.integers(0, 255, (3, 256, 256), dtype=np.uint8),
-                        random.integers(0, 255, (3, 128, 128), dtype=np.uint8),
+                        random_image(size=(3, 256, 256)),
+                        random_image(size=(3, 128, 128)),
                     ],
                     labels=[np.asarray([0]), np.asarray([1])],
                     datum_metadata=[{"id": 0}, {"id": 1}],

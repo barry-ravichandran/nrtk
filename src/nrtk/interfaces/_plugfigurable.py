@@ -1,8 +1,9 @@
-"""Safe plugin discovery that tolerates broken third-party entrypoints.
+"""Safe plugin discovery that tolerates broken entrypoints and hides private classes.
 
 Overrides smqtk-core's ``Plugfigurable.get_impls`` so that a single
 broken entrypoint (e.g. scipy 1.17 ``array_api_compat`` crash) does
-not take down the entire discovery pass.
+not take down the entire discovery pass, and so that nrtk's own private
+implementations stay out of the results.
 """
 
 from __future__ import annotations
@@ -60,18 +61,38 @@ def _safe_discover_via_entrypoints(entrypoint_ns: str) -> set[type]:
     return type_set
 
 
+def _is_nrtk_private(impl: type) -> bool:
+    """Whether *impl* is an nrtk implementation detail that must stay out of discovery.
+
+    ``discover_via_subclasses`` walks ``__subclasses__()``, which records every class
+    at creation time and consults no name, ``__all__``, ``__dir__``, or entrypoint. A
+    private base class or helper therefore reaches discovery the moment anything
+    imports it, no matter what its module advertises. The import guard cannot prevent
+    this, so it is filtered here instead.
+
+    Only nrtk's own classes are judged: another package's naming is not ours to
+    interpret.
+    """
+    module = getattr(impl, "__module__", "")
+    parts = module.split(".")
+    if parts[0] != "nrtk":
+        return False
+    return impl.__name__.startswith("_") or any(part.startswith("_") for part in parts)
+
+
 class Plugfigurable(_Plugfigurable):
     """Drop-in replacement that swaps in fault-tolerant entrypoint loading."""
 
     @classmethod
     def get_impls(cls) -> set[type[Self]]:
-        """Discover plugins, skipping any entrypoints that fail to load."""
+        """Discover plugins, skipping broken entrypoints and nrtk's private classes."""
         candidate_types = {
             *discover_via_env_var(cls.PLUGIN_ENV_VAR),
             *_safe_discover_via_entrypoints(cls.PLUGIN_NAMESPACE),
             *discover_via_subclasses(cls),
         }
+        valid_types = filter_plugin_types(cls, candidate_types)  # noqa: FKA100 - upstream smqtk-core signature
         return cast(
             set[type[Self]],
-            filter_plugin_types(cls, candidate_types),  # noqa: FKA100 - upstream smqtk-core signature
+            {impl for impl in valid_types if not _is_nrtk_private(impl)},
         )

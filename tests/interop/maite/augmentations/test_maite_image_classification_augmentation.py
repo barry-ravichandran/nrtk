@@ -7,10 +7,9 @@ from maite.protocols.image_classification import DatumMetadataType
 
 from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEImageClassificationAugmentation
-from tests.fakes import FakePerturber
-from tests.interop.maite.perturber_fixtures import ResizePerturber
-
-random = np.random.default_rng()
+from tests.fakes import FakeDeviceTensor, FakeImagePerturber
+from tests.interop.maite.perturber_fixtures import ResizePerturber, StridePreservingPerturber
+from tests.utils import random_image
 
 
 @pytest.mark.maite
@@ -18,7 +17,7 @@ class TestMAITEImageClassificationAugmentation:
     @pytest.mark.parametrize(
         "perturber",
         [
-            FakePerturber(),
+            FakeImagePerturber(),
             ResizePerturber(w=64, h=512),
         ],
         ids=["no-op perturber", "resize"],
@@ -34,7 +33,7 @@ class TestMAITEImageClassificationAugmentation:
         updated.
         """
         augmentation = MAITEImageClassificationAugmentation(augment=perturber, augment_id="test_augment")
-        img_in = random.integers(0, 255, (3, 256, 256), dtype=np.uint8)
+        img_in = random_image(size=(3, 256, 256))
         target_class_in = [0]
         md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
 
@@ -69,7 +68,7 @@ class TestMAITEImageClassificationAugmentation:
     @pytest.mark.parametrize(
         "perturbers",
         [
-            [FakePerturber(), ResizePerturber(w=64, h=512)],
+            [FakeImagePerturber(), ResizePerturber(w=64, h=512)],
         ],
     )
     def test_multiple_augmentations(
@@ -77,7 +76,7 @@ class TestMAITEImageClassificationAugmentation:
         perturbers: Sequence[PerturbImage],
     ) -> None:
         """Test that the adapter appends, not overrides nrtk configs when multiple perturbations are applied."""
-        img_in = random.integers(0, 255, (3, 256, 256), dtype=np.uint8)  # MAITE is channels-first
+        img_in = random_image(size=(3, 256, 256))  # MAITE is channels-first
         targets_in = [0]
         md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
 
@@ -91,3 +90,41 @@ class TestMAITEImageClassificationAugmentation:
         assert "nrtk_perturber_config" in md_out[0]
         all_perturber_configs = [perturber.get_config() for perturber in perturbers]
         assert md_out[0].get("nrtk_perturber_config") == all_perturber_configs
+
+    def test_device_tensor_batch(self) -> None:
+        """Test that batch elements which cannot convert directly are still augmented."""
+        augmentation = MAITEImageClassificationAugmentation(augment=FakeImagePerturber(), augment_id="test_augment")
+
+        pixels = np.arange(3 * 8 * 8, dtype=np.uint8).reshape((3, 8, 8))
+
+        imgs_out, _, _ = augmentation(([FakeDeviceTensor(pixels)], [np.asarray([0])], [{"id": 0}]))
+
+        assert isinstance(imgs_out[0], np.ndarray)
+        assert np.array_equal(imgs_out[0], pixels)
+
+    def test_perturber_cannot_write_through_to_input(self) -> None:
+        """Test that a perturber writing in place cannot reach the caller's image."""
+        augmentation = MAITEImageClassificationAugmentation(
+            augment=FakeImagePerturber(in_place_fill=0),
+            augment_id="test_augment",
+        )
+
+        image = np.full((3, 4, 4), 7, dtype=np.uint8)
+
+        augmentation(([image], [np.asarray([0])], [{"id": 0}]))
+
+        assert np.array_equal(image, np.full((3, 4, 4), 7, dtype=np.uint8))
+
+    def test_perturber_receives_contiguous_image(self) -> None:
+        """Test that a datum with an awkward memory layout still reaches the perturber contiguous."""
+        perturber = StridePreservingPerturber()
+        augmentation = MAITEImageClassificationAugmentation(augment=perturber, augment_id="test_augment")
+
+        img_in = np.transpose(random_image(size=(256, 256, 3))[:, :, ::-1], (2, 0, 1))
+        assert not img_in.flags["C_CONTIGUOUS"]
+
+        md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
+        imgs_out, _, _ = augmentation(([img_in], [np.asarray([0])], md_in))
+
+        assert perturber.saw_contiguous_input
+        assert np.transpose(imgs_out[0], (1, 2, 0)).flags["C_CONTIGUOUS"]

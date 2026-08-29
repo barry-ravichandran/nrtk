@@ -67,3 +67,12 @@ def deep_equals(*, a: object, b: object, rtol: float = 1e-5, atol: float = 1e-8)
 
     # Everything else (int, str, bool, etc.): use standard equality
     return a == b
+
+
+def random_image(
+    *,
+    size: tuple[int, int, int] = (256, 256, 3),
+    seed: int | None = None,
+) -> np.ndarray:
+    """Generate a random image for tests."""
+    return np.random.default_rng(seed=seed).integers(low=0, high=255, size=size, dtype=np.uint8)

@@ -8,7 +8,7 @@ ______________________________________________________________________
 
 [![PyPI - Python Version](https://img.shields.io/pypi/v/nrtk)](https://pypi.org/project/nrtk/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/nrtk)
-[![Documentation Status](https://readthedocs.org/projects/nrtk/badge/?version=latest)](https://nrtk.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://app.readthedocs.org/projects/nrtk/badge/?version=stable)](https://nrtk.readthedocs.io/en/stable/?badge=stable)
 
 <!-- :auto badges: -->
 
@@ -28,7 +28,7 @@ workflows, through interoperability with
 other [JATIC](https://cdao.pages.jatic.net/public/) tools. Users seeking to use
 NRTK to perturb MAITE-wrapped datasets or evaluate MAITE-wrapped models should
 utilize this module. Explore our
-[T&E guides](https://nrtk.readthedocs.io/en/latest/tutorials/testing_and_evaluation_notebooks.html)
+[T&E guides](https://nrtk.readthedocs.io/en/stable/tutorials/maite_testing_and_evaluation_guides.html)
 which demonstrate how `nrtk` perturbations and `maite` can be applied to assess
 operational risks.
 
@@ -39,15 +39,15 @@ to real-world operational conditions beyond what traditional image augmentation
 libraries cover. T&E engineers need precise methods to assess how models respond
 to sensor-specific variables (focal length, aperture diameter, pixel pitch) and
 environmental factors without the prohibitive costs of exhaustive data
-collection. NRTK leverages [pyBSM](https://pybsm.readthedocs.io)'s physics-based
-models to rigorously simulate how imaging sensors capture and process light,
-enabling systematic robustness testing across parameter sweeps, identification
-of performance boundaries, and visualization of model degradation. This
-capability is particularly valuable for satellite and aerial imaging
-applications, where engineers can simulate hypothetical sensor configurations to
-support cost-performance trade-off analysis during system design—ensuring AI
-models maintain reliability when deployed on actual hardware facing natural
-perturbations in the field.
+collection. NRTK leverages [pyBSM](https://pybsm.readthedocs.io/en/stable/)'s
+physics-based models to rigorously simulate how imaging sensors capture and
+process light, enabling systematic robustness testing across parameter sweeps,
+identification of performance boundaries, and visualization of model
+degradation. This capability is particularly valuable for satellite and aerial
+imaging applications, where engineers can simulate hypothetical sensor
+configurations to support cost-performance trade-off analysis during system
+design—ensuring AI models maintain reliability when deployed on actual hardware
+facing natural perturbations in the field.
 
 ## Target Audience
 
@@ -102,13 +102,13 @@ pip install nrtk[pybsm]
 
 More information on extras and related perturbers, including a complete list of
 extras, is available in the
-[perturber requirements documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#perturber-requirements).
+[perturber requirements documentation](https://nrtk.readthedocs.io/en/stable/getting_started/installation.html#perturber-requirements).
 
 Details on the perturbers and their dependencies can be found in the
-[implementations reference](https://nrtk.readthedocs.io/en/latest/reference/api/implementations.html).
+[implementations reference](https://nrtk.readthedocs.io/en/stable/reference/api/implementations.html).
 
 For more detailed installation instructions, visit the
-[installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html).
+[installation documentation](https://nrtk.readthedocs.io/en/stable/getting_started/installation.html).
 
 <!-- :auto installation: -->
 
@@ -126,7 +126,7 @@ Jupyter notebooks provided in the `./docs/examples/` directory.
 Via the pyBSM package, NRTK exposes a large set of Optical Transfer Functions
 (OTFs). These OTFs can simulate different environmental and sensor-based
 effects. For example, the
-[JitterPerturber](https://nrtk.readthedocs.io/en/latest/reference/api/_implementations/nrtk.impls.perturb_image.optical.otf.JitterPerturber.html#nrtk.impls.perturb_image.optical.otf.JitterPerturber)
+[JitterPerturber](https://nrtk.readthedocs.io/en/stable/reference/api/_implementations/nrtk.impls.perturb_image.optical.otf.JitterPerturber.html#nrtk.impls.perturb_image.optical.otf.JitterPerturber)
 simulates different levels of sensor jitter. By modifying its input parameters,
 you can observe how sensor jitter affects image quality.
 
@@ -140,6 +140,8 @@ perturbation. This image represents the initial state before any transformation.
 ### Code Sample
 
 Below is some example code that applies a Jitter OTF transformation:
+
+<!-- pytestmark: pybsm -->
 
 ```python
 from nrtk.impls.perturb_image.optical.otf import JitterPerturber
@@ -171,8 +173,10 @@ sensor jitter.
 
 ## Documentation
 
-Documentation for both release snapshots and the latest main branch is available
-on [ReadTheDocs](https://nrtk.readthedocs.io).
+Documentation for both
+[stable release snapshots](https://nrtk.readthedocs.io/en/stable/) and the
+[latest main branch](https://nrtk.readthedocs.io/en/latest/) are available on
+ReadTheDocs.
 
 To build the Sphinx-based documentation locally for the latest reference:
 
@@ -201,7 +205,7 @@ The following points help ensure contributions follow development practices.
   [JATIC Design Principles](https://cdao.pages.jatic.net/public/program/design-principles/).
 - Adopt the Git Flow branching strategy.
 - See the
-  [release process documentation](https://nrtk.readthedocs.io/en/latest/development/release_process.html)
+  [release process documentation](https://nrtk.readthedocs.io/en/stable/development/release_process.html)
   for detailed release information.
 - Additional contribution guidelines and issue reporting steps can be found in
   [CONTRIBUTING.md](https://github.com/Kitware/nrtk/blob/main/CONTRIBUTING.md).
@@ -221,7 +225,7 @@ You can install using [Poetry](https://python-poetry.org/):
 > [!IMPORTANT]
 >
 > NRTK requires Poetry 2.2 or higher. If you're new to Poetry, review the
-> [installation documentation](https://nrtk.readthedocs.io/en/latest/getting_started/installation.html#from-source)
+> [installation documentation](https://nrtk.readthedocs.io/en/stable/getting_started/installation.html#from-source)
 > first — Poetry has its own conventions for virtual environments and dependency
 > resolution that can trip up users expecting pip semantics.
 
@@ -247,7 +251,7 @@ poetry run pre-commit run --all-files
 ```
 
 For running the test suite, see the
-[Testing Architecture guide](https://nrtk.readthedocs.io/en/latest/development/test-architecture.html).
+[Testing Architecture guide](https://nrtk.readthedocs.io/en/stable/development/testing_architecture.html).
 
 <!-- :auto developer-tools: -->
 
@@ -289,8 +293,10 @@ reach out privately first, feel free to contact us at
 
 ## Acknowledgment
 
-> [!NOTE] JATIC Maturity I — Release v1.0.4 has been assessed against and meets
-> the requirements associated with JATIC Maturity Level I.
+> [!NOTE] JATIC Maturity I
+>
+> Release v1.0.4 has been assessed against and meets the requirements associated
+> with JATIC Maturity Level I.
 
 This material is based upon work supported by the Chief Digital and Artificial
 Intelligence Office under Contract No. 519TC-23-9-2032. The views and

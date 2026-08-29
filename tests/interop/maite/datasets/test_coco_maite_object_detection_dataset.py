@@ -14,6 +14,8 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionDataset,
     MAITEObjectDetectionTarget,
 )
+from tests.fakes import FakeDeviceTensor
+from tests.utils import random_image
 
 random = np.random.default_rng()
 
@@ -24,7 +26,7 @@ random = np.random.default_rng()
     ("imgs", "input_dets", "datum_metadata", "dataset_id", "img_filenames", "categories", "expectation"),
     [
         (
-            [random.integers(0, 255, size=(3, 10, 10), dtype=np.uint8)],
+            [random_image(size=(3, 10, 10))],
             [
                 MAITEObjectDetectionTarget(
                     boxes=random.integers(0, 4, size=(2, 4)),
@@ -34,7 +36,7 @@ random = np.random.default_rng()
             ],
             [{"id": 0}],
             "dummy_dataset",
-            ["images/img1.png"],
+            [Path("images/img1.png")],
             [
                 {"id": 0, "name": "cat0", "supercategory": None},
                 {"id": 1, "name": "cat1", "supercategory": None},
@@ -42,7 +44,7 @@ random = np.random.default_rng()
             does_not_raise(),
         ),
         (
-            [random.integers(0, 255, size=(3, 3, 3), dtype=np.uint8)] * 2,
+            [random_image(size=(3, 3, 3))] * 2,
             [
                 MAITEObjectDetectionTarget(
                     boxes=random.integers(0, 4, size=(2, 4)),
@@ -53,7 +55,26 @@ random = np.random.default_rng()
             * 2,
             [{"id": idx} for idx in range(2)],
             "dummy_dataset",
-            ["images/img1.png"],
+            [Path("images/img1.png")],
+            [
+                {"id": 0, "name": "cat0", "supercategory": None},
+                {"id": 1, "name": "cat1", "supercategory": None},
+            ],
+            does_not_raise(),
+        ),
+        (
+            [random_image(size=(3, 3, 3))] * 2,
+            [
+                MAITEObjectDetectionTarget(
+                    boxes=random.integers(0, 4, size=(2, 4)),
+                    labels=random.integers(0, 2, size=(2,)),
+                    scores=random.random(2),
+                ),
+            ]
+            * 2,
+            [{"id": idx} for idx in range(2)],
+            "dummy_dataset",
+            [Path("images/img1.png"), Path("images/img2.png"), Path("images/img3.png")],
             [
                 {"id": 0, "name": "cat0", "supercategory": None},
                 {"id": 1, "name": "cat1", "supercategory": None},
@@ -104,7 +125,11 @@ def test_dataset_to_coco(
         assert metadata_file.is_file()
 
         # Confirm images exist
-        img_paths = [tmp_path / filename for filename in img_filenames]
+        img_paths = [
+            tmp_path / f"{filename.with_suffix('')}_{metadata['id']}{filename.suffix}"
+            for filename in img_filenames
+            for metadata in datum_metadata
+        ]
         for path in img_paths:
             assert path.is_file()
 
@@ -132,3 +157,40 @@ def test_dataset_to_coco(
             # loaded dataset.
             for k, v in md.items():  # pyright: ignore [reportAttributeAccessIssue]
                 assert v == c_md[k]
+
+
+@pytest.mark.maite
+@pytest.mark.tools
+def test_dataset_to_coco_device_resident_data(tmpdir: py.path.local) -> None:
+    """Test that a dataset whose elements cannot convert directly is still exported.
+
+    Regression test: the export used to call ``np.asarray`` straight on the image
+    and detections, which raises for a tensor still on an accelerator.
+    """
+    from nrtk.interop._maite.datasets import dataset_to_coco
+
+    tmp_path = Path(tmpdir)
+    pixels = random_image(size=(3, 10, 10))
+
+    dataset = MAITEObjectDetectionDataset(
+        imgs=[FakeDeviceTensor(pixels)],  # pyright: ignore [reportArgumentType]
+        dets=[
+            MAITEObjectDetectionTarget(
+                boxes=FakeDeviceTensor(np.asarray([[1.0, 2.0, 3.0, 4.0]])),  # pyright: ignore [reportArgumentType]
+                labels=FakeDeviceTensor(np.asarray([0])),  # pyright: ignore [reportArgumentType]
+                scores=np.asarray([0.8]),
+            ),
+        ],
+        datum_metadata=[{"id": 0}],
+        dataset_id="device-resident",
+    )
+
+    dataset_to_coco(
+        dataset=dataset,
+        output_dir=tmp_path,
+        img_filenames=[Path("img.png")],
+        dataset_categories=[{"id": 0, "name": "cat", "supercategory": None}],
+    )
+
+    assert (tmp_path / "annotations.json").is_file()
+    assert (tmp_path / "img_0.png").is_file()

@@ -127,7 +127,7 @@ class TestTurbulenceAperturePerturber(PerturberTestsMixin):
             (
                 True,
                 {},
-                pytest.raises(ValueError, match=r"'img_gsd' must be provided"),
+                pytest.raises(ValueError, match=r"img_gsd must be provided"),
             ),
             (False, {"img_gsd": 3.19 / 160.0}, does_not_raise()),
         ],
@@ -267,7 +267,8 @@ class TestTurbulenceAperturePerturber(PerturberTestsMixin):
         sensor_and_scenario = {}
         wavelengths = np.asarray([])
         weights = np.asarray([])
-        pos_weights = np.asarray([])
+        # Placeholder; only the np.where() index tuple assigned below is ever used to index.
+        pos_weights: Any = np.asarray([])
         if use_sensor_scenario:
             sensor_and_scenario = load_default_config(preset="sample")
             # Multiple type ignores added for pyright's handling of guarded imports

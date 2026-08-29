@@ -12,7 +12,7 @@ structure connects to real-world operational risk.
    :padding: 2 2 0 0
 
    .. grid-item-card:: :material-regular:`menu_book` 1. Concepts of Robustness
-      :link: /explanations/nrtk_explanation
+      :link: /explanations/robustness_concepts
       :link-type: doc
 
       **The problem.** Why physics-based perturbations matter: real-world
@@ -31,5 +31,5 @@ structure connects to real-world operational risk.
 .. toctree::
    :hidden:
 
-   nrtk_explanation
+   robustness_concepts
    risk_factors

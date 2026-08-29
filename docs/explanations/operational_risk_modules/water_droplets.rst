@@ -35,22 +35,29 @@ Use This When...
 * You need a **physics-based perturbation** that models realistic optical refraction effects.
 * You're doing early **screening of robustness** to lens contamination before running heavier
   T&E analysis (see the full T&E Simulation Guide →
-  :doc:`WaterDropletPerturber T&E guide </examples/maite/nrtk_water_droplet_perturber_demo>`).
+  :doc:`WaterDropletPerturber T&E guide </examples/maite/water_droplets>`).
 * You want to test model performance under **localized distortions** rather than global blur.
 
 Minimal Code Example
 --------------------
 
+.. pytestmark: waterdroplet
 .. code-block:: python
 
    from nrtk.impls.perturb_image.environment import WaterDropletPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = WaterDropletPerturber(
        num_drops=20,
        size_range=[0.0, 1.0],
        blur_strength=0.25
    )
-   perturbed_img, boxes = perturber(image=img_in, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
 Key Parameters
 --------------

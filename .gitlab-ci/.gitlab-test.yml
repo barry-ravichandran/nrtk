@@ -35,6 +35,10 @@
         RUNNER_TAG: small-cpu
       - TOX_ENV: pybsm
         RUNNER_TAG: medium-cpu
+      - TOX_ENV: hcipy
+        RUNNER_TAG: medium-cpu
+      - TOX_ENV: pyav
+        RUNNER_TAG: medium-cpu
       - TOX_ENV: maite
         RUNNER_TAG: medium-cpu
       - TOX_ENV: tools
@@ -43,6 +47,9 @@
         RUNNER_TAG: medium-cpu
       - TOX_ENV: diffusion
         RUNNER_TAG: autoscaler
+      - TOX_ENV: diffusion-gpu
+        RUNNER_TAG: single-gpu
+        CUDA_VISIBLE_DEVICES: "0"
       - TOX_ENV: optional
         RUNNER_TAG: autoscaler
       - TOX_ENV: notebooks
@@ -81,6 +88,12 @@ tox:pytest:py3.13:
   image: python:3.13
   variables:
     PYTHON_VERSION: "3.13"
+
+tox:pytest:py3.14:
+  extends: .tox:pytest
+  image: python:3.14
+  variables:
+    PYTHON_VERSION: "3.14"
 
 # Documentation tests: doctests + doc code blocks. Kept out of the .tox:pytest
 # matrix so they never feed the coverage combine/gate (they also run --no-cov).
@@ -157,6 +170,16 @@ tox:coverage:py3.13:
     - job: tox:pytest:py3.13
       artifacts: true
 
+tox:coverage:py3.14:
+  extends: .tox:coverage:version
+  variables:
+    PYTHON_VERSION: "3.14"
+  dependencies:
+    - tox:pytest:py3.14
+  needs:
+    - job: tox:pytest:py3.14
+      artifacts: true
+
 tox:coverage:
   extends: .test-setup
   tags:
@@ -167,6 +190,7 @@ tox:coverage:
     - tox:coverage:py3.11
     - tox:coverage:py3.12
     - tox:coverage:py3.13
+    - tox:coverage:py3.14
   needs:
     - job: tox:coverage:py3.10
       artifacts: true
@@ -175,6 +199,8 @@ tox:coverage:
     - job: tox:coverage:py3.12
       artifacts: true
     - job: tox:coverage:py3.13
+      artifacts: true
+    - job: tox:coverage:py3.14
       artifacts: true
   script:
     - tox -e coverage
@@ -194,6 +220,10 @@ tox:coverage:
     - $RUNNER_TAG
   image: python:3.10
   dependencies: []
+  before_script:
+    - !reference [.test-setup, before_script]
+    # matplotlib's to_html5_video() shells out to ffmpeg to render video notebooks
+    - apt-get -qq install -y ffmpeg
   rules:
     # If changes are made to an active merge request.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -212,15 +242,20 @@ tox:notebooks:examples:
       - NOTEBOOK_DIR: "docs/examples"
         NOTEBOOK_FILE: [
           "albumentations_perturber.ipynb",
-          "nrtk_tutorial.ipynb",
+          "end_to_end_overview.ipynb",
           "optical_perturbers.ipynb",
           "photometric_perturbers.ipynb",
           "pybsm_default_config.ipynb"
         ]
         RUNNER_TAG: autoscaler
-      - NOTEBOOK_DIR: "docs/examples"
-        NOTEBOOK_FILE: "generative_perturbers.ipynb"
-        RUNNER_TAG: single-gpu
+
+tox:notebooks:generative-gpu:
+  extends: .tox:notebooks
+  variables:
+    NOTEBOOK_DIR: "docs/examples"
+    NOTEBOOK_FILE: "generative_perturbers.ipynb"
+    RUNNER_TAG: single-gpu
+    CUDA_VISIBLE_DEVICES: "0"
 
 tox:notebooks:maite:
   extends: .tox:notebooks
@@ -228,23 +263,23 @@ tox:notebooks:maite:
     matrix:
       - NOTEBOOK_DIR: "docs/examples/maite"
         NOTEBOOK_FILE: [
-          "nrtk_affine_perturbers_demo.ipynb",
-          "nrtk_brightness_perturber_demo.ipynb",
-          "nrtk_focus_perturber_demo.ipynb",
-          "nrtk_haze_perturber_demo.ipynb",
-          "nrtk_jitter_perturber_demo.ipynb",
-          "nrtk_lens_flare_demo.ipynb",
-          "nrtk_radial_distortion_perturber_demo.ipynb",
-          "nrtk_sensor_transformation_demo.ipynb",
-          "nrtk_turbulence_perturber_demo.ipynb",
-          "jatic-perturbations-saliency.ipynb",
-          "nrtk_water_droplet_perturber_demo.ipynb"
+          "affine_transformations.ipynb",
+          "extreme_illumination.ipynb",
+          "visual_focus.ipynb",
+          "fog_haze.ipynb",
+          "motion_jitter.ipynb",
+          "lens_flare.ipynb",
+          "radial_distortion.ipynb",
+          "sensor_resolution_and_noise.ipynb",
+          "atmospheric_turbulence.ipynb",
+          "water_droplets.ipynb",
+          "framewise_video.ipynb"
         ]
         RUNNER_TAG: autoscaler
 
 # NRTK-XAITK workflow utility tests
 # These tests verify the import guard behavior of the notebook helper modules
-# in docs/examples/nrtk_xaitk_workflow/. They are lightweight unit tests
+# in docs/examples/xaitk_saliency_workflow/. They are lightweight unit tests
 # (not notebook execution) and run on every MR push.
 # The "core"-marked tests mock missing dependencies to verify import guards.
 # The "xaitk"-marked canary tests verify real imports work when deps are present.
@@ -254,8 +289,8 @@ xaitk-notebook-tests:
     - small-gpu
   parallel:
     matrix:
-      - PYTHON_VERSION: *python-versions
-  image: python:$PYTHON_VERSION
+      - PYTHON_IMAGE: ["python:3.10", "python:3.11", "python:3.12", "python:3.13", "python:3.14"]
+  image: $PYTHON_IMAGE
   before_script:
     - !reference [.test-setup, before_script]
     # Install nrtk (no optional extras yet) + test runner
@@ -265,7 +300,7 @@ xaitk-notebook-tests:
     # Import guard tests — deps are NOT installed; mixin mocks missing packages
     - poetry run pytest -rfE --tb=short -q --no-header --disable-warnings
         -m "core"
-        docs/examples/nrtk_xaitk_workflow/notebook_tests/
+        docs/examples/xaitk_saliency_workflow/notebook_tests/
         -o "addopts=" -o "testpaths="
     # Install optional deps for canary tests
     - poetry run pip install -q maite xaitk-saliency torch ultralytics datasets transformers
@@ -275,5 +310,5 @@ xaitk-notebook-tests:
     # Canary tests — FAIL if deps are installed but imports still break
     - poetry run pytest -rfE --tb=short -q --no-header --disable-warnings
         -m "xaitk"
-        docs/examples/nrtk_xaitk_workflow/notebook_tests/
+        docs/examples/xaitk_saliency_workflow/notebook_tests/
         -o "addopts=" -o "testpaths="

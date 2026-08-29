@@ -27,28 +27,53 @@ __all__ = ["PerturberLinspaceFactory"]
 from collections.abc import Sequence
 from typing import Any
 
-import numpy as np
-from typing_extensions import override
+from typing_extensions import deprecated, override
 
+from nrtk.impls.perturb_factory._perturber_linspace_factory import (
+    PerturberLinspaceFactory as GenericLinspaceFactory,
+)
 from nrtk.interfaces import PerturbImage, PerturbImageFactory
 
 
+@deprecated("Use nrtk.impls.perturb_factory.PerturberLinspaceFactory instead.")
 class PerturberLinspaceFactory(PerturbImageFactory):
-    """Simple PerturbImageFactory implementation to step through the given range of values.
+    """Deprecated PerturbImageFactory implementation to iterate over the given linspace.
+
+    .. deprecated:: 1.1
+        Use :class:`nrtk.impls.perturb_factory.PerturberLinspaceFactory` instead.
+        :mod:`nrtk.impls.perturb_image_factory` will be removed in a future major release.
 
     Attributes:
         perturber (type[PerturbImage]):
             perturber type to produce
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         theta_key (str):
             peturber parameter to modify
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         start (float):
             initial value of range (inclusive)
-        end (float):
-            end value of range (exclusive)
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        stop (float):
+            end value of range
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         num (int):
-            number of values between start and end
+            number of values between start and stop
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         endpoint (bool):
-                Decides if stop is included.
+            whether linspace includes stop
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
     """
 
     def __init__(
@@ -75,11 +100,11 @@ class PerturberLinspaceFactory(PerturbImageFactory):
             start:
                 Initial value of desired range (inclusive).
             stop:
-                Final value of desired range (inclusive).
+                End value of desired range.
             num:
                 Number of instances to generate.
             endpoint:
-                Decides if stop is included.
+                Whether linspace includes stop.
             perturber_kwargs:
                 Default kwargs to be used by the perturber. Defaults to {}.
 
@@ -89,22 +114,78 @@ class PerturberLinspaceFactory(PerturbImageFactory):
         """
         super().__init__(perturber=perturber, theta_key=theta_key, perturber_kwargs=perturber_kwargs)
 
-        self.start = start
-        self.stop = stop
-        self.num = num
-        self.endpoint = endpoint
+        self._new_impl = GenericLinspaceFactory(
+            perturber=perturber,
+            theta_key=theta_key,
+            start=start,
+            stop=stop,
+            num=num,
+            endpoint=endpoint,
+            perturber_kwargs=perturber_kwargs,
+        )
 
     @property
     @override
     def thetas(self) -> Sequence[float]:
         """Use linspace to generate the desired range of values."""
-        return np.linspace(self.start, self.stop, self.num, endpoint=self.endpoint).tolist()
+        return self._new_impl.thetas
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def start(self) -> float:
+        return self._new_impl.start
+
+    @start.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def start(self, start: float) -> None:
+        self._new_impl.start = start
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def stop(self) -> float:
+        return self._new_impl.stop
+
+    @stop.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def stop(self, stop: float) -> None:
+        self._new_impl.stop = stop
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def num(self) -> int:
+        return self._new_impl.num
+
+    @num.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def num(self, num: int) -> None:
+        self._new_impl.num = num
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def endpoint(self) -> bool:
+        return self._new_impl.endpoint
+
+    @endpoint.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def endpoint(self, endpoint: bool) -> None:
+        self._new_impl.endpoint = endpoint
 
     @override
     def get_config(self) -> dict[str, Any]:
-        cfg = super().get_config()
-        cfg["start"] = self.start
-        cfg["stop"] = self.stop
-        cfg["num"] = self.num
-        cfg["endpoint"] = self.endpoint
-        return cfg
+        return self._new_impl.get_config()

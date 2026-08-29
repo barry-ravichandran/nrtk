@@ -20,6 +20,7 @@ from maite.protocols.image_classification import (
 from nrtk.interfaces import PerturbImage
 from nrtk.interop._maite.metadata import NRTKDatumMetadata
 from nrtk.interop._maite.metadata._nrtk_datum_metadata import _forward_md_keys
+from nrtk.utils._array import to_numpy
 
 IMG_CLASSIFICATION_BATCH_T = tuple[Sequence[InputType], Sequence[TargetType], Sequence[DatumMetadataType]]
 
@@ -32,9 +33,9 @@ class MAITEImageClassificationAugmentation(Augmentation):  # pyright:  ignore [r
 
     Attributes:
         augment: PerturbImage
-            Augmentations to apply to an image.
-        name: str
-            Name of the augmentation. Will appear in metadata key.
+            The NRTK PerturbImage implementation to apply as a MAITE Augmentation.
+        metadata: AugmentationMetadata
+            Metadata for this augmentation.
     """
 
     def __init__(self, *, augment: PerturbImage, augment_id: str) -> None:
@@ -63,7 +64,10 @@ class MAITEImageClassificationAugmentation(Augmentation):  # pyright:  ignore [r
 
         for img, ann, md in zip(imgs, anns, metadata, strict=False):  # pyright: ignore [reportArgumentType]
             # Perform augmentation
-            aug_img = np.transpose(np.asarray(copy.deepcopy(img)), (1, 2, 0))  # Convert to channels-last
+            # Channels-last and C-contiguous: transposing a channels-first array only
+            # returns a view, and perturbers hand back an array carrying their input's
+            # strides, so the copy is what gives callers a contiguous perturbed image.
+            aug_img = np.transpose(to_numpy(img), (1, 2, 0)).copy()
             aug_img, _ = self.augment(image=aug_img, boxes=None, **dict(md))
             if aug_img.ndim > 2:
                 # Convert back to channels first

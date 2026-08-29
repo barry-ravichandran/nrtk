@@ -1,0 +1,11 @@
+{
+    "PerturberFactory": {
+        "type": "nrtk.impls.perturb_factory.PerturberOneStepFactory",
+        "nrtk.impls.perturb_factory.PerturberOneStepFactory": {
+            "perturber": "nrtk.impls.perturb_image.photometric.enhance.BrightnessPerturber",
+            "theta_key": "factor",
+            "theta_value": 1,
+            "to_int": true
+        }
+    }
+}

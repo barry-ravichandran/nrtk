@@ -47,13 +47,13 @@ Here's where to go, depending on what you want to do next:
       Review testing practices, code quality standards, and verification details.
 
    .. grid-item-card:: 🔌 Interoperability
-      :link: /interoperability/maite/jatic_interoperability
+      :link: /interoperability/maite/maite_interoperability
       :link-type: doc
 
       Learn how to use NRTK with MAITE-compatible models and datasets.
 
    .. grid-item-card:: 📦 Containers
-      :link: /containers/aukus
+      :link: /containers/nrtk_perturber
       :link-type: doc
 
       Run NRTK in Docker and other container environments.

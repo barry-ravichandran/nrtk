@@ -84,7 +84,7 @@ class TestDetectorPerturber(PerturberTestsMixin):
             (
                 True,
                 {},
-                pytest.raises(ValueError, match=r"'img_gsd' must be provided for this perturber"),
+                pytest.raises(ValueError, match=r"img_gsd must be provided for this perturber"),
             ),
             (False, {"img_gsd": 3.19 / 160.0}, does_not_raise()),
         ],

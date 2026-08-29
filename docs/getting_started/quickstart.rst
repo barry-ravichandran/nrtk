@@ -49,6 +49,7 @@ Step 2: Run a Sample Perturbation
 :class:`~nrtk.impls.perturb_image.environment.HazePerturber` requires no additional dependencies beyond
 the base nrtk install, making it ideal for a first test.
 
+.. pytestmark: core
 .. code-block:: python
 
    from nrtk.impls.perturb_image.environment import HazePerturber
@@ -56,7 +57,8 @@ the base nrtk install, making it ideal for a first test.
    from PIL import Image
 
    # Load your image as a numpy array
-   image = np.array(Image.open("your_image.jpg"))
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    # Create a haze perturber with medium haze strength
    perturber = HazePerturber(factor=1.0)

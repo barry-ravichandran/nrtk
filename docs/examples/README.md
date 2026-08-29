@@ -53,6 +53,8 @@ This check-and-install pattern ensures notebooks work in both contexts.
 To help maintain a reproducible environment and simplify debugging (especially
 with `nrtk`’s extras), we also provide a utility function:
 
+<!-- pytestmark: skip -->
+
 ```python
 print_extras_status()
 ```

@@ -1,6 +1,8 @@
 import io
 import json
 import math
+from collections.abc import Iterator
+from itertools import zip_longest
 from typing import Any
 
 import numpy as np
@@ -9,6 +11,10 @@ from PIL import Image
 from syrupy.assertion import SnapshotAssertion
 from syrupy.extensions.json import JSONSnapshotExtension
 from syrupy.extensions.single_file import SingleFileSnapshotExtension
+
+import nrtk.experimental  # noqa: F401 - experimental features are enabled for the test suite
+from nrtk.interfaces import VideoFrame
+from tests.utils.video_io import read_video, write_video
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -31,6 +37,15 @@ def set_numpy_printoptions() -> None:
 
 @pytest.fixture
 def require_marker(pytestconfig: pytest.Config) -> None:
+    """Skip unless a specific marker was selected -- for canaries asserting an env's build.
+
+    The ``optional`` arm is load-bearing: the DSO compliance pipeline's
+    optional-tests-with-required-deps jobs select ``-m optional`` on a core-only
+    install, under the contract that optional-marked tests skip or pass without the
+    extras. Canaries running there would fail by design, so they must skip. The
+    all-extras environment's own build is exercised by the ``doctests`` envs
+    instead, which import every leaf module directly.
+    """
     markexpr = pytestconfig.getoption("-m")
     if not markexpr or markexpr == "optional":
         pytest.skip("Test requires marker specified")
@@ -136,6 +151,13 @@ def tiff_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
     return snapshot.use_extension(TIFFImageSnapshotExtension)
 
 
+def _compute_psnr(*, img_a: np.ndarray, img_b: np.ndarray) -> float:
+    """Compute Peak Signal-to-Noise Ratio between two images."""
+    mse = np.mean((img_a.astype(float) - img_b.astype(float)) ** 2)
+    max_pixel_value = 1.0 if np.issubdtype(img_b.dtype, np.floating) else 255.0
+    return float(np.inf) if mse == 0.0 else float(10 * np.log10((max_pixel_value**2) / mse))
+
+
 class PSNRImageSnapshotExtension(SingleFileSnapshotExtension):
     """Snapshot extension using PSNR metric for image comparison.
 
@@ -175,19 +197,7 @@ class PSNRImageSnapshotExtension(SingleFileSnapshotExtension):
         if expected_array.shape != received_array.shape:
             return False
 
-        # Compute Mean Squared Error
-        mse = np.mean((expected_array.astype(float) - received_array.astype(float)) ** 2)
-
-        # To get MAX value, we assume it is a float normalized between 0-1
-        # or a uint8
-        max_pixel_value = 1.0 if np.issubdtype(received_array.dtype, np.floating) else 255.0
-
-        # If MSE is zero, the images are identical, so PSNR is infinity
-        # otherise, PSNR = 10 * log10(MAX^2 / MSE)
-        psnr = float(np.inf) if mse == 0.0 else 10 * np.log10((max_pixel_value**2) / mse)
-
-        # Pass if metric value meets or exceeds minimum threshold
-        return psnr >= self.min_psnr
+        return _compute_psnr(img_a=expected_array, img_b=received_array) >= self.min_psnr
 
 
 @pytest.fixture
@@ -258,9 +268,6 @@ class SSIMImageSnapshotExtension(SingleFileSnapshotExtension):
         return output
 
     def _compute_ssim_windowed(self, *, img_a: np.ndarray, img_b: np.ndarray) -> float:
-        img_a = img_a.astype(np.float32, copy=False)
-        img_b = img_b.astype(np.float32, copy=False)
-
         if np.issubdtype(img_a.dtype, np.floating) or np.issubdtype(
             img_b.dtype,
             np.floating,
@@ -268,6 +275,9 @@ class SSIMImageSnapshotExtension(SingleFileSnapshotExtension):
             dynamic_range = 1.0
         else:
             dynamic_range = float(np.iinfo(img_a.dtype).max)
+
+        img_a = img_a.astype(np.float32, copy=False)
+        img_b = img_b.astype(np.float32, copy=False)
 
         c1 = (0.01 * dynamic_range) ** 2
         c2 = (0.03 * dynamic_range) ** 2
@@ -318,3 +328,135 @@ class SSIMImageSnapshotExtension(SingleFileSnapshotExtension):
 @pytest.fixture
 def ssim_tiff_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
     return snapshot.use_extension(SSIMImageSnapshotExtension)
+
+
+class LosslessMP4SnapshotExtension(SingleFileSnapshotExtension):
+    file_extension = "mp4"
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+
+    def serialize(self, data: Iterator[VideoFrame], **_: Any) -> bytes:
+        buffer = io.BytesIO()
+        write_video(file=buffer, frames=data, format_name="mp4")
+        return buffer.getbuffer().tobytes()
+
+    def deserialize(self, data: bytes) -> Iterator[VideoFrame]:
+        yield from read_video(io.BytesIO(data), format_name="mp4")
+
+    def matches(self, *, serialized_data: bytes, snapshot_data: bytes) -> bool:
+        expected_frames = self.deserialize(snapshot_data)
+        received_frames = self.deserialize(serialized_data)
+
+        for expected_frame, received_frame in zip(expected_frames, received_frames, strict=False):
+            if (
+                not np.array_equal(expected_frame.image, received_frame.image)
+                or expected_frame.timestamp != received_frame.timestamp
+            ):
+                return False
+
+        try:
+            next(expected_frames)
+            return False
+        except StopIteration:
+            pass
+
+        try:
+            next(received_frames)
+            return False
+        except StopIteration:
+            pass
+
+        return True
+
+
+@pytest.fixture
+def lossless_mp4_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
+    return snapshot.use_extension(LosslessMP4SnapshotExtension)
+
+
+class PSNRVideoSnapshotExtension(LosslessMP4SnapshotExtension):
+    """Snapshot extension using per-frame PSNR for video comparison.
+
+    Stores video as lossless MP4 and compares each frame using PSNR.
+    Timestamps are compared exactly. All frames must meet the minimum
+    PSNR threshold and both streams must have the same frame count.
+
+    Args:
+        min_psnr: Minimum PSNR value in dB required per frame (default: 48.13).
+    """
+
+    def __init__(self, *, min_psnr: float = 48.13, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.min_psnr = min_psnr
+
+    def _frame_matches(self, expected: VideoFrame, received: VideoFrame) -> bool:
+        if expected.image.shape != received.image.shape or expected.timestamp != received.timestamp:
+            return False
+        return _compute_psnr(img_a=expected.image, img_b=received.image) >= self.min_psnr
+
+    def matches(self, *, serialized_data: bytes, snapshot_data: bytes) -> bool:
+        expected_frames = self.deserialize(snapshot_data)
+        received_frames = self.deserialize(serialized_data)
+
+        for expected_frame, received_frame in zip_longest(  # noqa: FKA100 - iterables are positional-only
+            expected_frames,
+            received_frames,
+        ):
+            if expected_frame is None or received_frame is None:
+                return False
+            if not self._frame_matches(expected=expected_frame, received=received_frame):
+                return False
+
+        return True
+
+
+@pytest.fixture
+def psnr_mp4_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
+    return snapshot.use_extension(PSNRVideoSnapshotExtension)
+
+
+class SSIMVideoSnapshotExtension(LosslessMP4SnapshotExtension):
+    """Snapshot extension using per-frame SSIM for video comparison.
+
+    Stores video as lossless MP4 and compares each frame using SSIM.
+    Timestamps are compared exactly. All frames must meet the minimum
+    SSIM threshold and both streams must have the same frame count.
+
+    Args:
+        min_ssim: Minimum SSIM value in [0, 1] required per frame (default: 0.985).
+    """
+
+    def __init__(self, *, min_ssim: float = 0.985, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.min_ssim = min_ssim
+        self._image_extension = SSIMImageSnapshotExtension(min_ssim=min_ssim)
+
+    def _frame_matches(self, expected: VideoFrame, received: VideoFrame) -> bool:
+        if expected.image.shape != received.image.shape or expected.timestamp != received.timestamp:
+            return False
+        ssim = self._image_extension._compute_ssim_windowed(
+            img_a=expected.image,
+            img_b=received.image,
+        )
+        return ssim >= self.min_ssim
+
+    def matches(self, *, serialized_data: bytes, snapshot_data: bytes) -> bool:
+        expected_frames = self.deserialize(snapshot_data)
+        received_frames = self.deserialize(serialized_data)
+
+        for expected_frame, received_frame in zip_longest(  # noqa: FKA100 - iterables are positional-only
+            expected_frames,
+            received_frames,
+        ):
+            if expected_frame is None or received_frame is None:
+                return False
+            if not self._frame_matches(expected=expected_frame, received=received_frame):
+                return False
+
+        return True
+
+
+@pytest.fixture
+def ssim_mp4_snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
+    return snapshot.use_extension(SSIMVideoSnapshotExtension)

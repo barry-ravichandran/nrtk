@@ -40,23 +40,30 @@ Use This When...
 * You need a **simple, fast perturbation** that doesn't require physics-based sensor modeling.
 * You're performing early **screening of robustness** to illumination variations before running more
   intensive T&E analysis (see the full T&E Simulation Guide →
-  :doc:`BrightnessPerturber T&E guide </examples/maite/nrtk_brightness_perturber_demo>`).
+  :doc:`BrightnessPerturber T&E guide </examples/maite/extreme_illumination>`).
 * You want to test model performance under **reduced dynamic range** and contrast.
 
 Minimal Code Example
 --------------------
 
+.. pytestmark: pillow
 .. code-block:: python
 
    from nrtk.impls.perturb_image.photometric.enhance import BrightnessPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    # Low brightness example
    perturber = BrightnessPerturber(factor=0.15)  # very dark
-   perturbed_img, perturbed_boxes = perturber(image=img, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
    # High brightness example
    perturber = BrightnessPerturber(factor=3.5)  # very bright
-   perturbed_img, perturbed_boxes = perturber(image=img, boxes=boxes)
+   perturbed_img, _ = perturber(image=image)
 
 Key Parameters
 --------------
@@ -103,6 +110,6 @@ Limitations and Next Steps
 * Applies **uniform brightness adjustment** across the entire image; does not model spatially
   varying illumination, shadows, or glare. For more detailed analysis, validation details,
   datasets, and recommended parameter sweeps, see the
-  :doc:`BrightnessPerturber T&E guide </examples/maite/nrtk_brightness_perturber_demo>`.
+  :doc:`BrightnessPerturber T&E guide </examples/maite/extreme_illumination>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
 * Related Risks: :ref:`Shadows <shadows>`, :ref:`Night Mode <night-mode>`

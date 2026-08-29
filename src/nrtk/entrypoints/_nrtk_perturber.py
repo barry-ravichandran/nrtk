@@ -22,7 +22,7 @@ def nrtk_perturber(*, maite_dataset: Dataset, perturber_factory: PerturbImageFac
 
     Generate augmented dataset(s) of type maite.protocols.object_detection.Dataset
     given an input dataset of the same type and a perturber factory
-    implementation. Each perturber dcombination will result in a newly
+    implementation. Each perturber combination will result in a newly
     generated dataset.
 
     Args:
@@ -39,7 +39,7 @@ def nrtk_perturber(*, maite_dataset: Dataset, perturber_factory: PerturbImageFac
         perturb_factory_keys = perturber_factory_config["theta_keys"]
         thetas = perturber_factory.thetas
     else:
-        perturb_factory_keys = [perturber_factory.theta_key]
+        perturb_factory_keys = [perturber_factory_config["theta_key"]]
         thetas = [perturber_factory.thetas]
 
     perturber_combinations = [dict(zip(perturb_factory_keys, v, strict=False)) for v in itertools.product(*thetas)]

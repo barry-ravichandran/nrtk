@@ -18,22 +18,47 @@ __all__ = ["PerturberOneStepFactory"]
 
 from typing import Any
 
-from nrtk.impls.perturb_image_factory._perturber_step_factory import PerturberStepFactory
+from typing_extensions import deprecated, override
+
+from nrtk.impls.perturb_factory._perturber_one_step_factory import (
+    PerturberOneStepFactory as GenericOneStepFactory,
+)
+from nrtk.impls.perturb_image_factory._perturber_step_factory import (
+    PerturberStepFactory,
+)
 from nrtk.interfaces import PerturbImage
 
 
+@deprecated("Use nrtk.impls.perturb_factory.PerturberOneStepFactory instead.")
 class PerturberOneStepFactory(PerturberStepFactory):
-    """Simple PerturbImageFactory implementation to return a factory with one perturber.
+    """Deprecated PerturbImageFactory implementation to return a factory with one perturber.
+
+    .. deprecated:: 1.1
+        Use :class:`nrtk.impls.perturb_factory.PerturberOneStepFactory` instead.
+        :mod:`nrtk.impls.perturb_image_factory` will be removed in a future major release.
+
 
     Attributes:
-        perturber (type[PerturbImage]):
+        perturber (type[PerturbT_co]):
             perturber type to produce
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         theta_key (str):
             peturber parameter to modify
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         theta_value (float):
             value to set theta_key to
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
         to_int (bool):
             determines wheter to cast theta_value to a int or float
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
     """
 
     def __init__(
@@ -76,10 +101,29 @@ class PerturberOneStepFactory(PerturberStepFactory):
             perturber_kwargs=perturber_kwargs,
         )
 
-        self.theta_value = theta_value
+        self._new_impl = GenericOneStepFactory(
+            perturber=perturber,
+            theta_key=theta_key,
+            theta_value=theta_value,
+            to_int=to_int,
+            perturber_kwargs=perturber_kwargs,
+        )
 
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def theta_value(self) -> float:
+        return self._new_impl.theta_value
+
+    @theta_value.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def theta_value(self, theta_value: float) -> None:
+        self._new_impl.theta_value = theta_value
+
+    @override
     def get_config(self) -> dict[str, Any]:
         """Returns a configuration dictionary for the PerturberOneStepFactory instance."""
-        cfg = super().get_config()
-        cfg["theta_value"] = self.theta_value
-        return {k: cfg[k] for k in ("perturber", "theta_key", "theta_value", "to_int", "perturber_kwargs")}
+        return self._new_impl.get_config()

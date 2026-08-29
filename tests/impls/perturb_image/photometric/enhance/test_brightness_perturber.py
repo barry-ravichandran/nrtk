@@ -14,8 +14,7 @@ from nrtk.impls.perturb_image.photometric.enhance import BrightnessPerturber
 from tests.impls import INPUT_VISDRONE_IMG_FILE_PATH as INPUT_IMG_FILE_PATH
 from tests.impls.perturb_image.perturber_tests_mixin import PerturberTestsMixin
 from tests.impls.perturb_image.perturber_utils import perturber_assertions
-
-rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 @pytest.mark.pillow
@@ -34,7 +33,7 @@ class TestBrightnessPerturber(PerturberTestsMixin):
     @pytest.mark.parametrize(
         ("image", "factor"),
         [
-            (rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8), 0.5),
+            (random_image(), 0.5),
             (np.ones((256, 256, 3), dtype=np.float32), 1.3),
             (np.ones((256, 256, 3), dtype=np.float64), 0.2),
         ],

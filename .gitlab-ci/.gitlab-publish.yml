@@ -7,6 +7,8 @@
 publish:
   extends: .shared-setup
   stage: publish
+  # Publishing is not idempotent, so do not inherit .shared-setup's retry.
+  retry: 0
   script:
     # Ensure there is alignment with the tag reference and the reported
     # version of the package

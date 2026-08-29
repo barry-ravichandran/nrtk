@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.absolute()))
 sys.path.insert(0, str(Path(__file__).parent / "_ext"))
 import nrtk
+import nrtk.experimental  # noqa: F401 - enable experimental so the experimental page can autodoc gated APIs
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information

@@ -154,6 +154,23 @@ exploration of perturbation parameter spaces.
    :template: custom-class-template.rst
    :nosignatures:
 
+   ~nrtk.impls.perturb_factory.PerturberLinspaceFactory
+   ~nrtk.impls.perturb_factory.PerturberMultivariateFactory
+   ~nrtk.impls.perturb_factory.PerturberOneStepFactory
+   ~nrtk.impls.perturb_factory.PerturberStepFactory
+
+PerturbImage Factory
+^^^^^^^^^^^^^^^^^^^^
+
+.. deprecated:: 1.1
+   Use :mod:`nrtk.impls.perturb_factory` (above) instead. :mod:`nrtk.impls.perturb_image_factory` will be
+   removed in a future major release.
+
+.. autosummary::
+   :toctree: _implementations
+   :template: custom-class-template.rst
+   :nosignatures:
+
    ~nrtk.impls.perturb_image_factory.PerturberLinspaceFactory
    ~nrtk.impls.perturb_image_factory.PerturberMultivariateFactory
    ~nrtk.impls.perturb_image_factory.PerturberOneStepFactory

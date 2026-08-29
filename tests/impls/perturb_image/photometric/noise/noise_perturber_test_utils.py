@@ -1,8 +1,7 @@
 import numpy as np
 
 from nrtk.impls.perturb_image.photometric._noise.noise_perturber_mixin import NoisePerturberMixin
-
-test_rng = np.random.default_rng()
+from tests.utils import random_image
 
 
 def seed_assertions(perturber: type[NoisePerturberMixin], seed: int) -> None:
@@ -11,8 +10,8 @@ def seed_assertions(perturber: type[NoisePerturberMixin], seed: int) -> None:
     :param perturber: SKImage random_noise perturber class of interest.
     :param seed: Seed value.
     """
-    dummy_image_a = test_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
-    dummy_image_b = test_rng.integers(low=0, high=255, size=(256, 256, 3), dtype=np.uint8)
+    dummy_image_a = random_image()
+    dummy_image_b = random_image()
 
     # Test as seed value
     inst_1 = perturber(seed=seed)

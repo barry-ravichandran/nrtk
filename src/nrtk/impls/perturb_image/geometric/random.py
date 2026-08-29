@@ -1,45 +1,45 @@
 """Random geometric perturbers."""
 
-from nrtk.impls.perturb_image.geometric._random.random_crop_perturber import RandomCropPerturber
-from nrtk.impls.perturb_image.geometric._random.random_translation_perturber import RandomTranslationPerturber
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
-# Override __module__ to reflect the public API path for plugin discovery
-RandomCropPerturber.__module__ = __name__
-RandomTranslationPerturber.__module__ = __name__
+from nrtk._guard import Group, guard
 
-__all__ = ["RandomCropPerturber", "RandomTranslationPerturber"]
-
-# Albumentations-based perturbers (optional)
-_ALBUMENTATIONS_CLASSES = ["RandomRotationPerturber", "RandomScalePerturber"]
-
-_import_error: ImportError | None = None
-
-try:
+if TYPE_CHECKING:
     from nrtk.impls.perturb_image._albumentations.random_rotation_perturber import (
         RandomRotationPerturber as RandomRotationPerturber,
     )
     from nrtk.impls.perturb_image._albumentations.random_scale_perturber import (
         RandomScalePerturber as RandomScalePerturber,
     )
+    from nrtk.impls.perturb_image.geometric._random.random_crop_perturber import (
+        RandomCropPerturber as RandomCropPerturber,
+    )
+    from nrtk.impls.perturb_image.geometric._random.random_translation_perturber import (
+        RandomTranslationPerturber as RandomTranslationPerturber,
+    )
 
-    RandomRotationPerturber.__module__ = __name__
-    RandomScalePerturber.__module__ = __name__
+__getattr__: Callable[[str], Any]
+__dir__: Callable[[], list[str]]
+__all__: list[str]
 
-    __all__ += _ALBUMENTATIONS_CLASSES
-except ImportError as _ex:
-    _import_error = _ex
-
-
-def __getattr__(name: str) -> None:
-    if name in _ALBUMENTATIONS_CLASSES:
-        msg = (
-            f"{name} requires the `albumentations` and (`graphics` or `headless`) extras. "
-            f"Install with: `pip install nrtk[albumentations,graphics]` or `pip install nrtk[albumentations,headless]`"
-        )
-        if _import_error is not None:
-            msg += (
-                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
-                f"\n  {type(_import_error).__name__}: {_import_error}"
-            )
-        raise ImportError(msg)
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+__getattr__, __dir__, __all__ = guard(
+    namespace=globals(),
+    groups=[
+        Group(
+            symbols={
+                "RandomCropPerturber": "nrtk.impls.perturb_image.geometric._random.random_crop_perturber",
+                "RandomTranslationPerturber": (
+                    "nrtk.impls.perturb_image.geometric._random.random_translation_perturber"
+                ),
+            },
+        ),
+        Group(
+            symbols={
+                "RandomRotationPerturber": "nrtk.impls.perturb_image._albumentations.random_rotation_perturber",
+                "RandomScalePerturber": "nrtk.impls.perturb_image._albumentations.random_scale_perturber",
+            },
+            extras=["albumentations", ("graphics", "headless")],
+        ),
+    ],
+)

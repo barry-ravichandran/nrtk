@@ -41,16 +41,23 @@ Use This When...
 Minimal Code Example
 --------------------
 
+.. pytestmark: pybsm
 .. code-block:: python
 
    from nrtk.impls.perturb_image.optical.otf import TurbulenceAperturePerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = TurbulenceAperturePerturber(
        cn2_at_1m=5.0e-13,   # refractive index structure parameter
        altitude=50.0,       # sensor height above ground (m)
        slant_range=70.7,    # line-of-sight distance to target (m)
    )
-   perturbed_img, boxes = perturber(image=img_in, boxes=boxes, img_gsd=0.03)
+   perturbed_img, _ = perturber(image=image, img_gsd=0.03)
 
 Key Parameters
 --------------

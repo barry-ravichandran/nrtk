@@ -33,21 +33,28 @@ Use This When...
 * You need a **physics-based perturbation** that models realistic motion blur effects.
 * You're doing early **screening of robustness** to vibration before running heavier T&E analysis
   (see the full T&E
-  Simulation Guide → :doc:`JitterPerturber T&E guide </examples/maite/nrtk_jitter_perturber_demo>`).
+  Simulation Guide → :doc:`JitterPerturber T&E guide </examples/maite/motion_jitter>`).
 * You want to test model performance at **reduced effective resolution** due to motion.
 
 Minimal Code Example
 --------------------
 
+.. pytestmark: pybsm
 .. code-block:: python
 
    from nrtk.impls.perturb_image.optical.otf import JitterPerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = JitterPerturber(
        s_x=0.0,  # no jitter in x direction
        s_y=5e-4   # medium jitter in y direction
    )
-   perturbed_img, perturbed_boxes = perturber.perturb(image=img, boxes=boxes, img_gsd=0.03)
+   perturbed_img, _ = perturber.perturb(image=image, img_gsd=0.03)
 
 Key Parameters
 --------------
@@ -76,6 +83,6 @@ Limitations and Next Steps
 * Models **platform jitter** via optical transfer function; does not simulate rolling shutter
   effects or complex motion patterns. For more detailed analysis, validation details, datasets,
   and recommended parameter sweeps, see the
-  :doc:`JitterPerturber T&E guide </examples/maite/nrtk_jitter_perturber_demo>`.
+  :doc:`JitterPerturber T&E guide </examples/maite/motion_jitter>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
 * Related Risks: :ref:`Target Out of Focus <target-out-of-focus>`, :ref:`Atmospheric Turbulence <turbulence>`

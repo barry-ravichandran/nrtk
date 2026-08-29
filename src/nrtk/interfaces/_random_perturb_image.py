@@ -41,7 +41,7 @@ import numpy as np
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import override
 
-from nrtk.interfaces import PerturbImage
+from nrtk.interfaces._perturb_image import PerturbImage
 
 
 class RandomPerturbImage(PerturbImage):

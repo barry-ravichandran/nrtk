@@ -1,12 +1,11 @@
 """Enhancement perturbers using PIL."""
 
-_PILLOW_CLASSES = ["BrightnessPerturber", "ColorPerturber", "ContrastPerturber", "SharpnessPerturber"]
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
-__all__: list[str] = []
+from nrtk._guard import Group, guard
 
-_import_error: ImportError | None = None
-
-try:
+if TYPE_CHECKING:
     from nrtk.impls.perturb_image.photometric._enhance.brightness_perturber import (
         BrightnessPerturber as BrightnessPerturber,
     )
@@ -20,24 +19,21 @@ try:
         SharpnessPerturber as SharpnessPerturber,
     )
 
-    # Override __module__ to reflect the public API path for plugin discovery
-    BrightnessPerturber.__module__ = __name__
-    ColorPerturber.__module__ = __name__
-    ContrastPerturber.__module__ = __name__
-    SharpnessPerturber.__module__ = __name__
+__getattr__: Callable[[str], Any]
+__dir__: Callable[[], list[str]]
+__all__: list[str]
 
-    __all__ += _PILLOW_CLASSES
-except ImportError as _ex:
-    _import_error = _ex
-
-
-def __getattr__(name: str) -> None:
-    if name in _PILLOW_CLASSES:
-        msg = f"{name} requires the `pillow` extra. Install with: `pip install nrtk[pillow]`"
-        if _import_error is not None:
-            msg += (
-                f"\n\nIf the extra is already installed, the following upstream error may be the cause:"
-                f"\n  {type(_import_error).__name__}: {_import_error}"
-            )
-        raise ImportError(msg)
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+__getattr__, __dir__, __all__ = guard(
+    namespace=globals(),
+    groups=[
+        Group(
+            symbols={
+                "BrightnessPerturber": "nrtk.impls.perturb_image.photometric._enhance.brightness_perturber",
+                "ColorPerturber": "nrtk.impls.perturb_image.photometric._enhance.color_perturber",
+                "ContrastPerturber": "nrtk.impls.perturb_image.photometric._enhance.contrast_perturber",
+                "SharpnessPerturber": "nrtk.impls.perturb_image.photometric._enhance.sharpness_perturber",
+            },
+            extras=["pillow"],
+        ),
+    ],
+)

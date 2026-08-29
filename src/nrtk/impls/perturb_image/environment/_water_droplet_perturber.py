@@ -10,7 +10,7 @@
 WaterDropletPerturber Implementation based on the work from these source papers:
 (1)
 https://openaccess.thecvf.com/content_ICCVW_2019/papers/PBDL/Hao_Learning_From_Synthetic_Photorealistic_Raindrop_for_Single_Image_Raindrop_Removal_ICCVW_2019_paper.pdf
-(2) https://www.giss.nasa.gov/pubs/abs/er05000f.html
+(2) https://arxiv.org/abs/2111.11567
 
 For additional research regarding Water Droplet modeling, please refer to this paper:
 https://www.cvlibs.net/publications/Roser2010ACCVWORK.pdf
@@ -57,7 +57,7 @@ from scipy.special import binom
 from smqtk_image_io.bbox import AxisAlignedBoundingBox
 from typing_extensions import override
 
-from nrtk.impls.perturb_image._base import NumpyRandomPerturbImage
+from nrtk.impls.perturb_image._base._numpy_random_perturb_image import NumpyRandomPerturbImage
 
 
 def points_in_polygon_impl(*, points: np.ndarray, polygon: np.ndarray) -> np.ndarray:
@@ -451,11 +451,11 @@ class WaterDropletPerturber(NumpyRandomPerturbImage):
     def _initialize_derived_parameters(self) -> None:
         """Initialize derived parameters from RNG state."""
         # Glass plane at M centimeters ahead of the camera (value range chosen from source paper)
-        self.M = self._rng.integers(low=20, high=40)
+        self.M = int(self._rng.integers(low=20, high=40))
 
         # Background plane which is B centimeters from the camera
         # and lies beyond the glass plane (value range chosen from source paper)
-        self.B = self._rng.integers(low=800, high=1500)
+        self.B = int(self._rng.integers(low=800, high=1500))
 
         self.normal: np.ndarray[Any, Any] = np.array([0.0, -1.0 * np.cos(self.psi), np.sin(self.psi)])
 
@@ -742,7 +742,7 @@ class WaterDropletPerturber(NumpyRandomPerturbImage):
             Truth mask of valid pixels.
         """
         p = gls
-        q = np.ones(p.shape[:2]) * -1
+        q: np.ndarray[Any, Any] = np.ones(p.shape[:2]) * -1
         for i, (center, radius) in enumerate(zip(self.g_centers, self.g_radius, strict=False)):
             dist = np.linalg.norm(p - center, axis=-1)
             # Give the true/false values of where the points of the image are within sphere

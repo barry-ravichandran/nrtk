@@ -1,3 +1,5 @@
+import sys
+
 import pytest
 
 from .test_notebook_utils import list_error_messages, pyright_analyze
@@ -12,24 +14,33 @@ from .test_notebook_utils import list_error_messages, pyright_analyze
     [
         ("docs/examples/albumentations_perturber.ipynb", 0),
         ("docs/examples/generative_perturbers.ipynb", 0),
-        ("docs/examples/nrtk_tutorial.ipynb", 0),
+        ("docs/examples/end_to_end_overview.ipynb", 0),
         ("docs/examples/optical_perturbers.ipynb", 0),
         ("docs/examples/photometric_perturbers.ipynb", 0),
         ("docs/examples/pybsm_default_config.ipynb", 0),
-        ("docs/examples/maite/jatic-perturbations-saliency.ipynb", 0),
-        ("docs/examples/maite/nrtk_affine_perturbers_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_brightness_perturber_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_focus_perturber_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_haze_perturber_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_jitter_perturber_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_lens_flare_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_radial_distortion_perturber_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_sensor_transformation_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_turbulence_perturber_demo.ipynb", 0),
-        ("docs/examples/maite/nrtk_water_droplet_perturber_demo.ipynb", 0),
+        ("docs/examples/maite/affine_transformations.ipynb", 0),
+        ("docs/examples/maite/extreme_illumination.ipynb", 0),
+        ("docs/examples/maite/visual_focus.ipynb", 0),
+        ("docs/examples/maite/fog_haze.ipynb", 0),
+        ("docs/examples/maite/motion_jitter.ipynb", 0),
+        ("docs/examples/maite/lens_flare.ipynb", 0),
+        ("docs/examples/maite/radial_distortion.ipynb", 0),
+        ("docs/examples/maite/sensor_resolution_and_noise.ipynb", 0),
+        ("docs/examples/maite/atmospheric_turbulence.ipynb", 0),
+        ("docs/examples/maite/water_droplets.ipynb", 0),
+        # Issue with trackeval and numpy version requirements produce a type error on
+        # 3.12 and 3.13
+        pytest.param(
+            "docs/examples/maite/framewise_video.ipynb",
+            1,
+            marks=pytest.mark.skipif(
+                sys.version_info >= (3, 14),
+                reason="framewise_video notebook dependencies are not yet supported on Python 3.14",
+            ),
+        ),
         # https://gitlab.jatic.net/jatic/kitware/nrtk/-/issues/698
-        # ("docs/examples/nrtk_xaitk_workflow/image_classification_perturbation_saliency.ipynb", 0),
-        # ("docs/examples/nrtk_xaitk_workflow/object_detection_perturbation_saliency.ipynb", 0),
+        # ("docs/examples/xaitk_saliency_workflow/image_classification_perturbation_saliency.ipynb", 0),
+        # ("docs/examples/xaitk_saliency_workflow/object_detection_perturbation_saliency.ipynb", 0),
     ],
 )
 def test_pyright_nb(filepath: str, expected_num_errors: int) -> None:

@@ -4,12 +4,12 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "nrtk"
-version = "1.0.4"
+version = "1.1.0"
 description = "Natural Robustness Toolkit (NRTK) is a platform for generating validated, sensor-specific perturbations and transformations used to evaluate the robustness of computer vision models."
 license = "Apache-2.0"
 readme = "README.md"
 authors = [{name = "Kitware, Inc.", email = "nrtk@kitware.com"}]
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10,<3.15"
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',
@@ -21,11 +21,9 @@ classifiers = [
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
     'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
 ]
 dependencies = [
-    "lazy-loader>=0.4",
-    # Python capped to <3.14 because of:
-    # https://stackoverflow.com/questions/77431252/why-doesnt-poetry-select-the-good-version-of-my-dependency
     # CVE-2021-34141 (numpy < 1.26)
     "numpy>=1.26",
     "smqtk-classifier>=0.20.0",
@@ -34,7 +32,6 @@ dependencies = [
     "smqtk-image-io>=0.18.0",
     "tqdm>=4.66.3",  # GHSA-g7vv-2v7x-gj9p
     "pycocotools>=2.0.10",
-    "setuptools>=78.1.1",
     "typing-extensions>=4.5.0",
 ]
 
@@ -55,7 +52,14 @@ nrtk-perturber = "nrtk.entrypoints:nrtk_perturber_cli"
 "nrtk.impls.perturb_image.generative" = "nrtk.impls.perturb_image.generative"
 "nrtk.impls.perturb_image.optical" = "nrtk.impls.perturb_image.optical"
 "nrtk.impls.perturb_image.optical.otf" = "nrtk.impls.perturb_image.optical.otf"
+"nrtk.impls.perturb_factory" = "nrtk.impls.perturb_factory"
+# Experimental modules. Inert unless `nrtk.experimental` is imported: with the gate
+# closed their `__dir__` advertises nothing, so discovery never reaches a gated name.
+"nrtk.impls.perturb_video" = "nrtk.impls.perturb_video"
+"nrtk.impls.perturb_video.optical" = "nrtk.impls.perturb_video.optical"
+# Deprecated modules
 "nrtk.impls.perturb_image_factory" = "nrtk.impls.perturb_image_factory"
+
 
 [project.entry-points."maite.protocols.image_classification.Augmentation"]
 nrtk_MAITEImageClassificationAugmentation = "nrtk.interop:MAITEImageClassificationAugmentation"
@@ -67,32 +71,42 @@ nrtk_MAITEObjectDetectionAugmentation = "nrtk.interop:MAITEObjectDetectionAugmen
 [project.optional-dependencies]
 graphics = ["opencv-python>=4.8.1.78"]  # CVE-2023-4863
 headless = ["opencv-python-headless>=4.8.1.78"]  # CVE-2023-4863
-pybsm = ["pybsm>=0.14.3"]
+pybsm = ["pybsm>=0.16.0"]
 maite = [
-    "maite>=0.9.2,<0.10.0",
+    "maite>=0.9.5,<1.0.0",
 ]
 tools = [
     "kwcoco>=0.2.18",
-    "Pillow>=12.2.0",  # CVE-2026-42311
+    "Pillow>=12.3.0",  # CVE-2026-54058
     "click>=8.0.0",
     "fastapi>=0.110.0",
     "uvicorn>=0.29.0",
     "pydantic>=2.6.4",
-    "pydantic-settings>=2.2.1",
+    "pydantic-settings>=2.14.2",
     "python-json-logger>=3.0.0",
+    "datamaite[od]>=0.5.0",
 ]
 skimage = [
     "scikit-image>=0.20; python_version < '3.12'",
     "scikit-image>=0.22; python_version >= '3.12'"
 ]
-pillow = ["Pillow>=12.2.0"]  # CVE-2026-42311
+pillow = ["Pillow>=12.3.0"]  # CVE-2026-54058
 albumentations = ["nrtk-albumentations>=2.2.1"]
+hcipy = [
+    "hcipy>=0.7.0",
+    "scipy>=1.10.0",
+    # temporary upper bound until hcipy releases 0.7.1; xxhash 4.0.0 rejects str
+    # input to update(), which hcipy's Grid.__hash__ passes it
+    # (https://github.com/ehpor/hcipy/issues/365)
+    "xxhash>=3.6.0,<4.0.0",
+]
+pyav = ["av>=17.1.0,<18.0.0"]
 waterdroplet = ["scipy>=1.10.0", "numba>=0.56.4"]
 diffusion = [
     "torch>=2.10.0",  # CVE-2025-3001
     "diffusers>=0.38.0",  # CVE-2026-44513
     "accelerate>=0.20.0",
-    "Pillow>=12.2.0",  # CVE-2026-42311
+    "Pillow>=12.3.0",  # CVE-2026-54058
     "transformers>=4.53.0",  # CVE-2025-6921
     "protobuf>=6.33.5",  # GHSA-8qvm-5x2c-j2w7, CVE-2026-0994
 ]
@@ -129,13 +143,16 @@ docs = [
 # Testing
 tests = [
     # pytest unittesting
-    "pytest>=7.2.0",
+    "pytest>=7.2.0,<9.0.0", # temporary upper bound until pytest-codeblock patches its deprecated pytest_collect_file hook for pytest 9
     "pytest-cov>=4.0.0", # reports code coverage
     "pytest-xdist>=3.8.0", # allows -n auto|# to be used to run pytests in parallel
     "syrupy>=5.0.0", # required for snapshot/regression testing
-    "Pillow>=12.2.0",  # CVE-2026-42311  # required for custom conftest.py fixtures
+    "Pillow>=12.3.0",  # CVE-2026-54058  # required for custom conftest.py fixtures
     "responses>=0.25.0", # rquired to test FastAPI (used by entrypoint app)
+    "pyyaml>=6.0", # read by the guard declaration tests and the extras pre-commit hook; only transitive otherwise
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)
+    "pytest-codeblock (>=0.5.8,<0.6.0)", # required for code block testing in docs
+    "av (>=17.1.0,<18.0.0)", # required for pyav testing
 ]
 
 [tool.pytest.ini_options]
@@ -168,25 +185,40 @@ markers = [
     "pillow: Run tests that require the pillow extra",
     "skimage: Run tests that require the skimage extra",
     "diffusion: Run tests that require the diffusion extra",
+    "hcipy: Run tests that require the hcipy extra",
+    "pyav: Run tests that require the pyav extra",
     "pybsm: Run tests that require the pybsm extra",
     "maite: Run tests that require the maite extra",
     "tools: Run tests that require the tools extra",
     "optional: Run all tests except notebooks",
 ]
 
+[tool.pytest-codeblock]
+test_nameless_codeblocks = true
+
 [tool.coverage.run]
 omit = [
     "src/nrtk/utils/_extras.py",
     "src/nrtk/utils/_extras.yml",
+    # Scripts run as subprocesses in a fresh interpreter, so the tracer never sees
+    # them; counting them reports permanent false "dead spots".
+    "tests/scripts/*",
 ]
 
 [tool.ruff]
 # Exclude content as appropriate.
 extend-exclude = [
     "__pycache__",
-    "scripts",
+    # Anchored: a bare "scripts" would also swallow tests/scripts, which must stay
+    # linted -- the guard scripts are real .py files precisely so ruff checks them.
+    "./scripts",
     "docs/_build",
     "docs/_implementations",
+    # Webinar notebooks are live-coded demo material; they intentionally relax
+    # library conventions (e.g. mAP domain naming, env-var cells before imports,
+    # narrative-driven class stubs without docstrings) and are excluded rather
+    # than littered with per-rule noqa directives.
+    "docs/tutorials/webinars",
     ".tox",
     ".dev",
 ]
@@ -261,6 +293,7 @@ docstring-code-line-length = "dynamic"
 [tool.pyright]
 pythonVersion = "3.10"
 reportMissingImports = "warning"
+reportDeprecated = "warning"
 typeCheckingMode = "standard"
 include = [
     "src/nrtk",

@@ -17,6 +17,7 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionTarget,
 )
 from tests.interop.maite import BAD_NRTK_CONFIG, DATASET_FOLDER, LABEL_FILE, NRTK_PYBSM_CONFIG
+from tests.utils import random_image
 
 random = np.random.default_rng()
 
@@ -24,7 +25,7 @@ TEST_RETURN_VALUE = [  # repeated test return value for 3 tests, saved to var to
     (
         "perturb1",
         MAITEObjectDetectionDataset(
-            imgs=[random.integers(0, 255, size=(3, 3, 3), dtype=np.uint8)] * 11,
+            imgs=[random_image(size=(3, 3, 3))] * 11,
             dets=[
                 MAITEObjectDetectionTarget(
                     boxes=random.random((2, 4)),

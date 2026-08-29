@@ -7,7 +7,8 @@ from nrtk.interop._maite.datasets import (
     MAITEObjectDetectionDataset,
     MAITEObjectDetectionTarget,
 )
-from tests.fakes import FakePerturber, PerturberFakeFactory
+from tests.fakes import FakeImagePerturber, FakePerturbFactory
+from tests.utils import random_image
 
 
 @pytest.mark.maite
@@ -21,8 +22,8 @@ class TestNRTKPerturber:
         ("perturber_factory", "img_dirs"),
         [
             (
-                PerturberFakeFactory(
-                    perturber=FakePerturber,
+                FakePerturbFactory(
+                    perturber=FakeImagePerturber,
                     theta_key="param1",
                     theta_values=[1, 3],
                 ),
@@ -34,7 +35,7 @@ class TestNRTKPerturber:
         """Test if the perturber returns the intended number of datasets."""
         num_imgs = 4
         dataset = MAITEObjectDetectionDataset(
-            imgs=[np.random.default_rng().integers(low=0, high=255, size=(3, 256, 256), dtype=np.uint8)] * num_imgs,
+            imgs=[random_image(size=(3, 256, 256))] * num_imgs,
             dets=[
                 MAITEObjectDetectionTarget(
                     boxes=np.array([[1.0, 2.0, 3.0, 4.0]]),

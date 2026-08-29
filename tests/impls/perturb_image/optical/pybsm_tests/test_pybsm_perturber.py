@@ -1,7 +1,7 @@
 from collections.abc import Hashable, Iterable
 from contextlib import AbstractContextManager
 from contextlib import nullcontext as does_not_raise
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 import pytest
@@ -177,20 +177,80 @@ class TestPyBSMPerturber(PerturberTestsMixin):
             PybsmPerturber(reflectance_range=reflectance_range)
 
     @pytest.mark.parametrize(
-        ("altitude", "expectation"),
+        ("altitude", "interp", "expectation"),
         [
-            (24500, does_not_raise()),
-            (25000, does_not_raise()),
+            (24500, False, does_not_raise()),
             (
                 24499,
+                False,
                 pytest.raises(ValueError, match=r"Invalid altitude value"),
+            ),
+            # With interpolation, non-database altitude values are accepted
+            (24499, True, does_not_raise()),
+        ],
+    )
+    def test_altitude_bounds(self, altitude: float, interp: bool, expectation: AbstractContextManager) -> None:
+        """Test that an exception is properly raised (or not) based on argument value."""
+        with expectation:
+            PybsmPerturber(altitude=altitude, interp=interp)
+
+    @pytest.mark.parametrize(
+        ("ground_range", "interp", "expectation"),
+        [
+            (10000, False, does_not_raise()),
+            (
+                10001,
+                False,
+                pytest.raises(ValueError, match=r"Invalid ground range value"),
+            ),
+            # With interpolation, non-database ground range values are accepted
+            (10001, True, does_not_raise()),
+        ],
+    )
+    def test_ground_range_bounds(
+        self,
+        ground_range: float,
+        interp: bool,
+        expectation: AbstractContextManager,
+    ) -> None:
+        """Test that an exception is properly raised (or not) based on argument value."""
+        with expectation:
+            PybsmPerturber(ground_range=ground_range, interp=interp)
+
+    @pytest.mark.parametrize(
+        ("pixel_conversion_mode", "expectation"),
+        [
+            ("radiometric", does_not_raise()),
+            ("minmax", does_not_raise()),
+            (
+                "nonexistent_mode",
+                pytest.raises(ValueError, match=r"Invalid pixel_conversion_mode"),
             ),
         ],
     )
-    def test_altitude_bounds(self, altitude: float, expectation: AbstractContextManager) -> None:
-        """Test that an exception is properly raised (or not) based on argument value."""
+    def test_pixel_conversion_mode(
+        self,
+        pixel_conversion_mode: Literal["radiometric", "minmax"],
+        expectation: AbstractContextManager,
+    ) -> None:
+        """Test explicit pixel conversion mode selection, validation, and config persistence."""
+        image = np.array(Image.open(INPUT_IMG_FILE))
+        img_gsd = 3.19 / 160.0
+        sensor_and_scenario = load_default_config(preset="sample")
+        sensor_and_scenario["ground_range"] = 10000
+
         with expectation:
-            PybsmPerturber(altitude=altitude)
+            inst = PybsmPerturber(seed=1, pixel_conversion_mode=pixel_conversion_mode, **sensor_and_scenario)
+            assert inst.get_config()["pixel_conversion_mode"] == pixel_conversion_mode
+
+            out_img, _ = inst.perturb(image=image, img_gsd=img_gsd)
+            spans_full_range = out_img.min() == 0 and out_img.max() == 255
+            if pixel_conversion_mode == "minmax":
+                # per-image stretch always pins the output to the full [0, 255] range
+                assert spans_full_range
+            else:
+                # sensor-calibrated output stays within the calibrated sub-range
+                assert not spans_full_range
 
     @pytest.mark.parametrize(
         ("kwargs", "expectation"),
@@ -200,7 +260,7 @@ class TestPyBSMPerturber(PerturberTestsMixin):
                 {},
                 pytest.raises(
                     ValueError,
-                    match=r"'img_gsd' must be provided for this perturber",
+                    match=r"img_gsd must be provided for this perturber",
                 ),
             ),
         ],

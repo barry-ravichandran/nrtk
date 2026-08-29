@@ -24,30 +24,56 @@ from __future__ import annotations
 
 __all__ = ["PerturberStepFactory"]
 
-import math
 from collections.abc import Sequence
 from typing import Any
 
-from typing_extensions import override
+from typing_extensions import deprecated, override
 
+from nrtk.impls.perturb_factory._perturber_step_factory import (
+    PerturberStepFactory as GenericStepFactory,
+)
 from nrtk.interfaces import PerturbImage, PerturbImageFactory
 
 
+@deprecated("Use nrtk.impls.perturb_factory.PerturberStepFactory instead.")
 class PerturberStepFactory(PerturbImageFactory):
-    """Simple PerturbImageFactory implementation to step through the given range of values.
+    """Deprecated PerturbImageFactory implementation to step through the given range of values.
 
-    perturber (type[PerturbImage]):
-        perturber type to produce
-    theta_key (str):
-        peturber parameter to modify
-    start (float):
-        initial value of range (inclusive)
-    end (float):
-        end value of range (exclusive)
-    step (float):
-        step value between instances
-    to_int (bool):
-        determines wheter to cast theta_value to a int or float
+    .. deprecated:: 1.1
+        Use :class:`nrtk.impls.perturb_factory.PerturberStepFactory` instead.
+        :mod:`nrtk.impls.perturb_image_factory` will be removed in a future major release.
+
+    Attributes:
+        perturber (type[PerturbT_co]):
+            perturber type to produce
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        theta_key (str):
+            peturber parameter to modify
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        start (float):
+            initial value of range (inclusive)
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        stop (float):
+            end value of range (exclusive)
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        step (float):
+            step value between instances
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
+        to_int (bool):
+            determines wheter to cast theta_value to a int or float
+
+            .. deprecated:: 1.1
+                Use get_config() instead.
     """
 
     def __init__(
@@ -88,23 +114,77 @@ class PerturberStepFactory(PerturbImageFactory):
         """
         super().__init__(perturber=perturber, theta_key=theta_key, perturber_kwargs=perturber_kwargs)
 
-        self.to_int = to_int
-        self.start = start
-        self.stop = stop
-        self.step = step
+        self._new_impl = GenericStepFactory(
+            perturber=perturber,
+            theta_key=theta_key,
+            start=start,
+            stop=stop,
+            step=step,
+            to_int=to_int,
+            perturber_kwargs=perturber_kwargs,
+        )
 
     @property
     @override
     def thetas(self) -> Sequence[float] | Sequence[int]:
-        if not self.to_int:
-            return [self.start + i * self.step for i in range(math.ceil((self.stop - self.start) / self.step))]
-        return [int(self.start + i * self.step) for i in range(math.ceil((self.stop - self.start) / self.step))]
+        return self._new_impl.thetas
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def start(self) -> float:
+        return self._new_impl.start
+
+    @start.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def start(self, start: float) -> None:
+        self._new_impl.start = start
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def stop(self) -> float:
+        return self._new_impl.stop
+
+    @stop.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def stop(self, stop: float) -> None:
+        self._new_impl.stop = stop
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def step(self) -> float:
+        return self._new_impl.step
+
+    @step.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def step(self, step: float) -> None:
+        self._new_impl.step = step
+
+    @property
+    @deprecated(
+        "Use get_config() instead.",
+    )
+    def to_int(self) -> bool:
+        return self._new_impl.to_int
+
+    @to_int.setter
+    @deprecated(
+        "Setting this property will be removed in a future major release.",
+    )
+    def to_int(self, to_int: bool) -> None:
+        self._new_impl.to_int = to_int
 
     @override
     def get_config(self) -> dict[str, Any]:
-        cfg = super().get_config()
-        cfg["start"] = self.start
-        cfg["stop"] = self.stop
-        cfg["step"] = self.step
-        cfg["to_int"] = self.to_int
-        return cfg
+        return self._new_impl.get_config()

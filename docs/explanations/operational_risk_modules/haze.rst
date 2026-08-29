@@ -34,17 +34,24 @@ Use This When...
 * You need a **basic-install perturbation** (no pyBSM / optical dependencies).
 * You're doing early **screening of robustness** to visibility loss before running heavier
   T&E analysis (see the full T&E Simulation Guide →
-  :doc:`HazePerturber T&E guide </examples/maite/nrtk_haze_perturber_demo>`).
+  :doc:`HazePerturber T&E guide </examples/maite/fog_haze>`).
 
 Minimal Code Example
 --------------------
 
+.. pytestmark: core
 .. code-block:: python
 
    from nrtk.impls.perturb_image.environment import HazePerturber
+   import numpy as np
+   from PIL import Image
+
+   # Load your image
+   INPUT_IMG_FILE = 'docs/images/input.jpg'
+   image = np.array(Image.open(INPUT_IMG_FILE))
 
    perturber = HazePerturber(factor=1.0)  # medium haze
-   img_out = perturber(image=img_in)
+   img_out, _ = perturber(image=image)
 
 Key Parameters
 --------------
@@ -77,6 +84,6 @@ Limitations and Next Steps
 * Approximates **atmospheric scattering** only; it does not model full physics or
   wavelength-dependent effects. For more detailed analysis, validation details, datasets,
   and recommended parameter sweeps, see the
-  :doc:`HazePerturber T&E guide </examples/maite/nrtk_haze_perturber_demo>`.
+  :doc:`HazePerturber T&E guide </examples/maite/fog_haze>`.
 * See :doc:`/validation_and_trust` for cross-perturber validation status.
 * Related Risks: :ref:`Extreme Illumination <extreme-illumination>`, :ref:`Water Droplets on Lens <lens-water-droplet>`

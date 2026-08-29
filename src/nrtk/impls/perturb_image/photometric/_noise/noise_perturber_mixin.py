@@ -8,7 +8,7 @@ import numpy as np
 import skimage.util
 from typing_extensions import override
 
-from nrtk.impls.perturb_image._base import NumpyRandomPerturbImage
+from nrtk.impls.perturb_image._base._numpy_random_perturb_image import NumpyRandomPerturbImage
 
 __all__ = [
     "NoisePerturberMixin",
