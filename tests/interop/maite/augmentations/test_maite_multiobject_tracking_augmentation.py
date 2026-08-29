@@ -17,7 +17,7 @@ from nrtk.interop._maite.augmentations._maite_multiobject_tracking_augmentation 
     MAITEVideoFrame,
 )
 from tests.fakes import FakeDeviceTensor, FakeImagePerturber
-from tests.interop.maite.perturber_fixtures import ResizePerturber
+from tests.interop.maite.perturber_fixtures import ResizePerturber, StridePreservingPerturber
 from tests.utils import random_image
 
 
@@ -508,3 +508,27 @@ class TestMAITEMultiobjectTrackingAugmentation:
         augmentation(batch)
 
         assert np.array_equal(pixels, np.full((3, 8, 8), 7, dtype=np.uint8))
+
+    def test_perturber_receives_contiguous_frame(self) -> None:
+        """Test that frame pixels with an awkward memory layout reach the perturber contiguous."""
+        perturber = StridePreservingPerturber()
+        augmentation = MAITEMultiobjectTrackingAugmentation(
+            augment=FramewisePerturber(perturber),
+            augment_id="test_augment",
+        )
+
+        pixels = np.transpose(random_image(size=(8, 8, 3))[:, :, ::-1], (2, 0, 1))
+        assert not pixels.flags["C_CONTIGUOUS"]
+
+        batch = self._single_frame_batch(
+            pixels=pixels,
+            boxes=np.asarray([[1.0, 2.0, 3.0, 4.0]]),
+            labels=np.asarray([0]),
+            scores=np.asarray([0.8]),
+        )
+
+        frames_out, _, _ = augmentation(batch)
+
+        assert perturber.saw_contiguous_input
+        frame_out = next(iter(frames_out[0]))
+        assert np.transpose(frame_out.pixels, (1, 2, 0)).flags["C_CONTIGUOUS"]

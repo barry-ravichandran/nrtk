@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "nrtk"
-version = "1.0.4"
+version = "1.1.0"
 description = "Natural Robustness Toolkit (NRTK) is a platform for generating validated, sensor-specific perturbations and transformations used to evaluate the robustness of computer vision models."
 license = "Apache-2.0"
 readme = "README.md"
@@ -32,7 +32,6 @@ dependencies = [
     "smqtk-image-io>=0.18.0",
     "tqdm>=4.66.3",  # GHSA-g7vv-2v7x-gj9p
     "pycocotools>=2.0.10",
-    "setuptools>=78.1.1",
     "typing-extensions>=4.5.0",
 ]
 
@@ -78,20 +77,20 @@ maite = [
 ]
 tools = [
     "kwcoco>=0.2.18",
-    "Pillow>=12.2.0",  # CVE-2026-42311
+    "Pillow>=12.3.0",  # CVE-2026-54058
     "click>=8.0.0",
     "fastapi>=0.110.0",
     "uvicorn>=0.29.0",
     "pydantic>=2.6.4",
-    "pydantic-settings>=2.2.1",
+    "pydantic-settings>=2.14.2",
     "python-json-logger>=3.0.0",
-    "datamaite[od]>=0.4.1",
+    "datamaite[od]>=0.5.0",
 ]
 skimage = [
     "scikit-image>=0.20; python_version < '3.12'",
     "scikit-image>=0.22; python_version >= '3.12'"
 ]
-pillow = ["Pillow>=12.2.0"]  # CVE-2026-42311
+pillow = ["Pillow>=12.3.0"]  # CVE-2026-54058
 albumentations = ["nrtk-albumentations>=2.2.1"]
 hcipy = [
     "hcipy>=0.7.0",
@@ -107,7 +106,7 @@ diffusion = [
     "torch>=2.10.0",  # CVE-2025-3001
     "diffusers>=0.38.0",  # CVE-2026-44513
     "accelerate>=0.20.0",
-    "Pillow>=12.2.0",  # CVE-2026-42311
+    "Pillow>=12.3.0",  # CVE-2026-54058
     "transformers>=4.53.0",  # CVE-2025-6921
     "protobuf>=6.33.5",  # GHSA-8qvm-5x2c-j2w7, CVE-2026-0994
 ]
@@ -148,7 +147,7 @@ tests = [
     "pytest-cov>=4.0.0", # reports code coverage
     "pytest-xdist>=3.8.0", # allows -n auto|# to be used to run pytests in parallel
     "syrupy>=5.0.0", # required for snapshot/regression testing
-    "Pillow>=12.2.0",  # CVE-2026-42311  # required for custom conftest.py fixtures
+    "Pillow>=12.3.0",  # CVE-2026-54058  # required for custom conftest.py fixtures
     "responses>=0.25.0", # rquired to test FastAPI (used by entrypoint app)
     "pyyaml>=6.0", # read by the guard declaration tests and the extras pre-commit hook; only transitive otherwise
     "httpx>=0.22.0", # required by starlette.testclient.TestClient (optional dep of starlette, not installed by default)

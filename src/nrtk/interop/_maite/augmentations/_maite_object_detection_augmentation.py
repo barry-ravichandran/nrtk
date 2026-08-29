@@ -72,8 +72,10 @@ class MAITEObjectDetectionAugmentation(Augmentation):  # pyright: ignore [report
 
         for img, img_anns, md in zip(imgs, anns, metadata, strict=False):  # pyright: ignore [reportArgumentType]
             # Perform augmentation
-            aug_img = to_numpy(img, copy=True)
-            aug_img = np.transpose(aug_img, (1, 2, 0))
+            # Channels-last and C-contiguous: transposing a channels-first array only
+            # returns a view, and perturbers hand back an array carrying their input's
+            # strides, so the copy is what gives callers a contiguous perturbed image.
+            aug_img = np.transpose(to_numpy(img), (1, 2, 0)).copy()
 
             # format annotations for passing to perturber
             # copy=True here only preserves what np.array did; nothing writes to these.

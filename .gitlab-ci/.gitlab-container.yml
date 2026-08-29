@@ -67,6 +67,11 @@
 ###############################################################################
 .build-setup:
   extends: .container-setup
+  variables:
+    # The signing key has an empty passphrase. cosign only reads one from stdin
+    # when it decides stdin is not a terminal, so setting this explicitly keeps
+    # signing deterministic regardless of how the runner attaches stdin.
+    COSIGN_PASSWORD: ""
   before_script:
     - !reference [.container-setup, before_script]
     # Resolve image path and cache references from job-level variables

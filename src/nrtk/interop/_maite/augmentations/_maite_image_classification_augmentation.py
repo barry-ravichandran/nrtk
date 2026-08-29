@@ -64,7 +64,10 @@ class MAITEImageClassificationAugmentation(Augmentation):  # pyright:  ignore [r
 
         for img, ann, md in zip(imgs, anns, metadata, strict=False):  # pyright: ignore [reportArgumentType]
             # Perform augmentation
-            aug_img = np.transpose(to_numpy(img, copy=True), (1, 2, 0))  # Convert to channels-last
+            # Channels-last and C-contiguous: transposing a channels-first array only
+            # returns a view, and perturbers hand back an array carrying their input's
+            # strides, so the copy is what gives callers a contiguous perturbed image.
+            aug_img = np.transpose(to_numpy(img), (1, 2, 0)).copy()
             aug_img, _ = self.augment(image=aug_img, boxes=None, **dict(md))
             if aug_img.ndim > 2:
                 # Convert back to channels first

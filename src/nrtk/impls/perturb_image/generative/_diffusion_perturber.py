@@ -30,6 +30,7 @@ from __future__ import annotations
 
 __all__ = ["DiffusionPerturber"]
 
+import os
 import warnings
 from collections.abc import Hashable, Iterable
 from typing import Any, cast
@@ -211,6 +212,12 @@ class DiffusionPerturber(TorchRandomPerturbImage):
                 device=self._get_device(),
                 dtype=torch.float32,
             )
+
+        # diffusers always passes ``disable`` to tqdm itself, which overrides tqdm's own
+        # TQDM_DISABLE handling, so the standard opt-out has to be applied to the
+        # pipeline directly for it to have any effect.
+        tqdm_disable = os.environ.get("TQDM_DISABLE", "")
+        self._pipeline.set_progress_bar_config(disable=tqdm_disable.lower() not in {"", "0", "false"})
 
         self._warn_on_cpu_fallback(device)
         self._pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(

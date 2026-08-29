@@ -69,7 +69,7 @@ class RandomTranslationPerturber(NumpyRandomPerturbImage):
         if color_fill is None:
             color_fill = [0, 0, 0]
         super().__init__(seed=seed, is_static=is_static)
-        self.color_fill: np.ndarray[np.int64, Any] = np.array(color_fill)
+        self.color_fill: np.ndarray[Any, np.dtype[np.int64]] = np.array(color_fill)
 
     @override
     def perturb(  # noqa: C901 - translation logic with directional boundary checks

@@ -8,7 +8,7 @@ from maite.protocols.image_classification import DatumMetadataType
 from nrtk.interfaces import PerturbImage
 from nrtk.interop import MAITEImageClassificationAugmentation
 from tests.fakes import FakeDeviceTensor, FakeImagePerturber
-from tests.interop.maite.perturber_fixtures import ResizePerturber
+from tests.interop.maite.perturber_fixtures import ResizePerturber, StridePreservingPerturber
 from tests.utils import random_image
 
 
@@ -114,3 +114,17 @@ class TestMAITEImageClassificationAugmentation:
         augmentation(([image], [np.asarray([0])], [{"id": 0}]))
 
         assert np.array_equal(image, np.full((3, 4, 4), 7, dtype=np.uint8))
+
+    def test_perturber_receives_contiguous_image(self) -> None:
+        """Test that a datum with an awkward memory layout still reaches the perturber contiguous."""
+        perturber = StridePreservingPerturber()
+        augmentation = MAITEImageClassificationAugmentation(augment=perturber, augment_id="test_augment")
+
+        img_in = np.transpose(random_image(size=(256, 256, 3))[:, :, ::-1], (2, 0, 1))
+        assert not img_in.flags["C_CONTIGUOUS"]
+
+        md_in: list[DatumMetadataType] = [{"id": 1}]  # pyright: ignore [reportInvalidTypeForm]
+        imgs_out, _, _ = augmentation(([img_in], [np.asarray([0])], md_in))
+
+        assert perturber.saw_contiguous_input
+        assert np.transpose(imgs_out[0], (1, 2, 0)).flags["C_CONTIGUOUS"]

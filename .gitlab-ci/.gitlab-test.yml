@@ -220,6 +220,10 @@ tox:coverage:
     - $RUNNER_TAG
   image: python:3.10
   dependencies: []
+  before_script:
+    - !reference [.test-setup, before_script]
+    # matplotlib's to_html5_video() shells out to ffmpeg to render video notebooks
+    - apt-get -qq install -y ffmpeg
   rules:
     # If changes are made to an active merge request.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
